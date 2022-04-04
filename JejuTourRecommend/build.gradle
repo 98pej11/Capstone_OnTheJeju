@@ -1,9 +1,9 @@
-
 buildscript {//querydsl을 위해 추가 부분
 	ext {
 		queryDslVersion = "5.0.0"
 	}
 }
+
 
 plugins {
 	id 'org.springframework.boot' version '2.6.6'
@@ -31,6 +31,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	//쿼리 출력 중 ? 부분 자세한 설명 보여줌
@@ -42,9 +43,6 @@ dependencies {
 	//querydsl 추가
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
-	//thymeleaf
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
