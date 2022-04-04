@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: local
   datasource:
     url: jdbc:h2:tcp://localhost/~/jejudata
     username: sa
@@ -15,7 +13,7 @@ spring:
         format_sql: true
         use_sql_comments: true
 #  thymeleaf:
-#    #prefix: classpath:src/main/resources/
+#    prefix: classpath:src/main/resources/
 #    check-template-location: true
 #    suffix: .html
 #    mode: HTML

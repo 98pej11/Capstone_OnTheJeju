@@ -27,12 +27,14 @@ public class LoginController {
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginForm") LoginForm form){
         return "login/loginForm";
+
     }
 
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute LoginForm form, BindingResult bindingResult,
                         @RequestParam(defaultValue = "/") String redirectURL,
                         HttpServletRequest request){
+
         if(bindingResult.hasErrors()){
             return "login/loginForm";
         }
