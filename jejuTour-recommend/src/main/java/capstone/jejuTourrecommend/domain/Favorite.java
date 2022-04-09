@@ -20,8 +20,8 @@ public class Favorite {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @OneToMany(mappedBy = "favorite")
     private List<FavoriteSpot> favoriteSpotList = new ArrayList<>();
@@ -31,16 +31,16 @@ public class Favorite {
         this.name = name;
     }
 
-    public Favorite(String name, Member member) {
+    public Favorite(String name, User user) {
         this.name = name;
-        if(member!=null){
-            changeMember(member);
+        if(user!=null){
+            changeMember(user);
         }
     }
 
-    private void changeMember(Member member) {
-        this.member = member;
-        member.getFavorites().add(this);
+    private void changeMember(User user) {
+        this.user = user;
+        user.getFavorites().add(this);
     }
 }
 

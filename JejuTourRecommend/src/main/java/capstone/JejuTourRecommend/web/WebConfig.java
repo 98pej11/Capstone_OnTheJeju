@@ -1,7 +1,9 @@
-package capstone.jejuTourrecommend.web;
+package capstone.JejuTourRecommend.web;
 
-import capstone.jejuTourrecommend.web.argumentresolver.LoginMemberArgumentResolver;
-import capstone.jejuTourrecommend.web.interceptor.LoginCheckInterceptor;
+
+import capstone.JejuTourRecommend.web.argumentresolver.LoginMemberArgumentResolver;
+import capstone.JejuTourRecommend.web.interceptor.LogInterceptor;
+import capstone.JejuTourRecommend.web.interceptor.LoginCheckInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -19,16 +21,21 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new LogInterceptor())
-//                .order(1)
-//                .addPathPatterns("/**")
-//                .excludePathPatterns("/css/**","/*.ico","/error");
+
+        registry.addInterceptor(new LogInterceptor())
+                .order(1)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/css/**", "/*.ico"
+                        , "/error/**" //오류 페이지 경로
+                );
+
 
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(2)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/","/members/add","/login","/logout","/css/**", "/*.ico", "/error");
-    }
+                .excludePathPatterns("/","/members/add","/login","/logout",
+                        "/css/**", "/*.ico", "/error/**","/error-page/**");
+    }   //즉 보면 "/error" 주소는 로그인 체크 인터셉터작동을 제외(excludePathPattern)할 것임
 
 
 

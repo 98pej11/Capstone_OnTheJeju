@@ -29,7 +29,7 @@ public class Spot {
     private List<FavoriteSpot> favoriteSpotList = new ArrayList<>();
 
     @OneToMany(mappedBy = "spot")
-    private List<MemberSpot> memberSpotList = new ArrayList<>();
+    private List<UserSpot> memberSpotList = new ArrayList<>();
 
     @OneToMany(mappedBy = "spot")
     private List<Review> reviews = new ArrayList<>();

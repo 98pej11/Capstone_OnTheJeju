@@ -1,5 +1,6 @@
 package capstone.JejuTourRecommend.web.argumentresolver;
 
+
 import capstone.JejuTourRecommend.domain.Member;
 import capstone.JejuTourRecommend.web.SessionConst;
 import lombok.extern.slf4j.Slf4j;
@@ -34,13 +35,14 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
 
         log.info("resolveArgument 실행");
 
-        //HttpServletRequest을 아래와 같이 뽑아야함
+        //HttpServletRequest을 아래와 같이 getNativeRequest로 뽑아야함
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
+        //만약 세션을 조회했는데 없으면 null 반환하려고 옵션은 false로 둠
         HttpSession session = request.getSession(false);
         if(session==null){
             return null;
         }
-
+        //참고사항: 세션에 <키, value> 형식인데 키가 LOGIN_MEMBER고, value가 로그인한 member객체임
         Object member = session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         return member;

@@ -1,7 +1,7 @@
-package capstone.jejuTourrecommend.web.interceptor;
+package capstone.JejuTourRecommend.web.interceptor;
 
 
-import capstone.jejuTourrecommend.web.SessionConst;
+import capstone.JejuTourRecommend.web.SessionConst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 

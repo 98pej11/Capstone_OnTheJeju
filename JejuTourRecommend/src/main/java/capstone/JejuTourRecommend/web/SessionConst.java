@@ -5,3 +5,5 @@ public class SessionConst {
 
     public static final String LOGIN_MEMBER ="loginMember";
 }
+
+    //세션대신 jwt(json web token)사용한다고 함 공부해봐야 할것임

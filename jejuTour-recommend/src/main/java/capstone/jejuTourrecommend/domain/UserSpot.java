@@ -11,18 +11,18 @@ import javax.persistence.*;
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MemberSpot {
+public class UserSpot {
 
 
     @Id @GeneratedValue
-    @Column(name = "member_spot_id")
+    @Column(name = "user_spot_id")
     private Long id;
 
     private Double score;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "spot_id")

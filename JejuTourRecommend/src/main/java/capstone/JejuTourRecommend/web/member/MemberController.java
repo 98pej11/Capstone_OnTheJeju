@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.member;
+package capstone.JejuTourRecommend.web.member;
 
 import capstone.jejuTourrecommend.domain.Member;
 import capstone.jejuTourrecommend.repository.MemberRepository;

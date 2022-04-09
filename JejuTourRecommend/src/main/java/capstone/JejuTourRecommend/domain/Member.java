@@ -37,6 +37,12 @@ public class Member {
     public Member(String email) {
         this.email = email;
     }
+
+    public Member(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 }
 
 

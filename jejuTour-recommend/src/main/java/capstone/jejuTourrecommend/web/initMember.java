@@ -1,7 +1,7 @@
-package capstone.jejuTourrecommend.web.member;
+package capstone.jejuTourrecommend.web;
 
 
-import capstone.jejuTourrecommend.domain.Member;
+import capstone.jejuTourrecommend.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -16,22 +16,22 @@ import javax.persistence.PersistenceContext;
 @RequiredArgsConstructor
 public class initMember {
 
-    private final InitMemberService initMemberService;
+    private final InitUserService initUserService;
 
     @PostConstruct
     public void init(){
-        initMemberService.init();
+        initUserService.init();
     }
 
     @Component
-    static class InitMemberService{
+    static class InitUserService{
         @PersistenceContext
         EntityManager em;
 
         @Transactional
         public void init(){
-            Member memberA = new Member("memberA","123","123");
-            Member memberB = new Member("memberB","234","234");
+            User memberA = new User("userA","123","123");
+            User memberB = new User("userB","234","234");
 
             em.persist(memberA);
             em.persist(memberB);
