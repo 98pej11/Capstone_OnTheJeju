@@ -1,6 +1,7 @@
 package capstone.jejuTourrecommend.domain;
 
 
+import capstone.jejuTourrecommend.web.jwt.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,6 @@
-package capstone.jejuTourrecommend.web;
+package capstone.JejuTourRecommend.jwt;
 
 
-import capstone.jejuTourrecommend.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;

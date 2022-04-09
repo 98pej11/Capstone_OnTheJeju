@@ -1,6 +1,7 @@
 package capstone.jejuTourrecommend.domain;
 
 
+import capstone.jejuTourrecommend.web.jwt.User;
 import lombok.*;
 
 import javax.persistence.*;

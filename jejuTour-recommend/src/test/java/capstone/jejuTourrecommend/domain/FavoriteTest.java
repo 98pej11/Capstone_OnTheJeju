@@ -1,5 +1,6 @@
 package capstone.jejuTourrecommend.domain;
 
+import capstone.jejuTourrecommend.web.jwt.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;

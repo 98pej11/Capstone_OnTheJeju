@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.jwt;
+package capstone.JejuTourRecommend.jwt;
 
 
 import io.jsonwebtoken.Claims;

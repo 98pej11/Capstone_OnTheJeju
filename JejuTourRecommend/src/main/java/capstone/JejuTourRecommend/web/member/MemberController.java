@@ -1,7 +1,8 @@
 package capstone.JejuTourRecommend.web.member;
 
-import capstone.jejuTourrecommend.domain.Member;
-import capstone.jejuTourrecommend.repository.MemberRepository;
+
+import capstone.JejuTourRecommend.domain.Member;
+import capstone.JejuTourRecommend.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

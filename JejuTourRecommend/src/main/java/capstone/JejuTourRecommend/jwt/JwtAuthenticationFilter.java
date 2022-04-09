@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.jwt;
+package capstone.JejuTourRecommend.jwt;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

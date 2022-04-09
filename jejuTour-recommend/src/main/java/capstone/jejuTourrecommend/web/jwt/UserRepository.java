@@ -1,6 +1,6 @@
-package capstone.jejuTourrecommend.repository;
+package capstone.jejuTourrecommend.web.jwt;
 
-import capstone.jejuTourrecommend.domain.User;
+import capstone.jejuTourrecommend.web.jwt.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
