@@ -1,7 +1,6 @@
 package capstone.jejuTourrecommend.domain;
 
 
-import capstone.jejuTourrecommend.web.jwt.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,18 +11,18 @@ import javax.persistence.*;
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserSpot {
+public class MemberSpot {
 
 
     @Id @GeneratedValue
-    @Column(name = "user_spot_id")
+    @Column(name = "member_spot_id")
     private Long id;
 
     private Double score;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "spot_id")

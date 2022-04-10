@@ -29,7 +29,7 @@ public class Spot {
     private List<FavoriteSpot> favoriteSpotList = new ArrayList<>();
 
     @OneToMany(mappedBy = "spot")
-    private List<UserSpot> memberSpotList = new ArrayList<>();
+    private List<MemberSpot> memberSpotList = new ArrayList<>();
 
     @OneToMany(mappedBy = "spot")
     private List<Review> reviews = new ArrayList<>();
@@ -50,6 +50,8 @@ public class Spot {
         this.score = score;
     }
 }
+
+
 
 
 

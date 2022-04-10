@@ -1,7 +1,6 @@
-package capstone.jejuTourrecommend.web.jwt;
+package capstone.JejuTourRecommend.domain.save;
 
 import capstone.jejuTourrecommend.domain.Favorite;
-import capstone.jejuTourrecommend.domain.UserSpot;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,9 +36,9 @@ public class User implements UserDetails {
     //연관관계 매핑
     @OneToMany(mappedBy = "user")
     private List<Favorite> favorites = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<UserSpot> userSpotList = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "user")
+//    private List<UserSpot> userSpotList = new ArrayList<>();
 
     //생성자
     public User(String email, String password) {

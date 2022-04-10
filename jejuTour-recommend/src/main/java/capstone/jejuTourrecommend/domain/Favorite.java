@@ -1,7 +1,6 @@
 package capstone.jejuTourrecommend.domain;
 
 
-import capstone.jejuTourrecommend.web.jwt.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,8 +20,8 @@ public class Favorite {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @OneToMany(mappedBy = "favorite")
     private List<FavoriteSpot> favoriteSpotList = new ArrayList<>();
@@ -32,19 +31,18 @@ public class Favorite {
         this.name = name;
     }
 
-    public Favorite(String name, User user) {
+    public Favorite(String name, Member member) {
         this.name = name;
-        if(user!=null){
-            changeMember(user);
+        if(member!=null){
+            changeMember(member);
         }
     }
 
-    private void changeMember(User user) {
-        this.user = user;
-        user.getFavorites().add(this);
+    private void changeMember(Member member) {
+        this.member = member;
+        member.getFavorites().add(this);
     }
 }
-
 
 
 

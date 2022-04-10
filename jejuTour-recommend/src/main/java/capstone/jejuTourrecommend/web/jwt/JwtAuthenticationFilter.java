@@ -31,10 +31,12 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             // 토큰이 유효하면 토큰으로부터 유저 정보를 받아옵니다.
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
 
-            // SecurityContext 에 Authentication 객체를 저장합니다.
+            //인증이 성공하면 스프링이 관리하는 SecurityContext 에 Authentication 인증 객체를 저장합니다.
+            //이객체는 반드시 Authentication 의 구현체만 가능하다
             SecurityContextHolder.getContext().setAuthentication(authentication);
             log.info("토큰이 유효하다");
         }
+        //유효하지 않을경우 처리가 지금은 없은 나중에 심화 작업할때 할것임*******************
         chain.doFilter(request, response);
     }
 }

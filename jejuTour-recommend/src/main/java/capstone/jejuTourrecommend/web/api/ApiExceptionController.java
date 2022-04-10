@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ApiExceptionController {
     
-
+    //
     @GetMapping("/api3/members/{id}")
     public MemberDto getMember(@PathVariable("id") String id){
         if(id.equals("ex")){

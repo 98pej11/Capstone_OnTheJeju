@@ -1,7 +1,7 @@
-package capstone.jejuTourrecommend.web.jwt;
+package capstone.jejuTourrecommend.web.login;
 
 
-import capstone.jejuTourrecommend.web.jwt.User;
+import capstone.jejuTourrecommend.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -30,8 +30,8 @@ public class initMember {
 
         @Transactional
         public void init(){
-            User memberA = new User("userA","123","123");
-            User memberB = new User("userB","234","234");
+            Member memberA = new Member("userA","123","123");
+            Member memberB = new Member("userB","234","234");
 
             em.persist(memberA);
             em.persist(memberB);

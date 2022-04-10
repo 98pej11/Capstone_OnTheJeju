@@ -26,24 +26,29 @@ public class JwtTokenProvider {//jwt토큰 제공자
 
     private String secretKey = "webfirewood";
 
-    // 토큰 유효시간 30분
-    private long tokenValidTime = 30 * 60 * 1000L;
+    // 토큰 유효시간 40분
+    private long tokenValidTime = 40 * 60 * 1000L;
 
     private final UserDetailsService userDetailsService;
 
     // 객체 초기화, secretKey를 Base64로 인코딩한다.
     @PostConstruct
     protected void init() {
-        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+        secretKey = Base64.getEncoder()
+                .encodeToString(secretKey.getBytes());
     }
 
+
+    /**
+     * 나여기서 권한 한개만 갖는걸로 함 list<String> roles 을 string role으로 바꿈
+     */
     // JWT 토큰 생성
     //여기서 내가 넣었준 값은 회원 이메일과 역할이다
-    public String createToken(String userPk, List<String> roles) {
+    public String createToken(String userPk, String role) {
         Claims claims = Jwts.claims().setSubject(userPk); // JWT payload 에 저장되는 정보단위
-        //setSubject 는 unique 값으로 설정한다. 내가 설정한 email은 unique 함
+        //setSubject 는 unique 값으로 설정한다. 내가 설정한 email 은 unique 함
 
-        claims.put("roles", roles); // 정보는 key / value 쌍으로 저장된다.
+        claims.put("roles", role); // 정보는 key / value 쌍으로 저장된다.
 
         Date now = new Date();
         return Jwts.builder()
@@ -51,7 +56,7 @@ public class JwtTokenProvider {//jwt토큰 제공자
                 .setIssuedAt(now) // 토큰 발행 시간 정보
                 .setExpiration(new Date(now.getTime() + tokenValidTime)) // set Expire Time
                 .signWith(SignatureAlgorithm.HS256, secretKey)  // 사용할 암호화 알고리즘과
-                                                                // signature 에 들어갈 secret값 세팅
+                                                                // signature 에 들어갈 secret 값 세팅
                 .compact();
     }
 
@@ -61,7 +66,7 @@ public class JwtTokenProvider {//jwt토큰 제공자
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    // 토큰에서 회원 정보(이메일) 추출
+    // 토큰에서 회원 정보(이메일) 추출******
     public String getUserPk(String token) {
         return Jwts.parser()
                 .setSigningKey(secretKey)
@@ -72,7 +77,8 @@ public class JwtTokenProvider {//jwt토큰 제공자
 
     // Request의 Header에서 token 값을 가져옵니다. "X-AUTH-TOKEN" : "TOKEN값'
     public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("X-AUTH-TOKEN");
+        return request
+                .getHeader("X-AUTH-TOKEN");
     }
 
     // 토큰의 유효성 + 만료일자 확인

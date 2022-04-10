@@ -1,6 +1,5 @@
 package capstone.jejuTourrecommend.domain;
 
-import capstone.jejuTourrecommend.web.jwt.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,16 +21,16 @@ class FavoriteTest {
     @Test
     public void favorite_memberTest() throws Exception{
         //given
-        User userA = new User("123@gmail.com", "123");
-        User userB = new User("234@naver.com", "123");
+        Member memberA = new Member("memberA", "123@gmail.com");
+        Member memberB = new Member("memberB", "234@naver.com");
 
-        em.persist(userA);
-        em.persist(userB);
+        em.persist(memberA);
+        em.persist(memberB);
 
-        Favorite favorite1 = new Favorite("favorite1",userA);
-        Favorite favorite2 = new Favorite("favorite2",userA);
-        Favorite favorite3 = new Favorite("favorite3",userB);
-        Favorite favorite4 = new Favorite("favorite4",userB);
+        Favorite favorite1 = new Favorite("favorite1",memberA);
+        Favorite favorite2 = new Favorite("favorite2",memberA);
+        Favorite favorite3 = new Favorite("favorite3",memberB);
+        Favorite favorite4 = new Favorite("favorite4",memberB);
 
         em.persist(favorite1);
         em.persist(favorite2);
@@ -46,7 +45,7 @@ class FavoriteTest {
 
         for (Favorite favorite : favorites) {
             System.out.println("favorite.getName() = " + favorite.getName());
-            System.out.println("favorite.getUser() = " + favorite.getUser());
+            System.out.println("favorite.getUser() = " + favorite.getMember());
         }
 
     }
