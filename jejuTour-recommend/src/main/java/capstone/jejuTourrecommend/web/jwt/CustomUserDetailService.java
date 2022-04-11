@@ -33,6 +33,7 @@ public class CustomUserDetailService implements UserDetailsService {
         return memberRepository.findOptionByEmail(email)
                 .map(this::createSpringSecurityUser)
                 .orElseThrow(RuntimeException::new);
+        //회원정보 못 찾으면 runtime 예외처리해서 따로 @Exceptional로 처리해주도 됨 지금 우리는 안함
 
 //        return userRepository.findByEmail(username)
 //                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));

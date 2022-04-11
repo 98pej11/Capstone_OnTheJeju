@@ -51,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // "/admin/**", "/user/**" 형식의 URL 로 들어오는 요청에 대해 인증을 요구하는 부분.
                 // 인증을 요구하는 경로로 요청이 들어오면 인증 요청을 한다
                 .antMatchers("/admin/**").access("hasRole('ADMIN') or hasRole('USER')")
+                //이제 회원 가입된 사람만 접근하게하려는 uri는 앞에 이 admin붙여주면됨, user면 user로
                 .antMatchers("/user/**").hasRole("USER")
                 .anyRequest().permitAll() // 그외 나머지 요청은 누구나면접근 가능
                 .and()
