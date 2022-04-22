@@ -29,8 +29,19 @@ public class Score {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "score")
     private Spot spot;
 
-
-
+    public Score(Double viewScore, Double priceScore, Double facilityScore,
+                 Double surroundScore, Double viewRank, Double priceRank,
+                 Double facilityRank, Double surroundRank, Double rankAverage) {
+        this.viewScore = viewScore;
+        this.priceScore = priceScore;
+        this.facilityScore = facilityScore;
+        this.surroundScore = surroundScore;
+        this.viewRank = viewRank;
+        this.priceRank = priceRank;
+        this.facilityRank = facilityRank;
+        this.surroundRank = surroundRank;
+        this.rankAverage = rankAverage;
+    }
 }
 
 

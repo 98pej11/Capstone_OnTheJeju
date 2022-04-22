@@ -29,6 +29,9 @@ public class LoginController {
 
     private final LoginService loginService;
 
+    /**
+     *  객체로 정보 전달 버젼 @RequestBody
+     */
     // 회원가입
     //@PostMapping("/join")
     public Long join(@Valid @RequestBody JoinForm form, BindingResult bindingResult) {

@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of={"id","username","address","description"})
+@ToString(of={"id","username","address","description","location","score"})
 public class Spot {
 
 
@@ -23,6 +23,9 @@ public class Spot {
 
     @Enumerated(EnumType.STRING)
     private Location location;  //제주 읍 위치
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
 
     @OneToMany(mappedBy = "spot")
@@ -37,9 +40,14 @@ public class Spot {
     @OneToMany(mappedBy = "spot")
     private List<Picture> pictures = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "score_id")
     private Score score;
+
+    public void setScore(Score score){
+        this.score =score;
+        score.setSpot(this);
+    }
 
     public Spot(String name) {
         this.name = name;
@@ -47,6 +55,11 @@ public class Spot {
 
     public Spot(String name,Score score) {
         this.name = name;
+        this.score = score;
+    }
+
+    public Spot(Location location, Score score) {
+        this.location = location;
         this.score = score;
     }
 }
