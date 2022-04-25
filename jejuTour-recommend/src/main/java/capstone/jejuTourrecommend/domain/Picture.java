@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of={"id","url"})
+@ToString(of={"id","url","spot"})
 public class Picture {
 
 

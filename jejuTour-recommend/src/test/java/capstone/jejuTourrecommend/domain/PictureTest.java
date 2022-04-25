@@ -1,5 +1,6 @@
 package capstone.jejuTourrecommend.domain;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
@@ -43,13 +44,10 @@ class PictureTest {
         em.flush();
         em.clear();
 
-        List<Spot> resultList = em.createQuery("select s from Spot s", Spot.class)
+        List<Picture> resultList = em.createQuery("select p from Picture p", Picture.class)
                 .getResultList();
 
-        for (Spot spot : resultList) {
-            System.out.println("spot = " + spot);
-            System.out.println("spot.getPictures() = " + spot.getPictures());
-        }
+        Assertions.assertThat(resultList.size()).isEqualTo(4);
 
     }
 

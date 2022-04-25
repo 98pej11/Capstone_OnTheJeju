@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of={"id","username","address","description","location","score"})
+@ToString(of={"id","username","address","description","location","score"})//원래 연관관계 없는 필드만 넣어야 서로 toSting 하면 무한루프 발생함
 public class Spot {
 
 
@@ -41,6 +41,7 @@ public class Spot {
     private List<Picture> pictures = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "score_id")
     private Score score;
 
@@ -63,10 +64,6 @@ public class Spot {
         this.score = score;
     }
 }
-
-
-
-
 
 
 

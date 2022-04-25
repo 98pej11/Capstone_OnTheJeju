@@ -9,9 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface SpotRepository extends JpaRepository<Spot, Long> {
+public interface SpotRepository extends JpaRepository<Spot, Long> ,SpotRepositoryCustom{
 
-    @Query(value = "select s from Spot s left join s.score")
-            //,countQuery = "select count (Spot.id) from Spot s")
-    Page<Spot> findSpotByLocation(Location location, Pageable pageable);
+
 }
