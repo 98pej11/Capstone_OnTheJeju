@@ -63,6 +63,8 @@ public class Spot {
         this.location = location;
         this.score = score;
     }
+
+
 }
 
 

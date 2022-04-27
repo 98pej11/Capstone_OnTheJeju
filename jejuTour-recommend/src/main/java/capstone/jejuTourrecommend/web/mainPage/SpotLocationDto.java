@@ -25,12 +25,12 @@ public class SpotLocationDto {//장소만 선택됐을때의 dto임
     private String spotName;
     private String spotAddress;
     private String spotDescription;
-    private List<String> url;
+    private String url;
 
 
 
     @QueryProjection
-    public SpotLocationDto(Long spotId, String spotName, String spotAddress, String spotDescription, List<String> url) {
+    public SpotLocationDto(Long spotId, String spotName, String spotAddress, String spotDescription, String url) {
         this.spotId = spotId;
         this.spotName = spotName;
         this.spotAddress = spotAddress;

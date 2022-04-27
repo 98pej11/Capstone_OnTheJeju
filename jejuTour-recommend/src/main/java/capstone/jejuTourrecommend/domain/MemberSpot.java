@@ -1,16 +1,14 @@
 package capstone.jejuTourrecommend.domain;
 
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(of = {"id","score","member","spot"})
 public class MemberSpot {
 
 
@@ -28,9 +26,15 @@ public class MemberSpot {
     @JoinColumn(name = "spot_id")
     private Spot spot;
 
+    public MemberSpot(Double score) {
+        this.score = score;
+    }
 
-
-
+    public MemberSpot(Double score, Member member, Spot spot) {
+        this.score = score;
+        this.member = member;
+        this.spot = spot;
+    }
 }
 
 
