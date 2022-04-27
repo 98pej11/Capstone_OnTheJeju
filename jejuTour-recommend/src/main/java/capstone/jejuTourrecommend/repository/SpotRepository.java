@@ -14,4 +14,8 @@ import java.util.Optional;
 public interface SpotRepository extends JpaRepository<Spot, Long> ,SpotRepositoryCustom{
 
     Optional<Spot> findOptionByName(String spotName);
+
+    Optional<Spot> findOptionById(Long spotId);
+
+
 }

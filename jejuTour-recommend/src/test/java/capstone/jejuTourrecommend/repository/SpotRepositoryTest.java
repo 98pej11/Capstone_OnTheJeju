@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Slf4j
 @SpringBootTest
 @Transactional
-@Commit
+//@Commit
 class SpotRepositoryTest {
 
 

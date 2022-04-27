@@ -2,13 +2,10 @@ package capstone.jejuTourrecommend.repository;
 
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.web.mainPage.*;
-import capstone.jejuTourrecommend.web.spotPage.SpotDetailDto;
-import com.querydsl.core.types.ExpressionUtils;
-import com.querydsl.core.types.Order;
+import capstone.jejuTourrecommend.web.spotPage.ScoreDto;
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -16,10 +13,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 
 import javax.persistence.EntityManager;
 
@@ -27,7 +22,6 @@ import java.util.List;
 
 import static capstone.jejuTourrecommend.domain.QMemberSpot.*;
 import static capstone.jejuTourrecommend.domain.QPicture.*;
-import static capstone.jejuTourrecommend.domain.QScore.*;
 import static capstone.jejuTourrecommend.domain.QSpot.*;
 
 @Slf4j
@@ -138,14 +132,34 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
 
     }
 
-
     @Override
-    public Page<SpotDetailDto> searchSpotDetail(String spotName) {
+    public ScoreDto searchScore(Spot spot) {
 
+        ScoreDto scoreDto = queryFactory
+                .select(Projections.constructor(ScoreDto.class,
+                        QSpot.spot.score.id,
+                        QSpot.spot.score.viewScore,
+                        QSpot.spot.score.priceScore,
+                        QSpot.spot.score.facilityScore,
+                        QSpot.spot.score.surroundScore,
 
+                        QSpot.spot.score.viewRank,
+                        QSpot.spot.score.priceRank,
+                        QSpot.spot.score.facilityScore,
+                        QSpot.spot.score.surroundRank
+                ))
+                .from(QSpot.spot)
+                .where(QSpot.spot.eq(spot))
+                .fetchOne();
 
+        return scoreDto;
 
     }
+
+
+//    @Override
+//    public Page<SpotDetailDto> searchSpotDetail(String spotName) {
+//    }
 
 
     private JPQLQuery<Double> getJpqlQuery(UserWeightDto userWeightDto) {

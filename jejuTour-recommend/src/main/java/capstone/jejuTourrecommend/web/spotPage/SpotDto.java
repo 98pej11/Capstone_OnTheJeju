@@ -1,6 +1,7 @@
 package capstone.jejuTourrecommend.web.spotPage;
 
 import capstone.jejuTourrecommend.domain.Location;
+import capstone.jejuTourrecommend.domain.Spot;
 import lombok.Data;
 
 @Data
@@ -17,5 +18,10 @@ public class SpotDto {
     private String address;
     private String description;
 
-
+    public SpotDto(Spot spot) {
+        this.id = spot.getId();
+        this.name = spot.getName();
+        this.address = spot.getAddress();
+        this.description = spot.getDescription();
+    }
 }

@@ -1,5 +1,6 @@
 package capstone.jejuTourrecommend.web.spotPage;
 
+import capstone.jejuTourrecommend.domain.Picture;
 import lombok.Data;
 
 import java.util.List;
@@ -17,9 +18,12 @@ public class PictureDto {
 //        },
 
     private Long id;
-    private List<String> url;
+    private String url;
 
-
+    public PictureDto(Picture picture) {
+        this.id = picture.getId();
+        this.url = picture.getUrl();
+    }
 }
 
 

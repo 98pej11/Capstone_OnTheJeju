@@ -17,7 +17,7 @@ import java.util.Random;
 @Profile("local")
 @Component
 @RequiredArgsConstructor
-public class initMember {
+public class initData {
 
     private final InitUserService initUserService;
     private final InitSpotService initSpotService;
@@ -64,6 +64,7 @@ public class initMember {
             Score[] scores = new Score[100];
             Spot[] spots = new Spot[100];
             Picture[][] pictures = new Picture[100][3];
+            Review[] reviews = new Review[100];
 
             for(int i=0;i<100;i++){ //지역하고 score만
 
@@ -86,10 +87,17 @@ public class initMember {
                 }
                 em.persist(spots[i]);
                 em.persist(memberSpots[i]);
+
+                reviews[i] = new Review("content",spots[0]);
+                em.persist(reviews[i]);
+
             }
 
             em.flush();
             em.clear();
+
+            log.info("spots[0] = {}",spots[0]);  //이거 7임 여기에 리뷰 100개 넣어놨음
+
         }
 
         public Score createScore(Score[] scores,int i){
