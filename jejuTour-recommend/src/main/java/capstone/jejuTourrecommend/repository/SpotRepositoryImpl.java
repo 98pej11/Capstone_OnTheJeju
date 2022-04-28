@@ -22,7 +22,8 @@ import java.util.List;
 
 import static capstone.jejuTourrecommend.domain.QMemberSpot.*;
 import static capstone.jejuTourrecommend.domain.QPicture.*;
-import static capstone.jejuTourrecommend.domain.QSpot.*;
+import static capstone.jejuTourrecommend.domain.QSpot.spot;
+
 
 @Slf4j
 @Transactional
@@ -187,10 +188,6 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     private BooleanExpression memberEq(Long memberId){
         return memberId != null ? memberSpot.member.id.eq(memberId) : null;
     }
-
-
-
-
 
 
 }

@@ -36,6 +36,11 @@ public class FavoriteSpot {
         favorite.getFavoriteSpotList().add(this);
     }
 
+    public FavoriteSpot(Favorite favorite, Spot spot) {
+        this.favorite = favorite;
+        this.spot = spot;
+    }
+
     public FavoriteSpot(Spot spot) {
 
 
