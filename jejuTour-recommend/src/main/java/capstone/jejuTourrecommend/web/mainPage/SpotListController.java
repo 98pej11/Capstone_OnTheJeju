@@ -43,10 +43,11 @@ public class SpotListController {
     @PostMapping("/spotList")//일단 토큰은 배재하고 검색해보자
     public ResultSpotListDto postSpot(@RequestBody MainPageForm mainPageForm,Pageable pageable){
 
+        Long memberId=1l;
+        log.info("memberId = {}",memberId);
         log.info("pageable = {}",pageable);
 
         Location location = findLocation(mainPageForm);
-
         Category category = findCategory(mainPageForm);
 
         //mainPageForm.setLocation(Location.Andeok_myeon);
@@ -56,8 +57,6 @@ public class SpotListController {
         log.info("mainPageForm.getUserWeightDto() = {}",mainPageForm.getUserWeight());
 
 
-        Long memberId=1l;
-        log.info("memberId = {}",memberId);
 
 //        mainPageForm.setPage(0);
 //        mainPageForm.setPage(10);

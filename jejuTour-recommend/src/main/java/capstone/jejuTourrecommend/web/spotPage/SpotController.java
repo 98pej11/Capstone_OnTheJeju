@@ -14,11 +14,12 @@ public class SpotController {
 
     private final SpotService spotService;
 
-    @GetMapping("/spot/{spotId}")
+    @GetMapping("/user/spot/{spotId}")
     public SpotPageDto spotDetail(@PathVariable Long spotId){
 
         Long memberId = 1l;
         Long spotIdTest = 7l;
+
         SpotDetailDto spotDetailDto = spotService.spotPage(spotIdTest, memberId);
 
         return new SpotPageDto(200l,true,"성공",spotDetailDto);

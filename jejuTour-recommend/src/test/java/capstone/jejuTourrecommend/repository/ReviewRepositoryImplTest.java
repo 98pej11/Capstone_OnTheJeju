@@ -59,7 +59,7 @@ class ReviewRepositoryImplTest {
         Page<ReviewDto> reviewDtos = reviewRepository.searchSpotReview(spot1, pageRequest);
 
         for (ReviewDto reviewDto : reviewDtos) {
-            System.out.println("reviewDto.getContents() = " + reviewDto.getContents());
+            System.out.println("reviewDto.getContents() = " + reviewDto.getContent());
         }
 
         //then

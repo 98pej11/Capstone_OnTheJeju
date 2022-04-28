@@ -6,6 +6,7 @@ import capstone.jejuTourrecommend.web.GlobalDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,12 +21,12 @@ public class FavoriteController {
     //사용자의 위시리스트 목록 "폼" 보여주기
     // 사용자 정보, 관광지 정보 필요
     @GetMapping("/favorite/form")
-    public FavoriteListDto getFavoriteForm(){
+    public FavoriteListDto getFavoriteForm(Pageable pageable){
 
         //테스트용 데이터
         Long memberId = 1l;
 
-        Page<FavoriteDto> favoriteList = favoriteService.getFavoriteList(memberId);
+        Page<FavoriteDto> favoriteList = favoriteService.getFavoriteList(memberId,pageable);
 
         return new FavoriteListDto(200l,true,"성공,",favoriteList);
 
@@ -40,8 +41,8 @@ public class FavoriteController {
 
         //테스트용 데이터
         Long memberId = 1l;
-        Long spotId = 7l;
-        Long favoriteId = 8l;
+        Long spotId = 8l;
+        Long favoriteId = 3l;
 
         favoriteService.postFavoriteForm(memberId,spotId,favoriteId);
 
@@ -60,7 +61,8 @@ public class FavoriteController {
 
         //테스트용 데이터
         Long memberId = 1l;
-        Long spotId = 7l;
+        //Long spotId = 8l;
+        Long spotId = null;
         String favoriteName = "1일차 관광지";
 
         if(spotId!=null){//관광지 정보가 있으면
@@ -79,12 +81,12 @@ public class FavoriteController {
     //위시 리스트 페이지
     //사용자 정보 필요
     @GetMapping("/favoriteList")
-    public FavoriteListDto favoriteList(){
+    public FavoriteListDto favoriteList(Pageable pageable){
 
         //테스트용 데이터
         Long memberId = 1l;
 
-        Page<FavoriteDto> favoriteList = favoriteService.getFavoriteList(memberId);
+        Page<FavoriteDto> favoriteList = favoriteService.getFavoriteList(memberId,pageable);
 
         return new FavoriteListDto(200l,true,"성공,",favoriteList);
 
@@ -93,14 +95,15 @@ public class FavoriteController {
     //위시 리스트 삭제하기
     //해당 위시리스트 정보 필요
     @PostMapping("/favoriteList")
-    public void deleteFavoriteList(){
+    public GlobalDto deleteFavoriteList(){
 
         //테스트용 데이터
-        Long memberId;
-        Long favoriteId;
+        //Long memberId;//이거 없어도 될것같음
+        Long favoriteId = 3l;
 
+        favoriteService.deleteFavoriteList(favoriteId);
 
-
+        return new GlobalDto(200l,true,"성공");
 
     }
 

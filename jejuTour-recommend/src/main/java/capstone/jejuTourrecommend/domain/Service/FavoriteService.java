@@ -5,17 +5,18 @@ import capstone.jejuTourrecommend.domain.Favorite;
 import capstone.jejuTourrecommend.domain.FavoriteSpot;
 import capstone.jejuTourrecommend.domain.Member;
 import capstone.jejuTourrecommend.domain.Spot;
-import capstone.jejuTourrecommend.repository.FavoriteRepository;
-import capstone.jejuTourrecommend.repository.FavoriteSpotRepository;
-import capstone.jejuTourrecommend.repository.MemberRepository;
-import capstone.jejuTourrecommend.repository.SpotRepository;
+import capstone.jejuTourrecommend.repository.*;
 import capstone.jejuTourrecommend.web.favoritePage.FavoriteDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 
 @Slf4j
@@ -27,14 +28,20 @@ public class FavoriteService {
     private final FavoriteRepository favoriteRepository;
     private final SpotRepository spotRepository;
     private final FavoriteSpotRepository favoriteSpotRepository;
+    private final FavoriteSpotQueryRepository favoriteSpotQueryRepository;
+
+
+
+
 
     @Transactional
-    public Page<FavoriteDto> getFavoriteList(Long memberId){
+    public Page<FavoriteDto> getFavoriteList(Long memberId, Pageable pageable){
 
         Optional<Member> member = memberRepository.findById(memberId);
 
 
-        Page<FavoriteDto> favoriteDtoPage = favoriteRepository.findByMember(member.get())
+        PageRequest pageRequest = PageRequest.of(0,100);
+        Page<FavoriteDto> favoriteDtoPage = favoriteRepository.findByMember(member.get(),pageRequest)
                 .map(favorite -> new FavoriteDto(favorite.getId(), favorite.getName()));
 
 
@@ -95,13 +102,18 @@ public class FavoriteService {
     //위시 리스트 삭제하기
     //해당 위시리스트 정보 필요
     @Transactional
-    public void deleteFavoriteList(){
+    public void deleteFavoriteList(Long favoriteId){
 
         //먼저 favoriteSpot들 찾아서 삭제해주고 (여러개임), 이때 favorite,spot필요
         //그다음 favorite을 삭제해줘야함 (한개), favorteId만 필요
 
-        favoriteSpotRepository.deleteAllById();
-        
+        //favoriteSpotRepository.deleteAllById();
+
+        favoriteSpotQueryRepository.deleteFavoriteSpot(favoriteId);
+
+        favoriteRepository.deleteById(favoriteId);
+
+
 
 
     }

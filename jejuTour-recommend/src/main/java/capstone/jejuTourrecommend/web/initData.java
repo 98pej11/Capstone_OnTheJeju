@@ -66,6 +66,11 @@ public class initData {
             Picture[][] pictures = new Picture[100][3];
             Review[] reviews = new Review[100];
 
+            Favorite favorite = new Favorite("1일차",member1);
+            em.persist(favorite);
+
+            FavoriteSpot[] favoriteSpots = new FavoriteSpot[100];
+
             for(int i=0;i<100;i++){ //지역하고 score만
 
                 if(0<=i&&i<25) {
@@ -91,12 +96,23 @@ public class initData {
                 reviews[i] = new Review("content",spots[0]);
                 em.persist(reviews[i]);
 
+                favoriteSpots[i] = new FavoriteSpot(favorite,spots[i]);
+                em.persist(favoriteSpots[i]);
+
             }
 
             em.flush();
             em.clear();
 
-            log.info("spots[0] = {}",spots[0]);  //이거 7임 여기에 리뷰 100개 넣어놨음
+            //member1 = Member(id=1, username=member1, email=member1@gmail.com, password=1234)
+            log.info("member1 = {}",member1);
+
+            log.info("favorite = {}",favorite);   //favorite = Favorite(id=3, name=1일차)
+
+            //spots[0] = Spot(id=8, address=null, description=null, location=Aewol_eup..
+            log.info("spots[0] = {}",spots[0]);
+
+            log.info("favoriteSpots[0] = {}",favoriteSpots[0]);//favoriteSpots[0] = FavoriteSpot(id=11, count=0)
 
         }
 
