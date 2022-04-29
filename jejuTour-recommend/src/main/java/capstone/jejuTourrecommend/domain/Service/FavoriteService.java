@@ -22,6 +22,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class FavoriteService {
 
     private final MemberRepository memberRepository;
@@ -30,17 +31,16 @@ public class FavoriteService {
     private final FavoriteSpotRepository favoriteSpotRepository;
     private final FavoriteSpotQueryRepository favoriteSpotQueryRepository;
 
+    private final EntityManager em;
 
 
+    public Page<FavoriteDto> getFavoriteList(String memberEmail, Pageable pageable){
 
+        Optional<Member> member = memberRepository.findOptionByEmail(memberEmail);
 
-    @Transactional
-    public Page<FavoriteDto> getFavoriteList(Long memberId, Pageable pageable){
-
-        Optional<Member> member = memberRepository.findById(memberId);
-
-
+    ///이거 수정행야함 이거 테스트 데이터임
         PageRequest pageRequest = PageRequest.of(0,100);
+
         Page<FavoriteDto> favoriteDtoPage = favoriteRepository.findByMember(member.get(),pageRequest)
                 .map(favorite -> new FavoriteDto(favorite.getId(), favorite.getName()));
 
@@ -52,11 +52,10 @@ public class FavoriteService {
 
     // 선택한 관광지를 선태한 위시리스트에 추가
     // 선택한 관광지 정보, 사용자 정보, 위시리스트 정보 필요
-    @Transactional
-    public void postFavoriteForm(Long memberId, Long spotId, Long favoriteId){
+    public void postFavoriteForm(String memberEmail, Long spotId, Long favoriteId){
 
         //솔직히 멤버 정보는 필요 없음 어차피 해당 favorite 은 member 와 연결되어 있음
-        Optional<Member> member = memberRepository.findById(memberId);
+        Optional<Member> member = memberRepository.findOptionByEmail(memberEmail);
 
         Optional<Spot> spot = spotRepository.findOptionById(spotId);
 
@@ -64,16 +63,16 @@ public class FavoriteService {
 
         FavoriteSpot favoriteSpot = new FavoriteSpot(favorite.get(),spot.get());
 
+        favoriteSpotRepository.save(favoriteSpot);
 
     }
 
 
     //새로운 위시 리스트를 만들고 해당 관광지 넣기
     // 선택한 관광지 정보, 사용자 정보, 위시리스트 이름 필요
-    @Transactional
-    public void newFavoriteListO(Long memberId, Long spotId, String favoriteName){
+    public void newFavoriteListO(String memberEmail, Long spotId, String favoriteName){
 
-        Optional<Member> member = memberRepository.findById(memberId);
+        Optional<Member> member = memberRepository.findOptionByEmail(memberEmail);
 
         Optional<Spot> spot = spotRepository.findOptionById(spotId);
 
@@ -83,25 +82,28 @@ public class FavoriteService {
 
         Favorite favorite = new Favorite(favoriteName,member.get());
 
+        favoriteRepository.save(favorite);
+
         FavoriteSpot favoriteSpot = new FavoriteSpot(favorite,spot.get());
+
+        favoriteSpotRepository.save(favoriteSpot);
 
     }
 
     //있으면 위시리스트 생성 및 관광지 추가, 없으면 그냥 위시리스트 생성
+    public void newFavoriteListX(String memberEmail, String favoriteName){
 
-    @Transactional
-    public void newFavoriteListX(Long memberId, String favoriteName){
-
-        Optional<Member> member = memberRepository.findById(memberId);
+        Optional<Member> member = memberRepository.findOptionByEmail(memberEmail);
 
         Favorite favorite = new Favorite(favoriteName,member.get());
+
+        favoriteRepository.save(favorite);
 
     }
 
 
     //위시 리스트 삭제하기
     //해당 위시리스트 정보 필요
-    @Transactional
     public void deleteFavoriteList(Long favoriteId){
 
         //먼저 favoriteSpot들 찾아서 삭제해주고 (여러개임), 이때 favorite,spot필요
@@ -111,10 +113,16 @@ public class FavoriteService {
 
         favoriteSpotQueryRepository.deleteFavoriteSpot(favoriteId);
 
+        //favoriteRepository.flush();
+
+        //근데 @Transactional 에서 메서드 끝나고 commit 해줌
+        em.flush();
+        em.clear();
+
         favoriteRepository.deleteById(favoriteId);
 
-
-
+        em.flush();
+        em.clear();
 
     }
 

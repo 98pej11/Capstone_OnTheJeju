@@ -36,7 +36,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     }
 
     @Override
-    public Page<SpotLocationDto> searchSpotByLocationAndCategory(Location location,Category category,Pageable pageable) {
+    public Page<SpotListDto> searchSpotByLocationAndCategory(Location location, Category category, Pageable pageable) {
 
         OrderSpecifier<Double> orderSpecifier;
 
@@ -56,8 +56,8 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
             orderSpecifier = spot.score.rankAverage.desc();
         }
 
-        List<SpotLocationDto> contents = queryFactory
-                .select(new QSpotLocationDto(
+        List<SpotListDto> contents = queryFactory
+                .select(new QSpotListDto(
                                 spot.id,
                                 spot.name,
                                 spot.address,
@@ -88,11 +88,11 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
 
     @Transactional
     @Override
-    public Page<SpotLocationDto> searchSpotByUserPriority(Long memberId, Location location, UserWeightDto userWeightDto, Pageable pageable) {
+    public Page<SpotListDto> searchSpotByUserPriority(String memberEmail, Location location, UserWeightDto userWeightDto, Pageable pageable) {
 
         OrderSpecifier<Double> orderSpecifier=null;
 
-        log.info("memberId = {}",memberId);
+        log.info("memberId = {}",memberEmail);
         log.info("location = {}",location);
         log.info("userWeight = {}",userWeightDto);
 
@@ -101,12 +101,12 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                 .set(memberSpot.score,
                         getJpqlQuery(userWeightDto)
                         )
-                .where(memberSpot.member.id.eq(memberId))
+                .where(memberSpot.member.email.eq(memberEmail))
                 .execute();
 
 
-        List<SpotLocationDto> contents = queryFactory
-                .select(new QSpotLocationDto(
+        List<SpotListDto> contents = queryFactory
+                .select(new QSpotListDto(
                                 memberSpot.spot.id,
                                 memberSpot.spot.name,
                                 memberSpot.spot.address,
@@ -118,7 +118,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                         )
                 )
                 .from(memberSpot)
-                .where(location1Eq(location),memberEq(memberId))
+                .where(location1Eq(location),memberEq(memberEmail))
                 .orderBy(memberSpot.score.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -127,7 +127,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
         JPAQuery<Long> countQuery = queryFactory
                 .select(memberSpot.count())
                 .from(memberSpot)
-                .where(location1Eq(location),memberEq(memberId));
+                .where(location1Eq(location),memberEq(memberEmail));
 
         return PageableExecutionUtils.getPage(contents, pageable, countQuery::fetchOne);
 
@@ -185,8 +185,8 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     private BooleanExpression location1Eq(Location location) {
          return location != null ? memberSpot.spot.location.eq(location) : null;
     }
-    private BooleanExpression memberEq(Long memberId){
-        return memberId != null ? memberSpot.member.id.eq(memberId) : null;
+    private BooleanExpression memberEq(String memberEmail){
+        return memberEmail != null ? memberSpot.member.email.eq(memberEmail) : null;
     }
 
 

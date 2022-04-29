@@ -39,6 +39,9 @@ class FavoriteRepositoryTest {
 
         System.out.println("favorite.getId() = " + favorite.getId());
 
+        Optional<Favorite> favoriteOptional1 = favoriteRepository.findOptionById(favorite.getId());
+        assertThat(favoriteOptional1.isEmpty()).isEqualTo(false);
+
         //when
         favoriteRepository.deleteById(favorite.getId());
 

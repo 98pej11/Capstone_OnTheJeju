@@ -1,13 +1,10 @@
 package capstone.jejuTourrecommend.web.mainPage;
 
-import capstone.jejuTourrecommend.domain.Location;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-public class SpotLocationDto {//장소만 선택됐을때의 dto임
+public class SpotListDto {//장소만 선택됐을때의 dto임
 
 
 //    spot: {
@@ -30,7 +27,8 @@ public class SpotLocationDto {//장소만 선택됐을때의 dto임
 
 
     @QueryProjection
-    public SpotLocationDto(Long spotId, String spotName, String spotAddress, String spotDescription, String url) {
+    public SpotListDto(Long spotId, String spotName, String spotAddress,
+                       String spotDescription, String url) {
         this.spotId = spotId;
         this.spotName = spotName;
         this.spotAddress = spotAddress;

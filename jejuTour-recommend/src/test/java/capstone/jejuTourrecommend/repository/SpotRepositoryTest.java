@@ -2,31 +2,22 @@ package capstone.jejuTourrecommend.repository;
 
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.web.mainPage.ResultSpotListDto;
-import capstone.jejuTourrecommend.web.mainPage.SpotLocationDto;
+import capstone.jejuTourrecommend.web.mainPage.SpotListDto;
 import capstone.jejuTourrecommend.web.mainPage.UserWeightDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.test.annotation.Commit;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 import java.util.List;
 import java.util.Random;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest
@@ -146,10 +137,10 @@ class SpotRepositoryTest {
 
         PageRequest pageRequest = PageRequest.of(0,100);
 
-        Page<SpotLocationDto> results = spotRepository.
+        Page<SpotListDto> results = spotRepository.
                 searchSpotByLocationAndCategory(Location.Andeok_myeon,Category.VIEW,pageRequest);
 
-        for (SpotLocationDto result : results) {
+        for (SpotListDto result : results) {
             System.out.println("result.getSpotId() = " + result.getSpotId());
         }
         Double a =1d;
@@ -166,11 +157,11 @@ class SpotRepositoryTest {
     public void searchSpotByUserPriority() throws Exception{
         //given
 
-        Long memberId = 1l;
+        String memberEmail = "123";
 
         PageRequest pageRequest = PageRequest.of(0,100);
 
-        Page<SpotLocationDto> result = spotRepository.searchSpotByUserPriority(memberId, Location.Andeok_myeon,
+        Page<SpotListDto> result = spotRepository.searchSpotByUserPriority(memberEmail, Location.Andeok_myeon,
                 new UserWeightDto(1d, 4d, 1d, 1d)
                 , pageRequest);
 

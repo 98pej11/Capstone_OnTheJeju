@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.jwt;
+package capstone.jejuTourrecommend.web.login.jwt;
 
 
 import capstone.jejuTourrecommend.domain.Member;

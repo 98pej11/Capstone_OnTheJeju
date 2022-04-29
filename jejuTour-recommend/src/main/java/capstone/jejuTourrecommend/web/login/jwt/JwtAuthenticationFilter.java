@@ -1,5 +1,6 @@
-package capstone.jejuTourrecommend.web.jwt;
+package capstone.jejuTourrecommend.web.login.jwt;
 
+import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -37,6 +38,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             log.info("토큰이 유효하다");
         }
         //유효하지 않을경우 처리가 지금은 없은 나중에 심화 작업할때 할것임*******************
+        //throw new  UserException("유효하지 않은 토큰입니다");
         chain.doFilter(request, response);
     }
 }

@@ -1,6 +1,6 @@
 package capstone.jejuTourrecommend.web.api;
 
-import capstone.jejuTourrecommend.web.api.exception.UserException;
+import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

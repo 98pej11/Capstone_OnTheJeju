@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.jwt;
+package capstone.jejuTourrecommend.web.login.jwt;
 
 
 import io.jsonwebtoken.Claims;
@@ -28,6 +28,7 @@ public class JwtTokenProvider {//jwt토큰 제공자
 
     // 토큰 유효시간 40분
     private long tokenValidTime = 40 * 60 * 1000L;
+    //private long tokenValidTime = 1L;
 
     private final UserDetailsService userDetailsService;
 
@@ -79,7 +80,7 @@ public class JwtTokenProvider {//jwt토큰 제공자
     public String resolveToken(HttpServletRequest request) {
         return request
                 .getHeader("X-AUTH-TOKEN");
-    }
+    }//이거 없어도 됨 @RequestHeader어노테이션이 있음
 
     // 토큰의 유효성 + 만료일자 확인
     public boolean validateToken(String jwtToken) {

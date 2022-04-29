@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.api.exception;
+package capstone.jejuTourrecommend.web.login.exceptionClass;
 
 public class UserException extends RuntimeException{
 
