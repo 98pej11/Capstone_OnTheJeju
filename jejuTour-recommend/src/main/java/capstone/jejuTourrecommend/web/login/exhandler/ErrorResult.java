@@ -16,6 +16,7 @@ public class ErrorResult {
     private int status;
     private Boolean success;
     private String message;
+
 }
 
 

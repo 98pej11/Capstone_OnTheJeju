@@ -11,8 +11,6 @@ import java.util.Optional;
 public interface MemberSpotRepository extends JpaRepository<MemberSpot,Long> {
      Optional<MemberSpot> findBySpotAndMember(Spot spot, Member member);
 
-
-
 }
 
 

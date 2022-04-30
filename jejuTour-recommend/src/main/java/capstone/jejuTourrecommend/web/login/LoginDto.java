@@ -1,8 +1,12 @@
 package capstone.jejuTourrecommend.web.login;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
+@AllArgsConstructor
 public class LoginDto {
 
 //    status: number,
@@ -23,11 +27,5 @@ public class LoginDto {
     private UserDto userDto;
     private String accesstoken;
 
-    public LoginDto(int status, Boolean success, String message, UserDto userDto, String accesstoken) {
-        this.status = status;
-        this.success = success;
-        this.message = message;
-        this.userDto = userDto;
-        this.accesstoken = accesstoken;
-    }
+
 }

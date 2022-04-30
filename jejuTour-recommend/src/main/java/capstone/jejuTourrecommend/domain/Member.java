@@ -1,6 +1,7 @@
 package capstone.jejuTourrecommend.domain;
 
 
+import capstone.jejuTourrecommend.domain.baseEntity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of={"id","username","email","password"})
-public class Member {
+public class Member extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "member_id")
@@ -25,6 +26,9 @@ public class Member {
 
     //멤버 권한 정함//나 권한은 한사람당 한명씩 같게 함
     private String role;
+
+    //refreshToken;
+    private String refreshToken;
 
 
     @OneToMany(mappedBy = "member")
@@ -49,11 +53,12 @@ public class Member {
         this.password = password;
     }
 
-    public Member(String username, String email, String password, String role) {
+    public Member(String username, String email, String password, String role,String refreshToken) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.refreshToken = refreshToken;
     }
 }
 

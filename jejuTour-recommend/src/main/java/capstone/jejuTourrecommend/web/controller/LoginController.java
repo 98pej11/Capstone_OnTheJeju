@@ -1,17 +1,24 @@
-package capstone.jejuTourrecommend.web.login;
+package capstone.jejuTourrecommend.web.controller;
 
 import capstone.jejuTourrecommend.domain.Member;
 import capstone.jejuTourrecommend.domain.Service.LoginService;
+import capstone.jejuTourrecommend.web.login.JoinDto;
+import capstone.jejuTourrecommend.web.login.LoginDto;
+import capstone.jejuTourrecommend.web.login.UserDto;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
+import capstone.jejuTourrecommend.web.login.exhandler.ErrorResult;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
 import capstone.jejuTourrecommend.web.login.form.JoinForm;
 import capstone.jejuTourrecommend.web.login.form.LoginForm;
+import capstone.jejuTourrecommend.web.login.jwt.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -24,14 +31,11 @@ import java.util.Map;
 @RestController
 public class LoginController {
 
-    private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
     //private final UserRepository userRepository;
 
     private final LoginService loginService;
-
-
 
 
     /**
@@ -40,12 +44,13 @@ public class LoginController {
     //회원가입하기
     @PostMapping("/join")//@valid 가 오류를 잡아줘서  bindingResult에 들어감
     public JoinDto join1(@Valid @ModelAttribute JoinForm form, BindingResult bindingResult,
-                        HttpServletResponse response) throws IOException {
+                         HttpServletResponse response) throws IOException {
 
         //여기서 실패하면 이렇게가 실으면 따로 로그인만의 오류 클래스 따로 만들어도됨
         if(bindingResult.hasErrors()){//공백 예외 처리
             log.info("errors = {}",bindingResult);
             //오류 상태 따로 클래스로 만들어도 좋음
+            //bindingResult.reject("오류오류오륭ㅇ로", new ErrorResult(200,false,"sss"),"sss");
             String defaultMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
             throw new UserException(defaultMessage);
         }
@@ -55,16 +60,17 @@ public class LoginController {
 
         UserDto userDto = loginService.join(form);
 
-        String accesstoken = jwtTokenProvider.createToken(userDto.getEmail(), userDto.getRole());
+        //회원가입할때는 accesstoken반환할 필요 없지
+        //String accesstoken = jwtTokenProvider.createToken(userDto.getEmail(), userDto.getRole());
 
-        return new JoinDto(200,true,"회원가입 성공",userDto,accesstoken);
+        return new JoinDto(200,true,"회원가입 성공",userDto);
     }
 
 
     //로그인하기
     @PostMapping("/login")
     public LoginDto login1(@Valid @ModelAttribute LoginForm form, BindingResult bindingResult,
-     HttpServletResponse response) throws IOException {
+                           HttpServletResponse response) throws IOException {
 
         log.info("email={}, password={}",form.getEmail(),form.getPassword());
 
@@ -78,13 +84,31 @@ public class LoginController {
 
         UserDto userDto = loginService.login(form.getEmail(), form.getPassword());
 
+        //로그인할때 이제서야 accestoken를 넘겨줌
         String accesstoken = jwtTokenProvider.createToken(userDto.getEmail(), userDto.getRole());
 
         return new LoginDto(200,true,"로그인 성공",userDto,accesstoken);
 
-        //토큰으로 이메일 한번 뽑아봄
-        //jwtTokenProvider.getUserPk(jwtTokenProvider.createToken(loginMember.getEmail(),loginMember.getRole()));
     }
+
+    @GetMapping("/token/refresh")
+    public TokenResponse refreshToken(HttpServletRequest request,
+                             HttpServletResponse response) throws IOException {
+
+        return loginService.issueAccessToken(request);
+
+
+    }
+
+
+    //Access Token을 재발급 위한 api
+//    @PostMapping("/issue")
+//    public ResponseEntity issueAccessToken(HttpServletRequest request) throws Exception {
+//        return ResponseEntity
+//                .ok()
+//                .body(userService.issueAccessToken(request));
+//    }
+
 
     @PostMapping("/user/test")
     public Map userResponseTest() {
@@ -129,9 +153,9 @@ public class LoginController {
 
         UserDto userDto = loginService.join(form);
 
-        String accesstoken = jwtTokenProvider.createToken(userDto.getEmail(), userDto.getRole());
+        //String accesstoken = jwtTokenProvider.createToken(userDto.getEmail(), userDto.getRole());
 
-        return new JoinDto(200,true,"회원가입 성공",userDto,accesstoken);
+        return new JoinDto(200,true,"회원가입 성공",userDto);
 
 //        return userRepository.save(
 //                User.builder()

@@ -34,6 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+
 
         http.headers().frameOptions().disable();
 
@@ -55,8 +57,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**").hasRole("USER")
                 .anyRequest().permitAll() // 그외 나머지 요청은 누구나면접근 가능
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),//우리가 만들어준 필터를 넣는다
+
+//                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),//우리가 만들어준 필터를 넣는다
+//                        UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new CustomAuthorizationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class);
+
+
+
                 // JwtAuthenticationFilter 를 UsernamePasswordAuthenticationFilter 전에 넣는다
 
 

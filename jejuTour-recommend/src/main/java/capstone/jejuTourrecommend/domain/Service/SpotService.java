@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +34,7 @@ public class SpotService {
 
 
 
-    public SpotDetailDto spotPage(Long spotId, String memberEmail){
+    public SpotDetailDto spotPage(Long spotId, String memberEmail, Pageable pageable){
 
         Optional<Spot> spot = spotRepository.findOptionById(spotId);
         Optional<SpotDto> spotDto = spot.map(spot1 -> new SpotDto(spot1));

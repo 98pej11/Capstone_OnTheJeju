@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j//*****************여기 패치지 지정한거 보셈*****이렇게 페키지 별로 오류설정 가능함(로그인이면 로그인 api면 api)
-@RestControllerAdvice(basePackages = "capstone.jejuTourrecommend.web.login")//피캐지를 지정해서 v2,v3모두 적용가능하게
+@RestControllerAdvice(basePackages = "capstone.jejuTourrecommend.web.controller")
 public class ExControllerAdvice {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -34,7 +34,6 @@ public class ExControllerAdvice {
     @ExceptionHandler(UserException.class)
     public ErrorResult userExHandler(UserException e){
         log.error("[exceptionHandler] ex",e);
-        ErrorResult errorResult = new ErrorResult(400,false, e.getMessage());
         return new ErrorResult(400,false,e.getMessage());
     }
 

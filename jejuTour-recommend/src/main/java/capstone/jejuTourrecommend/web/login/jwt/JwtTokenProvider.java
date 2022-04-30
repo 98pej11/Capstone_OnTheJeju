@@ -1,10 +1,9 @@
 package capstone.jejuTourrecommend.web.login.jwt;
 
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import capstone.jejuTourrecommend.web.login.exceptionClass.JwtException;
+import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
+import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,12 +11,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.DatatypeConverter;
 import java.util.Base64;
 import java.util.Date;
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,17 +26,22 @@ public class JwtTokenProvider {//jwt토큰 제공자
 
     private String secretKey = "webfirewood";
 
-    // 토큰 유효시간 40분
-    private long tokenValidTime = 40 * 60 * 1000L;
-    //private long tokenValidTime = 1L;
+    private String refreshKey = "webfirewood1";
+
+
+    //private final long tokenValidTime = 40 * 60 * 1000L; // 토큰 유효시간 40분
+    private long tokenValidTime = 1L;
+
+    private final long refreshTokenValidTime = 60 * 60 * 24 * 7 * 1000L;   // 1주
+
 
     private final UserDetailsService userDetailsService;
 
     // 객체 초기화, secretKey를 Base64로 인코딩한다.
     @PostConstruct
     protected void init() {
-        secretKey = Base64.getEncoder()
-                .encodeToString(secretKey.getBytes());
+        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+        refreshKey = Base64.getEncoder().encodeToString(refreshKey.getBytes());
     }
 
 
@@ -61,13 +66,32 @@ public class JwtTokenProvider {//jwt토큰 제공자
                 .compact();
     }
 
+    public String createRefreshToken(String userPk, String role) {
+
+        Claims claims = Jwts.claims().setSubject(userPk); // JWT payload 에 저장되는 정보단위
+        //setSubject 는 unique 값으로 설정한다. 내가 설정한 email 은 unique 함
+
+        claims.put("roles", role); // 정보는 key / value 쌍으로 저장된다.
+
+        Date now = new Date();
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + refreshTokenValidTime))
+                .signWith(SignatureAlgorithm.HS256, refreshKey)
+                .compact();
+    }
+
+
     // JWT 토큰에서 인증 정보 조회
+    // loadUserByUsername 으로 회원정보를 가져옴 (참고로 나는 pk를 username 이 아니라 email 로 함)
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserPk(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    // 토큰에서 회원 정보(이메일) 추출******
+    //access 토큰에서 회원 정보(이메일) 추출******
     public String getUserPk(String token) {
         return Jwts.parser()
                 .setSigningKey(secretKey)
@@ -76,11 +100,34 @@ public class JwtTokenProvider {//jwt토큰 제공자
                 .getSubject();
     }
 
-    // Request의 Header에서 token 값을 가져옵니다. "X-AUTH-TOKEN" : "TOKEN값'
+    //refresh 토크에서 "member 이메일" 가져오기
+    public String getUserPkByRefreshToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(refreshKey)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
+
+    // Request의 Header에서 token 값을 가져옵니다. "ACCESS-TOKEN" : "TOKEN값'
     public String resolveToken(HttpServletRequest request) {
+//        if(StringUtils.hasText(request.getHeader("ACCESS-TOKEN"))){
+//            throw new JwtException("ACCESS-TOKEN 값을 넣어주십쇼");
+//        }
+
         return request
-                .getHeader("X-AUTH-TOKEN");
-    }//이거 없어도 됨 @RequestHeader어노테이션이 있음
+                .getHeader("ACCESS-TOKEN");
+    }//이거 없어도 됨 @RequestHeader어노테이션이 있음//아님 있어야 함 filter에서 씀
+
+    public String resolveRefreshToken(HttpServletRequest request) {
+//        if(StringUtils.hasText(request.getHeader("REFRESH-TOKEN"))){
+//            throw new JwtException("REFRESH-TOKEN 값을 넣어주십쇼");
+//        }
+
+        return request.getHeader("REFRESH-TOKEN");//REFRESH-TOKEN
+    }
+
 
     // 토큰의 유효성 + 만료일자 확인
     public boolean validateToken(String jwtToken) {
@@ -98,6 +145,26 @@ public class JwtTokenProvider {//jwt토큰 제공자
             return false;
         }
     }
+
+
+    public boolean isValidRefreshToken(String token) {
+        try {
+            Jws<Claims> claims = Jwts.parser()
+                    .setSigningKey(refreshKey)
+                    .parseClaimsJws(token);
+
+            return !claims.getBody()
+                    .getExpiration()
+                    .before(new Date());// 만료날짜가 현재날짜(Date)이전이지 않으면 반환
+
+        } catch (Exception e) {         // 이후면 false 반환
+            log.info("만료된 토큰입니다");
+            return false;
+        }
+    }
+
+
+
 }
 
 

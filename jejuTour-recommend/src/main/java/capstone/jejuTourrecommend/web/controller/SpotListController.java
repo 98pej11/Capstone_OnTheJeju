@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.mainPage;
+package capstone.jejuTourrecommend.web.controller;
 
 
 import capstone.jejuTourrecommend.domain.Category;
@@ -6,6 +6,8 @@ import capstone.jejuTourrecommend.domain.Location;
 import capstone.jejuTourrecommend.domain.Service.SpotListService;
 import capstone.jejuTourrecommend.repository.SpotRepository;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
+import capstone.jejuTourrecommend.web.mainPage.MainPageForm;
+import capstone.jejuTourrecommend.web.mainPage.ResultSpotListDto;
 import io.jsonwebtoken.Jwt;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +27,7 @@ public class SpotListController {
     private final JwtTokenProvider jwtTokenProvider;
 
     @GetMapping("/spotList")
-    public ResultSpotListDto getSpot(@RequestBody MainPageForm mainPageForm,Pageable pageable){
+    public ResultSpotListDto getSpot(@RequestBody MainPageForm mainPageForm, Pageable pageable){
 
         //아래 두줄은 내가 실험 넣은 코드임
         Location location = null;
