@@ -37,15 +37,15 @@ public class LoginService {
         //유저 중복성 검사(예외처리)
         validateDuplicateMember(form.getEmail());
 
-        //비밀번호 암호화 하여 디비에 저장하기위한 작업
-        String encodedPassword = passwordEncoder.encode(form.getPassword());
+        //비밀번호 암호화 하여 디비에 저장하기위한 작업//테스트를 위해 일단 사용X
+        //String encodedPassword = passwordEncoder.encode(form.getPassword());
 
 
         //이게 refresh토큰을 만들고 db에 저장해주기(회원가입때는 accesstoken생성하지 않음, 로그인할때 사용합)
         String refreshToken = jwtTokenProvider.createRefreshToken(form.getEmail(),"ROLE_USER");
 
         Member member = new Member(
-                form.getUsername(), form.getEmail(), encodedPassword,"ROLE_USER",refreshToken
+                form.getUsername(), form.getEmail(), form.getPassword(),"ROLE_USER",refreshToken
         );
         //유저 저장
         memberRepository.save(member);
@@ -70,8 +70,14 @@ public class LoginService {
         Member member = memberRepository.findOptionByEmail(email)
                 .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
-
+        /*//테스트를 위해 비밀번호 인코딩 안해놓음
         if (!passwordEncoder.matches(password, member.getPassword())) {
+            throw new UserException("잘못된 비밀번호입니다.");
+        }*/
+
+        log.info("password = {}",password);
+        log.info("member.getPassword() = {}",member.getPassword());
+        if (!member.getPassword().equals(password)) {
             throw new UserException("잘못된 비밀번호입니다.");
         }
 

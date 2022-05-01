@@ -1,8 +1,10 @@
 package capstone.jejuTourrecommend.web.login.jwt;
 
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
@@ -14,6 +16,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 //권한 확인하는 필터
 @Slf4j
@@ -31,10 +35,10 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         String requestURI = httpRequest.getRequestURI();
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        //String accessToken = httpRequest.getHeader("X-AUTH-TOKEN");
+        String accessToken = httpRequest.getHeader("ACCESS-TOKEN");
 
         // 헤더에서 JWT 를 받아옵니다.
-        String accessToken = jwtTokenProvider.resolveToken((HttpServletRequest) request);
+        //String accessToken = jwtTokenProvider.resolveToken((HttpServletRequest) request);
 
         try {
             log.info("인증 체크 필터 시작 {}", requestURI);
@@ -55,9 +59,14 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             chain.doFilter(request, response);
 
         }catch (Exception e){
+            log.info("예외발생");
             httpResponse.setStatus(401);
             httpResponse.setHeader("ACCESS-TOKEN", accessToken);
-            throw e;
+            Map<String, String> error = new HashMap<>();
+            error.put("error_message", e.getMessage());
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            new ObjectMapper().writeValue(response.getOutputStream(), error);
+            //throw e;
         }finally {
             log.info("필터 종료!");
         }

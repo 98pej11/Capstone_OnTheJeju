@@ -17,9 +17,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@Slf4j
-@RequiredArgsConstructor
-public class CustomAuthorizationFilter extends OncePerRequestFilter {
+//@Slf4j
+//@RequiredArgsConstructor
+public class CustomAuthorizationFilter{ /* extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
     //여기서는 access토큰 인증 처리 안하는 경로
@@ -72,7 +72,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
     /**
      * 화이트 리스트의 경우 인증체크 안함
      */
-    private boolean isNoAccessTokenCheckPath(String requestURI){
-        return !PatternMatchUtils.simpleMatch(whiteList, requestURI);
-    }
+//    private boolean isNoAccessTokenCheckPath(String requestURI){
+//        return !PatternMatchUtils.simpleMatch(whiteList, requestURI);
+//    }
 }

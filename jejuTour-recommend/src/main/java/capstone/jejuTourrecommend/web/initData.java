@@ -4,7 +4,9 @@ package capstone.jejuTourrecommend.web;
 import capstone.jejuTourrecommend.domain.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,8 @@ public class initData {
 
     private final InitUserService initUserService;
     private final InitSpotService initSpotService;
+
+
 
     @PostConstruct
     public void init(){
@@ -51,8 +55,14 @@ public class initData {
         @PersistenceContext
         EntityManager em;
 
+        @Autowired
+        private PasswordEncoder passwordEncoder;
+
         @Transactional
         public void init(){
+
+            String encodedPassword = passwordEncoder.encode("1234");
+            log.info("password = {}",encodedPassword);
 
             Member member1 = new Member("member1","member1@gmail.com","1234");
             Member member2 = new Member("member2","member2@naver.com","2345");
