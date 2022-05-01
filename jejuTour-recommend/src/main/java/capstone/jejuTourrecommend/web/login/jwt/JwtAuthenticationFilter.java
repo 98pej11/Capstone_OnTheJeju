@@ -56,6 +56,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             }
             //유효하지 않을경우 처리가 지금은 없은 나중에 심화 작업할때 할것임*******************
             //throw new  UserException("유효하지 않은 토큰입니다");//이거 안 먹음
+            //((HttpServletResponse) response).sendError(403,e.getMessage());
             chain.doFilter(request, response);
 
         }catch (Exception e){
@@ -65,6 +66,8 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             Map<String, String> error = new HashMap<>();
             error.put("error_message", e.getMessage());
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
+            //throw new UserException(e.getMessage());
             new ObjectMapper().writeValue(response.getOutputStream(), error);
             //throw e;
         }finally {

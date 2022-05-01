@@ -142,7 +142,9 @@ public class JwtTokenProvider {//jwt토큰 제공자
 
         } catch (Exception e) {         // 이후면 false 반환
             log.info("만료된 토큰입니다");
-            return false;
+            throw new UserException("만료된 혹은 잘못된 토큰입니다");
+
+            //return false;
         }
     }
 
@@ -159,7 +161,8 @@ public class JwtTokenProvider {//jwt토큰 제공자
 
         } catch (Exception e) {         // 이후면 false 반환
             log.info("만료된 토큰입니다");
-            return false;
+            throw new UserException("만료된 혹은 잘못된 토큰입니다");
+            //return false;
         }
     }
 
