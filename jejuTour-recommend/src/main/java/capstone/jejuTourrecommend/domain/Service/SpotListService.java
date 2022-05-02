@@ -2,6 +2,8 @@ package capstone.jejuTourrecommend.domain.Service;
 
 import capstone.jejuTourrecommend.domain.Category;
 import capstone.jejuTourrecommend.domain.Location;
+import capstone.jejuTourrecommend.domain.Member;
+import capstone.jejuTourrecommend.repository.MemberRepository;
 import capstone.jejuTourrecommend.repository.SpotRepository;
 import capstone.jejuTourrecommend.web.mainPage.MainPageForm;
 import capstone.jejuTourrecommend.web.mainPage.ResultSpotListDto;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -26,6 +29,7 @@ public class SpotListService {
 
 
     private final SpotRepository spotRepository;
+    private final MemberRepository memberRepository;
 
     private final EntityManager em;
 
@@ -85,8 +89,10 @@ public class SpotListService {
             );
             log.info("userWeightDto = {}",userWeightDto);
 
+            Optional<Member> optionByEmail = memberRepository.findOptionByEmail(memberEmail);
+
             Page<SpotListDto> resultPriority = spotRepository.searchSpotByUserPriority(
-                    memberEmail,location, userWeightDto, pageable);
+                    optionByEmail.get().getId(), location, userWeightDto, pageable);
 
             em.flush();
             em.clear();

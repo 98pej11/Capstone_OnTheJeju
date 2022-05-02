@@ -17,6 +17,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Slf4j
@@ -27,6 +28,7 @@ class SpotRepositoryTest {
 
 
     @Autowired SpotRepository spotRepository;
+    @Autowired MemberRepository memberRepository;
 
     @PersistenceContext
     EntityManager em;
@@ -76,7 +78,7 @@ class SpotRepositoryTest {
     @BeforeEach
     public void before1(){
 
-        Member member1 = new Member("wwntn","ae@gmailc.com");
+        Member member1 = new Member("wwntn","member1@gmail.com");
         em.persist(member1);
 
         MemberSpot[] memberSpots = new MemberSpot[5];
@@ -157,11 +159,13 @@ class SpotRepositoryTest {
     public void searchSpotByUserPriority() throws Exception{
         //given
 
-        String memberEmail = "123";
+        String memberEmail = "member1@gmail.com";
+
+        Optional<Member> optionByEmail = memberRepository.findOptionByEmail(memberEmail);
 
         PageRequest pageRequest = PageRequest.of(0,100);
 
-        Page<SpotListDto> result = spotRepository.searchSpotByUserPriority(memberEmail, Location.Andeok_myeon,
+        Page<SpotListDto> result = spotRepository.searchSpotByUserPriority(optionByEmail.get().getId(), Location.Andeok_myeon,
                 new UserWeightDto(1d, 4d, 1d, 1d)
                 , pageRequest);
 

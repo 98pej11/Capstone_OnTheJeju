@@ -20,6 +20,7 @@ import javax.persistence.EntityManager;
 
 import java.util.List;
 
+import static capstone.jejuTourrecommend.domain.QMember.member;
 import static capstone.jejuTourrecommend.domain.QMemberSpot.*;
 import static capstone.jejuTourrecommend.domain.QPicture.*;
 import static capstone.jejuTourrecommend.domain.QSpot.spot;
@@ -88,20 +89,22 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
 
     @Transactional
     @Override
-    public Page<SpotListDto> searchSpotByUserPriority(String memberEmail, Location location, UserWeightDto userWeightDto, Pageable pageable) {
+    public Page<SpotListDto> searchSpotByUserPriority(Long memberId, Location location, UserWeightDto userWeightDto, Pageable pageable) {
 
         OrderSpecifier<Double> orderSpecifier=null;
 
-        log.info("memberId = {}",memberEmail);
+        log.info("memberId = {}",memberId);
         log.info("location = {}",location);
         log.info("userWeight = {}",userWeightDto);
+
+
 
         queryFactory
                 .update(memberSpot)
                 .set(memberSpot.score,
                         getJpqlQuery(userWeightDto)
                         )
-                .where(memberSpot.member.email.eq(memberEmail))
+                .where(memberSpot.member.id.eq(memberId))
                 .execute();
 
 
@@ -118,7 +121,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                         )
                 )
                 .from(memberSpot)
-                .where(location1Eq(location),memberEq(memberEmail))
+                .where(location1Eq(location),memberEq(memberId))
                 .orderBy(memberSpot.score.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -127,7 +130,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
         JPAQuery<Long> countQuery = queryFactory
                 .select(memberSpot.count())
                 .from(memberSpot)
-                .where(location1Eq(location),memberEq(memberEmail));
+                .where(location1Eq(location),memberEq(memberId));
 
         return PageableExecutionUtils.getPage(contents, pageable, countQuery::fetchOne);
 
@@ -185,8 +188,8 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     private BooleanExpression location1Eq(Location location) {
          return location != null ? memberSpot.spot.location.eq(location) : null;
     }
-    private BooleanExpression memberEq(String memberEmail){
-        return memberEmail != null ? memberSpot.member.email.eq(memberEmail) : null;
+    private BooleanExpression memberEq(Long memberId){
+        return memberId != null ? memberSpot.member.id.eq(memberId) : null;
     }
 
 
