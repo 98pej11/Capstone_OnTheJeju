@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
+    //mysql 하고 연결할때 initData 클래스 안에 있는 걸 모두 주석 처리하고 실행할 것
+    //내가 실험 용으로 데이터로 넣으거라 mysql 데이터와 충돌 일어 날 수 있음
+
 
     private final TestService testService;
-
 
     @GetMapping("test/spot")
     private SpotDto testSpot(@RequestParam Long spotId){
@@ -52,7 +54,5 @@ public class TestController {
 
         return scoreDto;
     }
-
-
 
 }
