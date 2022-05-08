@@ -1,5 +1,6 @@
 package capstone.jejuTourrecommend.web.spotPage;
 
+import capstone.jejuTourrecommend.domain.Score;
 import lombok.Data;
 
 @Data
@@ -43,4 +44,23 @@ public class ScoreDto {
         this.facilityRank = facilityRank;
         this.surroundRank = surroundRank;
     }
+
+    public ScoreDto(Score score){
+
+        this.id = score.getId();
+        this.viewScore = score.getViewScore();
+        this.priceScore = score.getPriceScore();
+        this.facilityScore = score.getFacilityScore();
+        this.surroundScore = score.getSurroundScore();
+        this.viewRank = score.getViewRank();
+        this.priceRank = score.getPriceRank();
+        this.facilityRank = score.getFacilityRank();
+        this.surroundRank = score.getSurroundScore();
+
+
+    }
+
+
+
+
 }
