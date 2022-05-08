@@ -23,7 +23,7 @@ public class JejuTourRecommendApplication {
 		return () -> Optional.of(UUID.randomUUID().toString());
 	}
 
-
+//
 }
 
 
