@@ -2,6 +2,7 @@ package capstone.jejuTourrecommend.domain.Service;
 
 
 import capstone.jejuTourrecommend.repository.*;
+import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.spotPage.PictureDto;
 import capstone.jejuTourrecommend.web.spotPage.ReviewDto;
 import capstone.jejuTourrecommend.web.spotPage.ScoreDto;
@@ -29,34 +30,40 @@ public class TestService {
 
     public SpotDto testSpot(Long spotId){
 
-        Optional<SpotDto> spotDto = spotRepository.findOptionById(spotId).map(s -> new SpotDto(s));
+        SpotDto spotDto = spotRepository.findOptionById(spotId).map(s -> new SpotDto(s))
+                .orElseThrow(() -> new UserException("등록되지 않은 관광지 입니다"));
 
-        return spotDto.get();
+        return spotDto;
 
     }
 
     public ReviewDto testReview(Long reviewId){
 
-        Optional<ReviewDto> reviewDto = reviewRepository.findById(reviewId).map(r -> new ReviewDto(r));
+        ReviewDto reviewDto = reviewRepository.findById(reviewId).map(r -> new ReviewDto(r))
+                .orElseThrow(() -> new UserException("등록되지 않은 리뷰 입니다"));
 
-        return reviewDto.get();
+        return reviewDto;
 
     }
 
     public PictureDto testPicture(Long pictureId){
 
-        Optional<PictureDto> pictureDto = pictureRepository.findById(pictureId).map(p -> new PictureDto(p));
+        PictureDto pictureDto = pictureRepository.findById(pictureId).map(p -> new PictureDto(p))
+                .orElseThrow(() -> new UserException("등록되지 않은 사진 url 입니다"));
 
-        return pictureDto.get();
+
+        return pictureDto;
 
     }
 
 
     public ScoreDto testScore(Long scoreId){
 
-        Optional<ScoreDto> scoreDto = scoreRepository.findOptionalById(scoreId).map(s -> new ScoreDto(s));
+        ScoreDto scoreDto = scoreRepository.findOptionalById(scoreId).map(s -> new ScoreDto(s))
+                .orElseThrow(() -> new UserException("등록되지 않은 점수 입니다"));
 
-        return scoreDto.get();
+
+        return scoreDto;
 
     }
 

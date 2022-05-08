@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.PatternMatchUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -26,6 +27,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
     //이 Filter를 조금 더 확장하여 스프링에서 제공하는 필터가 있는데 그것이 바로 GenericFilterBean이다
 
     private final JwtTokenProvider jwtTokenProvider;
+    private static final String[] whiteList = {"/login", "/token/refresh", "/join", "/test/*"};
 
     //이 필터가 요청을 가로채서 jwt토근이 유효한지 판단한다, 유효하면 다시 요청을 진행한다
     @Override
@@ -37,29 +39,32 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
         String accessToken = httpRequest.getHeader("ACCESS-TOKEN");
 
+
         // 헤더에서 JWT 를 받아옵니다.
         //String accessToken = jwtTokenProvider.resolveToken((HttpServletRequest) request);
 
         try {
             log.info("인증 체크 필터 시작 {}", requestURI);
             // 유효한 토큰인지 확인합니다.
-            if (accessToken != null && jwtTokenProvider.validateToken(accessToken)) {
-                // 토큰이 유효하면 토큰으로부터 유저 정보를 받아옵니다.
-                // 이 함수 안에 loadUserByUsername 있음
-                Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
+            if (isNoAccessTokenCheckPath(requestURI)) {//검증해야 하는 거면 아래 if 문 들어가기
+                if (accessToken != null && jwtTokenProvider.validateToken(accessToken)) {
+                    // 토큰이 유효하면 토큰으로부터 유저 정보를 받아옵니다.
+                    // 이 함수 안에 loadUserByUsername 있음
+                    Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
 
-                //인증이 성공하면 스프링이 관리하는 SecurityContext 에 Authentication 인증 객체를 저장합니다.
-                //이객체는 반드시 Authentication 의 구현체만 가능하다
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                //Token에 대한 유효성을 검사하고, 만약 유효성 검증이 성공한다면, SecurityContextHolder에 해당 Authentication을 잡아주시면 됩니다.
-                log.info("토큰이 유효하다");
+                    //인증이 성공하면 스프링이 관리하는 SecurityContext 에 Authentication 인증 객체를 저장합니다.
+                    //이객체는 반드시 Authentication 의 구현체만 가능하다
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    //Token에 대한 유효성을 검사하고, 만약 유효성 검증이 성공한다면, SecurityContextHolder에 해당 Authentication을 잡아주시면 됩니다.
+                    log.info("토큰이 유효하다");
+                }
             }
             //유효하지 않을경우 처리가 지금은 없은 나중에 심화 작업할때 할것임*******************
             //throw new  UserException("유효하지 않은 토큰입니다");//이거 안 먹음
             //((HttpServletResponse) response).sendError(403,e.getMessage());
             chain.doFilter(request, response);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.info("예외발생");
             httpResponse.setStatus(401);
             httpResponse.setHeader("ACCESS-TOKEN", accessToken);
@@ -70,10 +75,18 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             //throw new UserException(e.getMessage());
             new ObjectMapper().writeValue(response.getOutputStream(), error);
             //throw e;
-        }finally {
+        } finally {
             log.info("필터 종료!");
         }
 
     }
+
+    /**
+     * 화이트 리스트의 경우 인증체크 안함
+     */
+    private boolean isNoAccessTokenCheckPath(String requestURI) {
+        return !PatternMatchUtils.simpleMatch(whiteList, requestURI);
+    }
+
 }
 
