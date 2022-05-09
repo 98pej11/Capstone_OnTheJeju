@@ -26,7 +26,7 @@ public class SpotListController {
     private final SpotListService spotListService;
     private final JwtTokenProvider jwtTokenProvider;
 
-    @GetMapping("/spotList")
+    @PostMapping("/spotList")
     public ResultSpotListDto getSpot(@RequestBody MainPageForm mainPageForm, Pageable pageable){
 
         //아래 두줄은 내가 실험 넣은 코드임
@@ -48,9 +48,9 @@ public class SpotListController {
 
 
     //프런트에서 객체단위로 줄수 있나?//그냥 변수 이름만 맞추면 되나?
-    @PostMapping("/spotList")//일단 토큰은 배재하고 검색해보자
+    @PostMapping("/spotList/priority")//일단 토큰은 배재하고 검색해보자
     public ResultSpotListDto postSpot(@RequestBody MainPageForm mainPageForm,
-                                      Pageable pageable,@RequestHeader("X-AUTH-TOKEN") String accesstoken){
+                                      Pageable pageable,@RequestHeader("ACCESS-TOKEN") String accesstoken){
 
 
         String memberEmailTest = "member1@gmail.com";
