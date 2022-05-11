@@ -28,6 +28,8 @@ public class TestController {
 
         SpotDto spotDto = testService.testSpot(spotId);
 
+        log.info("spotDot = {}",spotDto );
+
         return spotDto;
     }
 
