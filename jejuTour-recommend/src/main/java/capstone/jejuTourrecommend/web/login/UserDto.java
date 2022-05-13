@@ -28,7 +28,7 @@ public class UserDto {
     private LocalDateTime lastModifiedDate;
 
     //refreshToken;
-    private String refreshToken;
+    //private String refreshToken;
 
 
 }

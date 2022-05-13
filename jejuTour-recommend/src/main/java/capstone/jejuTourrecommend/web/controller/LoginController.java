@@ -30,19 +30,51 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 public class LoginController {
-
     private final JwtTokenProvider jwtTokenProvider;
 
-    //private final UserRepository userRepository;
-
     private final LoginService loginService;
+
+    /**
+     * RequestBody 로
+     */
+    //회원가입 (참고)회원가입할때는 accesstoken 반환할 필요 없음
+    @PostMapping("/join")
+    public JoinDto join(@Valid @RequestBody JoinForm form) {
+
+
+        log.info("username={} ,email={}, password={}",form.getUsername(),
+                form.getEmail(),form.getPassword());
+
+        UserDto userDto = loginService.join(form);
+
+
+        return new JoinDto(200,true,"회원가입 성공",userDto);
+
+    }
+
+    //지금 로그인 정보를 http body 로 줘서 @RequestBody로 한거고 요청파라미터로 주면 @ModelAttribute로 객체에 담으면 됨
+    // 로그인
+    @PostMapping("/login")
+    public LoginDto login(@Valid @RequestBody LoginForm form) throws IOException {
+
+        log.info("email={}, password={}",form.getEmail(),form.getPassword());
+
+        UserDto userDto = loginService.login(form.getEmail(), form.getPassword());
+
+        //로그인할때 이제서야 accestoken를 넘겨줌
+        String accesstoken = jwtTokenProvider.createToken(userDto.getEmail(), userDto.getRole());
+
+        return new LoginDto(200,true,"로그인 성공",userDto,accesstoken);
+
+    }
+
 
 
     /**
      * 파라미터 버전
      */
     //회원가입하기
-    @PostMapping("/join")//@valid 가 오류를 잡아줘서  bindingResult에 들어감
+    //@PostMapping("/join")//@valid 가 오류를 잡아줘서  bindingResult에 들어감
     public JoinDto join1(@Valid @ModelAttribute JoinForm form, BindingResult bindingResult,
                          HttpServletResponse response) throws IOException {
 
@@ -66,9 +98,8 @@ public class LoginController {
         return new JoinDto(200,true,"회원가입 성공",userDto);
     }
 
-
     //로그인하기
-    @PostMapping("/login")
+    //@PostMapping("/login")
     public LoginDto login1(@Valid @ModelAttribute LoginForm form, BindingResult bindingResult,
                            HttpServletResponse response) throws IOException {
 
@@ -100,13 +131,13 @@ public class LoginController {
 
     }
 
-
     //Access Token을 재발급 위한 api
 //    @PostMapping("/issue")
 //    public ResponseEntity issueAccessToken(HttpServletRequest request) throws Exception {
 //        return ResponseEntity
 //                .ok()
 //                .body(userService.issueAccessToken(request));
+
 //    }
 
 
@@ -120,8 +151,8 @@ public class LoginController {
         result.put("result", "user ok");
         return result;
     }
-
     //회원가입시 기본 권한은 user 다
+
     @PostMapping("/admin/test")
     public Map adminResponseTest() {
         Map<String, String> result = new HashMap<>();
@@ -143,56 +174,6 @@ public class LoginController {
 
 
 
-
-    /**
-     *  객체로 정보 전달 버젼 @RequestBody
-     */
-    // 회원가입
-    //@PostMapping("/join")
-    public JoinDto join(@Valid @RequestBody JoinForm form, BindingResult bindingResult) {
-
-        log.info("username={} ,email={}, password={}",form.getUsername(),form.getEmail(),form.getPassword());
-
-        UserDto userDto = loginService.join(form);
-
-        //String accesstoken = jwtTokenProvider.createToken(userDto.getEmail(), userDto.getRole());
-
-        return new JoinDto(200,true,"회원가입 성공",userDto);
-
-//        return userRepository.save(
-//                User.builder()
-//                .email(user.get("email"))
-//                .password(passwordEncoder.encode(user.get("password"))) //나 여기서 password를 토큰정보에 주지 않음
-//                .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
-//                .build()
-//                ).getId();
-
-    }
-
-    //지금 로그인 정보를 http body 로 줘서 @RequestBody로 한거고 요청파라미터로 주면 @ModelAttribute로 객체에 담으면 됨
-    // 로그인
-    //@PostMapping("/login")
-    public LoginDto login(@Valid @RequestBody LoginForm form, BindingResult bindingResult,
-                        HttpServletResponse response) throws IOException {
-
-        log.info("email={}, password={}",form.getEmail(),form.getPassword());
-
-        UserDto userDto = loginService.login(form.getEmail(), form.getPassword());
-
-        String accesstoken = jwtTokenProvider.createToken(userDto.getEmail(), userDto.getRole());
-
-        return new LoginDto(200,true,"회원가입 성공",userDto,accesstoken);
-
-
-
-        //회원정보가 일치하면 토큰을 만들어서 반환한, 반환정보는 이메일과 권한정호이다
-        // (User 객체에서 .getUsername 에 email 을 넣음)
-        //return jwtTokenProvider.createToken(member.getUsername(), member.getRoles());
-
-
-        //토큰으로 이메일 한번 뽑아봄
-        //jwtTokenProvider.getUserPk(jwtTokenProvider.createToken(loginMember.getEmail(),loginMember.getRole()));
-    }
 
 
 

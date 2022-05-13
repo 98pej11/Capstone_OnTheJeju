@@ -53,12 +53,11 @@ public class Member extends BaseEntity {
         this.password = password;
     }
 
-    public Member(String username, String email, String password, String role,String refreshToken) {
+    public Member(String username, String email, String password, String role) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
-        this.refreshToken = refreshToken;
     }
 }
 

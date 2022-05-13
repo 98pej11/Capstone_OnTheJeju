@@ -6,8 +6,7 @@ import capstone.jejuTourrecommend.domain.Location;
 import capstone.jejuTourrecommend.domain.Service.SpotListService;
 import capstone.jejuTourrecommend.repository.SpotRepository;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
-import capstone.jejuTourrecommend.web.mainPage.MainPageForm;
-import capstone.jejuTourrecommend.web.mainPage.ResultSpotListDto;
+import capstone.jejuTourrecommend.web.mainPage.*;
 import io.jsonwebtoken.Jwt;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +16,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -25,6 +29,125 @@ public class SpotListController {
 
     private final SpotListService spotListService;
     private final JwtTokenProvider jwtTokenProvider;
+
+
+    @GetMapping("/spotList/metaData")
+    public SpotListMetaDto getMetaData(){
+
+//        categoryDto: [
+//        { id: 1, name: "view" }, //view뷰
+//        { id: 2, name: "price" }, //price가격
+//        { id: 3, name: "facility" }, //facility편의시설
+//        { id: 4, name: "surrount" } //surround카페및 식당
+//
+//		],
+
+
+        Map map;
+        List list = new ArrayList();
+
+        map = new LinkedHashMap();
+        map.put("id",1);
+        map.put("name","view");
+        list.add(map);
+
+        map = new LinkedHashMap();
+        map.put("id",2);
+        map.put("name","price");
+        list.add(map);
+
+        map = new LinkedHashMap();
+        map.put("id",3);
+        map.put("name","facility");
+        list.add(map);
+
+        map = new LinkedHashMap();
+        map.put("id",4);
+        map.put("name","surround");
+        list.add(map);
+
+        CategoryDto categoryDto = new CategoryDto(list);
+
+        Map map1;
+        List list1 = new ArrayList();
+
+        map1 = new LinkedHashMap();
+        map1.put("id",5);
+        map1.put("name","제주시");
+        list1.add(map1);
+
+        map1 = new LinkedHashMap();
+        map1.put("id",6);
+        map1.put("name","애월읍");
+        list1.add(map1);
+
+        map1 = new LinkedHashMap();
+        map1.put("id",7);
+        map1.put("name","한림읍");
+        list1.add(map1);
+
+        map1 = new LinkedHashMap();
+        map1.put("id",8);
+        map1.put("name","한경면");
+        list1.add(map1);
+
+        map1 = new LinkedHashMap();
+        map1.put("id",9);
+        map1.put("name","조천읍");
+        list1.add(map1);
+
+        map1 = new LinkedHashMap();
+        map1.put("id",10);
+        map1.put("name","구좌읍");
+        list1.add(map1);
+
+        map1 = new LinkedHashMap();
+        map1.put("id",11);
+        map1.put("name","대정읍");
+        list1.add(map1);
+
+        map1 = new LinkedHashMap();
+        map1.put("id",12);
+        map1.put("name","안덕면");
+        list1.add(map1);
+
+        map1 = new LinkedHashMap();
+        map1.put("id",13);
+        map1.put("name","서귀포");
+        list1.add(map1);
+
+        map1 = new LinkedHashMap();
+        map1.put("id",14);
+        map1.put("name","남원읍");
+        list1.add(map1);
+
+        map1 = new LinkedHashMap();
+        map1.put("id",15);
+        map1.put("name","표선면");
+        list1.add(map1);
+
+        map1 = new LinkedHashMap();
+        map1.put("id",16);
+        map1.put("name","성산읍");
+        list1.add(map1);
+
+        map1 = new LinkedHashMap();
+        map1.put("id",17);
+        map1.put("name","우도면");
+        list1.add(map1);
+
+        map1 = new LinkedHashMap();
+        map1.put("id",18);
+        map1.put("name","추자면");
+        list1.add(map1);
+
+        RegionDto regionDto = new RegionDto(list1);
+
+        return new  SpotListMetaDto(200l,true,list,list1);
+
+
+    }
+
 
     @PostMapping("/spotList")
     public ResultSpotListDto getSpot(@RequestBody MainPageForm mainPageForm, Pageable pageable){

@@ -42,10 +42,10 @@ public class LoginService {
 
 
         //이게 refresh토큰을 만들고 db에 저장해주기(회원가입때는 accesstoken생성하지 않음, 로그인할때 사용합)
-        String refreshToken = jwtTokenProvider.createRefreshToken(form.getEmail(),"ROLE_USER");
+        //String refreshToken = jwtTokenProvider.createRefreshToken(form.getEmail(),"ROLE_USER");
 
         Member member = new Member(
-                form.getUsername(), form.getEmail(), form.getPassword(),"ROLE_USER",refreshToken
+                form.getUsername(), form.getEmail(), form.getPassword(),"ROLE_USER"
         );
         //유저 저장
         memberRepository.save(member);
@@ -54,7 +54,7 @@ public class LoginService {
         UserDto userDto = memberRepository.findOptionByEmail(form.getEmail())
                 .map(member1 -> new UserDto(member1.getId(), member1.getUsername(),
                         member1.getEmail(),member1.getRole(),member1.getCreatedDate(),
-                        member1.getLastModifiedDate(),member1.getRefreshToken()))
+                        member1.getLastModifiedDate()))
                 .orElseThrow(() -> new UserException("db에 회원 저장인 안됐습니다. "));
 
         //String refreshToken = jwtTokenProvider.createRefreshToken(user.getUserId());
@@ -84,7 +84,7 @@ public class LoginService {
 
         UserDto userDto = new UserDto(
                 member.getId(),member.getUsername(),member.getEmail(),member.getRole()
-        ,member.getCreatedDate(),member.getLastModifiedDate(), member.getRefreshToken());
+        ,member.getCreatedDate(),member.getLastModifiedDate());
 
 
         return userDto;
