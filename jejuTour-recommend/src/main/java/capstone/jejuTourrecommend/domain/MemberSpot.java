@@ -35,7 +35,7 @@ public class MemberSpot {
         this.member = member;
         this.spot = spot;
     }
-}
+}/
 
 
 
