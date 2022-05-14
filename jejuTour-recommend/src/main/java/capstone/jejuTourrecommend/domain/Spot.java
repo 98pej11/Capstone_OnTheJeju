@@ -24,8 +24,8 @@ public class Spot {
     @Enumerated(EnumType.STRING)
     private Location location;  //제주 읍 위치
 
-    @Enumerated(EnumType.STRING)
-    private Category category;
+    //@Enumerated(EnumType.STRING)
+    //private Category category;
 
 
     @OneToMany(mappedBy = "spot")
