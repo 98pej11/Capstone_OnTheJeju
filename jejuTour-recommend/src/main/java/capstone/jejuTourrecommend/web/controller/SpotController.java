@@ -31,7 +31,7 @@ public class SpotController {
     private final SpotService spotService;
     private final JwtTokenProvider jwtTokenProvider;
 
-    @GetMapping("/user/spot/{spotId}")
+    @GetMapping("/spot/{spotId}")
     public SpotPageDto spotDetail(@PathVariable Long spotId,
                                   @RequestHeader("ACCESS-TOKEN") String accesstoken,
                                   Pageable pageable){
@@ -39,14 +39,14 @@ public class SpotController {
         log.info("spotId = {}",spotId);
         //여기서 spotId를 도메인 클래스 컨버터 사용가능 (jpa 실절)
 
+        //이거 실험용 데이터임 TODO: 실험용 데이터임
+        Long spotIdTest = 8l;
+        String memberEmailTest = "member1@gmail.com";
 
-        //Long spotIdTest = 8l;
-        //String memberEmailTest = "member1@gmail.com";
+        //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함) TODO: 실제 운영할 코드임
+        //String memberEmail = jwtTokenProvider.getUserPk(accesstoken);
 
-        //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함)
-        String memberEmail = jwtTokenProvider.getUserPk(accesstoken);
-
-        SpotDetailDto spotDetailDto = spotService.spotPage(spotId, memberEmail,pageable);
+        SpotDetailDto spotDetailDto = spotService.spotPage(spotIdTest, memberEmailTest,pageable);
 
         return new SpotPageDto(200l,true,"성공",spotDetailDto);
 
@@ -70,22 +70,22 @@ public class SpotController {
 
         map = new LinkedHashMap();
         map.put("id",1);
-        map.put("name","view");
+        map.put("name","뷰");
         list.add(map);
 
         map = new LinkedHashMap();
         map.put("id",2);
-        map.put("name","price");
+        map.put("name","가격");
         list.add(map);
 
         map = new LinkedHashMap();
         map.put("id",3);
-        map.put("name","facility");
+        map.put("name","편의시설");
         list.add(map);
 
         map = new LinkedHashMap();
         map.put("id",4);
-        map.put("name","surround");
+        map.put("name","카페 및 식당");
         list.add(map);
 
         CategoryDto categoryDto = new CategoryDto(list);

@@ -66,7 +66,7 @@ public class SpotListService {
         log.info("mainPageForm.getUserWeightDto() = {}",mainPageForm.getUserWeight());
 
 
-
+        //이거 실험용 데이터임 TODO: 실험용 데이터임
 //        mainPageForm.setPage(0);
 //        mainPageForm.setPage(10);
 //        PageRequest pageRequest = PageRequest.of(mainPageForm.getPage(), mainPageForm.getSize());

@@ -42,8 +42,8 @@ public class SpotService {
         Optional<Member> member = memberRepository.findOptionByEmail(memberEmail);
         log.info("member = {}",member);
 
-        //이거 실험용 데이터임
-        PageRequest pageRequest = PageRequest.of(0,10);
+        //이거 실험용 데이터임 TODO: 실험용 데이터임
+        PageRequest pageRequest = PageRequest.of(1,3);
 
         Page<ReviewDto> reviewDtoList = reviewRepository.searchSpotReview(spot.get(), pageRequest);
 
