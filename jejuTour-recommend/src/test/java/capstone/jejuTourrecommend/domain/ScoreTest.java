@@ -57,6 +57,20 @@ class ScoreTest {
     }
 
     @Test
+    public void abstract_test() throws Exception{
+
+
+
+        //given
+
+        //when
+
+        //then
+    }
+
+ 
+
+    @Test
     public void tag_Test() throws Exception{
         //given
         Map map;
