@@ -18,7 +18,7 @@ import java.util.List;
 
 import static capstone.jejuTourrecommend.domain.QReview.*;
 
-
+//
 @Slf4j
 @Transactional
 public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
