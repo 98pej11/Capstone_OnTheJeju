@@ -15,7 +15,9 @@ public class MainPageForm {
     private String location;
     private String category;
 
-    private Map<String, Double> userWeight;
+    private UserWeightDto userWeightDto;
+
+    //private Map<String, Double> userWeight;
 
 
 

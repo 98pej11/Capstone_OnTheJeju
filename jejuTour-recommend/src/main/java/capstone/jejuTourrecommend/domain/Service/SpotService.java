@@ -5,6 +5,7 @@ import capstone.jejuTourrecommend.domain.Member;
 import capstone.jejuTourrecommend.domain.MemberSpot;
 import capstone.jejuTourrecommend.domain.Spot;
 import capstone.jejuTourrecommend.repository.*;
+import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.spotPage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,29 +37,30 @@ public class SpotService {
 
     public SpotDetailDto spotPage(Long spotId, String memberEmail, Pageable pageable){
 
-        Optional<Spot> spot = spotRepository.findOptionById(spotId);
-        Optional<SpotDto> spotDto = spot.map(spot1 -> new SpotDto(spot1));
+        Spot spot = spotRepository.findOptionById(spotId)
+                .orElseThrow(() -> new UserException("spotId가 올바르지 않습니다."));
+        SpotDto spotDto = new SpotDto(spot);
 
-        Optional<Member> member = memberRepository.findOptionByEmail(memberEmail);
+        Member member = memberRepository.findOptionByEmail(memberEmail)
+                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
         log.info("member = {}",member);
 
         //이거 실험용 데이터임 TODO: 실험용 데이터임
-        PageRequest pageRequest = PageRequest.of(1,3);
+        //PageRequest pageRequest = PageRequest.of(1,3);
 
-        Page<ReviewDto> reviewDtoList = reviewRepository.searchSpotReview(spot.get(), pageRequest);
+        Page<ReviewDto> reviewDtoList = reviewRepository.searchSpotReview(spot, pageable);
 
 
         List<PictureDto> pictureDtoList = pictureRepository.findBySpot(
-                        spot.get()).stream().map(picture -> new PictureDto(picture))
+                        spot).stream().map(picture -> new PictureDto(picture))
                 .collect(Collectors.toList());
 
-        Double userScore = memberSpotRepository.findBySpotAndMember(spot.get(), member.get())
-                .orElseGet(()->new MemberSpot(0d)).getScore();
+        Double userScore = memberSpotRepository.findBySpotAndMember(spot, member)
+                .orElseGet(()->new MemberSpot(0d)).getScore();// 없으면 0값 반환
 
-        ScoreDto scoreDto = spotRepository.searchScore(spot.get());
+        ScoreDto scoreDto = spotRepository.searchScore(spot);
 
-
-        return new SpotDetailDto(spotDto.get(),scoreDto,pictureDtoList,
+        return new SpotDetailDto(spotDto,scoreDto,pictureDtoList,
                 reviewDtoList, userScore.doubleValue());
 
     }

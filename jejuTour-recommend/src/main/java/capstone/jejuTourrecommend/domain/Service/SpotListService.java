@@ -5,6 +5,7 @@ import capstone.jejuTourrecommend.domain.Location;
 import capstone.jejuTourrecommend.domain.Member;
 import capstone.jejuTourrecommend.repository.MemberRepository;
 import capstone.jejuTourrecommend.repository.SpotRepository;
+import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.mainPage.MainPageForm;
 import capstone.jejuTourrecommend.web.mainPage.ResultSpotListDto;
 import capstone.jejuTourrecommend.web.mainPage.SpotListDto;
@@ -33,6 +34,7 @@ public class SpotListService {
 
     private final EntityManager em;
 
+    //이부분 없어도 됨
     public ResultSpotListDto getSpotList(MainPageForm mainPageForm, Pageable pageable){
 
         Location location = findLocation(mainPageForm);
@@ -63,7 +65,7 @@ public class SpotListService {
         log.info("location = {} ",location);
         //mainPageForm.setCategory(Category.VIEW);
         log.info("category = {} ",category);
-        log.info("mainPageForm.getUserWeightDto() = {}",mainPageForm.getUserWeight());
+        log.info("mainPageForm.getUserWeightDto() = {}",mainPageForm.getUserWeightDto());
 
 
         //이거 실험용 데이터임 TODO: 실험용 데이터임
@@ -71,7 +73,8 @@ public class SpotListService {
 //        mainPageForm.setPage(10);
 //        PageRequest pageRequest = PageRequest.of(mainPageForm.getPage(), mainPageForm.getSize());
 
-        if(mainPageForm.getUserWeight()==null) {
+        //사용자가 가중치를 입력 안한 경우
+        if(mainPageForm.getUserWeightDto()==null) {
             Page<SpotListDto> result = spotRepository.searchSpotByLocationAndCategory(
                     location, category, pageable);
 
@@ -80,19 +83,20 @@ public class SpotListService {
 
             return new ResultSpotListDto(200l,true,"성공",result);
         }
-        else {
+        else {//사용자가 가중치를 넣은 경우
             UserWeightDto userWeightDto = new UserWeightDto(
-                    mainPageForm.getUserWeight().get("viewWeight").doubleValue(),
-                    mainPageForm.getUserWeight().get("priceWeight").doubleValue(),
-                    mainPageForm.getUserWeight().get("facilityWeight").doubleValue(),
-                    mainPageForm.getUserWeight().get("surroundWeight").doubleValue()
+                    mainPageForm.getUserWeightDto().getViewWeight(),
+                    mainPageForm.getUserWeightDto().getPriceWeight(),
+                    mainPageForm.getUserWeightDto().getFacilityWeight(),
+                    mainPageForm.getUserWeightDto().getSurroundWeight()
             );
             log.info("userWeightDto = {}",userWeightDto);
 
-            Optional<Member> optionByEmail = memberRepository.findOptionByEmail(memberEmail);
+            Member member = memberRepository.findOptionByEmail(memberEmail)
+                    .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
             Page<SpotListDto> resultPriority = spotRepository.searchSpotByUserPriority(
-                    optionByEmail.get().getId(), location, userWeightDto, pageable);
+                    member.getId(), location, userWeightDto, pageable);
 
             em.flush();
             em.clear();

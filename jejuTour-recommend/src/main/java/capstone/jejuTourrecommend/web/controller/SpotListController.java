@@ -32,7 +32,7 @@ public class SpotListController {
 
 
 
-    @PostMapping("/spotList")
+    //@PostMapping("/spotList")
     public ResultSpotListDto getSpot(@RequestBody MainPageForm mainPageForm, Pageable pageable){
 
         //이거 실험용 데이터임 TODO: 실험용 데이터임
@@ -56,23 +56,23 @@ public class SpotListController {
 
     //프런트에서 객체단위로 줄수 있나?//그냥 변수 이름만 맞추면 되나?
 
-    @PostMapping("/spotList/priority")//일단 토큰은 배재하고 검색해보자
+    @PostMapping("/user/spotList/priority")//일단 토큰은 배재하고 검색해보자
     public ResultSpotListDto postSpot(@RequestBody MainPageForm mainPageForm,
                                       Pageable pageable,@RequestHeader("ACCESS-TOKEN") String accesstoken){
 
         //이거 실험용 데이터임 TODO: 실험용 데이터임
-        String memberEmailTest = "member1@gmail.com";
+        //String memberEmailTest = "member1@gmail.com";
 
         //이거 실제 데이터임 TODO: 실제 데이터임
         //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함)
         String memberEmail = jwtTokenProvider.getUserPk(accesstoken);
 
 
-        log.info("memberId = {}",memberEmailTest);
+        log.info("memberId = {}",memberEmail);
         log.info("pageable = {}",pageable);
 
         ResultSpotListDto resultSpotListDto = spotListService
-                .postSpotList(mainPageForm, memberEmailTest, pageable);
+                .postSpotList(mainPageForm, memberEmail, pageable);
 
         return resultSpotListDto;
 

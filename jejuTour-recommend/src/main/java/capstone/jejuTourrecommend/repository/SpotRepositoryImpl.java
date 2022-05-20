@@ -87,6 +87,8 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
         return PageableExecutionUtils.getPage(contents, pageable, countQuery::fetchOne);
     }
 
+
+    //가중치가 있을 경우의 쿼리
     @Transactional
     @Override
     public Page<SpotListDto> searchSpotByUserPriority(Long memberId, Location location, UserWeightDto userWeightDto, Pageable pageable) {
@@ -97,8 +99,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
         log.info("location = {}",location);
         log.info("userWeight = {}",userWeightDto);
 
-
-
+        //지금 가중치를 업데이트 한 것임
         queryFactory
                 .update(memberSpot)
                 .set(memberSpot.score,
@@ -106,7 +107,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                         )
                 .where(memberSpot.member.id.eq(memberId))
                 .execute();
-
+        //지금 점수는 업데이트 했는데 이게 상위 몇퍼센트인지 구할려고 하는 것임
 
         List<SpotListDto> contents = queryFactory
                 .select(new QSpotListDto(

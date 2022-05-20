@@ -7,6 +7,7 @@ import capstone.jejuTourrecommend.domain.Member;
 import capstone.jejuTourrecommend.domain.Spot;
 import capstone.jejuTourrecommend.repository.*;
 import capstone.jejuTourrecommend.web.favoritePage.FavoriteDto;
+import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.Optional;
+import java.util.function.ToDoubleBiFunction;
 
 @Slf4j
 @Service
@@ -33,15 +35,17 @@ public class FavoriteService {
 
     private final EntityManager em;
 
-
+    //사용자의 위시리스트 목록 "폼" 보여주기
     public Page<FavoriteDto> getFavoriteList(String memberEmail, Pageable pageable){
 
-        Optional<Member> member = memberRepository.findOptionByEmail(memberEmail);
 
-    ///이거 수정행야함 이거 테스트 데이터임
-        PageRequest pageRequest = PageRequest.of(0,100);
+        Member member = memberRepository.findOptionByEmail(memberEmail)
+                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
-        Page<FavoriteDto> favoriteDtoPage = favoriteRepository.findByMember(member.get(),pageRequest)
+        //이거 실험용 데이터임 TODO: 실험용 데이터임
+        //PageRequest pageRequest = PageRequest.of(0,100);
+
+        Page<FavoriteDto> favoriteDtoPage = favoriteRepository.findByMember(member,pageable)
                 .map(favorite -> new FavoriteDto(favorite.getId(), favorite.getName()));
 
 
@@ -55,14 +59,23 @@ public class FavoriteService {
     public void postFavoriteForm(String memberEmail, Long spotId, Long favoriteId){
 
         //솔직히 멤버 정보는 필요 없음 어차피 해당 favorite 은 member 와 연결되어 있음
-        Optional<Member> member = memberRepository.findOptionByEmail(memberEmail);
+        //Optional<Member> member = memberRepository.findOptionByEmail(memberEmail);
 
-        Optional<Spot> spot = spotRepository.findOptionById(spotId);
+        //Todo: 여기서 관광지 넣을때 중복 체크해줘야함
 
-        Optional<Favorite> favorite = favoriteRepository.findOptionById(favoriteId);
+        Spot spot = spotRepository.findOptionById(spotId)
+                .orElseThrow(() -> new UserException("관광지 id가 맞지 않습니다"));
 
-        FavoriteSpot favoriteSpot = new FavoriteSpot(favorite.get(),spot.get());
+        Favorite favorite = favoriteRepository.findOptionById(favoriteId)
+                .orElseThrow(() -> new UserException("위시리스트 id가 맞지 않습니다"));
 
+        Optional<FavoriteSpot> result = favoriteSpotRepository.findOptionBySpotIdAndFavoriteId(spot.getId(), favorite.getId());
+        if(result.isPresent()){
+            throw new UserException("위시리스트에 중복된 관광지가 들어 있습니다.");
+        }
+
+
+        FavoriteSpot favoriteSpot = new FavoriteSpot(favorite,spot);
         favoriteSpotRepository.save(favoriteSpot);
 
     }
@@ -72,7 +85,8 @@ public class FavoriteService {
     // 선택한 관광지 정보, 사용자 정보, 위시리스트 이름 필요
     public void newFavoriteListO(String memberEmail, Long spotId, String favoriteName){
 
-        Optional<Member> member = memberRepository.findOptionByEmail(memberEmail);
+        Member member = memberRepository.findOptionByEmail(memberEmail)
+                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
         Optional<Spot> spot = spotRepository.findOptionById(spotId);
 
@@ -80,7 +94,7 @@ public class FavoriteService {
         // 회원객체와 장소 객체 가져오고
         // favorite하고 favoritespot을 생성하고 넣기
 
-        Favorite favorite = new Favorite(favoriteName,member.get());
+        Favorite favorite = new Favorite(favoriteName,member);
 
         favoriteRepository.save(favorite);
 
@@ -90,12 +104,13 @@ public class FavoriteService {
 
     }
 
-    //있으면 위시리스트 생성 및 관광지 추가, 없으면 그냥 위시리스트 생성
+    //관광지가 없기에 새로운 위시리스트 추가만 함
     public void newFavoriteListX(String memberEmail, String favoriteName){
 
-        Optional<Member> member = memberRepository.findOptionByEmail(memberEmail);
+        Member member = memberRepository.findOptionByEmail(memberEmail)
+                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
-        Favorite favorite = new Favorite(favoriteName,member.get());
+        Favorite favorite = new Favorite(favoriteName,member);
 
         favoriteRepository.save(favorite);
 

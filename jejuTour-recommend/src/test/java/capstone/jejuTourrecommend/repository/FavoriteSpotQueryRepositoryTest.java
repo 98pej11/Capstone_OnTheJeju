@@ -56,7 +56,7 @@ class FavoriteSpotQueryRepositoryTest {
         em.clear();
 
         List<FavoriteSpot> favoriteSpotList1 =
-                favoriteSpotRepository.findOptionByFavoriteId(favorite.getId());
+                favoriteSpotRepository.findByFavoriteId(favorite.getId());
 
         assertThat(favoriteSpotList1.size()).isEqualTo(6);
 
@@ -65,7 +65,7 @@ class FavoriteSpotQueryRepositoryTest {
         favoriteSpotQueryRepository.deleteFavoriteSpot(favorite.getId());
 
         List<FavoriteSpot> favoriteSpotList2 =
-                favoriteSpotRepository.findOptionByFavoriteId(favorite.getId());
+                favoriteSpotRepository.findByFavoriteId(favorite.getId());
 
 
 
