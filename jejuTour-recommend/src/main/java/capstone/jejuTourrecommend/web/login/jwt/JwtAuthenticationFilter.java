@@ -32,7 +32,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
     //Todo: 여기 지금 테스트하느라 넣은 화이트리스트 있음 마지막 배포때는 없애줄건 없애 줘야함
     private static final String[] whiteList = {"/login", "/token/refresh",
-            "/join", "/test/*","/spotList/*","/error","/spot/*"};
+            "/join", "/test/*","/spotList/*","/error","/spot/*","/route/*"};
 
     //이 필터가 요청을 가로채서 jwt토근이 유효한지 판단한다, 유효하면 다시 요청을 진행한다
     @Override
