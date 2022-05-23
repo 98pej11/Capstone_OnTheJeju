@@ -53,9 +53,12 @@ public class FavoriteSpotQueryRepository {
                         )
                 )
                 .from(favoriteSpot)
+                .join(favoriteSpot.spot,spot)//명시적 조인
                 //.join(favoriteSpot.spot, spot).fetchJoin()
                 .where(favoriteSpot.favorite.id.eq(favoriteId))
                 .fetch();
+
+
 
         return spotListDtoList;
 
@@ -68,7 +71,8 @@ public class FavoriteSpotQueryRepository {
         List<Spot> spotList = queryFactory
                 .select(spot)
                 .from(favoriteSpot)
-                .join(favoriteSpot.spot, spot).fetchJoin()
+                .join(favoriteSpot.spot,spot)//명시적 조인
+                //.join(favoriteSpot.spot, spot).fetchJoin()
                 .where(favoriteIdEq(favoriteId))
                 .fetch();
 
@@ -182,7 +186,6 @@ public class FavoriteSpotQueryRepository {
     }
 
 }
-
 
 
 
