@@ -22,7 +22,7 @@ public class RouteController {
 
     private final RouteService routeService;
 
-    @GetMapping("/route/spot/{favoriteId}")
+    @GetMapping("/user/route/spot/{favoriteId}")
     public ResultFavoriteSpotList favoriteRoute(@PathVariable Long favoriteId){
 
         Long favoriteIdTest = 3l;
@@ -30,11 +30,9 @@ public class RouteController {
         List<SpotListDto> spotListDtos = routeService.favoriteSpotList(favoriteIdTest);
 
         return new ResultFavoriteSpotList(200l,true,"성공",spotListDtos);
-
-
     }
 
-    @GetMapping("/route/topList/{favoriteId}")
+    @GetMapping("/user/route/topList/{favoriteId}")
     public ResultTopSpot topList(@PathVariable Long favoriteId){
 
         Long favoriteIdTest = 3l;

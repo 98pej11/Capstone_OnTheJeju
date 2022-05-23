@@ -52,8 +52,8 @@ public class FavoriteSpotQueryRepository {
                                         .where(picture.spot.id.eq(favoriteSpot.spot.id))
                         )
                 )
-                //.join(favoriteSpot.spot, spot).fetchJoin()
                 .from(favoriteSpot)
+                //.join(favoriteSpot.spot, spot).fetchJoin()
                 .where(favoriteSpot.favorite.id.eq(favoriteId))
                 .fetch();
 
@@ -67,8 +67,8 @@ public class FavoriteSpotQueryRepository {
 
         List<Spot> spotList = queryFactory
                 .select(spot)
-                //.join(favoriteSpot.spot, spot).fetchJoin()
                 .from(favoriteSpot)
+                .join(favoriteSpot.spot, spot).fetchJoin()
                 .where(favoriteIdEq(favoriteId))
                 .fetch();
 
