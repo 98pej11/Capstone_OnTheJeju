@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.mainPage;
+package capstone.jejuTourrecommend.web.pageDto.mainPage;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;

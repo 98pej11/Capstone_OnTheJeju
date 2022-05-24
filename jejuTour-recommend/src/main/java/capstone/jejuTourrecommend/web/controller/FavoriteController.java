@@ -3,9 +3,9 @@ package capstone.jejuTourrecommend.web.controller;
 
 import capstone.jejuTourrecommend.domain.Service.FavoriteService;
 import capstone.jejuTourrecommend.web.GlobalDto;
-import capstone.jejuTourrecommend.web.favoritePage.FavoriteDto;
-import capstone.jejuTourrecommend.web.favoritePage.FavoriteListDto;
-import capstone.jejuTourrecommend.web.favoritePage.FavoriteNewForm;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteListDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteNewForm;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

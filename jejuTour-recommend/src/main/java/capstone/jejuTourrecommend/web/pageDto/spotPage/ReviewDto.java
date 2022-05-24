@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.spotPage;
+package capstone.jejuTourrecommend.web.pageDto.spotPage;
 
 import capstone.jejuTourrecommend.domain.Review;
 import capstone.jejuTourrecommend.domain.Spot;

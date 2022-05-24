@@ -2,16 +2,13 @@ package capstone.jejuTourrecommend.web.controller;
 
 
 import capstone.jejuTourrecommend.domain.Service.RouteService;
-import capstone.jejuTourrecommend.web.mainPage.ResultSpotListDto;
-import capstone.jejuTourrecommend.web.mainPage.SpotListDto;
-import capstone.jejuTourrecommend.web.routePage.ResultFavoriteSpotList;
-import capstone.jejuTourrecommend.web.routePage.ResultTopSpot;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.routePage.ResultFavoriteSpotList;
+import capstone.jejuTourrecommend.web.pageDto.routePage.ResultTopSpot;
+import capstone.jejuTourrecommend.web.pageDto.routePage.RouteForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,12 +29,13 @@ public class RouteController {
         return new ResultFavoriteSpotList(200l,true,"성공",spotListDtos);
     }
 
-    @GetMapping("/user/route/topList/{favoriteId}")
-    public ResultTopSpot topList(@PathVariable Long favoriteId){
+    @PostMapping("/route/topList/{favoriteId}")
+    public ResultTopSpot topList(@PathVariable Long favoriteId, @RequestBody RouteForm routeForm){
 
         Long favoriteIdTest = 3l;
+        log.info("routeForm.getSpotIdList() = {}", routeForm.getSpotIdList());
 
-        List list = routeService.recommentSpotList(favoriteIdTest);
+        List list = routeService.recommentSpotList(favoriteIdTest, routeForm);
 
         return new ResultTopSpot(200l, true, "성공",list);
 

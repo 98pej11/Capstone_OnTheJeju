@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.favoritePage;
+package capstone.jejuTourrecommend.web.pageDto.favoritePage;
 
 
 import lombok.Data;

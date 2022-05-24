@@ -1,15 +1,11 @@
 package capstone.jejuTourrecommend.web.controller;
 
 import capstone.jejuTourrecommend.domain.Service.SpotService;
-import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.login.exhandler.ErrorResult;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
-import capstone.jejuTourrecommend.web.mainPage.CategoryDto;
-import capstone.jejuTourrecommend.web.mainPage.RegionDto;
-import capstone.jejuTourrecommend.web.mainPage.SpotListMetaDto;
-import capstone.jejuTourrecommend.web.spotPage.SpotDetailDto;
-import capstone.jejuTourrecommend.web.spotPage.SpotMetaDto;
-import capstone.jejuTourrecommend.web.spotPage.SpotPageDto;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.CategoryDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.SpotDetailDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.SpotMetaDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.SpotPageDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;

@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.routePage;
+package capstone.jejuTourrecommend.web.pageDto.routePage;
 
 
 import lombok.Data;

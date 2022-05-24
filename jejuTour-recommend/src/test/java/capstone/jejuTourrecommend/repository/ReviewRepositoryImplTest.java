@@ -2,7 +2,7 @@ package capstone.jejuTourrecommend.repository;
 
 import capstone.jejuTourrecommend.domain.Review;
 import capstone.jejuTourrecommend.domain.Spot;
-import capstone.jejuTourrecommend.web.spotPage.ReviewDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.ReviewDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 @Slf4j

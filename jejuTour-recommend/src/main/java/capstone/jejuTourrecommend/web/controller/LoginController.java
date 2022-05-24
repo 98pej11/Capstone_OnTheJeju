@@ -141,7 +141,7 @@ public class LoginController {
 //    }
 
 
-    @PostMapping("/user/test")
+    @GetMapping("/user/test")
     public Map userResponseTest() {
 
         //생각해보니깐 알아서 검증이 되네 그 로직은 jwt 패키지에 있음
@@ -163,19 +163,14 @@ public class LoginController {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+

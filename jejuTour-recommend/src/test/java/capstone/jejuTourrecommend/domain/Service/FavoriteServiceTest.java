@@ -5,9 +5,8 @@ import capstone.jejuTourrecommend.domain.FavoriteSpot;
 import capstone.jejuTourrecommend.domain.Member;
 import capstone.jejuTourrecommend.domain.Spot;
 import capstone.jejuTourrecommend.repository.*;
-import capstone.jejuTourrecommend.web.favoritePage.FavoriteDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteDto;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest

@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.errorPage;
+package capstone.jejuTourrecommend.web.pageDto.errorPage;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

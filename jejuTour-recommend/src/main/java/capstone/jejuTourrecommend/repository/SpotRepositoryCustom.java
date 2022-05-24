@@ -3,9 +3,9 @@ package capstone.jejuTourrecommend.repository;
 import capstone.jejuTourrecommend.domain.Category;
 import capstone.jejuTourrecommend.domain.Location;
 import capstone.jejuTourrecommend.domain.Spot;
-import capstone.jejuTourrecommend.web.mainPage.SpotListDto;
-import capstone.jejuTourrecommend.web.mainPage.UserWeightDto;
-import capstone.jejuTourrecommend.web.spotPage.ScoreDto;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.UserWeightDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.ScoreDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

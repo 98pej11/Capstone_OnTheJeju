@@ -2,12 +2,14 @@ package capstone.jejuTourrecommend.repository;
 
 
 import capstone.jejuTourrecommend.domain.*;
+import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.mainPage.QSpotListDto;
-import capstone.jejuTourrecommend.web.mainPage.QSpotScoreDto;
-import capstone.jejuTourrecommend.web.mainPage.SpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.routePage.RouteForm;
 import capstone.jejuTourrecommend.web.routePage.QRouteSpotListDto;
-import capstone.jejuTourrecommend.web.routePage.RouteSpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.routePage.RouteSpotListDto;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.CollectionExpression;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
@@ -21,7 +23,6 @@ import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import static capstone.jejuTourrecommend.domain.QFavorite.favorite;
 import static capstone.jejuTourrecommend.domain.QFavoriteSpot.favoriteSpot;
 import static capstone.jejuTourrecommend.domain.QPicture.picture;
 import static capstone.jejuTourrecommend.domain.QSpot.spot;
@@ -64,17 +65,30 @@ public class FavoriteSpotQueryRepository {
 
     }
 
+    @Transactional
+    public FavoriteSpot existSpot(Long favoriteId, RouteForm routeForm){
+        FavoriteSpot favoriteSpot = queryFactory
+                .selectFrom(QFavoriteSpot.favoriteSpot)
+                .where(favoriteIdEq(favoriteId), spot.id.in(routeForm.getSpotIdList()))
+                .fetchOne();
+
+        return favoriteSpot;
+
+    }
 
     @Transactional
-    public List recommendSpotList(Long favoriteId){
+    public List recommendSpotList(Long favoriteId, RouteForm routeForm){
 
         List<Spot> spotList = queryFactory
                 .select(spot)
                 .from(favoriteSpot)
-                .join(favoriteSpot.spot,spot)//명시적 조인
-                //.join(favoriteSpot.spot, spot).fetchJoin()
-                .where(favoriteIdEq(favoriteId))
+                .join(favoriteSpot.spot,spot)//명시적 조인// 근데 여기서는 알아서 최적화를 해줌
+                .where(favoriteIdEq(favoriteId),spot.id.in(routeForm.getSpotIdList()))
                 .fetch();
+
+        if(isEmpty(spotList)){
+            throw new UserException("모든 spotId가 위시리스트에 있는 spotId가 아닙니다");
+        }
 
         List<Tuple> tupleList = queryFactory
                 .select(
@@ -148,7 +162,7 @@ public class FavoriteSpotQueryRepository {
                     .where(locationEq(location))
                     .orderBy(orderSpecifier)
                     .offset(0)
-                    .limit(4)
+                    .limit(10)
                     .fetch();
 
             list.add(spotListDtos);

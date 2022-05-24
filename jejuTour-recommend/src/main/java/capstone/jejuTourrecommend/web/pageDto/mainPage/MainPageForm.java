@@ -1,11 +1,6 @@
-package capstone.jejuTourrecommend.web.mainPage;
+package capstone.jejuTourrecommend.web.pageDto.mainPage;
 
-import capstone.jejuTourrecommend.domain.Category;
-import capstone.jejuTourrecommend.domain.Location;
 import lombok.Data;
-
-import java.util.List;
-import java.util.Map;
 
 @Data
 public class MainPageForm {

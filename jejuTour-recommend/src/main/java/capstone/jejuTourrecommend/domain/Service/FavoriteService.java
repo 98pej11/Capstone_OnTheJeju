@@ -6,20 +6,17 @@ import capstone.jejuTourrecommend.domain.FavoriteSpot;
 import capstone.jejuTourrecommend.domain.Member;
 import capstone.jejuTourrecommend.domain.Spot;
 import capstone.jejuTourrecommend.repository.*;
-import capstone.jejuTourrecommend.web.favoritePage.FavoriteDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteDto;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.Optional;
-import java.util.function.ToDoubleBiFunction;
 
 @Slf4j
 @Service

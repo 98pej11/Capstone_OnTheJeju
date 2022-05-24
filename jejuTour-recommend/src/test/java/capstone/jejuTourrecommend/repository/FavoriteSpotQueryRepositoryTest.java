@@ -1,7 +1,8 @@
 package capstone.jejuTourrecommend.repository;
 
 import capstone.jejuTourrecommend.domain.*;
-import capstone.jejuTourrecommend.web.mainPage.SpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.routePage.RouteForm;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,12 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
@@ -58,7 +59,7 @@ class FavoriteSpotQueryRepositoryTest {
         Favorite favorite = new Favorite("1일차",member1);
         em.persist(favorite);
 
-        FavoriteSpot[] favoriteSpots = new FavoriteSpot[100];
+        FavoriteSpot[] favoriteSpots = new FavoriteSpot[50];
 
         for(int i=0;i<100;i++){ //지역하고 score만
 
@@ -85,8 +86,12 @@ class FavoriteSpotQueryRepositoryTest {
             reviews[i] = new Review("content",spots[0]);
             em.persist(reviews[i]);
 
-            favoriteSpots[i] = new FavoriteSpot(favorite,spots[i]);
-            em.persist(favoriteSpots[i]);
+            if(i%2==0) {
+                favoriteSpots[i/2] = new FavoriteSpot(favorite, spots[i]);
+                em.persist(favoriteSpots[i/2]);
+                log.info("favoriteSpot = {}", favoriteSpots[i/2]);
+                log.info("Spot = {}", spots[i]);
+            }
 
         }
 
@@ -131,11 +136,32 @@ class FavoriteSpotQueryRepositoryTest {
     }
 
     @Test
+    public void exitSpotTest() throws Exception{
+        //given
+        Long favoriteId = 3l;
+        List<Long> spotIdList = Arrays.asList(10000l);
+        RouteForm routeForm = new RouteForm();
+        routeForm.setSpotIdList(spotIdList);
+
+        //when
+        FavoriteSpot favoriteSpot = favoriteSpotQueryRepository.existSpot(favoriteId, routeForm);
+
+        Assertions.assertThat(favoriteSpot).isNull();
+
+        //then
+    }
+
+    @Test
     public void recommendSpotListTest() throws Exception{
         //given
         Long favoriteId = 3l;
+        //8l, 23l, 38l
+        //72, 168, 800
+        List<Long> spotIdList = Arrays.asList(8l, 23l, 38l);
+        RouteForm routeForm = new RouteForm();
+        routeForm.setSpotIdList(spotIdList);
 
-        List list = favoriteSpotQueryRepository.recommendSpotList(favoriteId);
+        List list = favoriteSpotQueryRepository.recommendSpotList(favoriteId,routeForm);
 
         log.info("list.toString() = {}",list.toString());
 

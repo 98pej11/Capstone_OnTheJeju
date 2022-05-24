@@ -6,19 +6,14 @@ import capstone.jejuTourrecommend.domain.MemberSpot;
 import capstone.jejuTourrecommend.domain.Spot;
 import capstone.jejuTourrecommend.repository.*;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.spotPage.*;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -48,6 +43,7 @@ public class SpotService {
         //이거 실험용 데이터임 TODO: 실험용 데이터임
         //PageRequest pageRequest = PageRequest.of(1,3);
 
+        //리뷰 데이터 받아오기
         Page<ReviewDto> reviewDtoList = reviewRepository.searchSpotReview(spot, pageable);
 
 

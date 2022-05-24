@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.routePage;
+package capstone.jejuTourrecommend.web.pageDto.routePage;
 
 import capstone.jejuTourrecommend.domain.Location;
 import com.querydsl.core.annotations.QueryProjection;

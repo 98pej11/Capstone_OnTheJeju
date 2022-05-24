@@ -3,16 +3,14 @@ package capstone.jejuTourrecommend.domain.Service;
 
 import capstone.jejuTourrecommend.repository.*;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.spotPage.PictureDto;
-import capstone.jejuTourrecommend.web.spotPage.ReviewDto;
-import capstone.jejuTourrecommend.web.spotPage.ScoreDto;
-import capstone.jejuTourrecommend.web.spotPage.SpotDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.PictureDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.ReviewDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.ScoreDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.SpotDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Slf4j
 @Service

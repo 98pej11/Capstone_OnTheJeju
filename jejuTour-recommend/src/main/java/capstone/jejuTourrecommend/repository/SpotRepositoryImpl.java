@@ -2,7 +2,9 @@ package capstone.jejuTourrecommend.repository;
 
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.web.mainPage.*;
-import capstone.jejuTourrecommend.web.spotPage.ScoreDto;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.UserWeightDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.ScoreDto;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -20,7 +22,6 @@ import javax.persistence.EntityManager;
 
 import java.util.List;
 
-import static capstone.jejuTourrecommend.domain.QMember.member;
 import static capstone.jejuTourrecommend.domain.QMemberSpot.*;
 import static capstone.jejuTourrecommend.domain.QPicture.*;
 import static capstone.jejuTourrecommend.domain.QSpot.spot;

@@ -1,7 +1,7 @@
 package capstone.jejuTourrecommend.domain.Service;
 
 import capstone.jejuTourrecommend.domain.*;
-import capstone.jejuTourrecommend.web.spotPage.SpotDetailDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.SpotDetailDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,8 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import java.util.Random;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 @Slf4j

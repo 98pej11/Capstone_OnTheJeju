@@ -6,13 +6,12 @@ import capstone.jejuTourrecommend.domain.Member;
 import capstone.jejuTourrecommend.repository.MemberRepository;
 import capstone.jejuTourrecommend.repository.SpotRepository;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.mainPage.MainPageForm;
-import capstone.jejuTourrecommend.web.mainPage.ResultSpotListDto;
-import capstone.jejuTourrecommend.web.mainPage.SpotListDto;
-import capstone.jejuTourrecommend.web.mainPage.UserWeightDto;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.MainPageForm;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.ResultSpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.UserWeightDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
-import java.util.Optional;
 
 @Slf4j
 @Service

@@ -1,8 +1,9 @@
 package capstone.jejuTourrecommend.domain.Service;
 
 import capstone.jejuTourrecommend.repository.FavoriteSpotQueryRepository;
-import capstone.jejuTourrecommend.web.mainPage.ResultSpotListDto;
-import capstone.jejuTourrecommend.web.mainPage.SpotListDto;
+import capstone.jejuTourrecommend.repository.FavoriteSpotRepository;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.routePage.RouteForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class RouteService {
     private final EntityManager em;
 
     private final FavoriteSpotQueryRepository favoriteSpotQueryRepository;
+    private final FavoriteSpotRepository favoriteSpotRepository;
 
     public List<SpotListDto> favoriteSpotList(Long favoriteId){
 
@@ -29,9 +31,11 @@ public class RouteService {
 
     }
 
-    public List recommentSpotList(Long favoriteId){
+    public List recommentSpotList(Long favoriteId, RouteForm routeForm){
 
-        List list = favoriteSpotQueryRepository.recommendSpotList(favoriteId);
+        //favoriteSpotRepository.findOptionBySpotIdAndFavoriteId()
+
+        List list = favoriteSpotQueryRepository.recommendSpotList(favoriteId, routeForm);
 
         return list;
 

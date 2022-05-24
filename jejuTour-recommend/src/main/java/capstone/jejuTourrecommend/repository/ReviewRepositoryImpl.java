@@ -1,8 +1,7 @@
 package capstone.jejuTourrecommend.repository;
 
-import capstone.jejuTourrecommend.domain.QReview;
 import capstone.jejuTourrecommend.domain.Spot;
-import capstone.jejuTourrecommend.web.spotPage.ReviewDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.ReviewDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;

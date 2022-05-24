@@ -2,10 +2,10 @@ package capstone.jejuTourrecommend.web.controller;
 
 
 import capstone.jejuTourrecommend.domain.Service.TestService;
-import capstone.jejuTourrecommend.web.spotPage.PictureDto;
-import capstone.jejuTourrecommend.web.spotPage.ReviewDto;
-import capstone.jejuTourrecommend.web.spotPage.ScoreDto;
-import capstone.jejuTourrecommend.web.spotPage.SpotDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.PictureDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.ReviewDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.ScoreDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.SpotDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

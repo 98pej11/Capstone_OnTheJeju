@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.mainPage;
+package capstone.jejuTourrecommend.web.pageDto.mainPage;
 
 import lombok.Data;
 import org.springframework.data.domain.Page;
