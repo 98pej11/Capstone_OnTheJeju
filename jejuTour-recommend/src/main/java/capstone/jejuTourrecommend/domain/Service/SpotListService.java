@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
+import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -35,10 +37,11 @@ public class SpotListService {
     //이부분 없어도 됨
     public ResultSpotListDto getSpotList(MainPageForm mainPageForm, Pageable pageable){
 
-        Location location = findLocation(mainPageForm);
+        //Location location = findLocation(mainPageForm);
+        List locationList = findLocationList(mainPageForm);
         Category category = findCategory(mainPageForm);
 
-        log.info("location = {} ",location);
+        log.info("location = {} ",locationList);
         log.info("category = {} ",category);
 
 //        mainPageForm.setPage(0);
@@ -47,7 +50,7 @@ public class SpotListService {
 
 
         Page<SpotListDto> result = spotRepository
-                .searchSpotByLocationAndCategory(location, category, pageable);
+                .searchSpotByLocationAndCategory(locationList, category, pageable);
 
 
         return new ResultSpotListDto(200l,true,"성공",result);
@@ -56,11 +59,15 @@ public class SpotListService {
 
     public ResultSpotListDto postSpotList(MainPageForm mainPageForm,String memberEmail, Pageable pageable){
 
-        Location location = findLocation(mainPageForm);
+        //Location location = findLocation(mainPageForm);
+
+        List locationList = findLocationList(mainPageForm);
+
         Category category = findCategory(mainPageForm);
 
         //mainPageForm.setLocation(Location.Andeok_myeon);
-        log.info("location = {} ",location);
+        //log.info("location = {} ",location);
+        log.info("location = {}", locationList);
         //mainPageForm.setCategory(Category.VIEW);
         log.info("category = {} ",category);
         log.info("mainPageForm.getUserWeightDto() = {}",mainPageForm.getUserWeightDto());
@@ -74,7 +81,7 @@ public class SpotListService {
         //사용자가 가중치를 입력 안한 경우
         if(mainPageForm.getUserWeightDto()==null) {
             Page<SpotListDto> result = spotRepository.searchSpotByLocationAndCategory(
-                    location, category, pageable);
+                    locationList, category, pageable);
 
             em.flush();
             em.clear();
@@ -94,7 +101,7 @@ public class SpotListService {
                     .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
             Page<SpotListDto> resultPriority = spotRepository.searchSpotByUserPriority(
-                    member.getId(), location, userWeightDto, pageable);
+                    member.getId(), locationList, userWeightDto, pageable);
 
             em.flush();
             em.clear();
@@ -177,6 +184,51 @@ public class SpotListService {
         }
 
         return location;
+    }
+
+    public List findLocationList(MainPageForm mainPageForm) {
+        log.info("mainPageLocation = {}",mainPageForm.getLocation());
+        List list = null;
+        if(!StringUtils.hasText(mainPageForm.getLocation())){
+            log.info("카테고리에 null 값이 들어갔습니다");
+            throw new UserException("카테고리에 null 값이 들어갔습니다");
+        }
+        /**
+         * 북 : 애월읍,제주시,조천읍,구좌읍,우도면
+         * 동 : 남원읍, 표선면, 성산읍
+         * 서 : 한림읍, 한경면, 대정읍, 안덕면
+         * 남 : 서귀포시
+         */
+
+
+
+        if(mainPageForm.getLocation().equals("북부")){
+            List northList = Arrays.asList(Location.Aewol_eup,Location.Jeju_si,Location.Jocheon_eup,Location.Gujwa_eup,Location.Udo_myeon);
+            return northList;
+        }
+        else if(mainPageForm.getLocation().equals("동부")){
+            List eastList = Arrays.asList(Location.Namwon_eup,Location.Pyoseon_myeon,Location.Seongsan_eup);
+            return eastList;
+        }
+        else if(mainPageForm.getLocation().equals("서부")){
+            List westList = Arrays.asList(Location.Hallim_eup,Location.Hangyeong_myeon,Location.Daejeong_eup,Location.Andeok_myeon);
+            return westList;
+        }
+        else if(mainPageForm.getLocation().equals("남부")){
+            List southList = Arrays.asList(Location.Seogwipo_si);
+            return southList;
+        }else if(mainPageForm.getLocation().equals("전체")){
+            List allList = Arrays.asList(Location.Jeju_si,Location.Aewol_eup,Location.Hallim_eup,
+                    Location.Hangyeong_myeon,Location.Jocheon_eup,Location.Gujwa_eup,
+                    Location.Daejeong_eup,Location.Andeok_myeon,Location.Seogwipo_si,
+                    Location.Namwon_eup,Location.Pyoseon_myeon,Location.Seongsan_eup,Location.Udo_myeon
+            );
+            return allList;
+        }else {
+            throw new UserException("카테고리의 제대로된 입력값을 넣어야 합니다");
+        }
+
+
     }
 
 

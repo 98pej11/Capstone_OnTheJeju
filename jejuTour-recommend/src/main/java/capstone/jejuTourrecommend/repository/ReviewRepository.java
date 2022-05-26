@@ -12,6 +12,8 @@ public interface ReviewRepository extends JpaRepository<Review,Long>, ReviewRepo
 
     List<Review> findBySpot(Spot spot);
 
+    List<Review> findBySpotId(Long spotId);//여기서 페이징으로 반환하여 가능하기는 한데 count 셀때 다로 쿼리 날려야함
+
 }
 
 

@@ -3,11 +3,10 @@ package capstone.jejuTourrecommend.web.controller;
 import capstone.jejuTourrecommend.domain.Service.SpotService;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.CategoryDto;
-import capstone.jejuTourrecommend.web.pageDto.spotPage.SpotDetailDto;
-import capstone.jejuTourrecommend.web.pageDto.spotPage.SpotMetaDto;
-import capstone.jejuTourrecommend.web.pageDto.spotPage.SpotPageDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +44,19 @@ public class SpotController {
         SpotDetailDto spotDetailDto = spotService.spotPage(spotId, memberEmail,pageable);
 
         return new SpotPageDto(200l,true,"성공",spotDetailDto);
+
+    }
+
+    @GetMapping("/spot/review/{spotId}")
+    public ReviewListDto reviewPage(@PathVariable Long spotId,
+                                    @RequestHeader("ACCESS-TOKEN") String accesstoken,
+                                    Pageable pageable){
+        log.info("spotId = {}",spotId);
+
+        Page<ReviewDto> reviewDtos = spotService.reviewPage(spotId, pageable);
+
+        return new ReviewListDto(200l,true,"성공",reviewDtos);
+
 
     }
 

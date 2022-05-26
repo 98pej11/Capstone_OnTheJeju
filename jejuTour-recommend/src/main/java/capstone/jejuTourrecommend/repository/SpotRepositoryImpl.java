@@ -38,11 +38,11 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     }
 
     @Override
-    public Page<SpotListDto> searchSpotByLocationAndCategory(Location location, Category category, Pageable pageable) {
+    public Page<SpotListDto> searchSpotByLocationAndCategory(List locationList, Category category, Pageable pageable) {
 
         OrderSpecifier<Double> orderSpecifier;
 
-        log.info("location = {}",location);
+        log.info("location = {}",locationList);
         log.info("category = {}",category);
 
         if(category==Category.VIEW)
@@ -73,7 +73,8 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                         )
                 )
                 .from(spot)
-                .where(locationEq(location))
+                //.where(locationEq(location))
+                .where(spot.location.in(locationList))
                 .orderBy(orderSpecifier)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -83,7 +84,9 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
         JPAQuery<Long> countQuery = queryFactory
                 .select(spot.count())
                 .from(spot)
-                .where(locationEq(location));
+                //.where(locationEq(location))
+                .where(spot.location.in(locationList))
+                ;
 
         return PageableExecutionUtils.getPage(contents, pageable, countQuery::fetchOne);
     }
@@ -92,12 +95,12 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     //가중치가 있을 경우의 쿼리
     @Transactional
     @Override
-    public Page<SpotListDto> searchSpotByUserPriority(Long memberId, Location location, UserWeightDto userWeightDto, Pageable pageable) {
+    public Page<SpotListDto> searchSpotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto, Pageable pageable) {
 
         OrderSpecifier<Double> orderSpecifier=null;
 
         log.info("memberId = {}",memberId);
-        log.info("location = {}",location);
+        log.info("location = {}",locationList);
         log.info("userWeight = {}",userWeightDto);
 
         //지금 가중치를 업데이트 한 것임
@@ -123,7 +126,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                         )
                 )
                 .from(memberSpot)
-                .where(location1Eq(location),memberEq(memberId))
+                .where(spot.location.in(locationList),memberEq(memberId))
                 .orderBy(memberSpot.score.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -132,7 +135,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
         JPAQuery<Long> countQuery = queryFactory
                 .select(memberSpot.count())
                 .from(memberSpot)
-                .where(location1Eq(location),memberEq(memberId));
+                .where(spot.location.in(locationList),memberEq(memberId));
 
         return PageableExecutionUtils.getPage(contents, pageable, countQuery::fetchOne);
 

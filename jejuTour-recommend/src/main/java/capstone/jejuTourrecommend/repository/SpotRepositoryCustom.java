@@ -9,13 +9,14 @@ import capstone.jejuTourrecommend.web.pageDto.spotPage.ScoreDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 
 
 public interface SpotRepositoryCustom {
 
-    Page<SpotListDto> searchSpotByLocationAndCategory(Location location, Category category, Pageable pageable);
+    Page<SpotListDto> searchSpotByLocationAndCategory(List locationList, Category category, Pageable pageable);
 
-    Page<SpotListDto> searchSpotByUserPriority(Long memberId, Location location, UserWeightDto userWeightDto, Pageable pageable);
+    Page<SpotListDto> searchSpotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto, Pageable pageable);
 
     //Page<SpotDetailDto> searchSpotDetail(String spotName);
 

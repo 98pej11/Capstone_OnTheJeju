@@ -122,7 +122,7 @@ class SpotListServiceTest {
 
         //ToDo: 사용자가 location 유무, 케테고리 유무, 가중치 유무에따라 반환되는 값 다름
         //mainPageForm.setLocation("안덕면");
-        mainPageForm.setLocation(null);
+        mainPageForm.setLocation("전체");
         //mainPageForm.setCategory("view");
         mainPageForm.setCategory(null);
         //mainPageForm.setUserWeightDto(userWeightDto);

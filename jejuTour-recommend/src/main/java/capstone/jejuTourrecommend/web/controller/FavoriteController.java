@@ -70,7 +70,7 @@ public class FavoriteController {
 
     //새로운 위시 리스트를 만들고 해당 관광지 넣기
     // 선택한 관광지 정보, 사용자 정보, 위시리스트 이름 필요
-    @GetMapping("/user/favorite/new")
+    @PostMapping("/user/favorite/new")
     public GlobalDto newFavoriteList(@RequestHeader("ACCESS-TOKEN") String accesstoken,
                                      @RequestBody FavoriteNewForm form){
 

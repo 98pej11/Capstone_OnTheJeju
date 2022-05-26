@@ -28,7 +28,17 @@ public class SpotService {
     private final PictureRepository pictureRepository;
     private final MemberSpotRepository memberSpotRepository;
 
+    public Page<ReviewDto> reviewPage(Long spotId, Pageable pageable){
 
+        Spot spot = spotRepository.findOptionById(spotId)
+                .orElseThrow(() -> new UserException("spotId가 올바르지 않습니다."));
+
+        //리뷰 데이터 받아오기
+        Page<ReviewDto> reviewDtoList = reviewRepository.searchSpotReview(spot, pageable);
+
+        return reviewDtoList;
+
+    }
 
     public SpotDetailDto spotPage(Long spotId, String memberEmail, Pageable pageable){
 
@@ -60,6 +70,9 @@ public class SpotService {
                 reviewDtoList, userScore.doubleValue());
 
     }
+
+
+
 
 
 
