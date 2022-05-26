@@ -3,10 +3,7 @@ package capstone.jejuTourrecommend.domain.Service;
 
 import capstone.jejuTourrecommend.repository.*;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.pageDto.spotPage.PictureDto;
-import capstone.jejuTourrecommend.web.pageDto.spotPage.ReviewDto;
-import capstone.jejuTourrecommend.web.pageDto.spotPage.ScoreDto;
-import capstone.jejuTourrecommend.web.pageDto.spotPage.SpotDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,12 +23,12 @@ public class TestService {
     private final ScoreRepository scoreRepository;
 
 
-    public SpotDto testSpot(Long spotId){
+    public TestSpotDto testSpot(Long spotId){
 
-        SpotDto spotDto = spotRepository.findOptionById(spotId).map(s -> new SpotDto(s))
+        TestSpotDto testSpotDto = spotRepository.findOptionById(spotId).map(s -> new TestSpotDto(s))
                 .orElseThrow(() -> new UserException("등록되지 않은 관광지 입니다"));
 
-        return spotDto;
+        return testSpotDto;
 
     }
 

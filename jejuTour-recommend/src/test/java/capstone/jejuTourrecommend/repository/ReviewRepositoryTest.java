@@ -50,6 +50,8 @@ class ReviewRepositoryTest {
         em.flush();
         em.clear();
 
+        log.info("spot1 = {}",spot1);
+
         Optional<Spot> spot = spotRepository.findOptionById(spot1.getId());
 
         //when

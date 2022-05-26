@@ -140,6 +140,8 @@ public class FavoriteSpotQueryRepository {
 
         List list= new ArrayList<>();
 
+        //list.add(Location.Aewol_eup);
+
         log.info("location = {}",locationList);
         for (Location location : locationList) {
 

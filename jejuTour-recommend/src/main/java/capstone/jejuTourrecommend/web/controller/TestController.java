@@ -2,10 +2,7 @@ package capstone.jejuTourrecommend.web.controller;
 
 
 import capstone.jejuTourrecommend.domain.Service.TestService;
-import capstone.jejuTourrecommend.web.pageDto.spotPage.PictureDto;
-import capstone.jejuTourrecommend.web.pageDto.spotPage.ReviewDto;
-import capstone.jejuTourrecommend.web.pageDto.spotPage.ScoreDto;
-import capstone.jejuTourrecommend.web.pageDto.spotPage.SpotDto;
+import capstone.jejuTourrecommend.web.pageDto.spotPage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,13 +21,13 @@ public class TestController {
     private final TestService testService;
 
     @GetMapping("test/spot")
-    private SpotDto testSpot(@RequestParam Long spotId){
+    private TestSpotDto testSpot(@RequestParam Long spotId){
 
-        SpotDto spotDto = testService.testSpot(spotId);
+        TestSpotDto testSpotDto = testService.testSpot(spotId);
 
-        log.info("spotDot = {}",spotDto );
+        log.info("testSpotDto = {}",testSpotDto );
 
-        return spotDto;
+        return testSpotDto;
     }
 
     @GetMapping("test/review")

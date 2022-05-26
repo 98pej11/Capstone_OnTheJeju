@@ -14,7 +14,7 @@ public class RouteSpotListDto {
     private String spotDescription;
     private String url;
 
-    private Location location;
+    private String location;
 
 
     @QueryProjection
@@ -24,7 +24,7 @@ public class RouteSpotListDto {
         this.spotAddress = spotAddress;
         this.spotDescription = spotDescription;
         this.url = url;
-        this.location = location;
+        this.location = location.getKrName();
     }
 
 
