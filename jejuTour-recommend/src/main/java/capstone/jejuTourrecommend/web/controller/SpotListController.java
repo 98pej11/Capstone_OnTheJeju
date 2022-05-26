@@ -116,6 +116,27 @@ public class SpotListController {
 
         map1 = new LinkedHashMap();
         map1.put("id",5);
+        map1.put("name","북부");
+        list1.add(map1);
+
+        map1 = new LinkedHashMap();
+        map1.put("id",6);
+        map1.put("name","남부");
+        list1.add(map1);
+
+        map1 = new LinkedHashMap();
+        map1.put("id",7);
+        map1.put("name","서부");
+        list1.add(map1);
+
+        map1 = new LinkedHashMap();
+        map1.put("id",8);
+        map1.put("name","동부");
+        list1.add(map1);
+
+        /**
+        map1 = new LinkedHashMap();
+        map1.put("id",5);
         map1.put("name","제주시");
         list1.add(map1);
 
@@ -183,6 +204,7 @@ public class SpotListController {
         map1.put("id",18);
         map1.put("name","추자면");
         list1.add(map1);
+         */
 
         RegionDto regionDto = new RegionDto(list1);
 
