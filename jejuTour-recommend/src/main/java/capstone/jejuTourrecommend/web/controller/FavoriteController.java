@@ -146,7 +146,7 @@ public class FavoriteController {
         return new GlobalDto(200l,true,"성공");
 
     }
-
+////
     @DeleteMapping("/user/favoriteList/deleteSpot")
     public GlobalDto deleteSpotInFavoriteList(@RequestParam("favoriteId") Long favoriteId,
                                               @RequestParam("spotId") Long spotId){
