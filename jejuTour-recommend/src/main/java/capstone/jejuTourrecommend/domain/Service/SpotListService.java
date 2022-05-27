@@ -34,27 +34,6 @@ public class SpotListService {
 
     private final EntityManager em;
 
-    //이부분 없어도 됨
-    public ResultSpotListDto getSpotList(MainPageForm mainPageForm, Pageable pageable){
-
-        //Location location = findLocation(mainPageForm);
-        List locationList = findLocationList(mainPageForm);
-        Category category = findCategory(mainPageForm);
-
-        log.info("location = {} ",locationList);
-        log.info("category = {} ",category);
-
-//        mainPageForm.setPage(0);
-//        mainPageForm.setPage(10);
-//        PageRequest pageRequest = PageRequest.of(mainPageForm.getPage(), mainPageForm.getSize());
-
-
-        Page<SpotListDto> result = spotRepository
-                .searchSpotByLocationAndCategory(locationList, category, pageable);
-
-
-        return new ResultSpotListDto(200l,true,"성공",result);
-    }
 
 
     public ResultSpotListDto postSpotList(MainPageForm mainPageForm,String memberEmail, Pageable pageable){

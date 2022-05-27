@@ -1,12 +1,12 @@
 package capstone.jejuTourrecommend.repository;
 
 import capstone.jejuTourrecommend.domain.*;
+import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.routePage.RouteForm;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,14 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)//근데 이거 대로 해도 보인는 것은 순서대로 작동해서 삭제가 먼저 되면 다음테스트에 영향 있음
 @SpringBootTest
 @Transactional
 @Slf4j
@@ -32,6 +32,9 @@ class FavoriteSpotQueryRepositoryTest {
 
     @Autowired
     FavoriteSpotRepository favoriteSpotRepository;
+
+    @Autowired
+    FavoriteRepository favoriteRepository;
 
     @PersistenceContext
     EntityManager em;
@@ -101,7 +104,7 @@ class FavoriteSpotQueryRepositoryTest {
         //member1 = Member(id=1, username=member1, email=member1@gmail.com, password=1234)
         log.info("member1 = {}",member1);
 
-        log.info("favorite = {}",favorite);   //favorite = Favorite(id=3, name=1일차)
+        log.info("favoriteMain = {}",favorite);   //favorite = Favorite(id=1509, name=1일차)
 
         //spots[0] = Spot(id=8, address=null, description=null, location=Aewol_eup..
         log.info("spots[0] = {}",spots[0]);
@@ -135,6 +138,7 @@ class FavoriteSpotQueryRepositoryTest {
 
     }
 
+    @Order(1)
     @Test
     public void exitSpotTest() throws Exception{
         //given
@@ -151,6 +155,7 @@ class FavoriteSpotQueryRepositoryTest {
         //then
     }
 
+    @Order(2)
     @Test
     public void recommendSpotListTest() throws Exception{
         //given
@@ -158,8 +163,13 @@ class FavoriteSpotQueryRepositoryTest {
         //8l, 23l, 38l
         //72, 168, 800
         List<Long> spotIdList = Arrays.asList(8l, 23l, 38l);
+        log.info("spotIdList = {}",spotIdList);
         RouteForm routeForm = new RouteForm();
         routeForm.setSpotIdList(spotIdList);
+
+        //favoriteRepository.findOptionById()
+
+        favoriteRepository.findOptionById(favoriteId).orElseThrow(() -> new UserException("위시리스트 아이디가 틀립니다"));
 
         List list = favoriteSpotQueryRepository.recommendSpotList(favoriteId,routeForm);
 
@@ -171,11 +181,14 @@ class FavoriteSpotQueryRepositoryTest {
     }
 
 
+    @Order(3)
     @Test
     public void deleteFavoriteSpot() throws Exception{
         //given
         Favorite favorite = new Favorite("favorite");
         em.persist(favorite);
+
+        log.info("favoriteCheck = {}",favorite);
 
         FavoriteSpot favoriteSpot1 = new FavoriteSpot(favorite);
         FavoriteSpot favoriteSpot2 = new FavoriteSpot(favorite);
@@ -199,12 +212,13 @@ class FavoriteSpotQueryRepositoryTest {
 
         assertThat(favoriteSpotList1.size()).isEqualTo(6);
 
-
+        log.info("favoriteId = {}",favorite.getId());
         //when
-        favoriteSpotQueryRepository.deleteFavoriteSpot(favorite.getId());
+        favoriteSpotQueryRepository.deleteFavoriteSpotByFavoriteId(favorite.getId());
 
         List<FavoriteSpot> favoriteSpotList2 =
                 favoriteSpotRepository.findByFavoriteId(favorite.getId());
+        log.info("favoriteSpotList2 = {}",favoriteSpotList2);
 
 
 
@@ -213,6 +227,39 @@ class FavoriteSpotQueryRepositoryTest {
 
 
     }
+
+    @Test
+    public void deleteTest() throws Exception{
+        //given
+        Spot spot1 = new Spot("spot1");
+        Spot spot2 = new Spot("spot2");
+        em.persist(spot1);
+        em.persist(spot2);
+
+        Favorite favorite1 = new Favorite("1일차");
+        em.persist(favorite1);
+
+        FavoriteSpot favoriteSpot1 = new FavoriteSpot(favorite1,spot1);
+        FavoriteSpot favoriteSpot2 = new FavoriteSpot(favorite1,spot2);
+        em.persist(favoriteSpot1);
+        em.persist(favoriteSpot2);
+
+        em.flush();
+        em.clear();
+
+        log.info("22222");
+        //when
+        favoriteSpotRepository.deleteByFavoriteIdAndSpotId(favorite1.getId(),spot1.getId());
+
+        log.info("11111");
+
+        Optional<FavoriteSpot> result = favoriteSpotRepository.findOptionBySpotIdAndFavoriteId(spot1.getId(), favorite1.getId());
+
+        assertThat(result).isEmpty();
+
+        //then
+    }
+
 
 
 

@@ -116,10 +116,9 @@ class SpotServiceTest {
         //given
         Long spotId = 8l;
         String memberEmail = "member1@gmail.com";
-        PageRequest pageRequest = PageRequest.of(0, 4);
 
         //when
-        SpotDetailDto spotDetailDto = spotService.spotPage(spotId, memberEmail, pageRequest);
+        SpotDetailDto spotDetailDto = spotService.spotPage(spotId, memberEmail);
 
         log.info("spotDto = {}",spotDetailDto);
 

@@ -4,6 +4,7 @@ package capstone.jejuTourrecommend.web.controller;
 import capstone.jejuTourrecommend.domain.Service.FavoriteService;
 import capstone.jejuTourrecommend.web.GlobalDto;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteForm;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteListDto;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteNewForm;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
@@ -46,7 +47,7 @@ public class FavoriteController {
     // 선택한 관광지 정보, 사용자 정보, 위시리스트 정보 필요
     @PostMapping("/user/favorite/form")
     public GlobalDto postFavoriteForm(@RequestHeader("ACCESS-TOKEN") String accesstoken,
-                                      @RequestParam Long spotId, @RequestParam Long favoriteId){
+                                      @RequestBody FavoriteForm favoriteForm){
 
         //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함)
         String memberEmail = jwtTokenProvider.getUserPk(accesstoken);
@@ -61,7 +62,7 @@ public class FavoriteController {
         //Long spotIdTest = 8l;
         //Long favoriteIdTest = 3l;
 
-        favoriteService.postFavoriteForm(memberEmail,spotId,favoriteId);
+        favoriteService.postFavoriteForm(memberEmail,favoriteForm);
 
         return new GlobalDto(200l,true,"성공");
 
@@ -144,6 +145,15 @@ public class FavoriteController {
 
         return new GlobalDto(200l,true,"성공");
 
+    }
+
+    @DeleteMapping("/favoriteList/deleteSpot")
+    public GlobalDto deleteSpotInFavoriteList(@RequestParam("favoriteId") Long favoriteId,
+                                              @RequestParam("spotId") Long spotId){
+        //3,
+        favoriteService.deleteSpotInFavoriteList(favoriteId,spotId);
+
+        return new GlobalDto(200l,true,"성공");
     }
 
 

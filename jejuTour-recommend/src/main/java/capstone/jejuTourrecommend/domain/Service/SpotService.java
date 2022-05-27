@@ -40,7 +40,7 @@ public class SpotService {
 
     }
 
-    public SpotDetailDto spotPage(Long spotId, String memberEmail, Pageable pageable){
+    public SpotDetailDto spotPage(Long spotId, String memberEmail){
 
         Spot spot = spotRepository.findOptionById(spotId)
                 .orElseThrow(() -> new UserException("spotId가 올바르지 않습니다."));
@@ -53,21 +53,16 @@ public class SpotService {
         //이거 실험용 데이터임 TODO: 실험용 데이터임
         //PageRequest pageRequest = PageRequest.of(1,3);
 
-        //리뷰 데이터 받아오기
-        Page<ReviewDto> reviewDtoList = reviewRepository.searchSpotReview(spot, pageable);
-
 
         List<PictureDto> pictureDtoList = pictureRepository.findBySpot(
                         spot).stream().map(picture -> new PictureDto(picture))
                 .collect(Collectors.toList());
 
-        Double userScore = memberSpotRepository.findBySpotAndMember(spot, member)
-                .orElseGet(()->new MemberSpot(0d)).getScore();// 없으면 0값 반환
+
 
         ScoreDto scoreDto = spotRepository.searchScore(spot);
 
-        return new SpotDetailDto(spotDto,scoreDto,pictureDtoList,
-                reviewDtoList, userScore.doubleValue());
+        return new SpotDetailDto(spotDto,scoreDto,pictureDtoList);
 
     }
 

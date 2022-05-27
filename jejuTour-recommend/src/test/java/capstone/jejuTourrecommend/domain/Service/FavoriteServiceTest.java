@@ -6,6 +6,7 @@ import capstone.jejuTourrecommend.domain.Member;
 import capstone.jejuTourrecommend.domain.Spot;
 import capstone.jejuTourrecommend.repository.*;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteForm;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -117,12 +118,15 @@ class FavoriteServiceTest {
         //given
         String memberEmail = "em@naver.com";
         //7,2 중복된 관관지 존재, 새로운 추가 21,6
+        FavoriteForm favoriteForm = new FavoriteForm();
+        favoriteForm.setSpotId(21l);
+        favoriteForm.setFavoriteId(6l);
         Long spotId = 21l;
         Long favoriteId =6l;
 
 
         //when
-        favoriteService.postFavoriteForm(memberEmail,spotId,favoriteId);
+        favoriteService.postFavoriteForm(memberEmail,favoriteForm);
 
         Optional<FavoriteSpot> result = favoriteSpotRepository.findOptionBySpotIdAndFavoriteId(spotId, favoriteId);
 

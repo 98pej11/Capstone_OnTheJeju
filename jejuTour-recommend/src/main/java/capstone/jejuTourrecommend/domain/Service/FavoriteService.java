@@ -8,6 +8,7 @@ import capstone.jejuTourrecommend.domain.Spot;
 import capstone.jejuTourrecommend.repository.*;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteDto;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -53,17 +54,17 @@ public class FavoriteService {
 
     // 선택한 관광지를 선태한 위시리스트에 추가
     // 선택한 관광지 정보, 사용자 정보, 위시리스트 정보 필요
-    public void postFavoriteForm(String memberEmail, Long spotId, Long favoriteId){
+    public void postFavoriteForm(String memberEmail, FavoriteForm favoriteForm){
 
         //솔직히 멤버 정보는 필요 없음 어차피 해당 favorite 은 member 와 연결되어 있음
         //Optional<Member> member = memberRepository.findOptionByEmail(memberEmail);
 
         //Todo: 여기서 관광지 넣을때 중복 체크해줘야함
 
-        Spot spot = spotRepository.findOptionById(spotId)
+        Spot spot = spotRepository.findOptionById(favoriteForm.getSpotId())
                 .orElseThrow(() -> new UserException("관광지 id가 맞지 않습니다"));
 
-        Favorite favorite = favoriteRepository.findOptionById(favoriteId)
+        Favorite favorite = favoriteRepository.findOptionById(favoriteForm.getFavoriteId())
                 .orElseThrow(() -> new UserException("위시리스트 id가 맞지 않습니다"));
 
         Optional<FavoriteSpot> result = favoriteSpotRepository.findOptionBySpotIdAndFavoriteId(spot.getId(), favorite.getId());
@@ -123,20 +124,29 @@ public class FavoriteService {
 
         //favoriteSpotRepository.deleteAllById();
 
-        favoriteSpotQueryRepository.deleteFavoriteSpot(favoriteId);
+        favoriteRepository.findOptionById(favoriteId)
+                        .orElseThrow(() -> new UserException("올바르지 않는 favoriteId 입니다"));
 
-        //favoriteRepository.flush();
-
-        //근데 @Transactional 에서 메서드 끝나고 commit 해줌
-        em.flush();
-        em.clear();
+        favoriteSpotQueryRepository.deleteFavoriteSpotByFavoriteId(favoriteId);
 
         favoriteRepository.deleteById(favoriteId);
-
         em.flush();
         em.clear();
 
     }
+
+    public void deleteSpotInFavoriteList(Long favoriteId, Long spotId){
+
+        favoriteRepository.findOptionById(favoriteId)
+                .orElseThrow(() -> new UserException("올바르지 않는 favoriteId 입니다"));
+
+        spotRepository.findOptionById(spotId)
+                .orElseThrow(() -> new UserException("올바르지 않는 spotId 입니다"));
+
+        favoriteSpotRepository.deleteByFavoriteIdAndSpotId(favoriteId,spotId);
+    }
+
+
 
 
 }

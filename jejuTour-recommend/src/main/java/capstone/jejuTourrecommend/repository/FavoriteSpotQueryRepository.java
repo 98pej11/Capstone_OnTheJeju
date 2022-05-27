@@ -9,7 +9,6 @@ import capstone.jejuTourrecommend.web.pageDto.routePage.RouteForm;
 import capstone.jejuTourrecommend.web.routePage.QRouteSpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.routePage.RouteSpotListDto;
 import com.querydsl.core.Tuple;
-import com.querydsl.core.types.CollectionExpression;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
@@ -87,6 +86,7 @@ public class FavoriteSpotQueryRepository {
                 .fetch();
 
         if(isEmpty(spotList)){
+            log.info("spotList = {}",spotList);
             throw new UserException("모든 spotId가 위시리스트에 있는 spotId가 아닙니다");
         }
 
@@ -179,7 +179,7 @@ public class FavoriteSpotQueryRepository {
 
 
     @Transactional
-    public void deleteFavoriteSpot(Long favoriteId){
+    public void deleteFavoriteSpotByFavoriteId(Long favoriteId){
 
         queryFactory
                 .delete(favoriteSpot)
@@ -187,6 +187,15 @@ public class FavoriteSpotQueryRepository {
                 .execute();
 
     }
+
+//    @Transactional
+//    public void deleteFavoriteSpotByFavoriteIdAndSpotId(Long favoriteId, Long spotId){
+//
+//        queryFactory
+//                .delete(favoriteSpot)
+//                .where(favoriteIdEq(favoriteId),spotIdEq(spotId))
+//                .execute();
+//    }
 
     //이거 없어도 될것같음 그냥 특정 favorite하고 연관된것만 지우면 됨
     private BooleanExpression spotIdEq(Long spotId){
