@@ -47,7 +47,7 @@ public class SpotController {
 
     }
 
-    @GetMapping("/spot/review/{spotId}")
+    @GetMapping("/user/spot/review/{spotId}")
     public ReviewListDto reviewPage(@PathVariable Long spotId,
                                     @RequestHeader("ACCESS-TOKEN") String accesstoken,
                                     Pageable pageable){

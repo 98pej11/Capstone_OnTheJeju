@@ -71,7 +71,7 @@ public class FavoriteController {
 
     //새로운 위시 리스트를 만들고 해당 관광지 넣기
     // 선택한 관광지 정보, 사용자 정보, 위시리스트 이름 필요
-    @PostMapping("user/favorite/new")
+    @PostMapping("/user/favorite/new")
     public NewFavoriteListDto newFavoriteList(@RequestHeader("ACCESS-TOKEN") String accesstoken,
                                      @RequestBody FavoriteNewForm form){
 
@@ -113,7 +113,7 @@ public class FavoriteController {
 
     //위시 리스트 페이지
     //사용자 정보 필요
-    @GetMapping("/favoriteList")
+    @GetMapping("/user/favoriteList")
     public FavoriteListFinalDto favoriteList(@RequestHeader("ACCESS-TOKEN") String accesstoken,
                                              Pageable pageable){
 
@@ -138,11 +138,11 @@ public class FavoriteController {
     @DeleteMapping("/user/favoriteList/{favoriteId}")
     public GlobalDto deleteFavoriteList(@PathVariable Long favoriteId){
 
-        //테스트용 데이터
+        //Todo: 테스트용 데이터
         //Long memberId;//이거 없어도 될것같음
-        Long favoriteIdTest = 3l;
+        //Long favoriteIdTest = 3l;
 
-        favoriteService.deleteFavoriteList(favoriteIdTest);
+        favoriteService.deleteFavoriteList(favoriteId);
 
         return new GlobalDto(200l,true,"성공");
 

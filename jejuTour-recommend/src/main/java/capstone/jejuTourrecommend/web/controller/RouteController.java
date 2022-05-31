@@ -23,20 +23,22 @@ public class RouteController {
     @GetMapping("/user/route/spot/{favoriteId}")
     public ResultFavoriteSpotList favoriteRoute(@PathVariable Long favoriteId){
 
-        Long favoriteIdTest = 3l;
+        //Todo: 테스트 데이터
+        //Long favoriteIdTest = 3l;
 
-        List<FavoriteSpotListDto> favoriteSpotListDtos = routeService.favoriteSpotList(favoriteIdTest);
+        List<FavoriteSpotListDto> favoriteSpotListDtos = routeService.favoriteSpotList(favoriteId);
 
         return new ResultFavoriteSpotList(200l,true,"성공",favoriteSpotListDtos);
     }
 
-    @PostMapping("/route/topList/{favoriteId}")
+    @PostMapping("/user/route/topList/{favoriteId}")
     public ResultTopSpot topList(@PathVariable Long favoriteId, @RequestBody RouteForm routeForm){
 
-        Long favoriteIdTest = 3l;
+        //Todo: 테스트 데이터
+        //Long favoriteIdTest = 3l;
         log.info("routeForm.getSpotIdList() = {}", routeForm.getSpotIdList());
 
-        List list = routeService.recommentSpotList(favoriteIdTest, routeForm);
+        List list = routeService.recommentSpotList(favoriteId, routeForm);
 
         return new ResultTopSpot(200l, true, "성공",list);
 
