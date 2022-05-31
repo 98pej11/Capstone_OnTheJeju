@@ -3,10 +3,7 @@ package capstone.jejuTourrecommend.web.controller;
 
 import capstone.jejuTourrecommend.domain.Service.FavoriteService;
 import capstone.jejuTourrecommend.web.GlobalDto;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteDto;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteForm;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteListDto;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteNewForm;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.*;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +19,8 @@ public class FavoriteController {
     private final FavoriteService favoriteService;
     private final JwtTokenProvider jwtTokenProvider;
 
+    /**
+
     //사용자의 위시리스트 목록 "폼" 보여주기
     // 사용자 정보, 관광지 정보 필요
     @GetMapping("/user/favorite/form")
@@ -36,11 +35,12 @@ public class FavoriteController {
         //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함)
         //jwtTokenProvider.getUserPk(jwtTokenProvider.createToken(memberEmailTest,"ROLE_USER"));
 
-        Page<FavoriteDto> favoriteList = favoriteService.getFavoriteList(memberEmail,pageable);
+        GetFavoriteListDto getFavoriteListDto = favoriteService.getFavoriteList(memberEmail, pageable);
 
-        return new FavoriteListDto(200l,true,"성공,",favoriteList);
+        return new FavoriteListDto(200l,true,"성공,",getFavoriteListDto);
 
     }
+    */
 
 
     // 선택한 관광지를 선태한 위시리스트에 추가
@@ -71,8 +71,8 @@ public class FavoriteController {
 
     //새로운 위시 리스트를 만들고 해당 관광지 넣기
     // 선택한 관광지 정보, 사용자 정보, 위시리스트 이름 필요
-    @PostMapping("/user/favorite/new")
-    public GlobalDto newFavoriteList(@RequestHeader("ACCESS-TOKEN") String accesstoken,
+    @PostMapping("user/favorite/new")
+    public NewFavoriteListDto newFavoriteList(@RequestHeader("ACCESS-TOKEN") String accesstoken,
                                      @RequestBody FavoriteNewForm form){
 
 
@@ -95,26 +95,27 @@ public class FavoriteController {
         //jwtTokenProvider.getUserPk(jwtTokenProvider.createToken(memberEmailTest,"ROLE_USER"));
 
 
-
+        FavoriteDto favoriteDto;
 
         if(spotId!=null){//관광지 정보가 있으면
 
-            favoriteService.newFavoriteListO(memberEmail,spotId,favoriteName);
+            favoriteDto = favoriteService.newFavoriteListO(memberEmail, spotId, favoriteName);
 
         }
         else{//관광지 정보가 없으면
 
-            favoriteService.newFavoriteListX(memberEmail,favoriteName);
+            favoriteDto = favoriteService.newFavoriteListX(memberEmail, favoriteName);
 
         }
-        return new GlobalDto(200l,true,"성공");
+
+        return new NewFavoriteListDto(200l,true,"성공",favoriteDto);
     }
 
     //위시 리스트 페이지
     //사용자 정보 필요
-    @GetMapping("/user/favoriteList")
-    public FavoriteListDto favoriteList(@RequestHeader("ACCESS-TOKEN") String accesstoken,
-                                        Pageable pageable){
+    @GetMapping("/favoriteList")
+    public FavoriteListFinalDto favoriteList(@RequestHeader("ACCESS-TOKEN") String accesstoken,
+                                             Pageable pageable){
 
         //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함)
         String memberEmail = jwtTokenProvider.getUserPk(accesstoken);
@@ -126,9 +127,9 @@ public class FavoriteController {
         //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함)
         //jwtTokenProvider.getUserPk(jwtTokenProvider.createToken(memberEmail,"ROLE_USER"));
 
-        Page<FavoriteDto> favoriteList = favoriteService.getFavoriteList(memberEmail,pageable);
+        Page<FavoriteListDto> favoriteList = favoriteService.getFavoriteList(memberEmail, pageable);
 
-        return new FavoriteListDto(200l,true,"성공,",favoriteList);
+        return new FavoriteListFinalDto(200l,true,"성공,",favoriteList);
 
     }
 

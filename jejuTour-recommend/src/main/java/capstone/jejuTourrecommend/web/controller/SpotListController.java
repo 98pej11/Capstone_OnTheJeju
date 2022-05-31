@@ -8,6 +8,7 @@ import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jboss.jandex.Main;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,7 @@ public class SpotListController {
     @PostMapping("/user/spotList/priority")//일단 토큰은 배재하고 검색해보자
     public ResultSpotListDto postSpot(@RequestBody MainPageForm mainPageForm,
                                       Pageable pageable,@RequestHeader("ACCESS-TOKEN") String accesstoken){
+
 
         //이거 실험용 데이터임 TODO: 실험용 데이터임
         //String memberEmailTest = "member1@gmail.com";

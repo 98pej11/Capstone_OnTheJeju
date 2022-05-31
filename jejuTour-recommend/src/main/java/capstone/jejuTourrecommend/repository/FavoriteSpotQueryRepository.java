@@ -3,17 +3,23 @@ package capstone.jejuTourrecommend.repository;
 
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.mainPage.QSpotListDto;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteListDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteSpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.QFavoriteListDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.QFavoriteSpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.routePage.QRouteSpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.routePage.RouteForm;
-import capstone.jejuTourrecommend.web.routePage.QRouteSpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.routePage.RouteSpotListDto;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +28,7 @@ import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import static capstone.jejuTourrecommend.domain.QFavorite.favorite;
 import static capstone.jejuTourrecommend.domain.QFavoriteSpot.favoriteSpot;
 import static capstone.jejuTourrecommend.domain.QPicture.picture;
 import static capstone.jejuTourrecommend.domain.QSpot.spot;
@@ -38,10 +45,48 @@ public class FavoriteSpotQueryRepository {
     }
 
     @Transactional
-    public List<SpotListDto> favoriteSpotList(Long favoriteId){
-        List<SpotListDto> spotListDtoList = queryFactory
+    public Page<FavoriteListDto> favoriteList(Long memberId, Pageable pageable){
+
+        //Favorite favorite1 = new Favorite("222");
+
+        List<FavoriteListDto> contents = queryFactory
                 .select(
-                        new QSpotListDto(
+                        new QFavoriteListDto(
+                                favorite.id,
+                                favorite.name,
+                                JPAExpressions.select(picture.url.max())
+                                                .from(picture)
+                                                .where(picture.spot.id.eq(
+                                                                JPAExpressions
+                                                                        .select(favoriteSpot.spot.id.max())
+                                                                        .from(favoriteSpot)
+                                                                        .where(favoriteSpot.favorite.eq(favorite))
+                                                                )
+                                                        )
+                        )
+                )
+                .from(favorite)
+                .where(favorite.member.id.eq(memberId))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Long> countQuery = queryFactory
+                .select(favorite.count())
+                .from(favorite)
+                .where(favorite.member.id.eq(memberId));
+
+
+        return PageableExecutionUtils.getPage(contents, pageable, countQuery::fetchOne);
+
+    }
+
+
+    @Transactional
+    public List<FavoriteSpotListDto> favoriteSpotList(Long favoriteId){
+        List<FavoriteSpotListDto> favoriteSpotListDtos = queryFactory
+                .select(
+                        new QFavoriteSpotListDto(
                                 spot.id,
                                 spot.name,
                                 spot.address,
@@ -50,6 +95,7 @@ public class FavoriteSpotQueryRepository {
                                         .select(picture.url.max())//스칼라 서브커리에서 limit 못 사용함 그래서 max 사용
                                         .from(picture)
                                         .where(picture.spot.id.eq(favoriteSpot.spot.id))
+
                         )
                 )
                 .from(favoriteSpot)
@@ -60,7 +106,7 @@ public class FavoriteSpotQueryRepository {
 
 
 
-        return spotListDtoList;
+        return favoriteSpotListDtos;
 
     }
 
@@ -205,6 +251,11 @@ public class FavoriteSpotQueryRepository {
     private BooleanExpression favoriteIdEq(Long favoriteId){
         return isEmpty(favoriteId) ? null : favoriteSpot.favorite.id.eq(favoriteId);
     }
+
+    private BooleanExpression qFavoriteEq(QFavorite favorite){
+        return favorite != null ? favoriteSpot.favorite.eq(favorite) : null;
+    }
+
 
     private BooleanExpression locationEq(Location location) {
         return location != null ? spot.location.eq(location) : null;

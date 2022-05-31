@@ -1,12 +1,11 @@
 package capstone.jejuTourrecommend.domain.Service;
 
-import capstone.jejuTourrecommend.domain.Favorite;
-import capstone.jejuTourrecommend.domain.FavoriteSpot;
-import capstone.jejuTourrecommend.domain.Member;
-import capstone.jejuTourrecommend.domain.Spot;
+import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.repository.*;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteDto;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteForm;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteListDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.GetFavoriteListDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -77,18 +76,27 @@ class FavoriteServiceTest {
 
         FavoriteSpot[] favoriteSpots = new FavoriteSpot[15];
 
+        Picture[] pictures = new Picture[15];
+
         for(int i=0;i<5;i++){
             favoriteSpots[i] = new FavoriteSpot(favorite1,spots[i]);
             em.persist(favoriteSpots[i]);
+            pictures[i] = new Picture("숫자"+i ,spots[i]);
+            em.persist(pictures[i]);
         }
         for (int i=5;i<10;i++){
             favoriteSpots[i] = new FavoriteSpot(favorite2,spots[i]);
             em.persist(favoriteSpots[i]);
+            pictures[i] = new Picture("숫자"+i,spots[i]);
+            em.persist(pictures[i]);
         }
         for (int i=10;i<15;i++){
             favoriteSpots[i] = new FavoriteSpot(favorite3,spots[i]);
             em.persist(favoriteSpots[i]);
+            pictures[i] = new Picture("숫자"+i,spots[i]);
+            em.persist(pictures[i]);
         }
+
 
     }
 
@@ -99,14 +107,20 @@ class FavoriteServiceTest {
 
         //when
         String memberEmail = "em@naver.com";
+        //Favorite favorite2 = new Favorite("2일차",m)
 
-        PageRequest pageRequest = PageRequest.of(0,3);
+        //Spot spot = new Spot("테스트")
 
-        Page<FavoriteDto> favoriteList = favoriteService.getFavoriteList(memberEmail, pageRequest);
 
-        List<FavoriteDto> content = favoriteList.getContent();
+        PageRequest pageRequest = PageRequest.of(0,10);
 
-        assertThat(content.size()).isEqualTo(3);
+        Page<FavoriteListDto> favoriteList = favoriteService.getFavoriteList(memberEmail, pageRequest);
+
+
+        List<FavoriteListDto> content = favoriteList.getContent();
+        log.info("favoriteListContent = {}",content);
+
+        assertThat(content.size()).isEqualTo(5);
         assertThat(favoriteList.getTotalElements()).isEqualTo(5);
 
     }
@@ -144,18 +158,27 @@ class FavoriteServiceTest {
         //given
         String memberEmail = "em@naver.com";
         Long spotId = 21l;
-        String favoriteName = "새로운 위시리스트";
+        String favoriteName = "새로운 위시리스트1";
+        //String favoriteName = "1일차";
+
 
         //when
-        favoriteService.newFavoriteListO(memberEmail,spotId,favoriteName);
+
+        FavoriteDto favoriteDto = favoriteService.newFavoriteListO(memberEmail, spotId, favoriteName);
+
         Optional<Favorite> favorite = favoriteRepository.findOptionByName(favoriteName);
 
         Optional<FavoriteSpot> result = favoriteSpotRepository.findOptionBySpotIdAndFavoriteId(spotId, favorite.get().getId());
 
 
+        //FavoriteDto favoriteDto = favoriteService.newFavoriteListO(memberEmail,spotId,favoriteName);
+
+
         //then
         assertThat(favorite).isNotEmpty();
         assertThat(result).isNotEmpty();
+        log.info("favoriteDto = {}",favoriteDto);
+        assertThat(favoriteDto).isNotNull();
     }
 
     //관광지가 없기에 새로운 위시리스트 추가만 함
@@ -164,14 +187,17 @@ class FavoriteServiceTest {
     public void newFavoriteListXTest() throws Exception{
         //given
         String memberEmail = "em@naver.com";
-        String favoriteName = "새로운 위시리스트";
+        String favoriteName = "새로운 위시리스트1";
+        //String favoriteName = "1일차";
 
         //when
-        favoriteService.newFavoriteListX(memberEmail,favoriteName);
+        FavoriteDto favoriteDto = favoriteService.newFavoriteListX(memberEmail, favoriteName);
         Optional<Favorite> favorite = favoriteRepository.findOptionByName(favoriteName);
 
         //then
         assertThat(favorite).isNotEmpty();
+        log.info("favoriteDto = {}",favoriteDto);
+        assertThat(favoriteDto).isNotNull();
     }
 
     //위시 리스트 삭제하기

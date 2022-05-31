@@ -2,6 +2,7 @@ package capstone.jejuTourrecommend.repository;
 
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteSpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.routePage.RouteForm;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -127,13 +129,25 @@ class FavoriteSpotQueryRepositoryTest {
     }
 
     @Test
+    public void favoriteListTest() throws Exception{
+        //given
+
+        PageRequest pageRequest = PageRequest.of(0,3);
+
+        //when
+        //favoriteSpotQueryRepository.favoriteList()
+
+        //then
+    }
+
+    @Test
     public void favoriteSpotListTest(){
 
         Long favoriteId = 3l;
 
-        List<SpotListDto> spotListDtos = favoriteSpotQueryRepository.favoriteSpotList(favoriteId);
+        List<FavoriteSpotListDto> favoriteSpotListDtos = favoriteSpotQueryRepository.favoriteSpotList(favoriteId);
 
-        log.info("spotListDtos = {} ",spotListDtos);
+        log.info("spotListDtos = {} ",favoriteSpotListDtos);
 
 
     }
@@ -259,12 +273,6 @@ class FavoriteSpotQueryRepositoryTest {
 
         //then
     }
-
-
-
-
-
-
 
 
 

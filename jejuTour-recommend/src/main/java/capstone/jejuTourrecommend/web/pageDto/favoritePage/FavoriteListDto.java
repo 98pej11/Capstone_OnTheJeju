@@ -1,31 +1,19 @@
 package capstone.jejuTourrecommend.web.pageDto.favoritePage;
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
-import org.springframework.data.domain.Page;
 
 @Data
 public class FavoriteListDto {
 
-    private Long status;
-    private boolean success;
-    private String message;
+    private Long favoriteId;
+    private String favoriteName;
+    private String spotURL;
 
-    private Page<FavoriteDto> favoriteDtoPage;
-
-    public FavoriteListDto(Long status, boolean success, String message,
-                           Page<FavoriteDto> favoriteDtoPage) {
-        this.status = status;
-        this.success = success;
-        this.message = message;
-        this.favoriteDtoPage = favoriteDtoPage;
+    @QueryProjection
+    public FavoriteListDto(Long favoriteId, String favoriteName, String spotURL) {
+        this.favoriteId = favoriteId;
+        this.favoriteName = favoriteName;
+        this.spotURL = spotURL;
     }
 }
-
-
-
-
-
-
-
-
-

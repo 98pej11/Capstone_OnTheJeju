@@ -1,7 +1,7 @@
 package capstone.jejuTourrecommend.repository;
 
 import capstone.jejuTourrecommend.domain.*;
-import capstone.jejuTourrecommend.web.mainPage.QSpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.QSpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.UserWeightDto;
 import capstone.jejuTourrecommend.web.pageDto.spotPage.ScoreDto;
@@ -22,6 +22,8 @@ import javax.persistence.EntityManager;
 
 import java.util.List;
 
+import static capstone.jejuTourrecommend.domain.QFavorite.favorite;
+import static capstone.jejuTourrecommend.domain.QFavoriteSpot.favoriteSpot;
 import static capstone.jejuTourrecommend.domain.QMemberSpot.*;
 import static capstone.jejuTourrecommend.domain.QPicture.*;
 import static capstone.jejuTourrecommend.domain.QSpot.spot;
@@ -38,7 +40,34 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     }
 
     @Override
+    public Boolean isFavoriteSpot(Long memberId, Long spotId) {
+
+        List<Long> favoriteList = queryFactory
+                .select(favorite.id)
+                .from(favorite)
+                .where(memberFavoriteEq(memberId))
+                .fetch();
+
+        Integer integer = queryFactory
+                .selectOne()
+                .from(favoriteSpot)
+                .where(favoriteSpot.favorite.id.in(favoriteList), favoriteSpot.spot.id.eq(spot.id))
+                .fetchFirst();
+
+        if (integer==null){
+            return false;
+        }else {
+            return true;
+        }
+
+
+    }
+
+    @Override
     public Page<SpotListDto> searchSpotByLocationAndCategory(List locationList, Category category, Pageable pageable) {
+
+
+
 
         OrderSpecifier<Double> orderSpecifier;
 
@@ -70,6 +99,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                                         .where(picture.spot.id.eq(spot.id))
                                 //spot.pictures.any().url//패이징할꺼라 일대다 패치조인 안할거임
                                 //picture.url
+
                         )
                 )
                 .from(spot)
@@ -91,11 +121,13 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
         return PageableExecutionUtils.getPage(contents, pageable, countQuery::fetchOne);
     }
 
-
     //가중치가 있을 경우의 쿼리
+
     @Transactional
     @Override
     public Page<SpotListDto> searchSpotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto, Pageable pageable) {
+
+
 
         OrderSpecifier<Double> orderSpecifier=null;
 
@@ -184,6 +216,16 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                 .from(spot)
                 .where(spot.eq(memberSpot.spot));
     }
+
+    private BooleanExpression memberFavoriteEq(Long memberId){
+        return memberId != null ? favorite.member.id.eq(memberId) : null;
+    }
+
+    private BooleanExpression favoriteListEq(List<Long> favoriteList){
+        return favoriteList != null  ? favoriteSpot.favorite.id.in(favoriteList) :  null;
+    }
+
+    //private BooleanExpression favorites
 
 
     private BooleanExpression locationEq(Location location) {

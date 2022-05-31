@@ -4,6 +4,8 @@ import capstone.jejuTourrecommend.domain.Location;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 @Data
 public class SpotListDto {//장소만 선택됐을때의 dto임
 
@@ -26,6 +28,7 @@ public class SpotListDto {//장소만 선택됐을때의 dto임
     private String url;
 
     //private Location location;
+
 
 
 

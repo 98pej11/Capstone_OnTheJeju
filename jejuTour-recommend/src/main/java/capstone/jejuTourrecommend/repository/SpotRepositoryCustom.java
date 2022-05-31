@@ -6,6 +6,7 @@ import capstone.jejuTourrecommend.domain.Spot;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.UserWeightDto;
 import capstone.jejuTourrecommend.web.pageDto.spotPage.ScoreDto;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -21,5 +22,7 @@ public interface SpotRepositoryCustom {
     //Page<SpotDetailDto> searchSpotDetail(String spotName);
 
     ScoreDto searchScore(Spot spot);
+
+    Boolean isFavoriteSpot(Long memberId, Long spotId);
 
 }

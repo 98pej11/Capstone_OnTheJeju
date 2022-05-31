@@ -58,11 +58,12 @@ public class SpotService {
                         spot).stream().map(picture -> new PictureDto(picture))
                 .collect(Collectors.toList());
 
-
-
         ScoreDto scoreDto = spotRepository.searchScore(spot);
 
-        return new SpotDetailDto(spotDto,scoreDto,pictureDtoList);
+        Boolean isFavoriteSpot = spotRepository.isFavoriteSpot(member.getId(), spotId);
+
+
+        return new SpotDetailDto(spotDto,scoreDto,pictureDtoList, isFavoriteSpot);
 
     }
 

@@ -2,6 +2,7 @@ package capstone.jejuTourrecommend.web.controller;
 
 
 import capstone.jejuTourrecommend.domain.Service.RouteService;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteSpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.routePage.ResultFavoriteSpotList;
 import capstone.jejuTourrecommend.web.pageDto.routePage.ResultTopSpot;
@@ -24,9 +25,9 @@ public class RouteController {
 
         Long favoriteIdTest = 3l;
 
-        List<SpotListDto> spotListDtos = routeService.favoriteSpotList(favoriteIdTest);
+        List<FavoriteSpotListDto> favoriteSpotListDtos = routeService.favoriteSpotList(favoriteIdTest);
 
-        return new ResultFavoriteSpotList(200l,true,"성공",spotListDtos);
+        return new ResultFavoriteSpotList(200l,true,"성공",favoriteSpotListDtos);
     }
 
     @PostMapping("/route/topList/{favoriteId}")

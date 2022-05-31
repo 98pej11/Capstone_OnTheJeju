@@ -52,6 +52,9 @@ public class SpotListService {
         log.info("mainPageForm.getUserWeightDto() = {}",mainPageForm.getUserWeightDto());
 
 
+        Member member = memberRepository.findOptionByEmail(memberEmail)
+                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
+
         //이거 실험용 데이터임 TODO: 실험용 데이터임
 //        mainPageForm.setPage(0);
 //        mainPageForm.setPage(10);
@@ -76,8 +79,7 @@ public class SpotListService {
             );
             log.info("userWeightDto = {}",userWeightDto);
 
-            Member member = memberRepository.findOptionByEmail(memberEmail)
-                    .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
+
 
             Page<SpotListDto> resultPriority = spotRepository.searchSpotByUserPriority(
                     member.getId(), locationList, userWeightDto, pageable);

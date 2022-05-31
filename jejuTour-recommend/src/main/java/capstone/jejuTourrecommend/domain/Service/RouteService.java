@@ -2,6 +2,7 @@ package capstone.jejuTourrecommend.domain.Service;
 
 import capstone.jejuTourrecommend.repository.FavoriteSpotQueryRepository;
 import capstone.jejuTourrecommend.repository.FavoriteSpotRepository;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteSpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.routePage.RouteForm;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +24,11 @@ public class RouteService {
     private final FavoriteSpotQueryRepository favoriteSpotQueryRepository;
     private final FavoriteSpotRepository favoriteSpotRepository;
 
-    public List<SpotListDto> favoriteSpotList(Long favoriteId){
+    public List<FavoriteSpotListDto> favoriteSpotList(Long favoriteId){
 
-        List<SpotListDto> spotListDtos = favoriteSpotQueryRepository.favoriteSpotList(favoriteId);
+        List<FavoriteSpotListDto> favoriteSpotListDtos = favoriteSpotQueryRepository.favoriteSpotList(favoriteId);
 
-        return spotListDtos;
+        return favoriteSpotListDtos;
 
     }
 

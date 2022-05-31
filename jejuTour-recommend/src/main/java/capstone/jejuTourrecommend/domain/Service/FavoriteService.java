@@ -1,14 +1,13 @@
 package capstone.jejuTourrecommend.domain.Service;
 
 
-import capstone.jejuTourrecommend.domain.Favorite;
-import capstone.jejuTourrecommend.domain.FavoriteSpot;
-import capstone.jejuTourrecommend.domain.Member;
-import capstone.jejuTourrecommend.domain.Spot;
+import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.repository.*;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteDto;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteForm;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteListDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.GetFavoriteListDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -18,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.Optional;
+import java.util.Random;
 
 @Slf4j
 @Service
@@ -30,11 +30,12 @@ public class FavoriteService {
     private final SpotRepository spotRepository;
     private final FavoriteSpotRepository favoriteSpotRepository;
     private final FavoriteSpotQueryRepository favoriteSpotQueryRepository;
+    private final PictureRepository pictureRepository;
 
     private final EntityManager em;
 
     //사용자의 위시리스트 목록 "폼" 보여주기
-    public Page<FavoriteDto> getFavoriteList(String memberEmail, Pageable pageable){
+    public Page<FavoriteListDto> getFavoriteList(String memberEmail, Pageable pageable){
 
 
         Member member = memberRepository.findOptionByEmail(memberEmail)
@@ -43,12 +44,11 @@ public class FavoriteService {
         //이거 실험용 데이터임 TODO: 실험용 데이터임
         //PageRequest pageRequest = PageRequest.of(0,100);
 
-        Page<FavoriteDto> favoriteDtoPage = favoriteRepository.findByMember(member,pageable)
-                .map(favorite -> new FavoriteDto(favorite.getId(), favorite.getName()));
+        Page<FavoriteListDto> favoriteListDtos = favoriteSpotQueryRepository.favoriteList(member.getId(), pageable);
 
 
-        //return new GetFavoriteFormDto();
-        return favoriteDtoPage;
+        return favoriteListDtos;
+
 
     }
 
@@ -81,10 +81,16 @@ public class FavoriteService {
 
     //새로운 위시 리스트를 만들고 해당 관광지 넣기
     // 선택한 관광지 정보, 사용자 정보, 위시리스트 이름 필요
-    public void newFavoriteListO(String memberEmail, Long spotId, String favoriteName){
+    public FavoriteDto newFavoriteListO(String memberEmail, Long spotId, String favoriteName){
 
         Member member = memberRepository.findOptionByEmail(memberEmail)
                 .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
+
+        Optional<Favorite> optionByName = favoriteRepository.findOptionByName(favoriteName);
+
+        if(optionByName.isPresent()){
+            throw new UserException("동일한 위시리스트 이름이 존재합니다");
+        }
 
         Optional<Spot> spot = spotRepository.findOptionById(spotId);
 
@@ -100,17 +106,36 @@ public class FavoriteService {
 
         favoriteSpotRepository.save(favoriteSpot);
 
+        FavoriteDto favoriteDto = favoriteRepository.findOptionByName(favoriteName)
+                .map(favorite1 -> new FavoriteDto(favorite1.getId(), favorite1.getName()))
+                .orElseThrow(() -> new UserException("갱신 성공을 못하였습니다"));
+
+        return favoriteDto;
+
     }
 
     //관광지가 없기에 새로운 위시리스트 추가만 함
-    public void newFavoriteListX(String memberEmail, String favoriteName){
+    public FavoriteDto newFavoriteListX(String memberEmail, String favoriteName){
 
         Member member = memberRepository.findOptionByEmail(memberEmail)
                 .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
+        Optional<Favorite> optionByName = favoriteRepository.findOptionByName(favoriteName);
+
+        if(optionByName.isPresent()){
+            throw new UserException("동일한 위시리스트 이름이 존재합니다");
+        }
+
         Favorite favorite = new Favorite(favoriteName,member);
 
         favoriteRepository.save(favorite);
+
+        FavoriteDto favoriteDto = favoriteRepository.findOptionByName(favoriteName)
+                .map(favorite1 -> new FavoriteDto(favorite1.getId(), favorite1.getName()))
+                .orElseThrow(() -> new UserException("갱신 성공을 못하였습니다"));
+
+        return favoriteDto;
+
 
     }
 

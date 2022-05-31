@@ -79,6 +79,10 @@ public class initData {
             Favorite favorite = new Favorite("1일차",member1);
             em.persist(favorite);
 
+            //테스트 ToDo: 안에 관광지가 없는 빈 위시리스트
+            //Favorite favorite1 = new Favorite("test",member1);
+            //em.persist(favorite1);
+
             FavoriteSpot[] favoriteSpots = new FavoriteSpot[100];
 
             for(int i=0;i<100;i++){ //지역하고 score만
