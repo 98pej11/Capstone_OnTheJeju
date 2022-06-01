@@ -38,6 +38,7 @@ public class ExControllerAdvice {
     }
 
     //ResponseEntity 에 에러를 담아서 보냄
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UserException.class)
     public ErrorResult userExHandler(UserException e){
         log.error("[exceptionHandler] ex",e);
