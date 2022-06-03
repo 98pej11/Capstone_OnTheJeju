@@ -28,7 +28,7 @@ public class SpotController {
     private final JwtTokenProvider jwtTokenProvider;
 
     @GetMapping("/user/spot/{spotId}")
-    public SpotPageDto spotDetail(@PathVariable Long spotId,
+    public SpotPageDto spotDetail(@PathVariable("spotId") Long spotId,
                                   @RequestHeader("ACCESS-TOKEN") String accesstoken){
 
         log.info("spotId = {}",spotId);
@@ -48,7 +48,7 @@ public class SpotController {
     }
 
     @GetMapping("/user/spot/review/{spotId}")
-    public ReviewListDto reviewPage(@PathVariable Long spotId,
+    public ReviewListDto reviewPage(@PathVariable("spotId") Long spotId,
                                     @RequestHeader("ACCESS-TOKEN") String accesstoken,
                                     Pageable pageable){
         log.info("spotId = {}",spotId);
@@ -93,7 +93,12 @@ public class SpotController {
 
         map = new LinkedHashMap();
         map.put("id",4);
-        map.put("name","카페 및 식당");
+        map.put("name","서비스");
+        list.add(map);
+
+        map = new LinkedHashMap();
+        map.put("id",5);
+        map.put("name","전체");
         list.add(map);
 
         CategoryDto categoryDto = new CategoryDto(list);

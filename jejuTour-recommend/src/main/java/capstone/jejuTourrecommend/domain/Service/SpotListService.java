@@ -98,22 +98,22 @@ public class SpotListService {
 
         //log.info("isTrue? = {}",StringUtils.hasText(mainPageForm.getCategory()));
         if(!StringUtils.hasText(mainPageForm.getCategory())){
-            log.info("카테고리 null에 들어감");
-            //category = Category.VIEW;   //기본값은 뷰로 한다
-            return category;
+            throw new UserException("올바른 카테고리를 입력하세요. null 값이 들어갔습니다");
         }
 
-        if(mainPageForm.getCategory().equals("view")) {
+        if(mainPageForm.getCategory().equals("뷰")) {
             category = Category.VIEW;
         }
-        else if(mainPageForm.getCategory().equals("price"))
+        else if(mainPageForm.getCategory().equals("가격"))
             category = Category.PRICE;
-        else if(mainPageForm.getCategory().equals("facility"))
+        else if(mainPageForm.getCategory().equals("편의시설"))
             category = Category.FACILITY;
-        else if(mainPageForm.getCategory().equals("surround"))
+        else if(mainPageForm.getCategory().equals("서비스"))
             category = Category.SURROUND;
-        else {
-            category = Category.VIEW;   //기본값은 뷰로 한다
+        else if(mainPageForm.getCategory().equals("전체")){
+            category = null;   //기본값은 뷰로 한다
+        }else{
+            throw new UserException("올바른 카테고리를 입력하세요");
         }
 
         return category;
@@ -171,8 +171,8 @@ public class SpotListService {
         log.info("mainPageLocation = {}",mainPageForm.getLocation());
         List list = null;
         if(!StringUtils.hasText(mainPageForm.getLocation())){
-            log.info("카테고리에 null 값이 들어갔습니다");
-            throw new UserException("카테고리에 null 값이 들어갔습니다");
+            log.info("지역에 null 값이 들어갔습니다");///
+            throw new UserException("지에 null 값이 들어갔습니다");
         }
         /**
          * 북 : 애월읍,제주시,조천읍,구좌읍,우도면

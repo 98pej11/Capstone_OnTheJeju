@@ -63,6 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class);
 
+        http.cors();
+
 
 
                 // JwtAuthenticationFilter 를 UsernamePasswordAuthenticationFilter 전에 넣는다

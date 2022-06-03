@@ -136,7 +136,7 @@ public class FavoriteController {
     //위시 리스트 삭제하기
     //해당 위시리스트 정보 필요
     @DeleteMapping("/user/favoriteList/{favoriteId}")
-    public GlobalDto deleteFavoriteList(@PathVariable Long favoriteId){
+    public GlobalDto deleteFavoriteList(@PathVariable("favoriteId") Long favoriteId){
 
         //Todo: 테스트용 데이터
         //Long memberId;//이거 없어도 될것같음

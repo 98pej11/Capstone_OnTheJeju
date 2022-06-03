@@ -5,6 +5,7 @@ import capstone.jejuTourrecommend.web.pageDto.mainPage.QSpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.UserWeightDto;
 import capstone.jejuTourrecommend.web.pageDto.spotPage.ScoreDto;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -67,8 +68,6 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     public Page<SpotListDto> searchSpotByLocationAndCategory(List locationList, Category category, Pageable pageable) {
 
 
-
-
         OrderSpecifier<Double> orderSpecifier;
 
         log.info("location = {}",locationList);
@@ -84,8 +83,24 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
             orderSpecifier = spot.score.surroundScore.desc();
         else{
             log.info(" category = {} ",category);
-            orderSpecifier = spot.score.rankAverage.desc();
+            orderSpecifier = spot.score.rankAverage.asc();
         }
+
+        List<Tuple> fetch = queryFactory
+                .select(spot.id,
+                        spot.score.viewScore,
+                        spot.score.priceScore,
+                        spot.score.facilityScore,
+                        spot.score.surroundScore,
+                        spot.score.rankAverage
+                )
+                .from(spot)
+                .where(spot.location.in(locationList))
+                .orderBy(orderSpecifier)
+                .fetch();
+
+        log.info("fetch ={}",fetch);
+
 
         List<SpotListDto> contents = queryFactory
                 .select(new QSpotListDto(
@@ -97,6 +112,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                                         .select(picture.url.max())//스칼라 서브커리에서 limit 못 사용함 그래서 max 사용
                                         .from(picture)
                                         .where(picture.spot.id.eq(spot.id))
+
                                 //spot.pictures.any().url//패이징할꺼라 일대다 패치조인 안할거임
                                 //picture.url
 
@@ -135,6 +151,21 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
         log.info("location = {}",locationList);
         log.info("userWeight = {}",userWeightDto);
 
+        queryFactory
+                .update(memberSpot)
+                        .set(memberSpot.score,0d)
+                                .where(memberSpot.member.id.eq(memberId))
+                                        .execute();
+
+//        List<Tuple> initScoreList = queryFactory
+//                .select(memberSpot.score, memberSpot.spot)
+//                .from(memberSpot)
+//                .where(memberSpot.member.id.eq(memberId))
+//                .fetch();
+//
+//        log.info("initScoreList = {}",initScoreList);
+
+
         //지금 가중치를 업데이트 한 것임
         queryFactory
                 .update(memberSpot)
@@ -144,6 +175,30 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                 .where(memberSpot.member.id.eq(memberId))
                 .execute();
         //지금 점수는 업데이트 했는데 이게 상위 몇퍼센트인지 구할려고 하는 것임
+
+//        List<Tuple> fetch = queryFactory
+//                .select(
+//                        spot.id, spot.score.viewScore, spot.score.priceScore, spot.score.facilityScore, spot.score.surroundScore,
+//                        //userWeightDto.getViewWeight(),userWeightDto.getPriceWeight(),
+//                        spot.score.viewScore.multiply(userWeightDto.getViewWeight())
+//                                .add(spot.score.priceScore.multiply(userWeightDto.getPriceWeight()))
+//                                .add(spot.score.facilityScore.multiply(userWeightDto.getFacilityWeight()))
+//                                .add(spot.score.surroundScore.multiply(userWeightDto.getSurroundWeight()))
+//                                .divide(userWeightDto.getViewWeight() + userWeightDto.getPriceWeight()
+//                                        + userWeightDto.getFacilityWeight() + userWeightDto.getSurroundWeight())
+//                )
+//                .from(spot)
+//                .fetch();
+//        log.info("fetch = {}",fetch);
+
+
+//        List<Tuple> updatedScoreList = queryFactory
+//                .select(memberSpot.score, memberSpot.spot)
+//                .from(memberSpot)
+//                .where(memberSpot.member.id.eq(memberId))
+//                .fetch();
+//
+//        log.info("updatedScoreList = {}",updatedScoreList);
 
         List<SpotListDto> contents = queryFactory
                 .select(new QSpotListDto(
@@ -163,6 +218,8 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
+
+        log.info("contents = {}",contents);
 
         JPAQuery<Long> countQuery = queryFactory
                 .select(memberSpot.count())
@@ -204,7 +261,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
 
 
     private JPQLQuery<Double> getJpqlQuery(UserWeightDto userWeightDto) {
-        return JPAExpressions
+        JPQLQuery<Double> updatedScore = JPAExpressions
                 .select(
                         spot.score.viewScore.multiply(userWeightDto.getViewWeight())
                                 .add(spot.score.priceScore.multiply(userWeightDto.getPriceWeight()))
@@ -215,6 +272,12 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                 )
                 .from(spot)
                 .where(spot.eq(memberSpot.spot));
+
+        log.info("updatedScore = {}",updatedScore);
+
+        return updatedScore;
+
+
     }
 
     private BooleanExpression memberFavoriteEq(Long memberId){

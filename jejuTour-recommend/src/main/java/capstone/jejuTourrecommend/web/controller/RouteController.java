@@ -21,7 +21,7 @@ public class RouteController {
     private final RouteService routeService;
 
     @GetMapping("/user/route/spot/{favoriteId}")
-    public ResultFavoriteSpotList favoriteRoute(@PathVariable Long favoriteId){
+    public ResultFavoriteSpotList favoriteRoute(@PathVariable("favoriteId") Long favoriteId){
 
         //Todo: 테스트 데이터
         //Long favoriteIdTest = 3l;
@@ -32,7 +32,7 @@ public class RouteController {
     }
 
     @PostMapping("/user/route/topList/{favoriteId}")
-    public ResultTopSpot topList(@PathVariable Long favoriteId, @RequestBody RouteForm routeForm){
+    public ResultTopSpot topList(@PathVariable("favoriteId") Long favoriteId, @RequestBody RouteForm routeForm){
 
         //Todo: 테스트 데이터
         //Long favoriteIdTest = 3l;

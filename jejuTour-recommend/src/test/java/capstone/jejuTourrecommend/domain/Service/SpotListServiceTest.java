@@ -99,8 +99,8 @@ class SpotListServiceTest {
     public Score createScore(Score[] scores,int i){
         Random random = new Random();
         scores[i]= new Score(
-                random.nextDouble()*10,random.nextDouble()*10,
-                random.nextDouble()*10,random.nextDouble()*10,
+                (i+1)*10d,(i+2)*10d,
+                (i+3)*10d,(i+4)*10d,
                 random.nextDouble()*10,random.nextDouble()*10,
                 random.nextDouble()*10,random.nextDouble()*10,
                 random.nextDouble()*10);
@@ -114,17 +114,17 @@ class SpotListServiceTest {
     public void postSpotListTest() throws Exception{
         //given
         String memberEmail = "member1@gmail.com";
-        PageRequest pageRequest = PageRequest.of(0, 4);
+        PageRequest pageRequest = PageRequest.of(0, 100);
         MainPageForm mainPageForm = new MainPageForm();
 
-        UserWeightDto userWeightDto = new UserWeightDto(1d,2d,1d,1d);
+        UserWeightDto userWeightDto = new UserWeightDto(1d,2d,0d,0d);
 
 
         //ToDo: 사용자가 location 유무, 케테고리 유무, 가중치 유무에따라 반환되는 값 다름
         //mainPageForm.setLocation("안덕면");
         mainPageForm.setLocation("전체");
-        //mainPageForm.setCategory("view");
-        mainPageForm.setCategory(null);
+        mainPageForm.setCategory("서비스");
+        //mainPageForm.setCategory(null);
         //mainPageForm.setUserWeightDto(userWeightDto);
         mainPageForm.setUserWeightDto(null);
 
@@ -133,7 +133,16 @@ class SpotListServiceTest {
         //when
         ResultSpotListDto result = spotListService.postSpotList(mainPageForm, memberEmail, pageRequest);
 
-        log.info("result = {}",result);
+        for(int i=0;i<100;i++) {
+            log.info("result = {}", result.getData().getContent().get(i));
+        }
+
+        //when
+        ResultSpotListDto result1 = spotListService.postSpotList(mainPageForm, memberEmail, pageRequest);
+
+        for(int i=0;i<100;i++) {
+            log.info("result1 = {}", result.getData().getContent().get(i));
+        }
 
         //then
     }

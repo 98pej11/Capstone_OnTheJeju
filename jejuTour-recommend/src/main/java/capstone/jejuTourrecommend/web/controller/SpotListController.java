@@ -75,7 +75,12 @@ public class SpotListController {
 
         map = new LinkedHashMap();
         map.put("id",4);
-        map.put("name","카페 및 식당");
+        map.put("name","서비스");
+        list.add(map);
+
+        map = new LinkedHashMap();
+        map.put("id",5);
+        map.put("name","전체");
         list.add(map);
 
         CategoryDto categoryDto = new CategoryDto(list);
@@ -84,27 +89,27 @@ public class SpotListController {
         List list1 = new ArrayList();
 
         map1 = new LinkedHashMap();
-        map1.put("id",5);
+        map1.put("id",6);
         map1.put("name","북부");
         list1.add(map1);
 
         map1 = new LinkedHashMap();
-        map1.put("id",6);
+        map1.put("id",7);
         map1.put("name","남부");
         list1.add(map1);
 
         map1 = new LinkedHashMap();
-        map1.put("id",7);
+        map1.put("id",8);
         map1.put("name","서부");
         list1.add(map1);
 
         map1 = new LinkedHashMap();
-        map1.put("id",8);
+        map1.put("id",9);
         map1.put("name","동부");
         list1.add(map1);
 
         map1 = new LinkedHashMap();
-        map1.put("id",9);
+        map1.put("id",10);
         map1.put("name","전체");
         list1.add(map1);
 
