@@ -133,6 +133,7 @@ class SpotListServiceTest {
         //when
         ResultSpotListDto result = spotListService.postSpotList(mainPageForm, memberEmail, pageRequest);
 
+
         for(int i=0;i<100;i++) {
             log.info("result = {}", result.getData().getContent().get(i));
         }

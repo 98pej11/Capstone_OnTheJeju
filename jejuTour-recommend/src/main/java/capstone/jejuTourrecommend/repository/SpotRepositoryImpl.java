@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static capstone.jejuTourrecommend.domain.QFavorite.favorite;
@@ -52,7 +53,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
         Integer integer = queryFactory
                 .selectOne()
                 .from(favoriteSpot)
-                .where(favoriteSpot.favorite.id.in(favoriteList), favoriteSpot.spot.id.eq(spot.id))
+                .where(favoriteSpot.favorite.id.in(favoriteList), favoriteSpot.spot.id.eq(spotId))
                 .fetchFirst();
 
         if (integer==null){
@@ -72,6 +73,8 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
 
         log.info("location = {}",locationList);
         log.info("category = {}",category);
+        //log.info("offset = {}",pageable.getOffset());
+        //log.info("size = {}",pageable.getPageSize());
 
         if(category==Category.VIEW)
             orderSpecifier = spot.score.viewScore.desc();
@@ -108,11 +111,10 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                                 spot.name,
                                 spot.address,
                                 spot.description,
-                                JPAExpressions
-                                        .select(picture.url.max())//스칼라 서브커리에서 limit 못 사용함 그래서 max 사용
+                                JPAExpressions  //스칼라 서브커리에서 limit 못 사용함 그래서 max 사용
+                                        .select(picture.url.max()) //Todo: 업데이트 부분
                                         .from(picture)
                                         .where(picture.spot.id.eq(spot.id))
-
                                 //spot.pictures.any().url//패이징할꺼라 일대다 패치조인 안할거임
                                 //picture.url
 
@@ -126,6 +128,42 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                 .limit(pageable.getPageSize())
                 .fetch();
 
+        /**
+        List<Tuple> contents = queryFactory
+                .select(
+                        spot.id,
+                        spot.name,
+                        spot.address,
+                        spot.description
+                )
+                .from(spot)
+                //.where(locationEq(location))
+                .where(spot.location.in(locationList))
+                .orderBy(orderSpecifier)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        List<SpotListDto> spotListDtos = new  ArrayList<SpotListDto>();
+
+        for(long i=pageable.getOffset();i< pageable.getOffset() +pageable.getPageSize();i++) {
+            int j = (int) i;
+            Long spotId = contents.get(j).get(spot.id);
+
+            List<String> urls = queryFactory
+                    .select(picture.url)
+                    .from(picture)
+                    .where(picture.spot.id.eq(spotId))
+                    .fetch();
+
+
+            spotListDtos.add(new SpotListDto(
+                    contents.get(j).get(spot.id),contents.get(j).get(spot.name),contents.get(j).get(spot.address),
+                    contents.get(j).get(spot.description),urls));
+
+
+        }*/
+
 
         JPAQuery<Long> countQuery = queryFactory
                 .select(spot.count())
@@ -134,7 +172,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                 .where(spot.location.in(locationList))
                 ;
 
-        return PageableExecutionUtils.getPage(contents, pageable, countQuery::fetchOne);
+        return PageableExecutionUtils.getPage(contents, pageable, () -> countQuery.fetchOne());
     }
 
     //가중치가 있을 경우의 쿼리
@@ -153,9 +191,9 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
 
         queryFactory
                 .update(memberSpot)
-                        .set(memberSpot.score,0d)
-                                .where(memberSpot.member.id.eq(memberId))
-                                        .execute();
+                .set(memberSpot.score, 0d)
+                .where(memberSpot.member.id.eq(memberId))
+                .execute();
 
 //        List<Tuple> initScoreList = queryFactory
 //                .select(memberSpot.score, memberSpot.spot)
@@ -206,8 +244,8 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                                 memberSpot.spot.name,
                                 memberSpot.spot.address,
                                 memberSpot.spot.description,
-                                JPAExpressions
-                                        .select(picture.url.max())//스칼라 서브커리에서 limit 못 사용함 그래서 max 사용
+                                JPAExpressions   //스칼라 서브커리에서 limit 못 사용함 그래서 max 사용
+                                        .select(picture.url.max())  //Todo: 업데이트부분
                                         .from(picture)
                                         .where(picture.spot.id.eq(memberSpot.spot.id))
                         )
@@ -255,9 +293,6 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     }
 
 
-//    @Override
-//    public Page<SpotDetailDto> searchSpotDetail(String spotName) {
-//    }
 
 
     private JPQLQuery<Double> getJpqlQuery(UserWeightDto userWeightDto) {
@@ -287,8 +322,6 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     private BooleanExpression favoriteListEq(List<Long> favoriteList){
         return favoriteList != null  ? favoriteSpot.favorite.id.in(favoriteList) :  null;
     }
-
-    //private BooleanExpression favorites
 
 
     private BooleanExpression locationEq(Location location) {

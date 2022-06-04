@@ -96,10 +96,7 @@ public class SpotController {
         map.put("name","서비스");
         list.add(map);
 
-        map = new LinkedHashMap();
-        map.put("id",5);
-        map.put("name","전체");
-        list.add(map);
+
 
         CategoryDto categoryDto = new CategoryDto(list);
 

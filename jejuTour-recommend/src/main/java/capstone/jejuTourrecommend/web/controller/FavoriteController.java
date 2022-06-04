@@ -149,8 +149,8 @@ public class FavoriteController {
     }
 ////
     @DeleteMapping("/user/favoriteList/deleteSpot")
-    public GlobalDto deleteSpotInFavoriteList(@RequestParam("favoriteId") Long favoriteId,
-                                              @RequestParam("spotId") Long spotId){
+    public GlobalDto deleteSpotInFavoriteList(@RequestParam Long favoriteId,
+                                              @RequestParam Long spotId){
         //3,
         favoriteService.deleteSpotInFavoriteList(favoriteId,spotId);
 

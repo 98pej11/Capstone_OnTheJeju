@@ -3,6 +3,7 @@ package capstone.jejuTourrecommend.web.pageDto.mainPage;
 import capstone.jejuTourrecommend.domain.Location;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
+import org.hibernate.mapping.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 
