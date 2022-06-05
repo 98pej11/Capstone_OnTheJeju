@@ -26,9 +26,9 @@ public class RouteController {
         //Todo: 테스트 데이터
         //Long favoriteIdTest = 3l;
 
-        List<FavoriteSpotListDto> favoriteSpotListDtos = routeService.favoriteSpotList(favoriteId);
+        ResultFavoriteSpotList resultFavoriteSpotList = routeService.favoriteSpotList(favoriteId);
 
-        return new ResultFavoriteSpotList(200l,true,"성공",favoriteSpotListDtos);
+        return resultFavoriteSpotList;
     }
 
     @PostMapping("/user/route/topList/{favoriteId}")

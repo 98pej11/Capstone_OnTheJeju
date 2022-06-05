@@ -13,12 +13,14 @@ public class ResultFavoriteSpotList {
     private Long status;
     private boolean success;
     private String message;
+    private String favoriteName;
     private List<FavoriteSpotListDto> favoriteSpotListDtos;
 
-    public ResultFavoriteSpotList(Long status, boolean success, String message, List<FavoriteSpotListDto> favoriteSpotListDtos) {
+    public ResultFavoriteSpotList(Long status, boolean success, String message, String favoriteName, List<FavoriteSpotListDto> favoriteSpotListDtos) {
         this.status = status;
         this.success = success;
         this.message = message;
+        this.favoriteName = favoriteName;
         this.favoriteSpotListDtos = favoriteSpotListDtos;
     }
 }
