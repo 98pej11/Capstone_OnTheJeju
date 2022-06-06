@@ -114,7 +114,10 @@ class SpotListServiceTest {
     public void postSpotListTest() throws Exception{
         //given
         String memberEmail = "member1@gmail.com";
-        PageRequest pageRequest = PageRequest.of(0, 100);
+        int page = 2;
+        int size = 10;
+
+        PageRequest pageRequest = PageRequest.of(page, size);
         MainPageForm mainPageForm = new MainPageForm();
 
         UserWeightDto userWeightDto = new UserWeightDto(1d,2d,0d,0d);
@@ -126,7 +129,7 @@ class SpotListServiceTest {
         mainPageForm.setCategory("서비스");
         //mainPageForm.setCategory(null);
         //mainPageForm.setUserWeightDto(userWeightDto);
-        mainPageForm.setUserWeightDto(null);
+        //mainPageForm.setUserWeightDto(null);
 
 
 
@@ -134,16 +137,16 @@ class SpotListServiceTest {
         ResultSpotListDto result = spotListService.postSpotList(mainPageForm, memberEmail, pageRequest);
 
 
-        for(int i=0;i<100;i++) {
+        for(int i=0;i<size;i++) {
             log.info("result = {}", result.getData().getContent().get(i));
         }
 
         //when
-        ResultSpotListDto result1 = spotListService.postSpotList(mainPageForm, memberEmail, pageRequest);
-
-        for(int i=0;i<100;i++) {
-            log.info("result1 = {}", result.getData().getContent().get(i));
-        }
+//        ResultSpotListDto result1 = spotListService.postSpotList(mainPageForm, memberEmail, pageRequest);
+//
+//        for(int i=0;i<100;i++) {
+//            log.info("result1 = {}", result.getData().getContent().get(i));
+//        }
 
         //then
     }

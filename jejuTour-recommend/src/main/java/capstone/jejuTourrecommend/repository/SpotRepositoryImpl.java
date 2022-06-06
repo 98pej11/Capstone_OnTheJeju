@@ -86,7 +86,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
             orderSpecifier = spot.score.surroundScore.desc();
         else{
             log.info(" category = {} ",category);
-            orderSpecifier = spot.score.rankAverage.asc();
+            orderSpecifier = spot.score.rankAverage.asc();//Todo: 업데이트
         }
 
         List<Tuple> fetch = queryFactory
@@ -195,13 +195,13 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                 .where(memberSpot.member.id.eq(memberId))
                 .execute();
 
-//        List<Tuple> initScoreList = queryFactory
-//                .select(memberSpot.score, memberSpot.spot)
-//                .from(memberSpot)
-//                .where(memberSpot.member.id.eq(memberId))
-//                .fetch();
-//
-//        log.info("initScoreList = {}",initScoreList);
+        List<Tuple> initScoreList = queryFactory
+                .select(memberSpot.score, memberSpot.spot)
+                .from(memberSpot)
+                .where(memberSpot.member.id.eq(memberId))
+                .fetch();
+
+        log.info("initScoreList = {}",initScoreList);
 
 
         //지금 가중치를 업데이트 한 것임
@@ -212,31 +212,34 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                         )
                 .where(memberSpot.member.id.eq(memberId))
                 .execute();
+
+        List<Tuple> updatedScoreList = queryFactory
+                .select(memberSpot.score, memberSpot.spot.id)
+                .from(memberSpot)
+                .where(memberSpot.member.id.eq(memberId))
+                .fetch();
+
+        log.info("updatedScoreList = {}",updatedScoreList);
+
+
         //지금 점수는 업데이트 했는데 이게 상위 몇퍼센트인지 구할려고 하는 것임
 
-//        List<Tuple> fetch = queryFactory
-//                .select(
-//                        spot.id, spot.score.viewScore, spot.score.priceScore, spot.score.facilityScore, spot.score.surroundScore,
-//                        //userWeightDto.getViewWeight(),userWeightDto.getPriceWeight(),
-//                        spot.score.viewScore.multiply(userWeightDto.getViewWeight())
-//                                .add(spot.score.priceScore.multiply(userWeightDto.getPriceWeight()))
-//                                .add(spot.score.facilityScore.multiply(userWeightDto.getFacilityWeight()))
-//                                .add(spot.score.surroundScore.multiply(userWeightDto.getSurroundWeight()))
-//                                .divide(userWeightDto.getViewWeight() + userWeightDto.getPriceWeight()
-//                                        + userWeightDto.getFacilityWeight() + userWeightDto.getSurroundWeight())
-//                )
-//                .from(spot)
-//                .fetch();
-//        log.info("fetch = {}",fetch);
+        List<Tuple> fetch = queryFactory
+                .select(
+                        spot.id, spot.score.viewScore, spot.score.priceScore, spot.score.facilityScore, spot.score.surroundScore,
+                        //userWeightDto.getViewWeight(),userWeightDto.getPriceWeight(),
+                        spot.score.viewScore.multiply(userWeightDto.getViewWeight())
+                                .add(spot.score.priceScore.multiply(userWeightDto.getPriceWeight()))
+                                .add(spot.score.facilityScore.multiply(userWeightDto.getFacilityWeight()))
+                                .add(spot.score.surroundScore.multiply(userWeightDto.getSurroundWeight()))
+                                .divide(userWeightDto.getViewWeight() + userWeightDto.getPriceWeight()
+                                        + userWeightDto.getFacilityWeight() + userWeightDto.getSurroundWeight())
+                )
+                .from(spot)
+                .fetch();
+        log.info("fetch = {}",fetch);
 
 
-//        List<Tuple> updatedScoreList = queryFactory
-//                .select(memberSpot.score, memberSpot.spot)
-//                .from(memberSpot)
-//                .where(memberSpot.member.id.eq(memberId))
-//                .fetch();
-//
-//        log.info("updatedScoreList = {}",updatedScoreList);
 
         List<SpotListDto> contents = queryFactory
                 .select(new QSpotListDto(

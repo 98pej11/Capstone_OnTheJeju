@@ -1,9 +1,8 @@
 package capstone.jejuTourrecommend.domain.Service;
 
-import capstone.jejuTourrecommend.domain.Category;
-import capstone.jejuTourrecommend.domain.Location;
-import capstone.jejuTourrecommend.domain.Member;
+import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.repository.MemberRepository;
+import capstone.jejuTourrecommend.repository.MemberSpotRepository;
 import capstone.jejuTourrecommend.repository.SpotRepository;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.MainPageForm;
@@ -36,6 +35,8 @@ public class SpotListService {
 
 
 
+
+
     public ResultSpotListDto postSpotList(MainPageForm mainPageForm,String memberEmail, Pageable pageable){
 
         //Location location = findLocation(mainPageForm);
@@ -49,7 +50,7 @@ public class SpotListService {
         log.info("location = {}", locationList);
         //mainPageForm.setCategory(Category.VIEW);
         log.info("category = {} ",category);
-        log.info("mainPageForm.getUserWeightDto() = {}",mainPageForm.getUserWeightDto());
+        log.info("UserWeightDto() = {}",mainPageForm.getUserWeight());//Todo: 업데이트
 
 
         Member member = memberRepository.findOptionByEmail(memberEmail)
@@ -61,7 +62,12 @@ public class SpotListService {
 //        PageRequest pageRequest = PageRequest.of(mainPageForm.getPage(), mainPageForm.getSize());
 
         //사용자가 가중치를 입력 안한 경우
-        if(mainPageForm.getUserWeightDto()==null) {
+        if(mainPageForm.getUserWeight()==null||///////Todo: 업데이트
+                (mainPageForm.getUserWeight().get("viewWeight").doubleValue()==0&&
+        mainPageForm.getUserWeight().get("priceWeight").doubleValue()==0&&
+                mainPageForm.getUserWeight().get("facilityWeight").doubleValue()==0&&
+                mainPageForm.getUserWeight().get("surroundWeight").doubleValue()==0)
+        ) {//Todo: 업데이트
             Page<SpotListDto> result = spotRepository.searchSpotByLocationAndCategory(
                     locationList, category, pageable);
 
@@ -71,11 +77,11 @@ public class SpotListService {
             return new ResultSpotListDto(200l,true,"성공",result);
         }
         else {//사용자가 가중치를 넣은 경우
-            UserWeightDto userWeightDto = new UserWeightDto(
-                    mainPageForm.getUserWeightDto().getViewWeight(),
-                    mainPageForm.getUserWeightDto().getPriceWeight(),
-                    mainPageForm.getUserWeightDto().getFacilityWeight(),
-                    mainPageForm.getUserWeightDto().getSurroundWeight()
+            UserWeightDto userWeightDto = new UserWeightDto(//Todo: 업데이트
+                    mainPageForm.getUserWeight().get("viewWeight").doubleValue(),
+                    mainPageForm.getUserWeight().get("priceWeight").doubleValue(),
+                    mainPageForm.getUserWeight().get("facilityWeight").doubleValue(),
+                    mainPageForm.getUserWeight().get("surroundWeight").doubleValue()
             );
             log.info("userWeightDto = {}",userWeightDto);
 
@@ -91,6 +97,9 @@ public class SpotListService {
 
         }
     }
+
+
+
 
     public Category findCategory(MainPageForm mainPageForm) {
         log.info("mainPageCategory = {} ",mainPageForm.getCategory());

@@ -1,7 +1,11 @@
 package capstone.jejuTourrecommend.domain.Service;
 
 import capstone.jejuTourrecommend.domain.Member;
+import capstone.jejuTourrecommend.domain.MemberSpot;
+import capstone.jejuTourrecommend.domain.Spot;
 import capstone.jejuTourrecommend.repository.MemberRepository;
+import capstone.jejuTourrecommend.repository.MemberSpotRepository;
+import capstone.jejuTourrecommend.repository.SpotRepository;
 import capstone.jejuTourrecommend.web.login.UserDto;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.login.form.JoinForm;
@@ -14,7 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -28,6 +34,14 @@ public class LoginService {
     private final PasswordEncoder passwordEncoder;
 
     private final JwtTokenProvider jwtTokenProvider;
+
+
+    //Todo: 업데이트
+    private final MemberSpotRepository memberSpotRepository;
+    private final SpotRepository spotRepository;
+
+    private final EntityManager em;
+
 
     /**
      * 회원 가입
@@ -59,9 +73,31 @@ public class LoginService {
 
         //String refreshToken = jwtTokenProvider.createRefreshToken(user.getUserId());
 
+        makeMemberSpot(member);
+
+
 
         return userDto;
     }
+
+    public void makeMemberSpot(Member member){
+
+        List<Spot> spotList = spotRepository.findAll();
+        int size = spotList.size();
+
+
+        MemberSpot[] memberSpots = new MemberSpot[size];
+        for(int i=0;i<size;i++){
+            memberSpots[i] = new MemberSpot(0d,member,spotList.get(i));
+            memberSpotRepository.save(memberSpots[i]);
+            log.info("memberSpots[i] = {}",memberSpots[i]);
+        }
+
+        em.flush();
+        em.clear();
+
+    }
+
 
     //로그인 정보가 일치하는지 확인
     public UserDto login(String email, String password){

@@ -32,6 +32,11 @@ public class SpotListController {
                                       Pageable pageable,@RequestHeader("ACCESS-TOKEN") String accesstoken){
 
 
+
+        log.info("mainPageForm.getCategory() = {}",mainPageForm.getCategory());
+        log.info("mainPageForm.getLocation() = {}",mainPageForm.getLocation());
+        log.info("mainPageForm..getUserWeightDto() ={}",mainPageForm.getUserWeight());
+
         //이거 실험용 데이터임 TODO: 실험용 데이터임
         //String memberEmailTest = "member1@gmail.com";
 
@@ -40,7 +45,7 @@ public class SpotListController {
         String memberEmail = jwtTokenProvider.getUserPk(accesstoken);
 
 
-        log.info("memberId = {}",memberEmail);
+        log.info("memberEmail = {}",memberEmail);
         log.info("pageable = {}",pageable);
 
         ResultSpotListDto resultSpotListDto = spotListService

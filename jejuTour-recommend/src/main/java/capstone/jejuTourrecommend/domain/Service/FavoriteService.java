@@ -86,11 +86,22 @@ public class FavoriteService {
         Member member = memberRepository.findOptionByEmail(memberEmail)
                 .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
+        //Todo:
         Optional<Favorite> optionByName = favoriteRepository.findOptionByName(favoriteName);
 
         if(optionByName.isPresent()){
             throw new UserException("동일한 위시리스트 이름이 존재합니다");
         }
+
+        /**
+         *
+
+        Optional<Favorite> optionByFavoriteNameAndMember = favoriteRepository.findOptionByFavoriteNameAndMember(favoriteName, member);
+
+        if(optionByFavoriteNameAndMember.isPresent()){
+            throw new UserException("동일한 위시리스트 이름이 존재합니다");
+        }*/
+
 
         Optional<Spot> spot = spotRepository.findOptionById(spotId);
 
@@ -120,11 +131,21 @@ public class FavoriteService {
         Member member = memberRepository.findOptionByEmail(memberEmail)
                 .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
+        //Todo:
         Optional<Favorite> optionByName = favoriteRepository.findOptionByName(favoriteName);
 
         if(optionByName.isPresent()){
             throw new UserException("동일한 위시리스트 이름이 존재합니다");
         }
+
+        /**
+         *
+
+         Optional<Favorite> optionByFavoriteNameAndMember = favoriteRepository.findOptionByFavoriteNameAndMember(favoriteName, member);
+
+         if(optionByFavoriteNameAndMember.isPresent()){
+         throw new UserException("동일한 위시리스트 이름이 존재합니다");
+         }*/
 
         Favorite favorite = new Favorite(favoriteName,member);
 
