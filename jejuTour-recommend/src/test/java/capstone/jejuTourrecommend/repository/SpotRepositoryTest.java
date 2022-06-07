@@ -5,6 +5,7 @@ import capstone.jejuTourrecommend.web.pageDto.mainPage.ResultSpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.UserWeightDto;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -209,6 +210,39 @@ class SpotRepositoryTest {
         //when
 
         //then
+    }
+
+    @Test
+    public void searchSpotName() throws Exception{
+        //given
+        Spot spot1 = new Spot("가우리는");
+        Spot spot2 = new Spot("우리는");
+        Spot spot3 = new Spot("가우리");
+        Spot spot4 = new Spot("가우리 는");
+        Spot spot5 = new Spot("가 우리는");
+        Spot spot6 = new Spot("가 우리 는");
+
+        em.persist(spot1);
+        em.persist(spot2);
+        em.persist(spot3);
+        em.persist(spot4);
+        em.persist(spot5);
+        em.persist(spot6);
+
+        int page = 0;
+        int size = 3;
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+        //when
+        //spotRepository.findByNameLike("%우리%").stream().map(spot -> new SpotListDto(spo))
+        Page<SpotListDto> spotListDtos = spotRepository.searchBySpotNameContains("우리", pageRequest);
+
+
+        //then
+        Assertions.assertThat(spotListDtos.getContent().size()).isEqualTo(3);
+
+
     }
 
 }

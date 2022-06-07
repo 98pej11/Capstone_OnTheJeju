@@ -34,7 +34,13 @@ public class SpotListService {
     private final EntityManager em;
 
 
+    public ResultSpotListDto searchSpotListContains(String spotName, Pageable pageable){
 
+        Page<SpotListDto> spotListDtos = spotRepository.searchBySpotNameContains(spotName, pageable);
+
+        return new ResultSpotListDto(200l,true,"성공",spotListDtos);
+
+    }
 
 
     public ResultSpotListDto postSpotList(MainPageForm mainPageForm,String memberEmail, Pageable pageable){

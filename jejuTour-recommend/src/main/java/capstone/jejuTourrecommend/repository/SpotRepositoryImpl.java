@@ -41,6 +41,41 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
         this.queryFactory = new JPAQueryFactory(em);
     }
 
+
+    @Override
+    public Page<SpotListDto> searchBySpotNameContains(String spotName, Pageable pageable) {
+
+
+        List<SpotListDto> contents = queryFactory
+                .select(
+                        new QSpotListDto(
+                                spot.id,
+                                spot.name,
+                                spot.address,
+                                spot.description,
+                                JPAExpressions  //스칼라 서브커리에서 limit 못 사용함 그래서 max 사용
+                                        .select(picture.url.max()) //Todo: 업데이트 부분
+                                        .from(picture)
+                                        .where(picture.spot.id.eq(spot.id))
+                        )
+                )
+                .from(spot)
+                .where(spot.name.contains(spotName))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Long> countQuery = queryFactory
+                .select(spot.count())
+                .from(spot)
+                .where(spot.name.contains(spotName));
+
+        return PageableExecutionUtils.getPage(contents, pageable, () -> countQuery.fetchOne());
+
+
+    }
+
+
     @Override
     public Boolean isFavoriteSpot(Long memberId, Long spotId) {
 
@@ -64,6 +99,8 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
 
 
     }
+
+
 
     @Override
     public Page<SpotListDto> searchSpotByLocationAndCategory(List locationList, Category category, Pageable pageable) {

@@ -55,6 +55,17 @@ public class SpotListController {
 
     }
 
+    @PostMapping("/user/spotList/search")//일단 토큰은 배재하고 검색해보자
+    public ResultSpotListDto searchSpotListContains(@RequestBody String spotName,
+                                      Pageable pageable,@RequestHeader("ACCESS-TOKEN") String accesstoken) {
+
+        ResultSpotListDto resultSpotListDto = spotListService.searchSpotListContains(spotName, pageable);
+
+        return resultSpotListDto;
+
+
+    }
+
 
     @GetMapping("/spotList/metaData")
     public SpotListMetaDto getMetaData(){

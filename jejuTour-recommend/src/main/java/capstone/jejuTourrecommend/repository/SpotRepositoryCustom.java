@@ -25,4 +25,6 @@ public interface SpotRepositoryCustom {
 
     Boolean isFavoriteSpot(Long memberId, Long spotId);
 
+    Page<SpotListDto> searchBySpotNameContains(String spotName, Pageable pageable);
+
 }
