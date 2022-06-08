@@ -4,12 +4,14 @@ package capstone.jejuTourrecommend.web.controller;
 import capstone.jejuTourrecommend.domain.Category;
 import capstone.jejuTourrecommend.domain.Location;
 import capstone.jejuTourrecommend.domain.Service.SpotListService;
+import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jboss.jandex.Main;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -56,14 +58,20 @@ public class SpotListController {
     }
 
     @PostMapping("/user/spotList/search")//일단 토큰은 배재하고 검색해보자
-    public ResultSpotListDto searchSpotListContains(@RequestBody String spotName,
+    public ResultSpotListDto searchSpotListContains(@RequestBody SearchForm searchForm,
                                       Pageable pageable,@RequestHeader("ACCESS-TOKEN") String accesstoken) {
 
-        ResultSpotListDto resultSpotListDto = spotListService.searchSpotListContains(spotName, pageable);
+
+
+        log.info("spotName = {}",searchForm.getSpotName());
+
+        if(!StringUtils.hasText(searchForm.getSpotName())){
+            throw new UserException("관광지 이름에 빈 문자열이 왔습니다");
+        }
+
+        ResultSpotListDto resultSpotListDto = spotListService.searchSpotListContains(searchForm.getSpotName(), pageable);
 
         return resultSpotListDto;
-
-
     }
 
 
