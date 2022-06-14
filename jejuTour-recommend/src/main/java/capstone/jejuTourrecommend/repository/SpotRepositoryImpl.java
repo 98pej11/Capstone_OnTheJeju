@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import static capstone.jejuTourrecommend.domain.QFavorite.favorite;
