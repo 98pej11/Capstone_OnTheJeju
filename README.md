@@ -28,7 +28,9 @@ JejuTourRecommend는 테스트용 코드입니다
 
 
 전반적인 자세한 소개와 시현영상은 아래 링크로 들어가면 자세히 볼수 있습니다.
+
 <소개 영상 링크>
+
 https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=222783108548&categoryNo=1&isAfterWrite=true&isMrblogPost=false&isHappyBeanLeverage=true&contentLength=5077&isWeeklyDiaryPopupEnabled=true
 
 
