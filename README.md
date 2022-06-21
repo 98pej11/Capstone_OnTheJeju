@@ -19,11 +19,6 @@
 4번째는 찜하기 기능으로, 사용자 만의 관광지 리스트를 만들었을 경우, 해당 관광지의 최단 경로를 보여줍니다. 
 또한 사용자의 각 위시리스트를 분석하여, 사용자 성향을 파악해 여행경로 주변 관광지를 추천해줍니다.
 
-<메인 페이지>
-![image](https://user-images.githubusercontent.com/23393574/174819266-91f294ed-8936-47c5-98ec-cfd3adaba886.png)
-
-
-
 실제 구현 코드는 jejuTour-recommend를 보시며 됩니다
 JejuTourRecommend는 테스트용 코드입니다
  
@@ -39,10 +34,12 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 
 <메인 페이지>
+
 <img width="1920" alt="메인페이지" src="https://user-images.githubusercontent.com/23393574/174818259-60db8349-8c55-487e-97ee-817f240b6a56.png">
 
 
 <테이블 구성도>
+
 <img width="805" alt="테이블 구성도" src="https://user-images.githubusercontent.com/23393574/174819516-2381636f-06c8-40db-90ef-9db7efeb19fd.png">
 
 
