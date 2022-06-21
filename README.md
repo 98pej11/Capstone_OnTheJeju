@@ -18,3 +18,26 @@
 
 실제 구현 코드는 jejuTour-recommend를 보시며 됩니다
 JejuTourRecommend는 테스트용 코드입니다
+
+
+
+
+<img width="1512" alt="가중치 화면" src="https://user-images.githubusercontent.com/23393574/174817886-23e9439b-bf68-438b-9a45-92476d2c705e.png">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
