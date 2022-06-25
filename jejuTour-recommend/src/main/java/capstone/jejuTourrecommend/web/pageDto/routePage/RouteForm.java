@@ -8,9 +8,9 @@ import java.util.List;
 public class RouteForm {
 
     private List<Long> spotIdList;
-
-
-
-
+    
 
 }
+
+
+
