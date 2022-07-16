@@ -106,6 +106,8 @@ public class FavoriteSpotQueryRepository {
 
 
 
+
+
         return favoriteSpotListDtos;
 
     }
@@ -152,6 +154,8 @@ public class FavoriteSpotQueryRepository {
                 .from(spot)
                 .where(spot.in(spotList))
                 .fetch();
+
+
 
 
         //최대값을 가진 카테고리 구하기

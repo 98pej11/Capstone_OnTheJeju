@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,14 +87,19 @@ public class LoginService {
         int size = spotList.size();
 
 
-        MemberSpot[] memberSpots = new MemberSpot[size];
+        //MemberSpot[] memberSpots = new MemberSpot[size];
+        List<MemberSpot> memberSpots = new ArrayList<>();
+
         for(int i=0;i<size;i++){
-            memberSpots[i] = new MemberSpot(0d,member,spotList.get(i));
-            memberSpotRepository.save(memberSpots[i]);
-            log.info("memberSpots[i] = {}",memberSpots[i]);
+            memberSpots.add(new MemberSpot(0d,member,spotList.get(i)));
+            //Todo: save를 스프링 데이터 jpa가 제공해주는 saveAll로 고침
+            //memberSpotRepository.save(memberSpots[i]);
+            log.info("memberSpots.toArray() = {}",memberSpots.toArray());
         }
 
-        em.flush();
+        memberSpotRepository.saveAllAndFlush(memberSpots);
+
+        //em.flush();
         em.clear();
 
     }

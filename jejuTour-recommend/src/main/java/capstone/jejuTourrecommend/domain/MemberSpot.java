@@ -30,10 +30,24 @@ public class MemberSpot {
         this.score = score;
     }
 
+    private void changeMember(Member member) {
+        this.member = member;
+        member.getMemberSpotList().add(this);
+    }
+
+    private void changeSpot(Spot spot) {
+        this.spot = spot;
+        spot.getMemberSpotList().add(this);
+    }
+
+
     public MemberSpot(Double score, Member member, Spot spot) {
         this.score = score;
-        this.member = member;
-        this.spot = spot;
+        if(spot!= null && member!= null){
+            changeMember(member);
+            changeSpot(spot);
+        }
+
     }
 }
 

@@ -127,6 +127,8 @@ class FavoriteServiceTest {
 
     // 선택한 관광지를 선태한 위시리스트에 추가
     //String memberEmail, Long spotId, Long favoriteId
+
+    //Todo: 각각 실행했는데 안되는 이유는 테스트 하고 데이터를 롤백하고 해서 id가 맞지 않는 것임 그리고 엔티티니 통합 sequence 전략이라 따로 id 할당 되지 않음
     @Test
     public void postFavoriteFormTest() throws Exception{
         //given

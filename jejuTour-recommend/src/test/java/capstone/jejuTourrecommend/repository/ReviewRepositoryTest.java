@@ -1,5 +1,6 @@
 package capstone.jejuTourrecommend.repository;
 
+import capstone.jejuTourrecommend.domain.Picture;
 import capstone.jejuTourrecommend.domain.Review;
 import capstone.jejuTourrecommend.domain.Spot;
 import lombok.extern.slf4j.Slf4j;
@@ -47,10 +48,14 @@ class ReviewRepositoryTest {
         em.persist(review3);
         em.persist(review4);
 
+        Picture picture = new Picture("sss",spot1);
+        em.persist(picture);
+
         em.flush();
         em.clear();
 
         log.info("spot1 = {}",spot1);
+
 
         //Optional<Spot> spot = spotRepository.findOptionById(spot1.getId());
 
@@ -58,6 +63,10 @@ class ReviewRepositoryTest {
         //List<Review> result1 = reviewRepository.findBySpot(spot1.getId());
         //List<Review> result2 = reviewRepository.findBySpot(spot.get());
         List<Review> result2 = reviewRepository.findBySpotId(1l);
+
+        log.info("result2.get(0).getSpot().getPictures().get(0).getId() = {}",result2.get(0).getSpot().getPictures().get(0).getId());
+
+
 
         //then
         assertThat(result2.size()).isEqualTo(4);

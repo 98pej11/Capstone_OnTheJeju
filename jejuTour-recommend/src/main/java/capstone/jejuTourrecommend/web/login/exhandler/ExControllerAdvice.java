@@ -45,9 +45,10 @@ public class ExControllerAdvice {
         return new ErrorResult(400,false,e.getMessage());
     }
 
-    //회원가입, 로그인에서 공백을 입력 못하게
+    //회원가입, 로그인에서 공백을 입력 못하게//Exception 이름 몰러서 출력된 로그로 exception 이름 알아냄
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> userFormExHandler(MethodArgumentNotValidException e){
+
         log.error("[exceptionHandler] ex",e);//오류가 여러개여도
 
         Map<String, Object> errors = new LinkedHashMap<>();//순서대로 출력하려고 linkedHashMap 으로 함

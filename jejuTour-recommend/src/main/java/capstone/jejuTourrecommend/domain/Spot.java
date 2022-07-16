@@ -46,7 +46,9 @@ public class Spot {
     @JoinColumn(name = "score_id")
     private Score score;
 
-    public void setScore(Score score){
+
+
+    private void changeScore(Score score){
         this.score =score;
         score.setSpot(this);
     }
@@ -57,12 +59,16 @@ public class Spot {
 
     public Spot(String name,Score score) {
         this.name = name;
-        this.score = score;
+        if(score!= null){
+            changeScore(score);
+        }
     }
 
     public Spot(Location location, Score score) {
         this.location = location;
-        this.score = score;
+        if(score!= null){
+            changeScore(score);
+        }
     }
 
 
