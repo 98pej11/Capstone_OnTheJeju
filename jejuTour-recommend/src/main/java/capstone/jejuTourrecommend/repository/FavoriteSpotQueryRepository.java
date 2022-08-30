@@ -1,21 +1,23 @@
 package capstone.jejuTourrecommend.repository;
 
 
-import capstone.jejuTourrecommend.domain.*;
+import capstone.jejuTourrecommend.domain.FavoriteSpot;
+import capstone.jejuTourrecommend.domain.Location;
+import capstone.jejuTourrecommend.domain.QFavoriteSpot;
+import capstone.jejuTourrecommend.domain.Spot;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.*;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteListDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteSpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.QFavoriteListDto;
 import capstone.jejuTourrecommend.web.pageDto.routePage.QRouteSpotListDto;
-
 import capstone.jejuTourrecommend.web.pageDto.routePage.RouteForm;
 import capstone.jejuTourrecommend.web.pageDto.routePage.RouteSpotListDto;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import io.jsonwebtoken.lang.Collections;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,10 +26,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.LongStream;
 
 import static capstone.jejuTourrecommend.domain.QFavorite.favorite;
 import static capstone.jejuTourrecommend.domain.QFavoriteSpot.favoriteSpot;

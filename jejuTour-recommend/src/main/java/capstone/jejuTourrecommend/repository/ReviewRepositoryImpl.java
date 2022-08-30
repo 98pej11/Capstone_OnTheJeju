@@ -12,10 +12,9 @@ import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-
 import java.util.List;
 
-import static capstone.jejuTourrecommend.domain.QReview.*;
+import static capstone.jejuTourrecommend.domain.QReview.review;
 
 
 @Slf4j

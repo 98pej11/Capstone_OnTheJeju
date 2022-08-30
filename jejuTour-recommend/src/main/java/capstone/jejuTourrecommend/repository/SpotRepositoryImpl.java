@@ -18,16 +18,14 @@ import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-
-
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import static capstone.jejuTourrecommend.domain.QFavorite.favorite;
 import static capstone.jejuTourrecommend.domain.QFavoriteSpot.favoriteSpot;
-import static capstone.jejuTourrecommend.domain.QMemberSpot.*;
-import static capstone.jejuTourrecommend.domain.QPicture.*;
+import static capstone.jejuTourrecommend.domain.QMemberSpot.memberSpot;
+import static capstone.jejuTourrecommend.domain.QPicture.picture;
 import static capstone.jejuTourrecommend.domain.QScore.score;
 import static capstone.jejuTourrecommend.domain.QSpot.spot;
 
