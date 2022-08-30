@@ -14,6 +14,8 @@ public class Picture {
     @Id @GeneratedValue
     @Column(name = "picture_id")
     private Long id;
+
+    @Lob
     private String url;
 
     @ManyToOne(fetch = FetchType.LAZY)

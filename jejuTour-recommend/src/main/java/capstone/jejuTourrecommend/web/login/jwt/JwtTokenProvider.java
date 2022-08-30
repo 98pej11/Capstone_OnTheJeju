@@ -87,6 +87,7 @@ public class JwtTokenProvider {//jwt토큰 제공자
     // JWT 토큰에서 인증 정보 조회
     // loadUserByUsername 으로 회원정보를 가져옴 (참고로 나는 pk를 username 이 아니라 email 로 함)
     public Authentication getAuthentication(String token) {
+        //Todo: 나 여기서 나만의 userDetailservice 만들어서 jpa 하고 연결시겨야함
         UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserPk(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }

@@ -1,6 +1,7 @@
 package capstone.jejuTourrecommend.repository;
 
 import capstone.jejuTourrecommend.domain.*;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.OptimizationSpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.ResultSpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.UserWeightDto;
@@ -157,6 +158,8 @@ class SpotRepositoryTest {
         Page<SpotListDto> results = spotRepository.
                 searchSpotByLocationAndCategory(westList, Category.VIEW, pageRequest);
 
+
+
         for (SpotListDto result : results) {
             System.out.println("result.getSpotId() = " + result.getSpotId());
         }
@@ -204,12 +207,44 @@ class SpotRepositoryTest {
 
         em.clear();
 
-        //System.out.println("result.getContent() = " + result.getContent());
+    }
 
+    @Test
+    public void OptimizationSearchSpotByUserPriority() throws Exception {
+        //given
 
-        //when
+        String memberEmail = "member1@gmail.com";
 
-        //then
+        Optional<Member> optionByEmail = memberRepository.findOptionByEmail(memberEmail);
+
+        PageRequest pageRequest = PageRequest.of(0, 100);
+
+        List allList = Arrays.asList(Location.Jeju_si,Location.Aewol_eup,Location.Hallim_eup,
+                Location.Hangyeong_myeon,Location.Jocheon_eup,Location.Gujwa_eup,
+                Location.Daejeong_eup,Location.Andeok_myeon,Location.Seogwipo_si,
+                Location.Namwon_eup,Location.Pyoseon_myeon,Location.Seongsan_eup);
+        List northList = Arrays.asList(Location.Jeju_si, Location.Aewol_eup, Location.Hallim_eup);
+        List eastList = Arrays.asList(Location.Hangyeong_myeon, Location.Jocheon_eup, Location.Gujwa_eup);
+        List westList = Arrays.asList(Location.Daejeong_eup, Location.Andeok_myeon, Location.Seogwipo_si);
+        List southList = Arrays.asList(Location.Namwon_eup, Location.Pyoseon_myeon, Location.Seongsan_eup);
+
+        Page<OptimizationSpotListDto> optimizationSpotListDtos = spotRepository.optimizationSearchSpotByUserPriority(optionByEmail.get().getId(), westList,
+                new UserWeightDto(1d, 4d, 1d, 1d)
+                , pageRequest);
+
+        System.out.println("optimizationSpotListDtos.getContent() = " + optimizationSpotListDtos.getContent());
+
+        List<MemberSpot> resultList = em.createQuery
+                ("select s from MemberSpot s", MemberSpot.class).getResultList();
+
+        for (MemberSpot memberSpot : resultList) {
+            log.info("memberSpot = {} ", memberSpot);
+        }
+
+        em.flush();
+
+        em.clear();
+
     }
 
     @Test

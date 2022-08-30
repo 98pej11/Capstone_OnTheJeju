@@ -3,6 +3,7 @@ package capstone.jejuTourrecommend.repository;
 import capstone.jejuTourrecommend.domain.Category;
 import capstone.jejuTourrecommend.domain.Location;
 import capstone.jejuTourrecommend.domain.Spot;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.OptimizationSpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.UserWeightDto;
 import capstone.jejuTourrecommend.web.pageDto.spotPage.ScoreDto;
@@ -26,5 +27,10 @@ public interface SpotRepositoryCustom {
     Boolean isFavoriteSpot(Long memberId, Long spotId);
 
     Page<SpotListDto> searchBySpotNameContains(String spotName, Pageable pageable);
+
+
+    Page<OptimizationSpotListDto> optimizationSearchSpotByLocationAndCategory(List locationList, Category category, Pageable pageable);
+
+    Page<OptimizationSpotListDto> optimizationSearchSpotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto, Pageable pageable);
 
 }
