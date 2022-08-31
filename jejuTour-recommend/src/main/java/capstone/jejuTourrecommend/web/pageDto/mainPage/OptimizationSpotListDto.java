@@ -13,7 +13,7 @@ public class OptimizationSpotListDto {
     private String spotAddress;
     private String spotDescription;
 
-    private List<PictureDto> pictureDtoList;
+    private List<PictureDetailDto> pictureDetailDtoList;
 
 
     public OptimizationSpotListDto(Long spotId, String spotName, String spotAddress, String spotDescription) {

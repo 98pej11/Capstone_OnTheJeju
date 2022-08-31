@@ -52,7 +52,7 @@ dependencies {
 	testAnnotationProcessor 'org.projectlombok:lombok'
 
 	//mysql 연결
-	implementation 'mysql:mysql-connector-java'
+	//implementation 'mysql:mysql-connector-java'
 
 
 

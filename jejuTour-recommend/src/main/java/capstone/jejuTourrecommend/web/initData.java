@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Arrays;
 import java.util.Random;
 
 @Slf4j
@@ -128,6 +129,8 @@ public class initData {
 
             log.info("favoriteSpots[0] = {}",favoriteSpots[0]);//favoriteSpots[0] = FavoriteSpot(id=11, count=0)
 
+            Arrays.stream(scores).forEach(score -> System.out.println("score.toString() = " + score.toString()));
+            Arrays.stream(spots).forEach(spot -> System.out.println("spot.toString() = " + spot.toString()));
         }
 
         public Score createScore(Score[] scores,int i){

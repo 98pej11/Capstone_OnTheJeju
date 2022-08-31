@@ -5,8 +5,7 @@ import capstone.jejuTourrecommend.repository.FavoriteRepository;
 import capstone.jejuTourrecommend.repository.FavoriteSpotQueryRepository;
 import capstone.jejuTourrecommend.repository.FavoriteSpotRepository;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteSpotListDto;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.SpotListDtoByFavoriteSpot;
 import capstone.jejuTourrecommend.web.pageDto.routePage.ResultFavoriteSpotList;
 import capstone.jejuTourrecommend.web.pageDto.routePage.RouteForm;
 import lombok.RequiredArgsConstructor;
@@ -35,10 +34,10 @@ public class RouteService {
 
         Favorite favorite = favoriteRepository.findOptionById(favoriteId).orElseThrow(() -> new UserException("올바르지 않은 favoriteId 입니다"));
 
-        List<FavoriteSpotListDto> favoriteSpotListDtos = favoriteSpotQueryRepository.favoriteSpotList(favoriteId);
+        List<SpotListDtoByFavoriteSpot> spotListDtoByFavoriteSpots = favoriteSpotQueryRepository.favoriteSpotList(favoriteId);
 
 
-        return new ResultFavoriteSpotList(200l,true,"성공",favorite.getName(),favoriteSpotListDtos);
+        return new ResultFavoriteSpotList(200l,true,"성공",favorite.getName(), spotListDtoByFavoriteSpots);
 
     }
 

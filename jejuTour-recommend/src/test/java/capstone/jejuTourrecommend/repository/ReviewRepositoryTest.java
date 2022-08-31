@@ -57,17 +57,7 @@ class ReviewRepositoryTest {
         log.info("spot1 = {}",spot1);
 
 
-        //Optional<Spot> spot = spotRepository.findOptionById(spot1.getId());
-
-        //when
-        //List<Review> result1 = reviewRepository.findBySpot(spot1.getId());
-        //List<Review> result2 = reviewRepository.findBySpot(spot.get());
-        List<Review> result2 = reviewRepository.findBySpotId(1l);
-
-        log.info("result2.get(0).getSpot().getPictures().get(0).getId() = {}",result2.get(0).getSpot().getPictures().get(0).getId());
-
-
-
+        List<Review> result2 = reviewRepository.findBySpot(spot1);
         //then
         assertThat(result2.size()).isEqualTo(4);
 

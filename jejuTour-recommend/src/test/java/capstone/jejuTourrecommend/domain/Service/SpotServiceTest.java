@@ -1,6 +1,8 @@
 package capstone.jejuTourrecommend.domain.Service;
 
 import capstone.jejuTourrecommend.domain.*;
+import capstone.jejuTourrecommend.repository.FavoriteRepository;
+import capstone.jejuTourrecommend.repository.FavoriteSpotRepository;
 import capstone.jejuTourrecommend.web.pageDto.spotPage.SpotDetailDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 
@@ -23,6 +27,12 @@ class SpotServiceTest {
 
     @Autowired
     SpotService spotService;
+
+    @Autowired
+    FavoriteSpotRepository favoriteSpotRepository;
+
+    @Autowired
+    FavoriteRepository favoriteRepository;
 
     @PersistenceContext
     EntityManager em;
@@ -114,11 +124,16 @@ class SpotServiceTest {
     @Test
     public void spotPageTest() throws Exception{
         //given
-        Long spotId = 8l;
+
+        Optional<Favorite> optionByName = favoriteRepository.findOptionByName("1일차");
+
+        List<FavoriteSpot> byFavoriteId = favoriteSpotRepository.findByFavoriteId(optionByName.get().getId());
+
+        //Long spotId = 8l;
         String memberEmail = "member1@gmail.com";
 
         //when
-        SpotDetailDto spotDetailDto = spotService.spotPage(spotId, memberEmail);
+        SpotDetailDto spotDetailDto = spotService.spotPage(byFavoriteId.get(0).getSpot().getId(), memberEmail);
 
         log.info("spotDto = {}",spotDetailDto);
 

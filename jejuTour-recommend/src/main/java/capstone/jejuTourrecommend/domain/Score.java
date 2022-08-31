@@ -4,13 +4,23 @@ import lombok.*;
 
 import javax.persistence.*;
 
+
+@SequenceGenerator(
+        name = "SCORE_SEQ_GENERATOR",
+        sequenceName = "SCORE_SEQ",
+        initialValue = 1,
+        allocationSize = 50
+)
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of={"id","rankAverage","viewScore","priceScore","facilityScore","surroundScore"})
 public class Score {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "SCORE_SEQ_GENERATOR"
+    )
     @Column(name = "score_id")
     private Long id;
 

@@ -7,6 +7,13 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@SequenceGenerator(
+        name = "FAVORITE_SEQ_GENERATOR",
+        sequenceName = "FAVORITE_SEQ",
+        initialValue = 1,
+        allocationSize = 50
+)
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -14,7 +21,10 @@ import java.util.List;
 public class Favorite {
 
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "FAVORITE_SEQ_GENERATOR"
+    )
     @Column(name = "favorite_id")
     private Long id;
     private String name;

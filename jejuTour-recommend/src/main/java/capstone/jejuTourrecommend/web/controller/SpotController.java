@@ -2,7 +2,6 @@ package capstone.jejuTourrecommend.web.controller;
 
 import capstone.jejuTourrecommend.domain.Service.SpotService;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.CategoryDto;
 import capstone.jejuTourrecommend.web.pageDto.spotPage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,15 +63,11 @@ public class SpotController {
     @GetMapping("/spot/metaData")
     public SpotMetaDto getMetaData(){
 
-//        categoryDto: [
-//        { id: 1, name: "view" }, //view뷰
-//        { id: 2, name: "price" }, //price가격
-//        { id: 3, name: "facility" }, //facility편의시설
-//        { id: 4, name: "surrount" } //surround카페및 식당
-//
-//		],
+        return getCategoryMetaData();
 
+    }
 
+    private SpotMetaDto getCategoryMetaData() {
         Map map;
         List list = new ArrayList();
 
@@ -96,17 +91,8 @@ public class SpotController {
         map.put("name","서비스");
         list.add(map);
 
-
-
-        CategoryDto categoryDto = new CategoryDto(list);
-
-
-
-        return new SpotMetaDto(200l,true,list);
-
-
+        return new  SpotMetaDto(200l, true, list);
     }
-
 
 
 }

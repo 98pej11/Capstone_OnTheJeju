@@ -3,8 +3,6 @@ package capstone.jejuTourrecommend.web.pageDto.spotPage;
 import capstone.jejuTourrecommend.domain.Picture;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class PictureDto {
 

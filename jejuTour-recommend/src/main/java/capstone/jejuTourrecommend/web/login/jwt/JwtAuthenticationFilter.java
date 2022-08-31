@@ -1,7 +1,6 @@
 package capstone.jejuTourrecommend.web.login.jwt;
 
 import capstone.jejuTourrecommend.web.login.exceptionClass.JwtException;
-import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +17,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

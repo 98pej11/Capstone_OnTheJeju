@@ -5,13 +5,22 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@SequenceGenerator(
+        name = "FAVORITESPOT_SEQ_GENERATOR",
+        sequenceName = "FAVORITESPOT_SEQ",
+        initialValue = 1,
+        allocationSize = 50
+)
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of={"id","count"})
 public class FavoriteSpot {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "FAVORITESPOT_SEQ_GENERATOR"
+    )
     @Column(name = "favorite_spot_id")
     private Long id;
     private int count;

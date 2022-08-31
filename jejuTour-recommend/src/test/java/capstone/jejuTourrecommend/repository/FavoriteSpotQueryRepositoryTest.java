@@ -2,14 +2,16 @@ package capstone.jejuTourrecommend.repository;
 
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteSpotListDto;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteListDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.OptimizationFavoriteListDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.SpotListDtoByFavoriteSpot;
 import capstone.jejuTourrecommend.web.pageDto.routePage.RouteForm;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +22,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)//근데 이거 대로 해도 보인는 것은 순서대로 작동해서 삭제가 먼저 되면 다음테스트에 영향 있음
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)//근데 이거 대로 해도 보인는 것은 순서대로 작동해서 삭제가 먼저 되면 다음테스트에 영향 있음
 @SpringBootTest
 @Transactional
 @Slf4j
@@ -38,13 +42,18 @@ class FavoriteSpotQueryRepositoryTest {
     @Autowired
     FavoriteRepository favoriteRepository;
 
+    @Autowired
+    MemberRepository memberRepository;
+
     @PersistenceContext
     EntityManager em;
 
 
 
+
     @BeforeEach
     public void init(){
+
 
         //String encodedPassword = passwordEncoder.encode("1234");
         //log.info("password = {}",encodedPassword);
@@ -128,31 +137,68 @@ class FavoriteSpotQueryRepositoryTest {
         return scores[i];
     }
 
-    @Test
-    public void favoriteListTest() throws Exception{
-        //given
 
-        PageRequest pageRequest = PageRequest.of(0,3);
-
-        //when
-        //favoriteSpotQueryRepository.favoriteList()
-
-        //then
-    }
 
     @Test
     public void favoriteSpotListTest(){
 
-        Long favoriteId = 3l;
 
-        List<FavoriteSpotListDto> favoriteSpotListDtos = favoriteSpotQueryRepository.favoriteSpotList(favoriteId);
+        Long favoriteId = 1l;
 
-        log.info("spotListDtos = {} ",favoriteSpotListDtos);
+        List<SpotListDtoByFavoriteSpot> spotListDtoByFavoriteSpots = favoriteSpotQueryRepository.favoriteSpotList(favoriteId);
+
+        log.info("spotListDtos = {} ", spotListDtoByFavoriteSpots);
 
 
     }
 
-    @Order(1)
+    @Test
+    public void favoriteListTest() throws Exception{
+        //given
+        PageRequest pageRequest = PageRequest.of(0,3);
+
+        //when
+        Optional<Member> optionByEmail = memberRepository.findOptionByEmail("member1@gmail.com");
+
+
+        long before1 = System.currentTimeMillis();
+        Page<FavoriteListDto> favoriteListDtos = favoriteSpotQueryRepository
+                .favoriteList(optionByEmail.get().getId(), pageRequest);
+        long after1 = System.currentTimeMillis();
+
+        System.out.println("after1-before1 = " +  (after1 - before1));
+
+
+        //then
+
+    }
+
+    //67 77 79
+    //85 79 81
+    @Test
+    public void optimizationFavoriteListTest() throws Exception{
+        //given
+        PageRequest pageRequest = PageRequest.of(0,3);
+
+        //when
+        Optional<Member> optionByEmail = memberRepository.findOptionByEmail("member1@gmail.com");
+
+
+        long before2 = System.currentTimeMillis();
+        Page<OptimizationFavoriteListDto> optimizationFavoriteListDtos = favoriteSpotQueryRepository
+                .optimizationFavoriteList(optionByEmail.get().getId(), pageRequest);
+        long after2 = System.currentTimeMillis();
+
+
+        System.out.println("after2-before2 = " +  (after2 - before2));
+
+        //then
+
+        System.out.println("optimizationFavoriteListDtos.getContent() = " + optimizationFavoriteListDtos.getContent());
+
+    }
+
+
     @Test
     public void exitSpotTest() throws Exception{
         //given
@@ -169,23 +215,23 @@ class FavoriteSpotQueryRepositoryTest {
         //then
     }
 
-    @Order(2)
+
     @Test
     public void recommendSpotListTest() throws Exception{
         //given
-        Long favoriteId = 3l;
+        //Long favoriteId = 3l;
         //8l, 23l, 38l
         //72, 168, 800
-        List<Long> spotIdList = Arrays.asList(8l, 23l, 38l);
-        log.info("spotIdList = {}",spotIdList);
+
         RouteForm routeForm = new RouteForm();
-        routeForm.setSpotIdList(spotIdList);
 
-        //favoriteRepository.findOptionById()
+        Favorite favorite = favoriteRepository.findOptionByName("1일차").orElseThrow(() -> new UserException("위시리스트 아이디가 틀립니다"));
 
-        favoriteRepository.findOptionById(favoriteId).orElseThrow(() -> new UserException("위시리스트 아이디가 틀립니다"));
+        List<FavoriteSpot> byFavoriteId = favoriteSpotRepository.findByFavoriteId(favorite.getId());
+        List<Long> collect = byFavoriteId.stream().map(o -> o.getSpot().getId()).collect(Collectors.toList());
 
-        List list = favoriteSpotQueryRepository.recommendSpotList(favoriteId,routeForm);
+        routeForm.setSpotIdList(collect);
+        List list = favoriteSpotQueryRepository.recommendSpotList(favorite.getId(),routeForm);
 
         log.info("list.toString() = {}",list.toString());
 

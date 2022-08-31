@@ -16,4 +16,11 @@ public class FavoriteListDto {
         this.favoriteName = favoriteName;
         this.spotURL = spotURL;
     }
+
+    //2개 사용 가능함 ㅋ
+    @QueryProjection
+    public FavoriteListDto(Long favoriteId, String favoriteName) {
+        this.favoriteId = favoriteId;
+        this.favoriteName = favoriteName;
+    }
 }

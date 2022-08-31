@@ -7,6 +7,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@SequenceGenerator(
+        name = "SPOT_SEQ_GENERATOR",
+        sequenceName = "SPOT_SEQ",
+        initialValue = 1,
+        allocationSize = 50
+)
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -15,11 +21,18 @@ import java.util.List;
 public class Spot {
 
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "SPOT_SEQ_GENERATOR"
+    )
     @Column(name = "spot_id")
     private Long id;
+
+
     private String name;
     private String address;
+
+    @Lob
     private String description;
 
     @Enumerated(EnumType.STRING)

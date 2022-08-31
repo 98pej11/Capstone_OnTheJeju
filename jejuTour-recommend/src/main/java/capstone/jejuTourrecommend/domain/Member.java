@@ -10,6 +10,12 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
+@SequenceGenerator(
+        name = "MEMBER_SEQ_GENERATOR",
+        sequenceName = "MEMBER_SEQ",
+        initialValue = 1,
+        allocationSize = 50
+)
 @Entity
 @Getter
 @Setter
@@ -17,7 +23,10 @@ import java.util.List;
 @ToString(of={"id","username","email","password"})
 public class Member extends BaseEntity {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "MEMBER_SEQ_GENERATOR"
+    )
     @Column(name = "member_id")
     private Long id;
     private String username;

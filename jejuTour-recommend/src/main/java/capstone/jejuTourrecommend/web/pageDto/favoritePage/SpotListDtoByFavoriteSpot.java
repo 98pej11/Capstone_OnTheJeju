@@ -4,7 +4,7 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
 @Data
-public class FavoriteSpotListDto {
+public class SpotListDtoByFavoriteSpot {
 
     private Long spotId;
     private String spotName;
@@ -18,8 +18,8 @@ public class FavoriteSpotListDto {
 
 
     @QueryProjection
-    public FavoriteSpotListDto(Long spotId, String spotName, String spotAddress,
-                       String spotDescription, String url) {
+    public SpotListDtoByFavoriteSpot(Long spotId, String spotName, String spotAddress,
+                                     String spotDescription, String url) {
         this.spotId = spotId;
         this.spotName = spotName;
         this.spotAddress = spotAddress;

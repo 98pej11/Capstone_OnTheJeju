@@ -1,15 +1,12 @@
 package capstone.jejuTourrecommend.web.controller;
 
 
-import capstone.jejuTourrecommend.domain.Category;
-import capstone.jejuTourrecommend.domain.Location;
 import capstone.jejuTourrecommend.domain.Service.SpotListService;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jboss.jandex.Main;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -79,6 +76,15 @@ public class SpotListController {
     public SpotListMetaDto getMetaData(){
 
 
+        SpotListMetaDto spotListMetaDto = getSpotListMetaDto();
+
+
+        return spotListMetaDto;
+
+
+    }
+
+    private SpotListMetaDto getSpotListMetaDto() {
         Map map;
         List list = new ArrayList();
 
@@ -107,9 +113,7 @@ public class SpotListController {
         map.put("name","서비스");
         list.add(map);
 
-
-        CategoryDto categoryDto = new CategoryDto(list);
-
+//
         Map map1;
         List list1 = new ArrayList();
 
@@ -138,13 +142,8 @@ public class SpotListController {
         map1.put("name","동부");
         list1.add(map1);
 
-
-
-        RegionDto regionDto = new RegionDto(list1);
-
-        return new  SpotListMetaDto(200l,true,list,list1);
-
-
+        SpotListMetaDto spotListMetaDto = new SpotListMetaDto(200l, true, list, list1);
+        return spotListMetaDto;
     }
 
 

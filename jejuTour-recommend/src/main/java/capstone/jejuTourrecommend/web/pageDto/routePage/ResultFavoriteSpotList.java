@@ -1,8 +1,7 @@
 package capstone.jejuTourrecommend.web.pageDto.routePage;
 
 
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteSpotListDto;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.SpotListDtoByFavoriteSpot;
 import lombok.Data;
 
 import java.util.List;
@@ -14,14 +13,14 @@ public class ResultFavoriteSpotList {
     private boolean success;
     private String message;
     private String favoriteName;
-    private List<FavoriteSpotListDto> favoriteSpotListDtos;
+    private List<SpotListDtoByFavoriteSpot> spotListDtoByFavoriteSpots;
 
-    public ResultFavoriteSpotList(Long status, boolean success, String message, String favoriteName, List<FavoriteSpotListDto> favoriteSpotListDtos) {
+    public ResultFavoriteSpotList(Long status, boolean success, String message, String favoriteName, List<SpotListDtoByFavoriteSpot> spotListDtoByFavoriteSpots) {
         this.status = status;
         this.success = success;
         this.message = message;
         this.favoriteName = favoriteName;
-        this.favoriteSpotListDtos = favoriteSpotListDtos;
+        this.spotListDtoByFavoriteSpots = spotListDtoByFavoriteSpots;
     }
 }
 

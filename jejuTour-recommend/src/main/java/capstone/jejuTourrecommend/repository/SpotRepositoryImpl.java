@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 import static capstone.jejuTourrecommend.domain.QFavorite.favorite;
 import static capstone.jejuTourrecommend.domain.QFavoriteSpot.favoriteSpot;
+import static capstone.jejuTourrecommend.domain.QMember.member;
 import static capstone.jejuTourrecommend.domain.QMemberSpot.memberSpot;
 import static capstone.jejuTourrecommend.domain.QPicture.picture;
 import static capstone.jejuTourrecommend.domain.QScore.score;
@@ -186,7 +187,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     }
 
     /**
-     * 조건에 맞는 관광지에 여러 사진 보여주기
+     * 조건에 맞는 관광지에 "여러 사진" 보여주기
      * @param locationList
      * @param category
      * @param pageable
@@ -233,14 +234,18 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     }
 
 
-    //가중치가 있을 경우의 쿼리
-
+    /**
+     * 사용자의 가중치에 따른 관광지 조회
+     * @param memberId
+     * @param locationList
+     * @param userWeightDto
+     * @param pageable
+     * @return
+     */
     @Transactional
     @Override
     public Page<SpotListDto> searchSpotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto, Pageable pageable) {
 
-
-        OrderSpecifier<Double> orderSpecifier=null;
 
         log.info("memberId = {}",memberId);
         log.info("location = {}",locationList);
@@ -304,6 +309,8 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
         JPAQuery<Long> countQuery = queryFactory
                 .select(memberSpot.count())
                 .from(memberSpot)
+                .innerJoin(memberSpot.spot, spot)
+                .innerJoin(memberSpot.member, member)
                 .where(spot.location.in(locationList),memberEq(memberId));
 
         return PageableExecutionUtils.getPage(contents, pageable, countQuery::fetchOne);
@@ -350,6 +357,8 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
         JPAQuery<Long> countQuery = queryFactory
                 .select(memberSpot.count())
                 .from(memberSpot)
+                .innerJoin(memberSpot.spot, spot)
+                .innerJoin(memberSpot.member, member)
                 .where(spot.location.in(locationList),memberEq(memberId));
 
         return PageableExecutionUtils.getPage(optimizationSpotListDtoList, pageable, countQuery::fetchOne);
@@ -358,24 +367,25 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     }
 
     private void postSpotPictureUrlstoDTO(List<OptimizationSpotListDto> optimizationSpotListDtoList) {
+
         List<Long> spotIdList = optimizationSpotListDtoList.stream().map(o -> o.getSpotId()).collect(Collectors.toList());
 
-        List<PictureDto> pictureDtoList = queryFactory
-                .select(Projections.constructor(PictureDto.class,
+        List<PictureDetailDto> pictureDetailDtoList = queryFactory
+                .select(Projections.constructor(PictureDetailDto.class,
                                 picture.id,
                                 picture.url,
                                 picture.spot.id
                         )
                 )
                 .from(picture)
-                .leftJoin(picture.spot, spot)
+                .innerJoin(picture.spot, spot)
                 .where(picture.spot.id.in(spotIdList))
                 .fetch();
 
 
-        Map<Long, List<PictureDto>> collect1 = pictureDtoList.stream().collect(Collectors.groupingBy(p -> p.getSpotId()));
+        Map<Long, List<PictureDetailDto>> collect1 = pictureDetailDtoList.stream().collect(Collectors.groupingBy(p -> p.getSpotId()));
 
-        optimizationSpotListDtoList.forEach(sl -> sl.setPictureDtoList(collect1.get(sl.getSpotId())));
+        optimizationSpotListDtoList.forEach(sl -> sl.setPictureDetailDtoList(collect1.get(sl.getSpotId())));
     }
 
     @Override
@@ -395,6 +405,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                         QSpot.spot.score.surroundRank
                 ))
                 .from(QSpot.spot)
+                .leftJoin(QSpot.spot.score, score)
                 .where(QSpot.spot.eq(spot))
                 .fetchOne();
 

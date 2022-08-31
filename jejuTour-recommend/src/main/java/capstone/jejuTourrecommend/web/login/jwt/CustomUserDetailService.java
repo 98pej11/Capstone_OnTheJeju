@@ -3,7 +3,6 @@ package capstone.jejuTourrecommend.web.login.jwt;
 
 import capstone.jejuTourrecommend.domain.Member;
 import capstone.jejuTourrecommend.repository.MemberRepository;
-import com.sun.xml.bind.v2.TODO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
