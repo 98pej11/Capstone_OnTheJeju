@@ -141,7 +141,7 @@ public class FavoriteSpotQueryRepository {
                             )
                     )
                     .from(picture)
-                    .leftJoin(picture.spot, spot)
+                    .innerJoin(picture.spot, spot)
                     .where(picture.spot.id.in(spotIdList))
                     .limit(3)
                     .fetch();
@@ -210,7 +210,7 @@ public class FavoriteSpotQueryRepository {
                 .select(spot
                 )
                 .from(spot)
-                .leftJoin(spot.pictures, picture).fetchJoin()
+                .innerJoin(spot.pictures, picture).fetchJoin()
                 //.on(spot.id.eq(picture.spot.id))//페치 조인에서는 조인 대상을 필터링(on, where 사용) 할수 없음
                 .where(spot.id.in(spotList))
                 .fetch();
@@ -259,7 +259,7 @@ public class FavoriteSpotQueryRepository {
         List<Spot> spotList = queryFactory
                 .select(favoriteSpot.spot)
                 .from(favoriteSpot)
-                .leftJoin(favoriteSpot.spot, spot)//명시적 조인// 근데 여기서는 명시적 조인은 안해도 "cross join"이 안 나감. 알아서 최적화를 해줌
+                .innerJoin(favoriteSpot.spot, spot)//명시적 조인// 근데 여기서는 명시적 조인은 안해도 "cross join"이 안 나감. 알아서 최적화를 해줌
                 .where(favoriteIdEq(favoriteId), spot.id.in(routeForm.getSpotIdList()))
                 .fetch();
 

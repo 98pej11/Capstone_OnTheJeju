@@ -144,7 +144,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                         spot.score.rankAverage
                 )
                 .from(spot)
-                .leftJoin(spot.score, score)
+                .innerJoin(spot.score, score)
                 .where(spot.location.in(locationList))
                 .orderBy(orderSpecifier)
                 .fetch();
@@ -340,7 +340,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
         List<MemberSpot> memberSpotList = queryFactory
                 .select(memberSpot)
                 .from(memberSpot)
-                .leftJoin(memberSpot.spot, spot).fetchJoin()
+                .innerJoin(memberSpot.spot, spot).fetchJoin()
                 .where(spot.location.in(locationList), memberEq(memberId))
                 .orderBy(memberSpot.score.desc())
                 .offset(pageable.getOffset())
@@ -405,7 +405,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                         QSpot.spot.score.surroundRank
                 ))
                 .from(QSpot.spot)
-                .leftJoin(QSpot.spot.score, score)
+                .innerJoin(QSpot.spot.score, score)
                 .where(QSpot.spot.eq(spot))
                 .fetchOne();
 
