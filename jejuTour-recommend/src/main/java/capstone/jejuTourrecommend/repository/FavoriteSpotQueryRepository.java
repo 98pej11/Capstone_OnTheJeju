@@ -152,25 +152,6 @@ public class FavoriteSpotQueryRepository {
                         .forEach(o->o.getPictureDetailDtoListBySpotId().add(pictureDetailDtoList));
             }
 
-//            List<PictureDetailDto> pictureDetailDtoList = queryFactory
-//                    .select(
-//                            Projections.constructor(
-//                                    PictureDetailDto.class,
-//                                    picture.id,
-//                                    picture.url,
-//                                    picture.spot.id
-//                            )
-//                    )
-//                    .from(picture)
-//                    .innerJoin(picture.spot, spot)
-//                    .where(picture.spot.id.in(spotIdList))
-//                    .limit(3)
-//                    .fetch();
-
-//            optimizationFavoriteListDtos.stream().filter(o-> o.getFavoriteId()==favoriteId)
-//                    .forEach(o->o.setPictureDetailDtoListBySpotId(pictureDetailDtoList));
-
-
 
         }
 
