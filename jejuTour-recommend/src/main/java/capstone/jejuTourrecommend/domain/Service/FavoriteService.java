@@ -3,11 +3,8 @@ package capstone.jejuTourrecommend.domain.Service;
 
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.repository.*;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.*;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteForm;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteListDto;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.GetFavoriteListDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -48,6 +45,24 @@ public class FavoriteService {
 
 
         return favoriteListDtos;
+
+
+    }
+
+
+    public Page<OptimizationFavoriteListDto> OptimizationGetFavoriteList(String memberEmail, Pageable pageable){
+
+
+        Member member = memberRepository.findOptionByEmail(memberEmail)
+                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
+
+        //이거 실험용 데이터임 TODO: 실험용 데이터임
+        //PageRequest pageRequest = PageRequest.of(0,100);
+
+        Page<OptimizationFavoriteListDto> OptimizationFavoriteListDtos = favoriteSpotQueryRepository.optimizationFavoriteList(member.getId(), pageable);
+
+
+        return OptimizationFavoriteListDtos;
 
 
     }

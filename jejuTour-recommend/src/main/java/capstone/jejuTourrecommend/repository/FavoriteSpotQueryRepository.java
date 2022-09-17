@@ -131,23 +131,45 @@ public class FavoriteSpotQueryRepository {
                     .where(favoriteSpot.favorite.id.eq(favoriteId))
                     .fetch();
 
-            List<PictureDetailDto> pictureDetailDtoList = queryFactory
-                    .select(
-                            Projections.constructor(
-                                    PictureDetailDto.class,
-                                    picture.id,
-                                    picture.url,
-                                    picture.spot.id
-                            )
-                    )
-                    .from(picture)
-                    .innerJoin(picture.spot, spot)
-                    .where(picture.spot.id.in(spotIdList))
-                    .limit(3)
-                    .fetch();
+            for (Long spotId : spotIdList) {
 
-            optimizationFavoriteListDtos.stream().filter(o-> o.getFavoriteId()==favoriteId)
-                    .forEach(o->o.setPictureDetailDtoListBySpotId(pictureDetailDtoList));
+                List<PictureDetailDto> pictureDetailDtoList = queryFactory
+                        .select(
+                                Projections.constructor(
+                                        PictureDetailDto.class,
+                                        picture.id,
+                                        picture.url,
+                                        picture.spot.id
+                                )
+                        )
+                        .from(picture)
+                        .innerJoin(picture.spot, spot)
+                        .where(picture.spot.id.eq(spotId))
+                        .limit(3)
+                        .fetch();
+
+                optimizationFavoriteListDtos.stream().filter(o-> o.getFavoriteId()==favoriteId)
+                        .forEach(o->o.getPictureDetailDtoListBySpotId().add(pictureDetailDtoList));
+            }
+
+//            List<PictureDetailDto> pictureDetailDtoList = queryFactory
+//                    .select(
+//                            Projections.constructor(
+//                                    PictureDetailDto.class,
+//                                    picture.id,
+//                                    picture.url,
+//                                    picture.spot.id
+//                            )
+//                    )
+//                    .from(picture)
+//                    .innerJoin(picture.spot, spot)
+//                    .where(picture.spot.id.in(spotIdList))
+//                    .limit(3)
+//                    .fetch();
+
+//            optimizationFavoriteListDtos.stream().filter(o-> o.getFavoriteId()==favoriteId)
+//                    .forEach(o->o.setPictureDetailDtoListBySpotId(pictureDetailDtoList));
+
 
 
         }

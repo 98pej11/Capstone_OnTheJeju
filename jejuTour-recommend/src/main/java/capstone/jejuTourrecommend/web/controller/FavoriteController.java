@@ -133,6 +133,27 @@ public class FavoriteController {
 
     }
 
+    @GetMapping("/user/favoriteList/op")
+    public OpFavoriteListFinalDto OptimizationFavoriteList(@RequestHeader("ACCESS-TOKEN") String accesstoken,
+                                             Pageable pageable){
+
+        //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함)
+        String memberEmail = jwtTokenProvider.getUserPk(accesstoken);
+
+
+        //Todo: 테스트용 데이터
+        //String memberEmailTest="member1@gmail.com";
+
+        //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함)
+        //jwtTokenProvider.getUserPk(jwtTokenProvider.createToken(memberEmail,"ROLE_USER"));
+
+        Page<OptimizationFavoriteListDto> OptimizationFavoriteListDto = favoriteService.OptimizationGetFavoriteList(memberEmail, pageable);
+
+        return new OpFavoriteListFinalDto(200l,true,"성공,",OptimizationFavoriteListDto);
+
+    }
+
+
     //위시 리스트 삭제하기
     //해당 위시리스트 정보 필요
     @DeleteMapping("/user/favoriteList/{favoriteId}")
