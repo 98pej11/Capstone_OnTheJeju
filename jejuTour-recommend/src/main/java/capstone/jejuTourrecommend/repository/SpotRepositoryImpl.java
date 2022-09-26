@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static capstone.jejuTourrecommend.domain.QFavorite.favorite;
@@ -33,17 +34,18 @@ import static capstone.jejuTourrecommend.domain.QSpot.spot;
 
 @Slf4j
 @Transactional
-public class SpotRepositoryImpl implements SpotRepositoryCustom{
+public class SpotRepositoryImpl implements SpotRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
-    public SpotRepositoryImpl(EntityManager em){
+    public SpotRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
 
     /**
      * 관광지 이름에 따른 조회
+     *
      * @param spotName
      * @param pageable
      * @return
@@ -84,6 +86,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
 
     /**
      * 사용자 위시리스트에 특정 관광지가 포함되어 있는가?
+     *
      * @param memberId
      * @param spotId
      * @return
@@ -105,9 +108,9 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                 .where(favoriteSpot.favorite.id.in(favoriteList), favoriteSpot.spot.id.eq(spotId))
                 .fetchFirst();
 
-        if (isExit==null){
+        if (isExit == null) {
             return false;
-        }else {
+        } else {
             return true;
         }
 
@@ -116,7 +119,8 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
 
 
     /**
-     * 사용자가 선태가한 location 과 카테고리에 따라 관광지 순위별로 관광지 리스트 보여주기
+     * 사용자가 선택한 location 과 카테고리에 따라 관광지 순위별로 관광지 리스트 보여주기
+     *
      * @param locationList
      * @param category
      * @param pageable
@@ -126,8 +130,8 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     public Page<SpotListDto> searchSpotByLocationAndCategory(List locationList, Category category, Pageable pageable) {
 
 
-        log.info("location = {}",locationList);
-        log.info("category = {}",category);
+        log.info("location = {}", locationList);
+        log.info("category = {}", category);
         //log.info("offset = {}",pageable.getOffset());
         //log.info("size = {}",pageable.getPageSize());
 
@@ -149,7 +153,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                 .orderBy(orderSpecifier)
                 .fetch();
 
-        log.info("fetch ={}",fetch);
+        log.info("fetch ={}", fetch);
 
 
         List<SpotListDto> contents = queryFactory
@@ -176,7 +180,6 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                 .fetch();
 
 
-
         JPAQuery<Long> countQuery = queryFactory
                 .select(spot.count())
                 .from(spot)
@@ -188,16 +191,17 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
 
     /**
      * 조건에 맞는 관광지에 "여러 사진" 보여주기
+     *
      * @param locationList
      * @param category
      * @param pageable
      * @return
      */
     @Override
-    public Page<OptimizationSpotListDto> optimizationSearchSpotByLocationAndCategory(List locationList, Category category, Pageable pageable) {
+    public Page<OptimizationSpotListDto> optimizationSearchSpotByLocationAndCategory(Long memberId, List locationList, Category category, Pageable pageable) {
 
-        log.info("location = {}",locationList);
-        log.info("category = {}",category);
+        log.info("location = {}", locationList);
+        log.info("category = {}", category);
         //log.info("offset = {}",pageable.getOffset());
         //log.info("size = {}",pageable.getPageSize());
         OrderSpecifier<Double> orderSpecifier = getDoubleOrderSpecifier(category);
@@ -220,7 +224,19 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                 .fetch();
 
 
-        postSpotPictureUrlstoDTO(optimizationSpotListDtoList);
+        //찜한 유무 포함
+        //favortiespot 에서 spotid 들로 데티어 가져옴
+        //데이터가 있으면 찜 한거에 있는거고, 없음 찜한 목록에 없는 것임
+        //이것 한 dto에 담아서 줘야함
+        //isExit는 count>0으로 해서 성능 이슈가 있음 그래서  limit(1)으로 해결하든 해야함
+
+        List<Long> spotIdList = optimizationSpotListDtoList.stream().map(o -> o.getSpotId()).collect(Collectors.toList());
+
+
+        getBooleanFavoriteSpot(memberId, optimizationSpotListDtoList, spotIdList);
+
+
+        postSpotPictureUrlsToDTO(optimizationSpotListDtoList);
 
         JPAQuery<Long> countQuery = queryFactory
                 .select(spot.count())
@@ -233,9 +249,41 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
 
     }
 
+    private void getBooleanFavoriteSpot(Long memberId, List<OptimizationSpotListDto> optimizationSpotListDtoList, List<Long> spotIdList) {
+        List<Long> favoriteSpotIdList = queryFactory
+                .select(
+                        favoriteSpot.spot.id
+                )
+                .from(favoriteSpot)
+                .where(favoriteSpot.favorite.member.id.eq(memberId), favoriteSpot.spot.id.in(spotIdList))
+                .fetch();
+
+        Set<Long> favoriteSpotIdSet = favoriteSpotIdList.stream().collect(Collectors.toSet());
+
+        optimizationSpotListDtoList.stream().filter(i -> favoriteSpotIdSet.contains(i.getSpotId())).forEach(o -> o.setFavorite(true));
+
+
+        //"존재 하는 것"과 , 따로 spot 리스트 만들고,
+
+
+        List<Long> notFavoriteSpotList = queryFactory
+                .select(
+                        favoriteSpot.spot.id
+                )
+                .from(favoriteSpot)
+                .where(favoriteSpot.favorite.member.id.ne(memberId), favoriteSpot.spot.id.in(spotIdList))
+                .fetch();
+
+        //"존재하지 않는 것"은 spotId와 매칭되지 않는 것도 map으로 매핑해서 false 값으 입력해줌
+        Set<Long> notFavoriteSpotIdSet = notFavoriteSpotList.stream().collect(Collectors.toSet());
+
+        optimizationSpotListDtoList.stream().filter(i -> notFavoriteSpotIdSet.contains(i.getSpotId())).forEach(o -> o.setFavorite(false));
+    }
+
 
     /**
      * 사용자의 가중치에 따른 관광지 조회
+     *
      * @param memberId
      * @param locationList
      * @param userWeightDto
@@ -247,9 +295,9 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     public Page<SpotListDto> searchSpotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto, Pageable pageable) {
 
 
-        log.info("memberId = {}",memberId);
-        log.info("location = {}",locationList);
-        log.info("userWeight = {}",userWeightDto);
+        log.info("memberId = {}", memberId);
+        log.info("location = {}", locationList);
+        log.info("userWeight = {}", userWeightDto);
 
 
         //지금 가중치를 업데이트 한 것임
@@ -257,7 +305,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                 .update(memberSpot)
                 .set(memberSpot.score,
                         getJpqlQuery(userWeightDto)
-                        )
+                )
                 .where(memberSpot.member.id.eq(memberId))
                 .execute();
 
@@ -284,7 +332,6 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
 //        log.info("fetch = {}",fetch);
 
 
-
         List<SpotListDto> contents = queryFactory
                 .select(new QSpotListDto(
                                 memberSpot.spot.id,
@@ -298,20 +345,20 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                         )
                 )
                 .from(memberSpot)
-                .where(spot.location.in(locationList),memberEq(memberId))
+                .where(spot.location.in(locationList), memberEq(memberId))
                 .orderBy(memberSpot.score.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        log.info("contents = {}",contents);
+        log.info("contents = {}", contents);
 
         JPAQuery<Long> countQuery = queryFactory
                 .select(memberSpot.count())
                 .from(memberSpot)
                 .innerJoin(memberSpot.spot, spot)
                 .innerJoin(memberSpot.member, member)
-                .where(spot.location.in(locationList),memberEq(memberId));
+                .where(spot.location.in(locationList), memberEq(memberId));
 
         return PageableExecutionUtils.getPage(contents, pageable, countQuery::fetchOne);
 
@@ -322,9 +369,9 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     public Page<OptimizationSpotListDto> optimizationSearchSpotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto, Pageable pageable) {
 
 
-        log.info("memberId = {}",memberId);
-        log.info("location = {}",locationList);
-        log.info("userWeight = {}",userWeightDto);
+        log.info("memberId = {}", memberId);
+        log.info("location = {}", locationList);
+        log.info("userWeight = {}", userWeightDto);
 
 
         //지금 가중치를 업데이트 한 것임
@@ -347,11 +394,17 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                 .limit(pageable.getPageSize())
                 .fetch();
 
+
         List<OptimizationSpotListDto> optimizationSpotListDtoList = memberSpotList.stream().map(o -> new OptimizationSpotListDto(
                         o.getSpot().getId(), o.getSpot().getName(), o.getSpot().getAddress(), o.getSpot().getDescription()))
                 .collect(Collectors.toList());
 
-        postSpotPictureUrlstoDTO(optimizationSpotListDtoList);
+        List<Long> spotIdList = memberSpotList.stream().map(o -> o.getSpot().getId()).collect(Collectors.toList());
+
+
+        getBooleanFavoriteSpot(memberId, optimizationSpotListDtoList, spotIdList);
+
+        postSpotPictureUrlsToDTO(optimizationSpotListDtoList);
 
 
         JPAQuery<Long> countQuery = queryFactory
@@ -359,14 +412,14 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                 .from(memberSpot)
                 .innerJoin(memberSpot.spot, spot)
                 .innerJoin(memberSpot.member, member)
-                .where(spot.location.in(locationList),memberEq(memberId));
+                .where(spot.location.in(locationList), memberEq(memberId));
 
         return PageableExecutionUtils.getPage(optimizationSpotListDtoList, pageable, countQuery::fetchOne);
 
 
     }
 
-    private void postSpotPictureUrlstoDTO(List<OptimizationSpotListDto> optimizationSpotListDtoList) {
+    private void postSpotPictureUrlsToDTO(List<OptimizationSpotListDto> optimizationSpotListDtoList) {
 
         List<Long> spotIdList = optimizationSpotListDtoList.stream().map(o -> o.getSpotId()).collect(Collectors.toList());
 
@@ -414,8 +467,6 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     }
 
 
-
-
     private JPQLQuery<Double> getJpqlQuery(UserWeightDto userWeightDto) {
         JPQLQuery<Double> updatedScore = JPAExpressions
                 .select(
@@ -429,7 +480,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
                 .from(spot)
                 .where(spot.eq(memberSpot.spot));
 
-        log.info("updatedScore = {}",updatedScore);
+        log.info("updatedScore = {}", updatedScore);
 
         return updatedScore;
 
@@ -439,38 +490,39 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom{
     private OrderSpecifier<Double> getDoubleOrderSpecifier(Category category) {
         OrderSpecifier<Double> orderSpecifier;
         // 사용자가 선택한 카테고리에 따라 정렬 조건 선택
-        if(category ==Category.VIEW)
+        if (category == Category.VIEW)
             orderSpecifier = spot.score.viewScore.desc();
-        else if (category ==Category.PRICE)
+        else if (category == Category.PRICE)
             orderSpecifier = spot.score.priceScore.desc();
-        else if(category ==Category.FACILITY)
+        else if (category == Category.FACILITY)
             orderSpecifier = spot.score.facilityScore.desc();
-        else if(category ==Category.SURROUND)
+        else if (category == Category.SURROUND)
             orderSpecifier = spot.score.surroundScore.desc();
-        else{   //사용자가 카테고리를 선택하지 않았을 때
+        else {   //사용자가 카테고리를 선택하지 않았을 때
             log.info(" category = {} ", category);
             orderSpecifier = spot.score.rankAverage.asc();//Todo: 업데이트
         }
         return orderSpecifier;
     }
 
-    private BooleanExpression memberFavoriteEq(Long memberId){
+    private BooleanExpression memberFavoriteEq(Long memberId) {
         return memberId != null ? favorite.member.id.eq(memberId) : null;
     }
 
-    private BooleanExpression favoriteListEq(List<Long> favoriteList){
-        return favoriteList != null  ? favoriteSpot.favorite.id.in(favoriteList) :  null;
+    private BooleanExpression favoriteListEq(List<Long> favoriteList) {
+        return favoriteList != null ? favoriteSpot.favorite.id.in(favoriteList) : null;
     }
 
 
     private BooleanExpression locationEq(Location location) {
-         return location != null ? spot.location.eq(location) : null;
+        return location != null ? spot.location.eq(location) : null;
     }
 
     private BooleanExpression location1Eq(Location location) {
-         return location != null ? memberSpot.spot.location.eq(location) : null;
+        return location != null ? memberSpot.spot.location.eq(location) : null;
     }
-    private BooleanExpression memberEq(Long memberId){
+
+    private BooleanExpression memberEq(Long memberId) {
         return memberId != null ? memberSpot.member.id.eq(memberId) : null;
     }
 

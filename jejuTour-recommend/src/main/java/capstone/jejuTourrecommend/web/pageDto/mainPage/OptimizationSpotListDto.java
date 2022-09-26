@@ -15,6 +15,10 @@ public class OptimizationSpotListDto {
 
     private List<PictureDetailDto> pictureDetailDtoList;
 
+    private boolean isFavorite;
+
+
+
 
     public OptimizationSpotListDto(Long spotId, String spotName, String spotAddress, String spotDescription) {
         this.spotId = spotId;

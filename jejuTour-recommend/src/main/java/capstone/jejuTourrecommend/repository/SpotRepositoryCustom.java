@@ -27,7 +27,7 @@ public interface SpotRepositoryCustom {
     Page<SpotListDto> searchBySpotNameContains(String spotName, Pageable pageable);
 
 
-    Page<OptimizationSpotListDto> optimizationSearchSpotByLocationAndCategory(List locationList, Category category, Pageable pageable);
+    Page<OptimizationSpotListDto> optimizationSearchSpotByLocationAndCategory(Long memberId, List locationList, Category category, Pageable pageable);
 
     Page<OptimizationSpotListDto> optimizationSearchSpotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto, Pageable pageable);
 

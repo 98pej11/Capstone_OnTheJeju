@@ -183,6 +183,10 @@ class SpotRepositoryTest {
     @Test
     public void OptimizationSpotLocationCategoryTest() throws Exception {
 
+        String memberEmail = "member1@gmail.com";
+
+        Optional<Member> optionByEmail = memberRepository.findOptionByEmail(memberEmail);
+
         PageRequest pageRequest = PageRequest.of(0, 100);
 
 
@@ -200,7 +204,7 @@ class SpotRepositoryTest {
         em.clear();
         long before2 = System.currentTimeMillis();
         Page<OptimizationSpotListDto> results2 = spotRepository.
-                optimizationSearchSpotByLocationAndCategory(westList, Category.VIEW, pageRequest);
+                optimizationSearchSpotByLocationAndCategory(optionByEmail.get().getId(), westList, Category.VIEW, pageRequest);
         long after2 = System.currentTimeMillis();
 
 
