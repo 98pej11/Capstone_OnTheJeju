@@ -249,37 +249,6 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom {
 
     }
 
-    private void getBooleanFavoriteSpot(Long memberId, List<OptimizationSpotListDto> optimizationSpotListDtoList, List<Long> spotIdList) {
-        List<Long> favoriteSpotIdList = queryFactory
-                .select(
-                        favoriteSpot.spot.id
-                )
-                .from(favoriteSpot)
-                .where(favoriteSpot.favorite.member.id.eq(memberId), favoriteSpot.spot.id.in(spotIdList))
-                .fetch();
-
-        Set<Long> favoriteSpotIdSet = favoriteSpotIdList.stream().collect(Collectors.toSet());
-
-        optimizationSpotListDtoList.stream().filter(i -> favoriteSpotIdSet.contains(i.getSpotId())).forEach(o -> o.setFavorite(true));
-
-
-        //"존재 하는 것"과 , 따로 spot 리스트 만들고,
-
-
-        List<Long> notFavoriteSpotList = queryFactory
-                .select(
-                        favoriteSpot.spot.id
-                )
-                .from(favoriteSpot)
-                .where(favoriteSpot.favorite.member.id.ne(memberId), favoriteSpot.spot.id.in(spotIdList))
-                .fetch();
-
-        //"존재하지 않는 것"은 spotId와 매칭되지 않는 것도 map으로 매핑해서 false 값으 입력해줌
-        Set<Long> notFavoriteSpotIdSet = notFavoriteSpotList.stream().collect(Collectors.toSet());
-
-        optimizationSpotListDtoList.stream().filter(i -> notFavoriteSpotIdSet.contains(i.getSpotId())).forEach(o -> o.setFavorite(false));
-    }
-
 
     /**
      * 사용자의 가중치에 따른 관광지 조회
@@ -415,6 +384,27 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom {
                 .where(spot.location.in(locationList), memberEq(memberId));
 
         return PageableExecutionUtils.getPage(optimizationSpotListDtoList, pageable, countQuery::fetchOne);
+
+
+    }
+
+    private void getBooleanFavoriteSpot(Long memberId, List<OptimizationSpotListDto> optimizationSpotListDtoList, List<Long> spotIdList) {
+        List<Long> favoriteSpotIdList = queryFactory
+                .select(
+                        favoriteSpot.spot.id
+                )
+                .from(favoriteSpot)
+                .where(favoriteSpot.favorite.member.id.eq(memberId), favoriteSpot.spot.id.in(spotIdList))
+                .fetch();
+
+        //list에서 contain 으로 접근하는 것보다 hashset 으로 접근하는게 더 빨라서 set 으로 stream 해줌 (디버깅해보니깐 hashset 으로 들어감)
+        Set<Long> favoriteSpotIdSet = favoriteSpotIdList.stream().collect(Collectors.toSet());
+
+        //"존재 하는 것"과 , 따로 spot 리스트 만들고,
+        optimizationSpotListDtoList.stream().filter(i -> favoriteSpotIdSet.contains(i.getSpotId())).forEach(o -> o.setFavorite(true));
+
+        //"존재하지 않는 것"은 spotId와 매칭되지 않는 것도 map 으로 매핑해서 false 값으 입력해줌->ㄴㄴ 기존꺼 활용해서 !로 filter 로 거름
+        optimizationSpotListDtoList.stream().filter(i -> !favoriteSpotIdSet.contains(i.getSpotId())).forEach(o -> o.setFavorite(false));
 
 
     }
