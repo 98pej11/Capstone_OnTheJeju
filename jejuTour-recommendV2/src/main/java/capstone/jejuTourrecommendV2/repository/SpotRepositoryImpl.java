@@ -1,8 +1,8 @@
-package capstone.jejuTourrecommend.repository;
+package capstone.jejuTourrecommendV2.repository;
 
-import capstone.jejuTourrecommend.domain.*;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.*;
-import capstone.jejuTourrecommend.web.pageDto.spotPage.ScoreDto;
+import capstone.jejuTourrecommendV2.domain.*;
+import capstone.jejuTourrecommendV2.web.pageDto.mainPage.*;
+import capstone.jejuTourrecommendV2.web.pageDto.spotPage.ScoreDto;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
@@ -23,13 +23,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static capstone.jejuTourrecommend.domain.QFavorite.favorite;
-import static capstone.jejuTourrecommend.domain.QFavoriteSpot.favoriteSpot;
-import static capstone.jejuTourrecommend.domain.QMember.member;
-import static capstone.jejuTourrecommend.domain.QMemberSpot.memberSpot;
-import static capstone.jejuTourrecommend.domain.QPicture.picture;
-import static capstone.jejuTourrecommend.domain.QScore.score;
-import static capstone.jejuTourrecommend.domain.QSpot.spot;
+import static capstone.jejuTourrecommendV2.domain.QFavorite.favorite;
+import static capstone.jejuTourrecommendV2.domain.QFavoriteSpot.favoriteSpot;
+import static capstone.jejuTourrecommendV2.domain.QMember.member;
+import static capstone.jejuTourrecommendV2.domain.QMemberSpot.memberSpot;
+import static capstone.jejuTourrecommendV2.domain.QPicture.picture;
+import static capstone.jejuTourrecommendV2.domain.QScore.score;
+import static capstone.jejuTourrecommendV2.domain.QSpot.spot;
 
 
 @Slf4j
