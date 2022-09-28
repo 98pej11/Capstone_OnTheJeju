@@ -92,7 +92,7 @@ public class SpotListService {
 
 
 
-            Page<SpotListDto> resultPriority = spotRepository.spotByUserPriority(
+            Page<SpotListDto> resultPriority = spotRepository.searchSpotByUserPriority(
                     member.getId(), locationList, userWeightDto, pageable);
 
             em.flush();

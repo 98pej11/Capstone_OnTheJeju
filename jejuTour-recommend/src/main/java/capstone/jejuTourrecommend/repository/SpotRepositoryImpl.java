@@ -73,7 +73,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom {
         getBooleanFavoriteSpot(memberId, spotListDtoList, spotIdList);
 
 
-        postSpotPictureUrlsToDTO(spotListDtoList);
+        postSpotPictureUrlsToDto(spotListDtoList);
 
 
 
@@ -88,6 +88,68 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom {
 
     }
 
+
+    /**
+     * 사용자의 가중치에 따른 관광지 조회
+     * @param memberId
+     * @param locationList
+     * @param userWeightDto
+     * @param pageable
+     * @return
+     */
+    @Override
+    public Page<SpotListDto> searchSpotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto, Pageable pageable) {
+
+
+        log.info("memberId = {}", memberId);
+        log.info("location = {}", locationList);
+        log.info("userWeight = {}", userWeightDto);
+
+
+        //지금 가중치를 업데이트 한 것임
+        queryFactory
+                .update(memberSpot)
+                .set(memberSpot.score,
+                        getJpqlQuery(userWeightDto)
+                )
+                .where(memberSpot.member.id.eq(memberId))
+                .execute();
+
+
+        List<MemberSpot> memberSpotList = queryFactory
+                .select(memberSpot)
+                .from(memberSpot)
+                .innerJoin(memberSpot.spot, spot).fetchJoin()
+                .where(spot.location.in(locationList), memberEq(memberId))
+                .orderBy(memberSpot.score.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+
+        List<SpotListDto> spotListDtoList = memberSpotList.stream().map(o -> new SpotListDto(
+                        o.getSpot().getId(), o.getSpot().getName(), o.getSpot().getAddress(), o.getSpot().getDescription()))
+                .collect(Collectors.toList());
+
+        List<Long> spotIdList = memberSpotList.stream().map(o -> o.getSpot().getId()).collect(Collectors.toList());
+
+
+        getBooleanFavoriteSpot(memberId, spotListDtoList, spotIdList);
+
+        postSpotPictureUrlsToDto(spotListDtoList);
+
+
+        JPAQuery<Long> countQuery = queryFactory
+                .select(memberSpot.count())
+                .from(memberSpot)
+                .innerJoin(memberSpot.spot, spot)
+                .innerJoin(memberSpot.member, member)
+                .where(spot.location.in(locationList), memberEq(memberId));
+
+        return PageableExecutionUtils.getPage(spotListDtoList, pageable, countQuery::fetchOne);
+
+
+    }
 
     /**
      * 사용자가 선택한 location 과 카테고리에 따라 관광지 순위별로 관광지 리스트 보여주기
@@ -137,7 +199,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom {
         getBooleanFavoriteSpot(memberId, spotListDtoList, spotIdList);
 
 
-        postSpotPictureUrlsToDTO(spotListDtoList);
+        postSpotPictureUrlsToDto(spotListDtoList);
 
         JPAQuery<Long> countQuery = queryFactory
                 .select(spot.count())
@@ -188,92 +250,6 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom {
 
 
 
-    /**
-     * 사용자의 가중치에 따른 관광지 조회
-     * @param memberId
-     * @param locationList
-     * @param userWeightDto
-     * @param pageable
-     * @return
-     */
-    @Override
-    public Page<SpotListDto> spotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto, Pageable pageable) {
-
-
-        log.info("memberId = {}", memberId);
-        log.info("location = {}", locationList);
-        log.info("userWeight = {}", userWeightDto);
-
-
-        //지금 가중치를 업데이트 한 것임
-        queryFactory
-                .update(memberSpot)
-                .set(memberSpot.score,
-                        getJpqlQuery(userWeightDto)
-                )
-                .where(memberSpot.member.id.eq(memberId))
-                .execute();
-
-
-        //업데이트된 점수 확인용 쿼리
-//        List<Tuple> updatedScoreList = queryFactory
-//                .select(memberSpot.score, memberSpot.spot.id)
-//                .from(memberSpot)
-//                .where(memberSpot.member.id.eq(memberId))
-//                .fetch();
-//
-//        log.info("updatedScoreList = {}",updatedScoreList);
-
-
-        //위에서 업데이트 했는데 이게 상위 몇퍼센트인지 확인용 쿼리
-//        List<Tuple> fetch = queryFactory
-//                .select(
-//                        spot.id, spot.score.viewScore, spot.score.priceScore, spot.score.facilityScore, spot.score.surroundScore,
-//                        //userWeightDto.getViewWeight(),userWeightDto.getPriceWeight(),
-//                        getJpqlQuery(userWeightDto)
-//                )
-//                .from(spot)
-//                .fetch();
-//
-//        log.info("fetch = {}",fetch);
-
-
-
-        List<MemberSpot> memberSpotList = queryFactory
-                .select(memberSpot)
-                .from(memberSpot)
-                .innerJoin(memberSpot.spot, spot).fetchJoin()
-                .where(spot.location.in(locationList), memberEq(memberId))
-                .orderBy(memberSpot.score.desc())
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
-
-
-        List<SpotListDto> spotListDtoList = memberSpotList.stream().map(o -> new SpotListDto(
-                        o.getSpot().getId(), o.getSpot().getName(), o.getSpot().getAddress(), o.getSpot().getDescription()))
-                .collect(Collectors.toList());
-
-        List<Long> spotIdList = memberSpotList.stream().map(o -> o.getSpot().getId()).collect(Collectors.toList());
-
-
-        getBooleanFavoriteSpot(memberId, spotListDtoList, spotIdList);
-
-        postSpotPictureUrlsToDTO(spotListDtoList);
-
-
-        JPAQuery<Long> countQuery = queryFactory
-                .select(memberSpot.count())
-                .from(memberSpot)
-                .innerJoin(memberSpot.spot, spot)
-                .innerJoin(memberSpot.member, member)
-                .where(spot.location.in(locationList), memberEq(memberId));
-
-        return PageableExecutionUtils.getPage(spotListDtoList, pageable, countQuery::fetchOne);
-
-
-    }
-
     private void getBooleanFavoriteSpot(Long memberId, List<SpotListDto> spotListDtoList, List<Long> spotIdList) {
         List<Long> favoriteSpotIdList = queryFactory
                 .select(
@@ -296,7 +272,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom {
 
     }
 
-    private void postSpotPictureUrlsToDTO(List<SpotListDto> spotListDtoList) {
+    private void postSpotPictureUrlsToDto(List<SpotListDto> spotListDtoList) {
 
         List<Long> spotIdList = spotListDtoList.stream().map(o -> o.getSpotId()).collect(Collectors.toList());
 

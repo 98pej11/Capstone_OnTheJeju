@@ -201,7 +201,7 @@ class SpotRepositoryTest {
 
 
         long before2 = System.currentTimeMillis();
-        Page<SpotListDto> optimizationSpotListDtos = spotRepository.spotByUserPriority(optionByEmail.get().getId(), westList,
+        Page<SpotListDto> optimizationSpotListDtos = spotRepository.searchSpotByUserPriority(optionByEmail.get().getId(), westList,
                 new UserWeightDto(1d, 4d, 1d, 1d)
                 , pageRequest);
         long after2 = System.currentTimeMillis();

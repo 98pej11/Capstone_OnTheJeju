@@ -28,6 +28,6 @@ public interface SpotRepositoryCustom {
 
     Page<SpotListDto> searchSpotByLocationAndCategory(Long memberId, List locationList, Category category, Pageable pageable);
 
-    Page<SpotListDto> spotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto, Pageable pageable);
+    Page<SpotListDto> searchSpotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto, Pageable pageable);
 
 }
