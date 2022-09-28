@@ -66,7 +66,9 @@ public class SpotListController {
             throw new UserException("관광지 이름에 빈 문자열이 왔습니다");
         }
 
-        ResultSpotListDto resultSpotListDto = spotListService.searchSpotListContains(searchForm.getSpotName(), pageable);
+        String memberEmail = jwtTokenProvider.getUserPk(accesstoken);
+
+        ResultSpotListDto resultSpotListDto = spotListService.searchSpotListContains(memberEmail,searchForm.getSpotName(), pageable);
 
         return resultSpotListDto;
     }

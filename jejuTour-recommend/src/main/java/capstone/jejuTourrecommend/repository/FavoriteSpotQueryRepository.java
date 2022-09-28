@@ -4,8 +4,6 @@ package capstone.jejuTourrecommend.repository;
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteListDto;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.OptimizationFavoriteListDto;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.QFavoriteListDto;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.SpotListDtoByFavoriteSpot;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.PictureDetailDto;
 import capstone.jejuTourrecommend.web.pageDto.routePage.QRouteSpotListDto;
@@ -48,53 +46,20 @@ public class FavoriteSpotQueryRepository {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
-    //사용자 위시리스트 보여주기
+    /**
+     * 사용자 위시리스트 보여주기
+     *
+     * @param memberId
+     * @param pageable
+     * @return
+     */
     @Transactional
-    public Page<FavoriteListDto> favoriteList(Long memberId, Pageable pageable) {
+    public Page<FavoriteListDto> getFavoriteList(Long memberId, Pageable pageable) {
 
-        //Favorite favorite1 = new Favorite("222");
-
-        List<FavoriteListDto> contents = queryFactory
-                .select(
-                        new QFavoriteListDto(
-                                favorite.id,
-                                favorite.name,
-                                JPAExpressions.select(picture.url.max())
-                                        .from(picture)
-                                        .where(picture.spot.id.eq(
-                                                        JPAExpressions
-                                                                .select(favoriteSpot.spot.id.max())
-                                                                .from(favoriteSpot)
-                                                                .where(favoriteSpot.favorite.eq(favorite))
-                                                )
-                                        )
-                        )
-                )
-                .from(favorite)
-                .where(favorite.member.id.eq(memberId))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
-
-
-        JPAQuery<Long> countQuery = queryFactory
-                .select(favorite.count())
-                .from(favorite)
-                .innerJoin(favorite.member, member)
-                .where(favorite.member.id.eq(memberId));
-
-
-        return PageableExecutionUtils.getPage(contents, pageable, countQuery::fetchOne);
-
-    }
-
-    @Transactional
-    public Page<OptimizationFavoriteListDto> optimizationFavoriteList(Long memberId, Pageable pageable) {
-
-        List<OptimizationFavoriteListDto> optimizationFavoriteListDtos = queryFactory
+        List<FavoriteListDto> favoriteListDtos = queryFactory
                 .select(
                         Projections.constructor(
-                                OptimizationFavoriteListDto.class,
+                                FavoriteListDto.class,
                                 favorite.id,
                                 favorite.name
                         )
@@ -107,7 +72,7 @@ public class FavoriteSpotQueryRepository {
 
 
 
-        List<Long> favoriteIdList = optimizationFavoriteListDtos.stream().map(o -> o.getFavoriteId()).collect(Collectors.toList());
+        List<Long> favoriteIdList = favoriteListDtos.stream().map(o -> o.getFavoriteId()).collect(Collectors.toList());
 
 //        List<FavoriteSpot> favoriteSpotList = queryFactory
 //                .selectFrom(favoriteSpot)
@@ -148,7 +113,7 @@ public class FavoriteSpotQueryRepository {
                         .limit(3)
                         .fetch();
 
-                optimizationFavoriteListDtos.stream().filter(o-> o.getFavoriteId()==favoriteId)
+                favoriteListDtos.stream().filter(o-> o.getFavoriteId()==favoriteId)
                         .forEach(o->o.getPictureDetailDtoListBySpotId().add(pictureDetailDtoList));
             }
 
@@ -163,7 +128,7 @@ public class FavoriteSpotQueryRepository {
                 .where(favorite.member.id.eq(memberId));
 
 
-        return PageableExecutionUtils.getPage(optimizationFavoriteListDtos, pageable, countQuery::fetchOne);
+        return PageableExecutionUtils.getPage(favoriteListDtos, pageable, countQuery::fetchOne);
 
     }
 

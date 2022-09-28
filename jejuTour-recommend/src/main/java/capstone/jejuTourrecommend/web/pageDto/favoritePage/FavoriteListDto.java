@@ -1,26 +1,23 @@
 package capstone.jejuTourrecommend.web.pageDto.favoritePage;
 
-import com.querydsl.core.annotations.QueryProjection;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.PictureDetailDto;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class FavoriteListDto {
 
     private Long favoriteId;
     private String favoriteName;
-    private String spotURL;
 
-    @QueryProjection
-    public FavoriteListDto(Long favoriteId, String favoriteName, String spotURL) {
-        this.favoriteId = favoriteId;
-        this.favoriteName = favoriteName;
-        this.spotURL = spotURL;
-    }
+    private List<List<PictureDetailDto>> pictureDetailDtoListBySpotId;
 
-    //2개 사용 가능함 ㅋ
-    @QueryProjection
+
     public FavoriteListDto(Long favoriteId, String favoriteName) {
         this.favoriteId = favoriteId;
         this.favoriteName = favoriteName;
+        pictureDetailDtoListBySpotId = new ArrayList<>();
     }
 }

@@ -2,7 +2,6 @@ package capstone.jejuTourrecommend.repository;
 
 import capstone.jejuTourrecommend.domain.Category;
 import capstone.jejuTourrecommend.domain.Spot;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.OptimizationSpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.UserWeightDto;
 import capstone.jejuTourrecommend.web.pageDto.spotPage.ScoreDto;
@@ -14,9 +13,9 @@ import java.util.List;
 
 public interface SpotRepositoryCustom {
 
-    Page<SpotListDto> searchSpotByLocationAndCategory(List locationList, Category category, Pageable pageable);
+    //Page<SpotListDto> searchSpotByLocationAndCategory(List locationList, Category category, Pageable pageable);
 
-    Page<SpotListDto> searchSpotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto, Pageable pageable);
+    //Page<SpotListDto> searchSpotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto, Pageable pageable);
 
     //Page<SpotDetailDto> searchSpotDetail(String spotName);
 
@@ -24,11 +23,11 @@ public interface SpotRepositoryCustom {
 
     Boolean isFavoriteSpot(Long memberId, Long spotId);
 
-    Page<SpotListDto> searchBySpotNameContains(String spotName, Pageable pageable);
+    Page<SpotListDto> searchBySpotNameContains(Long memberId, String spotName, Pageable pageable);
 
 
-    Page<OptimizationSpotListDto> optimizationSearchSpotByLocationAndCategory(Long memberId, List locationList, Category category, Pageable pageable);
+    Page<SpotListDto> searchSpotByLocationAndCategory(Long memberId, List locationList, Category category, Pageable pageable);
 
-    Page<OptimizationSpotListDto> optimizationSearchSpotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto, Pageable pageable);
+    Page<SpotListDto> spotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto, Pageable pageable);
 
 }

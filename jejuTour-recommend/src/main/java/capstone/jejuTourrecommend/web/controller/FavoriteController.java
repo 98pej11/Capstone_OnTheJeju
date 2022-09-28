@@ -147,7 +147,7 @@ public class FavoriteController {
         //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함)
         //jwtTokenProvider.getUserPk(jwtTokenProvider.createToken(memberEmail,"ROLE_USER"));
 
-        Page<OptimizationFavoriteListDto> OptimizationFavoriteListDto = favoriteService.OptimizationGetFavoriteList(memberEmail, pageable);
+        Page<FavoriteListDto> OptimizationFavoriteListDto = favoriteService.OptimizationGetFavoriteList(memberEmail, pageable);
 
         return new OpFavoriteListFinalDto(200l,true,"성공,",OptimizationFavoriteListDto);
 

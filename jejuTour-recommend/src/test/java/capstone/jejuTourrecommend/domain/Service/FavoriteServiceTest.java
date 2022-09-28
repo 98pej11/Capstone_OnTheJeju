@@ -2,10 +2,7 @@ package capstone.jejuTourrecommend.domain.Service;
 
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.repository.*;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteDto;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteForm;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteListDto;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.GetFavoriteListDto;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

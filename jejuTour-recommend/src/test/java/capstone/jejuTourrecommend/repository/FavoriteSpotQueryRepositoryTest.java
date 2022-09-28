@@ -3,7 +3,6 @@ package capstone.jejuTourrecommend.repository;
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteListDto;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.OptimizationFavoriteListDto;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.SpotListDtoByFavoriteSpot;
 import capstone.jejuTourrecommend.web.pageDto.routePage.RouteForm;
 import lombok.extern.slf4j.Slf4j;
@@ -163,7 +162,7 @@ class FavoriteSpotQueryRepositoryTest {
 
         long before1 = System.currentTimeMillis();
         Page<FavoriteListDto> favoriteListDtos = favoriteSpotQueryRepository
-                .favoriteList(optionByEmail.get().getId(), pageRequest);
+                .getFavoriteList(optionByEmail.get().getId(), pageRequest);
         long after1 = System.currentTimeMillis();
 
         System.out.println("after1-before1 = " +  (after1 - before1));
@@ -185,8 +184,8 @@ class FavoriteSpotQueryRepositoryTest {
 
 
         long before2 = System.currentTimeMillis();
-        Page<OptimizationFavoriteListDto> optimizationFavoriteListDtos = favoriteSpotQueryRepository
-                .optimizationFavoriteList(optionByEmail.get().getId(), pageRequest);
+        Page<FavoriteListDto> optimizationFavoriteListDtos = favoriteSpotQueryRepository
+                .getFavoriteList(optionByEmail.get().getId(), pageRequest);
         long after2 = System.currentTimeMillis();
 
 

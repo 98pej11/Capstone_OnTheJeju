@@ -2,13 +2,9 @@ package capstone.jejuTourrecommend.domain.Service;
 
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.repository.MemberRepository;
-import capstone.jejuTourrecommend.repository.MemberSpotRepository;
 import capstone.jejuTourrecommend.repository.SpotRepository;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.MainPageForm;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.ResultSpotListDto;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.UserWeightDto;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -34,9 +30,12 @@ public class SpotListService {
     private final EntityManager em;
 
 
-    public ResultSpotListDto searchSpotListContains(String spotName, Pageable pageable){
+    public ResultSpotListDto searchSpotListContains(String memberEmail, String spotName, Pageable pageable){
 
-        Page<SpotListDto> spotListDtos = spotRepository.searchBySpotNameContains(spotName, pageable);
+        Member member = memberRepository.findOptionByEmail(memberEmail)
+                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
+
+        Page<SpotListDto> spotListDtos = spotRepository.searchBySpotNameContains(member.getId(), spotName, pageable);
 
         return new ResultSpotListDto(200l,true,"성공",spotListDtos);
 
@@ -74,7 +73,7 @@ public class SpotListService {
                 mainPageForm.getUserWeight().get("facilityWeight").doubleValue()==0&&
                 mainPageForm.getUserWeight().get("surroundWeight").doubleValue()==0)
         ) {//Todo: 업데이트
-            Page<SpotListDto> result = spotRepository.searchSpotByLocationAndCategory(
+            Page<SpotListDto> result = spotRepository.searchSpotByLocationAndCategory(member.getId(),
                     locationList, category, pageable);
 
             em.flush();
@@ -93,7 +92,7 @@ public class SpotListService {
 
 
 
-            Page<SpotListDto> resultPriority = spotRepository.searchSpotByUserPriority(
+            Page<SpotListDto> resultPriority = spotRepository.spotByUserPriority(
                     member.getId(), locationList, userWeightDto, pageable);
 
             em.flush();

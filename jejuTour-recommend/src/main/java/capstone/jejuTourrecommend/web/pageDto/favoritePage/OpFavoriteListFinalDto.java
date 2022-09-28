@@ -10,10 +10,10 @@ public class OpFavoriteListFinalDto {
     private boolean success;
     private String message;
 
-    private Page<OptimizationFavoriteListDto> OptimizationFavoriteListDtos;
+    private Page<FavoriteListDto> OptimizationFavoriteListDtos;
 
     public OpFavoriteListFinalDto(Long status, boolean success, String message,
-                                Page<OptimizationFavoriteListDto> optimizationFavoriteListDtos) {
+                                Page<FavoriteListDto> optimizationFavoriteListDtos) {
         this.status = status;
         this.success = success;
         this.message = message;

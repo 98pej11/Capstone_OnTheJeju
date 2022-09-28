@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.Optional;
-import java.util.Random;
 
 @Slf4j
 @Service
@@ -41,7 +40,7 @@ public class FavoriteService {
         //이거 실험용 데이터임 TODO: 실험용 데이터임
         //PageRequest pageRequest = PageRequest.of(0,100);
 
-        Page<FavoriteListDto> favoriteListDtos = favoriteSpotQueryRepository.favoriteList(member.getId(), pageable);
+        Page<FavoriteListDto> favoriteListDtos = favoriteSpotQueryRepository.getFavoriteList(member.getId(), pageable);
 
 
         return favoriteListDtos;
@@ -50,7 +49,7 @@ public class FavoriteService {
     }
 
 
-    public Page<OptimizationFavoriteListDto> OptimizationGetFavoriteList(String memberEmail, Pageable pageable){
+    public Page<FavoriteListDto> OptimizationGetFavoriteList(String memberEmail, Pageable pageable){
 
 
         Member member = memberRepository.findOptionByEmail(memberEmail)
@@ -59,7 +58,7 @@ public class FavoriteService {
         //이거 실험용 데이터임 TODO: 실험용 데이터임
         //PageRequest pageRequest = PageRequest.of(0,100);
 
-        Page<OptimizationFavoriteListDto> OptimizationFavoriteListDtos = favoriteSpotQueryRepository.optimizationFavoriteList(member.getId(), pageable);
+        Page<FavoriteListDto> OptimizationFavoriteListDtos = favoriteSpotQueryRepository.getFavoriteList(member.getId(), pageable);
 
 
         return OptimizationFavoriteListDtos;
