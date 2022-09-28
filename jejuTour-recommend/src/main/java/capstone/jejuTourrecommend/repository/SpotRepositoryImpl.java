@@ -251,6 +251,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom {
 
 
     private void getBooleanFavoriteSpot(Long memberId, List<SpotListDto> spotListDtoList, List<Long> spotIdList) {
+
         List<Long> favoriteSpotIdList = queryFactory
                 .select(
                         favoriteSpot.spot.id

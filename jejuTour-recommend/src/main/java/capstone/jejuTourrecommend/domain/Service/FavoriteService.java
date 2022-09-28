@@ -30,8 +30,15 @@ public class FavoriteService {
 
     private final EntityManager em;
 
-    //사용자의 위시리스트 목록 "폼" 보여주기
-    public Page<FavoriteListDto> getFavoriteList(String memberEmail, Pageable pageable){
+
+    /**
+     * 사용자의 위시리스트 목록 "폼" 보여주기
+     *
+     * @param memberEmail
+     * @param pageable
+     * @return
+     */
+    public Page<FavoriteListDto> getFavoriteList(String memberEmail, Pageable pageable) {
 
 
         Member member = memberRepository.findOptionByEmail(memberEmail)
@@ -49,7 +56,7 @@ public class FavoriteService {
     }
 
 
-    public Page<FavoriteListDto> OptimizationGetFavoriteList(String memberEmail, Pageable pageable){
+    public Page<FavoriteListDto> OptimizationGetFavoriteList(String memberEmail, Pageable pageable) {
 
 
         Member member = memberRepository.findOptionByEmail(memberEmail)
@@ -58,17 +65,22 @@ public class FavoriteService {
         //이거 실험용 데이터임 TODO: 실험용 데이터임
         //PageRequest pageRequest = PageRequest.of(0,100);
 
-        Page<FavoriteListDto> OptimizationFavoriteListDtos = favoriteSpotQueryRepository.getFavoriteList(member.getId(), pageable);
+        Page<FavoriteListDto> favoriteListDtos = favoriteSpotQueryRepository.getFavoriteList(member.getId(), pageable);
 
 
-        return OptimizationFavoriteListDtos;
+        return favoriteListDtos;
 
 
     }
 
-    // 선택한 관광지를 선태한 위시리스트에 추가
-    // 선택한 관광지 정보, 사용자 정보, 위시리스트 정보 필요
-    public void postFavoriteForm(String memberEmail, FavoriteForm favoriteForm){
+    /**
+     * 선택한 관광지를 선태한 위시리스트에 추가
+     * 선택한 관광지 정보, 사용자 정보, 위시리스트 정보 필요
+     *
+     * @param memberEmail
+     * @param favoriteForm
+     */
+    public void postFavoriteForm(String memberEmail, FavoriteForm favoriteForm) {
 
         //솔직히 멤버 정보는 필요 없음 어차피 해당 favorite 은 member 와 연결되어 있음
         //Optional<Member> member = memberRepository.findOptionByEmail(memberEmail);
@@ -82,20 +94,27 @@ public class FavoriteService {
                 .orElseThrow(() -> new UserException("위시리스트 id가 맞지 않습니다"));
 
         Optional<FavoriteSpot> result = favoriteSpotRepository.findOptionBySpotIdAndFavoriteId(spot.getId(), favorite.getId());
-        if(result.isPresent()){
+        if (result.isPresent()) {
             throw new UserException("위시리스트에 중복된 관광지가 들어 있습니다.");
         }
 
 
-        FavoriteSpot favoriteSpot = new FavoriteSpot(favorite,spot);
+        FavoriteSpot favoriteSpot = new FavoriteSpot(favorite, spot);
         favoriteSpotRepository.save(favoriteSpot);
 
     }
 
 
-    //새로운 위시 리스트를 만들고 해당 관광지 넣기
-    // 선택한 관광지 정보, 사용자 정보, 위시리스트 이름 필요
-    public FavoriteDto newFavoriteListO(String memberEmail, Long spotId, String favoriteName){
+    /**
+     * 새로운 위시 리스트를 만들고 해당 관광지 넣기
+     * 선택한 관광지 정보, 사용자 정보, 위시리스트 이름 필요
+     *
+     * @param memberEmail
+     * @param spotId
+     * @param favoriteName
+     * @return
+     */
+    public FavoriteDto newFavoriteListO(String memberEmail, Long spotId, String favoriteName) {
 
         Member member = memberRepository.findOptionByEmail(memberEmail)
                 .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
@@ -103,52 +122,7 @@ public class FavoriteService {
         //Todo:
         Optional<Favorite> optionByName = favoriteRepository.findOptionByName(favoriteName);
 
-        if(optionByName.isPresent()){
-            throw new UserException("동일한 위시리스트 이름이 존재합니다");
-        }
-
-        /**
-         *
-
-        Optional<Favorite> optionByFavoriteNameAndMember = favoriteRepository.findOptionByFavoriteNameAndMember(favoriteName, member);
-
-        if(optionByFavoriteNameAndMember.isPresent()){
-            throw new UserException("동일한 위시리스트 이름이 존재합니다");
-        }*/
-
-
-        Optional<Spot> spot = spotRepository.findOptionById(spotId);
-
-
-        // 회원객체와 장소 객체 가져오고
-        // favorite하고 favoritespot을 생성하고 넣기
-
-        Favorite favorite = new Favorite(favoriteName,member);
-
-        favoriteRepository.save(favorite);
-
-        FavoriteSpot favoriteSpot = new FavoriteSpot(favorite,spot.get());
-
-        favoriteSpotRepository.save(favoriteSpot);
-
-        FavoriteDto favoriteDto = favoriteRepository.findOptionByName(favoriteName)
-                .map(favorite1 -> new FavoriteDto(favorite1.getId(), favorite1.getName()))
-                .orElseThrow(() -> new UserException("갱신 성공을 못하였습니다"));
-
-        return favoriteDto;
-
-    }
-
-    //관광지가 없기에 새로운 위시리스트 추가만 함
-    public FavoriteDto newFavoriteListX(String memberEmail, String favoriteName){
-
-        Member member = memberRepository.findOptionByEmail(memberEmail)
-                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
-
-        //Todo:
-        Optional<Favorite> optionByName = favoriteRepository.findOptionByName(favoriteName);
-
-        if(optionByName.isPresent()){
+        if (optionByName.isPresent()) {
             throw new UserException("동일한 위시리스트 이름이 존재합니다");
         }
 
@@ -161,7 +135,58 @@ public class FavoriteService {
          throw new UserException("동일한 위시리스트 이름이 존재합니다");
          }*/
 
-        Favorite favorite = new Favorite(favoriteName,member);
+
+        Optional<Spot> spot = spotRepository.findOptionById(spotId);
+
+
+        // 회원객체와 장소 객체 가져오고
+        // favorite하고 favoritespot을 생성하고 넣기
+
+        Favorite favorite = new Favorite(favoriteName, member);
+
+        favoriteRepository.save(favorite);
+
+        FavoriteSpot favoriteSpot = new FavoriteSpot(favorite, spot.get());
+
+        favoriteSpotRepository.save(favoriteSpot);
+
+        FavoriteDto favoriteDto = favoriteRepository.findOptionByName(favoriteName)
+                .map(favorite1 -> new FavoriteDto(favorite1.getId(), favorite1.getName()))
+                .orElseThrow(() -> new UserException("갱신 성공을 못하였습니다"));
+
+        return favoriteDto;
+
+    }
+
+    /**
+     * 관광지가 없기에 새로운 위시리스트 추가만 함
+     *
+     * @param memberEmail
+     * @param favoriteName
+     * @return
+     */
+    public FavoriteDto newFavoriteListX(String memberEmail, String favoriteName) {
+
+        Member member = memberRepository.findOptionByEmail(memberEmail)
+                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
+
+        //Todo:
+        Optional<Favorite> optionByName = favoriteRepository.findOptionByName(favoriteName);
+
+        if (optionByName.isPresent()) {
+            throw new UserException("동일한 위시리스트 이름이 존재합니다");
+        }
+
+        /**
+         *
+
+         Optional<Favorite> optionByFavoriteNameAndMember = favoriteRepository.findOptionByFavoriteNameAndMember(favoriteName, member);
+
+         if(optionByFavoriteNameAndMember.isPresent()){
+         throw new UserException("동일한 위시리스트 이름이 존재합니다");
+         }*/
+
+        Favorite favorite = new Favorite(favoriteName, member);
 
         favoriteRepository.save(favorite);
 
@@ -175,9 +200,13 @@ public class FavoriteService {
     }
 
 
-    //위시 리스트 삭제하기
-    //해당 위시리스트 정보 필요
-    public void deleteFavoriteList(Long favoriteId){
+    /**
+     * 위시 리스트 삭제하기
+     * 해당 위시리스트 정보 필요
+     *
+     * @param favoriteId
+     */
+    public void deleteFavoriteList(Long favoriteId) {
 
         //먼저 favoriteSpot들 찾아서 삭제해주고 (여러개임), 이때 favorite,spot필요
         //그다음 favorite을 삭제해줘야함 (한개), favorteId만 필요
@@ -185,7 +214,7 @@ public class FavoriteService {
         //favoriteSpotRepository.deleteAllById();
 
         favoriteRepository.findOptionById(favoriteId)
-                        .orElseThrow(() -> new UserException("올바르지 않는 favoriteId 입니다"));
+                .orElseThrow(() -> new UserException("올바르지 않는 favoriteId 입니다"));
 
         favoriteSpotQueryRepository.deleteFavoriteSpotByFavoriteId(favoriteId);
 
@@ -195,7 +224,7 @@ public class FavoriteService {
 
     }
 
-    public void deleteSpotInFavoriteList(Long favoriteId, Long spotId){
+    public void deleteSpotInFavoriteList(Long favoriteId, Long spotId) {
 
         favoriteRepository.findOptionById(favoriteId)
                 .orElseThrow(() -> new UserException("올바르지 않는 favoriteId 입니다"));
@@ -203,10 +232,8 @@ public class FavoriteService {
         spotRepository.findOptionById(spotId)
                 .orElseThrow(() -> new UserException("올바르지 않는 spotId 입니다"));
 
-        favoriteSpotRepository.deleteByFavoriteIdAndSpotId(favoriteId,spotId);
+        favoriteSpotRepository.deleteByFavoriteIdAndSpotId(favoriteId, spotId);
     }
-
-
 
 
 }
