@@ -1,20 +1,16 @@
 package capstone.jejuTourrecommend.web.controller;
 
-import capstone.jejuTourrecommend.domain.Member;
-import capstone.jejuTourrecommend.domain.Service.LoginService;
+import capstone.jejuTourrecommend.Service.LoginService;
 import capstone.jejuTourrecommend.web.login.JoinDto;
 import capstone.jejuTourrecommend.web.login.LoginDto;
 import capstone.jejuTourrecommend.web.login.UserDto;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.login.exhandler.ErrorResult;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
 import capstone.jejuTourrecommend.web.login.form.JoinForm;
 import capstone.jejuTourrecommend.web.login.form.LoginForm;
 import capstone.jejuTourrecommend.web.login.jwt.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,7 @@
 package capstone.jejuTourrecommend.web.controller;
 
 
-import capstone.jejuTourrecommend.domain.Service.TestService;
+import capstone.jejuTourrecommend.Service.TestService;
 import capstone.jejuTourrecommend.web.pageDto.spotPage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

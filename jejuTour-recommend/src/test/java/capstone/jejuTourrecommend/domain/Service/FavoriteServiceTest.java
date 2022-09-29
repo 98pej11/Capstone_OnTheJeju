@@ -1,5 +1,6 @@
 package capstone.jejuTourrecommend.domain.Service;
 
+import capstone.jejuTourrecommend.Service.FavoriteService;
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.repository.*;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.*;

@@ -1,7 +1,7 @@
 package capstone.jejuTourrecommend.web.controller;
 
 
-import capstone.jejuTourrecommend.domain.Service.FavoriteService;
+import capstone.jejuTourrecommend.Service.FavoriteService;
 import capstone.jejuTourrecommend.web.GlobalDto;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.*;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
