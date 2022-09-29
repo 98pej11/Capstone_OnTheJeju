@@ -1,7 +1,7 @@
 package capstone.jejuTourrecommend.web.controller;
 
 
-import capstone.jejuTourrecommend.domain.Service.RouteService;
+import capstone.jejuTourrecommend.Service.RouteService;
 import capstone.jejuTourrecommend.web.pageDto.routePage.ResultFavoriteSpotList;
 import capstone.jejuTourrecommend.web.pageDto.routePage.ResultTopSpot;
 import capstone.jejuTourrecommend.web.pageDto.routePage.RouteForm;

@@ -1,5 +1,6 @@
 package capstone.jejuTourrecommend.domain.Service;
 
+import capstone.jejuTourrecommend.Service.SpotListService;
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.MainPageForm;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.ResultSpotListDto;

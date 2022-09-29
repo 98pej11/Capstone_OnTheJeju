@@ -1,6 +1,6 @@
 package capstone.jejuTourrecommend.web.controller;
 
-import capstone.jejuTourrecommend.domain.Service.SpotService;
+import capstone.jejuTourrecommend.Service.SpotService;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
 import capstone.jejuTourrecommend.web.pageDto.spotPage.*;
 import lombok.RequiredArgsConstructor;

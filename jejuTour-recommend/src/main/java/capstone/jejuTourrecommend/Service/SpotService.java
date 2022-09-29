@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.domain.Service;
+package capstone.jejuTourrecommend.Service;
 
 
 import capstone.jejuTourrecommend.domain.Member;

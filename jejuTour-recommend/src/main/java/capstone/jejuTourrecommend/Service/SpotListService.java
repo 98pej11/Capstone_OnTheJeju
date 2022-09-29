@@ -1,5 +1,6 @@
-package capstone.jejuTourrecommend.domain.Service;
+package capstone.jejuTourrecommend.Service;
 
+import capstone.jejuTourrecommend.Service.spotList.*;
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.repository.MemberRepository;
 import capstone.jejuTourrecommend.repository.SpotRepository;
@@ -27,9 +28,6 @@ public class SpotListService {
     private final SpotRepository spotRepository;
     private final MemberRepository memberRepository;
 
-    private final EntityManager em;
-
-
     public ResultSpotListDto searchSpotListContains(String memberEmail, String spotName, Pageable pageable) {
 
         Member member = memberRepository.findOptionByEmail(memberEmail)
@@ -43,17 +41,12 @@ public class SpotListService {
 
 
     public ResultSpotListDto postSpotList(MainPageForm mainPageForm, String memberEmail, Pageable pageable) {
-
-        //Location location = findLocation(mainPageForm);
-
+        
         List locationList = findLocationList(mainPageForm);
 
         Category category = findCategory(mainPageForm);
 
-        //mainPageForm.setLocation(Location.Andeok_myeon);
-        //log.info("location = {} ",location);
         log.info("location = {}", locationList);
-        //mainPageForm.setCategory(Category.VIEW);
         log.info("category = {} ", category);
         log.info("UserWeightDto() = {}", mainPageForm.getUserWeight());//Todo: 업데이트
 
@@ -61,10 +54,7 @@ public class SpotListService {
         Member member = memberRepository.findOptionByEmail(memberEmail)
                 .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
-        //이거 실험용 데이터임 TODO: 실험용 데이터임
-//        mainPageForm.setPage(0);
-//        mainPageForm.setPage(10);
-//        PageRequest pageRequest = PageRequest.of(mainPageForm.getPage(), mainPageForm.getSize());
+        Page<SpotListDto> result;
 
         //사용자가 가중치를 입력 안한 경우
         if (mainPageForm.getUserWeight().get("viewWeight").doubleValue() == 0 &&
@@ -73,11 +63,9 @@ public class SpotListService {
                 mainPageForm.getUserWeight().get("surroundWeight").doubleValue() == 0
         ) {//Todo: 업데이트
 
-            Page<SpotListDto> result = spotRepository.searchSpotByLocationAndCategory(member.getId(),
+            result = spotRepository.searchSpotByLocationAndCategory(member.getId(),
                     locationList, category, pageable);
 
-
-            return new ResultSpotListDto(200l, true, "성공", result);
         } else {//사용자가 가중치를 넣은 경우
             UserWeightDto userWeightDto = new UserWeightDto(//Todo: 업데이트
                     mainPageForm.getUserWeight().get("viewWeight").doubleValue(),
@@ -86,16 +74,11 @@ public class SpotListService {
                     mainPageForm.getUserWeight().get("surroundWeight").doubleValue()
             );
 
-            log.info("userWeightDto = {}", userWeightDto);
-
-
-            Page<SpotListDto> resultPriority = spotRepository.searchSpotByUserPriority(
+            result = spotRepository.searchSpotByUserPriority(
                     member.getId(), locationList, userWeightDto, pageable);
 
-
-            return new ResultSpotListDto(200l, true, "성공", resultPriority);
-
         }
+        return new ResultSpotListDto(200l, true, "성공", result);
     }
 
 
@@ -173,7 +156,7 @@ public class SpotListService {
 
     public List findLocationList(MainPageForm mainPageForm) {
         log.info("mainPageLocation = {}", mainPageForm.getLocation());
-        List list = null;
+
         if (!StringUtils.hasText(mainPageForm.getLocation())) {
             log.info("지역에 null 값이 들어갔습니다");///
             throw new UserException("지에 null 값이 들어갔습니다");
@@ -185,29 +168,37 @@ public class SpotListService {
          * 남 : 서귀포시
          */
 
+        LocationStrategy locationStrategy;
 
-        if (mainPageForm.getLocation().equals("북부")) {
-            List northList = Arrays.asList(Location.Aewol_eup, Location.Jeju_si, Location.Jocheon_eup, Location.Gujwa_eup, Location.Udo_myeon);
-            return northList;
-        } else if (mainPageForm.getLocation().equals("동부")) {
-            List eastList = Arrays.asList(Location.Namwon_eup, Location.Pyoseon_myeon, Location.Seongsan_eup);
-            return eastList;
-        } else if (mainPageForm.getLocation().equals("서부")) {
-            List westList = Arrays.asList(Location.Hallim_eup, Location.Hangyeong_myeon, Location.Daejeong_eup, Location.Andeok_myeon);
-            return westList;
-        } else if (mainPageForm.getLocation().equals("남부")) {
-            List southList = Arrays.asList(Location.Seogwipo_si);
-            return southList;
-        } else if (mainPageForm.getLocation().equals("전체")) {
-            List allList = Arrays.asList(Location.Jeju_si, Location.Aewol_eup, Location.Hallim_eup,
-                    Location.Hangyeong_myeon, Location.Jocheon_eup, Location.Gujwa_eup,
-                    Location.Daejeong_eup, Location.Andeok_myeon, Location.Seogwipo_si,
-                    Location.Namwon_eup, Location.Pyoseon_myeon, Location.Seongsan_eup, Location.Udo_myeon
-            );
-            return allList;
-        } else {
-            throw new UserException("카테고리의 제대로된 입력값을 넣어야 합니다");
+        String location = mainPageForm.getLocation();
+
+        switch (location) {
+            case "북부":
+                locationStrategy = new NorthLocation();
+                break;
+
+            case "동부":
+                locationStrategy = new EastLocation();
+                break;
+
+            case "서부":
+                locationStrategy = new WestLocation();
+                break;
+
+            case "남부":
+                locationStrategy = new SouthLocation();
+                break;
+
+            case "전체":
+                locationStrategy = new DefaultLocation();
+                break;
+
+            default:
+                throw new UserException("카테고리의 제대로된 입력값을 넣어야 합니다");
         }
+
+
+        return locationStrategy.getLocation();
 
 
     }

@@ -1,7 +1,7 @@
 package capstone.jejuTourrecommend.web.controller;
 
 
-import capstone.jejuTourrecommend.domain.Service.SpotListService;
+import capstone.jejuTourrecommend.Service.SpotListService;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.*;

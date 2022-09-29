@@ -1,5 +1,6 @@
 package capstone.jejuTourrecommend.domain.Service;
 
+import capstone.jejuTourrecommend.Service.SpotService;
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.repository.FavoriteRepository;
 import capstone.jejuTourrecommend.repository.FavoriteSpotRepository;
@@ -9,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
