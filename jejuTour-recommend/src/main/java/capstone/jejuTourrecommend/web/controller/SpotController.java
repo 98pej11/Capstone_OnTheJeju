@@ -78,6 +78,7 @@ public class SpotController {
         return new SpotListMetaDataOp(200l, true, metaDataDirector.categoryMetaData().getMetaDataList());
     }
 
+
     private SpotMetaDto getCategoryMetaData() {
         Map map;
         List list = new ArrayList();
