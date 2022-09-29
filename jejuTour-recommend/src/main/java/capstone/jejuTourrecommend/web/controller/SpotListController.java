@@ -84,16 +84,15 @@ public class SpotListController {
 
     }
 
-    @GetMapping("/spotList/metaData1")
-    public SpotListMetaDataOp getMetaData1(){
+    @GetMapping("/spotList/metaDataOp")
+    public SpotListMetaDataOp getMetaDataOp(){
 
         MetaDataDirector metaDataDirector = new MetaDataDirector(new DefaultMetaDataBuilder());
         metaDataDirector.categoryMetaData();
         MetaData metaData2 = metaDataDirector.noCaAndLocationMetaData();
 
-        SpotListMetaDataOp spotListMetaDataOp = new SpotListMetaDataOp(200l, true, metaData2.getMetaDataList());
-
-        return spotListMetaDataOp;
+        
+        return new SpotListMetaDataOp(200l, true, metaData2.getMetaDataList());
 
     }
 

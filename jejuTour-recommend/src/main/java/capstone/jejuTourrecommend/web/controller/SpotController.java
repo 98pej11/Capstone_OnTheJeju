@@ -1,7 +1,10 @@
 package capstone.jejuTourrecommend.web.controller;
 
 import capstone.jejuTourrecommend.Service.SpotService;
+import capstone.jejuTourrecommend.web.controller.metaData.DefaultMetaDataBuilder;
+import capstone.jejuTourrecommend.web.controller.metaData.MetaDataDirector;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
+import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListMetaDataOp;
 import capstone.jejuTourrecommend.web.pageDto.spotPage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,6 +68,15 @@ public class SpotController {
 
         return getCategoryMetaData();
 
+    }
+
+    @GetMapping("/spot/metaDataOp")
+    public SpotListMetaDataOp getMetaDataOp(){
+
+        MetaDataDirector metaDataDirector = new MetaDataDirector(new DefaultMetaDataBuilder());
+        metaDataDirector.categoryMetaData().getMetaDataList();
+
+        return new SpotListMetaDataOp(200l, true, metaDataDirector.categoryMetaData().getMetaDataList());
     }
 
     private SpotMetaDto getCategoryMetaData() {
