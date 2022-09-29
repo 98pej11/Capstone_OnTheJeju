@@ -14,7 +14,7 @@ public interface SpotRepository extends JpaRepository<Spot, Long> ,SpotRepositor
 
     Optional<Spot> findOptionById(Long spotId);
 
-    //Todo: 검색 기능 이거 list import해줘야함
+
     List<Spot> findByNameLike(String spotName);
 
 
