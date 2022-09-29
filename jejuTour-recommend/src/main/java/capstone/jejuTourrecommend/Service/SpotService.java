@@ -26,7 +26,7 @@ public class SpotService {
     private final MemberRepository memberRepository;
     private final ReviewRepository reviewRepository;
     private final PictureRepository pictureRepository;
-    private final MemberSpotRepository memberSpotRepository;
+
 
     public Page<ReviewDto> reviewPage(Long spotId, Pageable pageable){
 
@@ -49,9 +49,6 @@ public class SpotService {
         Member member = memberRepository.findOptionByEmail(memberEmail)
                 .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
         log.info("member = {}",member);
-
-        //이거 실험용 데이터임 TODO: 실험용 데이터임
-        //PageRequest pageRequest = PageRequest.of(1,3);
 
 
         List<PictureDto> pictureDtoList = pictureRepository.findBySpot(

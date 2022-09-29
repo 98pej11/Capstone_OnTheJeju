@@ -36,7 +36,6 @@ public class RouteService {
 
         List<SpotListDtoByFavoriteSpot> spotListDtoByFavoriteSpots = favoriteSpotQueryRepository.favoriteSpotList(favoriteId);
 
-
         return new ResultFavoriteSpotList(200l,true,"성공",favorite.getName(), spotListDtoByFavoriteSpots);
 
     }

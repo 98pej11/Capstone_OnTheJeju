@@ -87,6 +87,75 @@ public class SpotListService {
         return category;
     }
 
+    public List findLocationList(MainPageForm mainPageForm) {
+        log.info("mainPageLocation = {}", mainPageForm.getLocation());
+
+        if (!StringUtils.hasText(mainPageForm.getLocation())) {
+
+            throw new UserException("지역에 null 값이 들어갔습니다");
+        }
+
+        /**
+         * 북 : 애월읍,제주시,조천읍,구좌읍,우도면
+         * 동 : 남원읍, 표선면, 성산읍
+         * 서 : 한림읍, 한경면, 대정읍, 안덕면
+         * 남 : 서귀포시
+         */
+        LocationStrategy locationStrategy;
+
+        String location = mainPageForm.getLocation();
+
+        switch (location) {
+            case "북부":
+                locationStrategy = new NorthLocation();
+                break;
+            case "동부":
+                locationStrategy = new EastLocation();
+                break;
+            case "서부":
+                locationStrategy = new WestLocation();
+                break;
+            case "남부":
+                locationStrategy = new SouthLocation();
+                break;
+            case "전체":
+                locationStrategy = new DefaultLocation();
+                break;
+            default:
+                throw new UserException("카테고리의 제대로된 입력값을 넣어야 합니다");
+        }
+
+        return locationStrategy.getLocation();
+    }
+
+    private Page<SpotListDto> isPriorityExist(MainPageForm mainPageForm, Pageable pageable, List locationList, Category category, Member member) {
+
+        Page<SpotListDto> result;
+        if (mainPageForm.getUserWeight() == null ||
+                mainPageForm.getUserWeight().get("viewWeight").doubleValue() == 0 &&
+                        mainPageForm.getUserWeight().get("priceWeight").doubleValue() == 0 &&
+                        mainPageForm.getUserWeight().get("facilityWeight").doubleValue() == 0 &&
+                        mainPageForm.getUserWeight().get("surroundWeight").doubleValue() == 0
+        ) {
+            result = spotRepository.searchSpotByLocationAndCategory(member.getId(),
+                    locationList, category, pageable);
+
+        } else {//사용자가 가중치를 넣은 경우
+            UserWeightDto userWeightDto = new UserWeightDto(//Todo: 업데이트
+                    mainPageForm.getUserWeight().get("viewWeight").doubleValue(),
+                    mainPageForm.getUserWeight().get("priceWeight").doubleValue(),
+                    mainPageForm.getUserWeight().get("facilityWeight").doubleValue(),
+                    mainPageForm.getUserWeight().get("surroundWeight").doubleValue()
+            );
+
+            result = spotRepository.searchSpotByUserPriority(
+                    member.getId(), locationList, userWeightDto, pageable);
+
+        }
+        return result;
+    }
+
+
     public Location findLocation(MainPageForm mainPageForm) {
         log.info("mainPageLocation = {}", mainPageForm.getLocation());
         Location location = null;
@@ -131,74 +200,6 @@ public class SpotListService {
         }
 
         return location;
-    }
-
-    private Page<SpotListDto> isPriorityExist(MainPageForm mainPageForm, Pageable pageable, List locationList, Category category, Member member) {
-        Page<SpotListDto> result;
-        if (mainPageForm.getUserWeight() == null ||
-                mainPageForm.getUserWeight().get("viewWeight").doubleValue() == 0 &&
-                        mainPageForm.getUserWeight().get("priceWeight").doubleValue() == 0 &&
-                        mainPageForm.getUserWeight().get("facilityWeight").doubleValue() == 0 &&
-                        mainPageForm.getUserWeight().get("surroundWeight").doubleValue() == 0
-        ) {//Todo: 업데이트
-
-            result = spotRepository.searchSpotByLocationAndCategory(member.getId(),
-                    locationList, category, pageable);
-
-        } else {//사용자가 가중치를 넣은 경우
-            UserWeightDto userWeightDto = new UserWeightDto(//Todo: 업데이트
-                    mainPageForm.getUserWeight().get("viewWeight").doubleValue(),
-                    mainPageForm.getUserWeight().get("priceWeight").doubleValue(),
-                    mainPageForm.getUserWeight().get("facilityWeight").doubleValue(),
-                    mainPageForm.getUserWeight().get("surroundWeight").doubleValue()
-            );
-
-            result = spotRepository.searchSpotByUserPriority(
-                    member.getId(), locationList, userWeightDto, pageable);
-
-        }
-        return result;
-    }
-
-    public List findLocationList(MainPageForm mainPageForm) {
-        log.info("mainPageLocation = {}", mainPageForm.getLocation());
-
-        if (!StringUtils.hasText(mainPageForm.getLocation())) {
-            log.info("지역에 null 값이 들어갔습니다");///
-            throw new UserException("지에 null 값이 들어갔습니다");
-        }
-        /**
-         * 북 : 애월읍,제주시,조천읍,구좌읍,우도면
-         * 동 : 남원읍, 표선면, 성산읍
-         * 서 : 한림읍, 한경면, 대정읍, 안덕면
-         * 남 : 서귀포시
-         */
-
-        LocationStrategy locationStrategy;
-
-        String location = mainPageForm.getLocation();
-
-        switch (location) {
-            case "북부":
-                locationStrategy = new NorthLocation();
-                break;
-            case "동부":
-                locationStrategy = new EastLocation();
-                break;
-            case "서부":
-                locationStrategy = new WestLocation();
-                break;
-            case "남부":
-                locationStrategy = new SouthLocation();
-                break;
-            case "전체":
-                locationStrategy = new DefaultLocation();
-                break;
-            default:
-                throw new UserException("카테고리의 제대로된 입력값을 넣어야 합니다");
-        }
-
-        return locationStrategy.getLocation();
     }
 
 

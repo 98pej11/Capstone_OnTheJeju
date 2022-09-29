@@ -89,9 +89,8 @@ public class SpotListController {
 
         MetaDataDirector metaDataDirector = new MetaDataDirector(new DefaultMetaDataBuilder());
         metaDataDirector.categoryMetaData();
-        MetaData metaData2 = metaDataDirector.noCaAndLocationMetaData();
+        MetaData metaData2 = metaDataDirector.locationMetaData();
 
-        
         return new SpotListMetaDataOp(200l, true, metaData2.getMetaDataList());
 
     }

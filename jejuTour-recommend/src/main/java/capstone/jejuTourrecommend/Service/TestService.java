@@ -16,14 +16,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class TestService {
 
     private final SpotRepository spotRepository;
-    private final MemberRepository memberRepository;
     private final ReviewRepository reviewRepository;
     private final PictureRepository pictureRepository;
     private final MemberSpotRepository memberSpotRepository;
     private final ScoreRepository scoreRepository;
 
 
-    public TestSpotDto testSpot(Long spotId){
+    public TestSpotDto testSpot(Long spotId) {
 
         TestSpotDto testSpotDto = spotRepository.findOptionById(spotId).map(s -> new TestSpotDto(s))
                 .orElseThrow(() -> new UserException("등록되지 않은 관광지 입니다"));
@@ -32,7 +31,7 @@ public class TestService {
 
     }
 
-    public ReviewDto testReview(Long reviewId){
+    public ReviewDto testReview(Long reviewId) {
 
         ReviewDto reviewDto = reviewRepository.findById(reviewId).map(r -> new ReviewDto(r))
                 .orElseThrow(() -> new UserException("등록되지 않은 리뷰 입니다"));
@@ -41,7 +40,7 @@ public class TestService {
 
     }
 
-    public PictureDto testPicture(Long pictureId){
+    public PictureDto testPicture(Long pictureId) {
 
         PictureDto pictureDto = pictureRepository.findById(pictureId).map(p -> new PictureDto(p))
                 .orElseThrow(() -> new UserException("등록되지 않은 사진 url 입니다"));
@@ -52,7 +51,7 @@ public class TestService {
     }
 
 
-    public ScoreDto testScore(Long scoreId){
+    public ScoreDto testScore(Long scoreId) {
 
         ScoreDto scoreDto = scoreRepository.findOptionalById(scoreId).map(s -> new ScoreDto(s))
                 .orElseThrow(() -> new UserException("등록되지 않은 점수 입니다"));

@@ -26,9 +26,6 @@ public class FavoriteService {
     private final SpotRepository spotRepository;
     private final FavoriteSpotRepository favoriteSpotRepository;
     private final FavoriteSpotQueryRepository favoriteSpotQueryRepository;
-    private final PictureRepository pictureRepository;
-
-    private final EntityManager em;
 
 
     /**
@@ -150,8 +147,7 @@ public class FavoriteService {
         favoriteSpotQueryRepository.deleteFavoriteSpotByFavoriteId(favoriteId);
 
         favoriteRepository.deleteById(favoriteId);
-        em.flush();
-        em.clear();
+
 
     }
 
