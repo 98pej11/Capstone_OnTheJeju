@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.EntityManager;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -56,29 +54,9 @@ public class SpotListService {
 
         Page<SpotListDto> result;
 
-        //사용자가 가중치를 입력 안한 경우
-        if (mainPageForm.getUserWeight() == null ||
-                mainPageForm.getUserWeight().get("viewWeight").doubleValue() == 0 &&
-                mainPageForm.getUserWeight().get("priceWeight").doubleValue() == 0 &&
-                mainPageForm.getUserWeight().get("facilityWeight").doubleValue() == 0 &&
-                mainPageForm.getUserWeight().get("surroundWeight").doubleValue() == 0
-        ) {//Todo: 업데이트
+        //가중치 존재 유무
+        result = isPriorityExist(mainPageForm, pageable, locationList, category, member);
 
-            result = spotRepository.searchSpotByLocationAndCategory(member.getId(),
-                    locationList, category, pageable);
-
-        } else {//사용자가 가중치를 넣은 경우
-            UserWeightDto userWeightDto = new UserWeightDto(//Todo: 업데이트
-                    mainPageForm.getUserWeight().get("viewWeight").doubleValue(),
-                    mainPageForm.getUserWeight().get("priceWeight").doubleValue(),
-                    mainPageForm.getUserWeight().get("facilityWeight").doubleValue(),
-                    mainPageForm.getUserWeight().get("surroundWeight").doubleValue()
-            );
-
-            result = spotRepository.searchSpotByUserPriority(
-                    member.getId(), locationList, userWeightDto, pageable);
-
-        }
         return new ResultSpotListDto(200l, true, "성공", result);
     }
 
@@ -155,6 +133,33 @@ public class SpotListService {
         return location;
     }
 
+    private Page<SpotListDto> isPriorityExist(MainPageForm mainPageForm, Pageable pageable, List locationList, Category category, Member member) {
+        Page<SpotListDto> result;
+        if (mainPageForm.getUserWeight() == null ||
+                mainPageForm.getUserWeight().get("viewWeight").doubleValue() == 0 &&
+                        mainPageForm.getUserWeight().get("priceWeight").doubleValue() == 0 &&
+                        mainPageForm.getUserWeight().get("facilityWeight").doubleValue() == 0 &&
+                        mainPageForm.getUserWeight().get("surroundWeight").doubleValue() == 0
+        ) {//Todo: 업데이트
+
+            result = spotRepository.searchSpotByLocationAndCategory(member.getId(),
+                    locationList, category, pageable);
+
+        } else {//사용자가 가중치를 넣은 경우
+            UserWeightDto userWeightDto = new UserWeightDto(//Todo: 업데이트
+                    mainPageForm.getUserWeight().get("viewWeight").doubleValue(),
+                    mainPageForm.getUserWeight().get("priceWeight").doubleValue(),
+                    mainPageForm.getUserWeight().get("facilityWeight").doubleValue(),
+                    mainPageForm.getUserWeight().get("surroundWeight").doubleValue()
+            );
+
+            result = spotRepository.searchSpotByUserPriority(
+                    member.getId(), locationList, userWeightDto, pageable);
+
+        }
+        return result;
+    }
+
     public List findLocationList(MainPageForm mainPageForm) {
         log.info("mainPageLocation = {}", mainPageForm.getLocation());
 
@@ -177,31 +182,23 @@ public class SpotListService {
             case "북부":
                 locationStrategy = new NorthLocation();
                 break;
-
             case "동부":
                 locationStrategy = new EastLocation();
                 break;
-
             case "서부":
                 locationStrategy = new WestLocation();
                 break;
-
             case "남부":
                 locationStrategy = new SouthLocation();
                 break;
-
             case "전체":
                 locationStrategy = new DefaultLocation();
                 break;
-
             default:
                 throw new UserException("카테고리의 제대로된 입력값을 넣어야 합니다");
         }
 
-
         return locationStrategy.getLocation();
-
-
     }
 
 

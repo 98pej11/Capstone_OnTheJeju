@@ -44,7 +44,7 @@ public class RouteService {
 
 
 
-    public List recommentSpotList(Long favoriteId, RouteForm routeForm){
+    public List recommendSpotList(Long favoriteId, RouteForm routeForm){
 
         //favoriteSpotRepository.findOptionBySpotIdAndFavoriteId()
 

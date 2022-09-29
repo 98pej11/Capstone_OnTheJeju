@@ -2,6 +2,9 @@ package capstone.jejuTourrecommend.web.controller;
 
 
 import capstone.jejuTourrecommend.Service.SpotListService;
+import capstone.jejuTourrecommend.web.controller.metaData.DefaultMetaDataBuilder;
+import capstone.jejuTourrecommend.web.controller.metaData.MetaData;
+import capstone.jejuTourrecommend.web.controller.metaData.MetaDataDirector;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.*;
@@ -11,10 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -58,8 +58,6 @@ public class SpotListController {
     public ResultSpotListDto searchSpotListContains(@RequestBody SearchForm searchForm,
                                       Pageable pageable,@RequestHeader("ACCESS-TOKEN") String accesstoken) {
 
-
-
         log.info("spotName = {}",searchForm.getSpotName());
 
         if(!StringUtils.hasText(searchForm.getSpotName())){
@@ -86,9 +84,24 @@ public class SpotListController {
 
     }
 
+    @GetMapping("/spotList/metaData1")
+    public SpotListMetaDataOp getMetaData1(){
+
+        MetaDataDirector metaDataDirector = new MetaDataDirector(new DefaultMetaDataBuilder());
+        metaDataDirector.categoryMetaData();
+        MetaData metaData2 = metaDataDirector.noCaAndLocationMetaData();
+
+        SpotListMetaDataOp spotListMetaDataOp = new SpotListMetaDataOp(200l, true, metaData2.getMetaDataList());
+
+        return spotListMetaDataOp;
+
+    }
+
+
     private SpotListMetaDto getSpotListMetaDto() {
         Map map;
         List list = new ArrayList();
+
 
         map = new LinkedHashMap();
         map.put("id",1);

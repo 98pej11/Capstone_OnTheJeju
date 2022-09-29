@@ -36,7 +36,7 @@ public class RouteController {
         //Long favoriteIdTest = 3l;
         log.info("routeForm.getSpotIdList() = {}", routeForm.getSpotIdList());
 
-        List list = routeService.recommentSpotList(favoriteId, routeForm);
+        List list = routeService.recommendSpotList(favoriteId, routeForm);
 
         return new ResultTopSpot(200l, true, "성공",list);
 
