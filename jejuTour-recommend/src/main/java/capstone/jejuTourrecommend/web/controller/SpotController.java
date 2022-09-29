@@ -79,7 +79,6 @@ public class SpotController {
     }
 
 
-    //
 
     private SpotMetaDto getCategoryMetaData() {
         Map map;
