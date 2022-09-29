@@ -8,7 +8,7 @@ import java.util.Map;///////////////////////
 public class MainPageForm {
 
     //private Double id;//이거 프런드와 변수명 맞아야 함
-    //
+    ////
 
 
     private String location;
