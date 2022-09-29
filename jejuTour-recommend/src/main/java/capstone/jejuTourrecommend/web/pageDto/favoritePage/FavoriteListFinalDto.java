@@ -20,12 +20,3 @@ public class FavoriteListFinalDto {
         this.favoriteListDtos = favoriteListDtos;
     }
 }
-
-
-
-
-
-
-
-
-

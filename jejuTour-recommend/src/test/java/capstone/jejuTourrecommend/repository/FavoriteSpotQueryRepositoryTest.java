@@ -224,7 +224,13 @@ class FavoriteSpotQueryRepositoryTest {
 
         RouteForm routeForm = new RouteForm();
 
-        Favorite favorite = favoriteRepository.findOptionByName("1일차").orElseThrow(() -> new UserException("위시리스트 아이디가 틀립니다"));
+        String memberEmail = "member1@gmail.com";
+
+        Member member = memberRepository.findOptionByEmail(memberEmail)
+                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
+        Favorite favorite = favoriteRepository.findOptionByNameAndMemberId("1일차",member.getId())
+                .orElseThrow(() -> new UserException("없는 위시리스트임"));
+
 
         List<FavoriteSpot> byFavoriteId = favoriteSpotRepository.findByFavoriteId(favorite.getId());
         List<Long> collect = byFavoriteId.stream().map(o -> o.getSpot().getId()).collect(Collectors.toList());

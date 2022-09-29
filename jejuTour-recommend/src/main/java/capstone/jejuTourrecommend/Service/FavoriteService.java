@@ -32,7 +32,8 @@ public class FavoriteService {
 
 
     /**
-     * 사용자의 위시리스트 목록 "폼" 보여주기
+     * 사용자의 위시리스트 목록 "폼"+ 위시리스트 페이지 보여주기 + "여러 사진"도 줌
+     * 폼 api 사용할때는 사진 여러장 중 하나만 고르면 되니깐 ㄱㅊ
      *
      * @param memberEmail
      * @param pageable
@@ -55,37 +56,13 @@ public class FavoriteService {
 
     }
 
-
-    public Page<FavoriteListDto> OptimizationGetFavoriteList(String memberEmail, Pageable pageable) {
-
-
-        Member member = memberRepository.findOptionByEmail(memberEmail)
-                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
-
-        //이거 실험용 데이터임 TODO: 실험용 데이터임
-        //PageRequest pageRequest = PageRequest.of(0,100);
-
-        Page<FavoriteListDto> favoriteListDtos = favoriteSpotQueryRepository.getFavoriteList(member.getId(), pageable);
-
-
-        return favoriteListDtos;
-
-
-    }
-
     /**
      * 선택한 관광지를 선태한 위시리스트에 추가
      * 선택한 관광지 정보, 사용자 정보, 위시리스트 정보 필요
      *
-     * @param memberEmail
      * @param favoriteForm
      */
-    public void postFavoriteForm(String memberEmail, FavoriteForm favoriteForm) {
-
-        //솔직히 멤버 정보는 필요 없음 어차피 해당 favorite 은 member 와 연결되어 있음
-        //Optional<Member> member = memberRepository.findOptionByEmail(memberEmail);
-
-        //Todo: 여기서 관광지 넣을때 중복 체크해줘야함
+    public void postFavoriteForm(FavoriteForm favoriteForm) {
 
         Spot spot = spotRepository.findOptionById(favoriteForm.getSpotId())
                 .orElseThrow(() -> new UserException("관광지 id가 맞지 않습니다"));
@@ -93,11 +70,12 @@ public class FavoriteService {
         Favorite favorite = favoriteRepository.findOptionById(favoriteForm.getFavoriteId())
                 .orElseThrow(() -> new UserException("위시리스트 id가 맞지 않습니다"));
 
-        Optional<FavoriteSpot> result = favoriteSpotRepository.findOptionBySpotIdAndFavoriteId(spot.getId(), favorite.getId());
-        if (result.isPresent()) {
+        //관광지 id , 위시리스트 id는 고유의 번호라 member 까지 확인할 필요 없음
+        Optional<FavoriteSpot> optionBySpotIdAndFavoriteId = favoriteSpotRepository.findOptionBySpotIdAndFavoriteId(spot.getId(), favorite.getId());
+
+        if (optionBySpotIdAndFavoriteId.isPresent()) {
             throw new UserException("위시리스트에 중복된 관광지가 들어 있습니다.");
         }
-
 
         FavoriteSpot favoriteSpot = new FavoriteSpot(favorite, spot);
         favoriteSpotRepository.save(favoriteSpot);
@@ -106,99 +84,52 @@ public class FavoriteService {
 
 
     /**
+     * 관광지 정보0
      * 새로운 위시 리스트를 만들고 해당 관광지 넣기
      * 선택한 관광지 정보, 사용자 정보, 위시리스트 이름 필요
+     *
+     *
+     * 관광지 정보X
+     * 새로운 위시 리스트를 만들고 해당 관광지 넣기
+     * 선택한 관광지 정보, 사용자 정보, 위시리스트 이름 필요
+     * (추가 사항)관광지가 없기에 새로운 위시리스트 추가만 함
      *
      * @param memberEmail
      * @param spotId
      * @param favoriteName
      * @return
      */
-    public FavoriteDto newFavoriteListO(String memberEmail, Long spotId, String favoriteName) {
+    public FavoriteDto newFavoriteList(String memberEmail, Long spotId, String favoriteName) {
 
         Member member = memberRepository.findOptionByEmail(memberEmail)
                 .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
-        //Todo:
-        Optional<Favorite> optionByName = favoriteRepository.findOptionByName(favoriteName);
 
+        Optional<Favorite> optionByName = favoriteRepository.findOptionByNameAndMemberId(favoriteName,member.getId());
         if (optionByName.isPresent()) {
             throw new UserException("동일한 위시리스트 이름이 존재합니다");
         }
 
-        /**
-         *
-
-         Optional<Favorite> optionByFavoriteNameAndMember = favoriteRepository.findOptionByFavoriteNameAndMember(favoriteName, member);
-
-         if(optionByFavoriteNameAndMember.isPresent()){
-         throw new UserException("동일한 위시리스트 이름이 존재합니다");
-         }*/
-
-
-        Optional<Spot> spot = spotRepository.findOptionById(spotId);
-
-
-        // 회원객체와 장소 객체 가져오고
-        // favorite하고 favoritespot을 생성하고 넣기
-
         Favorite favorite = new Favorite(favoriteName, member);
-
+        FavoriteDto favoriteDto;
         favoriteRepository.save(favorite);
 
-        FavoriteSpot favoriteSpot = new FavoriteSpot(favorite, spot.get());
 
-        favoriteSpotRepository.save(favoriteSpot);
+        if (spotId != null) {//관광지 정보가 있으면, 위에서 만든 위시리스트 객체에 데이터 넣어주고 favoriteSpot 도 만들어주기
 
-        FavoriteDto favoriteDto = favoriteRepository.findOptionByName(favoriteName)
-                .map(favorite1 -> new FavoriteDto(favorite1.getId(), favorite1.getName()))
-                .orElseThrow(() -> new UserException("갱신 성공을 못하였습니다"));
+            Optional<Spot> spot = spotRepository.findOptionById(spotId);
 
-        return favoriteDto;
+            FavoriteSpot favoriteSpot = new FavoriteSpot(favorite, spot.get());
+            favoriteSpotRepository.save(favoriteSpot);
 
-    }
-
-    /**
-     * 관광지가 없기에 새로운 위시리스트 추가만 함
-     *
-     * @param memberEmail
-     * @param favoriteName
-     * @return
-     */
-    public FavoriteDto newFavoriteListX(String memberEmail, String favoriteName) {
-
-        Member member = memberRepository.findOptionByEmail(memberEmail)
-                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
-
-        //Todo:
-        Optional<Favorite> optionByName = favoriteRepository.findOptionByName(favoriteName);
-
-        if (optionByName.isPresent()) {
-            throw new UserException("동일한 위시리스트 이름이 존재합니다");
         }
-
-        /**
-         *
-
-         Optional<Favorite> optionByFavoriteNameAndMember = favoriteRepository.findOptionByFavoriteNameAndMember(favoriteName, member);
-
-         if(optionByFavoriteNameAndMember.isPresent()){
-         throw new UserException("동일한 위시리스트 이름이 존재합니다");
-         }*/
-
-        Favorite favorite = new Favorite(favoriteName, member);
-
-        favoriteRepository.save(favorite);
-
-        FavoriteDto favoriteDto = favoriteRepository.findOptionByName(favoriteName)
+        //데이터 잘 들어갔는지 확인 및 오류시 메세지 설정
+        favoriteDto = favoriteRepository.findOptionByNameAndMemberId(favoriteName,member.getId())
                 .map(favorite1 -> new FavoriteDto(favorite1.getId(), favorite1.getName()))
                 .orElseThrow(() -> new UserException("갱신 성공을 못하였습니다"));
 
         return favoriteDto;
-
-
     }
-
 
     /**
      * 위시 리스트 삭제하기

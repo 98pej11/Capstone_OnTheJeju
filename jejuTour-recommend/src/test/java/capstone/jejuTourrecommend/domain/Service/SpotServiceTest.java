@@ -4,6 +4,8 @@ import capstone.jejuTourrecommend.Service.SpotService;
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.repository.FavoriteRepository;
 import capstone.jejuTourrecommend.repository.FavoriteSpotRepository;
+import capstone.jejuTourrecommend.repository.MemberRepository;
+import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.pageDto.spotPage.SpotDetailDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,6 +35,9 @@ class SpotServiceTest {
 
     @Autowired
     FavoriteRepository favoriteRepository;
+
+    @Autowired
+    MemberRepository memberRepository;
 
     @PersistenceContext
     EntityManager em;
@@ -125,12 +130,14 @@ class SpotServiceTest {
     public void spotPageTest() throws Exception{
         //given
 
-        Optional<Favorite> optionByName = favoriteRepository.findOptionByName("1일차");
-
-        List<FavoriteSpot> byFavoriteId = favoriteSpotRepository.findByFavoriteId(optionByName.get().getId());
-
         //Long spotId = 8l;
         String memberEmail = "member1@gmail.com";
+
+        Member member = memberRepository.findOptionByEmail(memberEmail)
+                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
+        Optional<Favorite> favorite = favoriteRepository.findOptionByNameAndMemberId("1일차",member.getId());
+
+        List<FavoriteSpot> byFavoriteId = favoriteSpotRepository.findByFavoriteId(favorite.get().getId());
 
         //when
         SpotDetailDto spotDetailDto = spotService.spotPage(byFavoriteId.get(0).getSpot().getId(), memberEmail);

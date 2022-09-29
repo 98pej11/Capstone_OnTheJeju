@@ -3,6 +3,7 @@ package capstone.jejuTourrecommend.domain.Service;
 import capstone.jejuTourrecommend.Service.FavoriteService;
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.repository.*;
+import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,8 +61,8 @@ class FavoriteServiceTest {
         em.persist(favorite4);
         em.persist(favorite5);
         em.persist(favorite5);
-        log.info("favorite1 = {}",favorite1);//2
-        log.info("favorite5 = {}",favorite5);//6
+        log.info("favorite1 = {}",favorite1);//1
+        log.info("favorite5 = {}",favorite5);//5
 
         Spot[] spots = new Spot[15];
         for(int i=0;i<15;i++){
@@ -70,7 +71,7 @@ class FavoriteServiceTest {
             em.persist(spots[i]);
         }
         log.info("spot0 = {}",spots[0]);  //7번임
-        log.info("spot14 = {}",spots[14]);  //21번임
+        log.info("spot14 = {}",spots[14]);  //15번임
 
         FavoriteSpot[] favoriteSpots = new FavoriteSpot[15];
 
@@ -130,17 +131,18 @@ class FavoriteServiceTest {
     @Test
     public void postFavoriteFormTest() throws Exception{
         //given
-        String memberEmail = "em@naver.com";
+        //String memberEmail = "em@naver.com";
         //7,2 중복된 관관지 존재, 새로운 추가 21,6
         FavoriteForm favoriteForm = new FavoriteForm();
-        favoriteForm.setSpotId(21l);
-        favoriteForm.setFavoriteId(6l);
-        Long spotId = 21l;
-        Long favoriteId =6l;
+
+        favoriteForm.setSpotId(15l);
+        favoriteForm.setFavoriteId(5l);
+        Long spotId = 15l;
+        Long favoriteId =5l;
 
 
         //when
-        favoriteService.postFavoriteForm(memberEmail,favoriteForm);
+        favoriteService.postFavoriteForm(favoriteForm);
 
         Optional<FavoriteSpot> result = favoriteSpotRepository.findOptionBySpotIdAndFavoriteId(spotId, favoriteId);
 
@@ -155,19 +157,21 @@ class FavoriteServiceTest {
     //새로운 위시 리스트를 만들고 해당 관광지 넣기
     //String memberEmail, Long spotId, String favoriteName
     @Test
-    public void newFavoriteListOTest() throws Exception{
+    public void newFavoriteListTest() throws Exception{
         //given
         String memberEmail = "em@naver.com";
-        Long spotId = 21l;
+        Long spotId = 15l;
         String favoriteName = "새로운 위시리스트1";
         //String favoriteName = "1일차";
 
+        Member member = memberRepository.findOptionByEmail(memberEmail)
+                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
         //when
 
-        FavoriteDto favoriteDto = favoriteService.newFavoriteListO(memberEmail, spotId, favoriteName);
+        FavoriteDto favoriteDto = favoriteService.newFavoriteList(memberEmail, spotId, favoriteName);
 
-        Optional<Favorite> favorite = favoriteRepository.findOptionByName(favoriteName);
+        Optional<Favorite> favorite = favoriteRepository.findOptionByNameAndMemberId(favoriteName,member.getId());
 
         Optional<FavoriteSpot> result = favoriteSpotRepository.findOptionBySpotIdAndFavoriteId(spotId, favorite.get().getId());
 
@@ -182,31 +186,13 @@ class FavoriteServiceTest {
         assertThat(favoriteDto).isNotNull();
     }
 
-    //관광지가 없기에 새로운 위시리스트 추가만 함
-    //String memberEmail, String favoriteName
-    @Test
-    public void newFavoriteListXTest() throws Exception{
-        //given
-        String memberEmail = "em@naver.com";
-        String favoriteName = "새로운 위시리스트1";
-        //String favoriteName = "1일차";
-
-        //when
-        FavoriteDto favoriteDto = favoriteService.newFavoriteListX(memberEmail, favoriteName);
-        Optional<Favorite> favorite = favoriteRepository.findOptionByName(favoriteName);
-
-        //then
-        assertThat(favorite).isNotEmpty();
-        log.info("favoriteDto = {}",favoriteDto);
-        assertThat(favoriteDto).isNotNull();
-    }
 
     //위시 리스트 삭제하기
     //Long favoriteId
     @Test
     public void deleteFavoriteListTest() throws Exception{
         //given
-        Long favoriteId =6l;
+        Long favoriteId =5l;
 
         //when
         favoriteService.deleteFavoriteList(favoriteId);

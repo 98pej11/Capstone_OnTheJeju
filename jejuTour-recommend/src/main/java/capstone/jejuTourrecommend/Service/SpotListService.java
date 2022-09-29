@@ -57,7 +57,8 @@ public class SpotListService {
         Page<SpotListDto> result;
 
         //사용자가 가중치를 입력 안한 경우
-        if (mainPageForm.getUserWeight().get("viewWeight").doubleValue() == 0 &&
+        if (mainPageForm.getUserWeight() == null ||
+                mainPageForm.getUserWeight().get("viewWeight").doubleValue() == 0 &&
                 mainPageForm.getUserWeight().get("priceWeight").doubleValue() == 0 &&
                 mainPageForm.getUserWeight().get("facilityWeight").doubleValue() == 0 &&
                 mainPageForm.getUserWeight().get("surroundWeight").doubleValue() == 0
