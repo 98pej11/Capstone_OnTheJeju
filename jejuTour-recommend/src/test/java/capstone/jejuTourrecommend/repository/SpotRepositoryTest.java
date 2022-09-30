@@ -163,10 +163,13 @@ class SpotRepositoryTest {
 
         em.flush();
         em.clear();
+
+        System.out.println("==================");
         long before2 = System.currentTimeMillis();
         Page<SpotListDto> results2 = spotRepository.
                 searchSpotByLocationAndCategory(optionByEmail.get().getId(), westList, Category.VIEW, pageRequest);
         long after2 = System.currentTimeMillis();
+        System.out.println("==================");
 
 
 
@@ -241,6 +244,7 @@ class SpotRepositoryTest {
         String memberEmail = "member1@gmail.com";
 
         Optional<Member> optionByEmail = memberRepository.findOptionByEmail(memberEmail);
+
 
         //when
         //spotRepository.findByNameLike("%우리%").stream().map(spot -> new SpotListDto(spo))
