@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+##여기서도 gitignore 먹힘 이거 중복으로 해줌
+*.sql
