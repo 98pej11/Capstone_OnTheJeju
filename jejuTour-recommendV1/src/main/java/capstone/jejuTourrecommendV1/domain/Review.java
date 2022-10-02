@@ -1,25 +1,16 @@
-package capstone.jejuTourrecommend.domain;
+package capstone.jejuTourrecommendV1.domain;
 
 import lombok.*;
 
 import javax.persistence.*;
 
-@SequenceGenerator(
-        name = "REVIEW_SEQ_GENERATOR",
-        sequenceName = "REVIEW_SEQ",
-        initialValue = 1,
-        allocationSize = 50
-)
 @Entity
 @Setter @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of={"id","content"})
 public class Review {
 
-    @Id @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "REVIEW_SEQ_GENERATOR"
-    )
+    @Id @GeneratedValue
     @Column(name = "review_id")
     private Long id;
 

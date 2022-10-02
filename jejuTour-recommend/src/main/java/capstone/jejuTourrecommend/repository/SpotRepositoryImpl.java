@@ -67,6 +67,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom {
                 .limit(pageable.getPageSize())
                 .fetch();
 
+
         List<Long> spotIdList = spotListDtoList.stream().map(o -> o.getSpotId()).collect(Collectors.toList());
 
 
@@ -74,8 +75,6 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom {
 
 
         postSpotPictureUrlsToDto(spotListDtoList);
-
-
 
 
         JPAQuery<Long> countQuery = queryFactory
@@ -91,6 +90,7 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom {
 
     /**
      * 사용자의 가중치에 따른 관광지 조회
+     *
      * @param memberId
      * @param locationList
      * @param userWeightDto
@@ -212,6 +212,48 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom {
 
     }
 
+    private void postSpotPictureUrlsToDto(List<SpotListDto> spotListDtoList) {
+
+        List<Long> spotIdList = spotListDtoList.stream().map(o -> o.getSpotId()).collect(Collectors.toList());
+
+//        for (Long spotId : spotIdList) {
+//
+//            List<PictureDetailDto> pictureDetailDtoList = queryFactory
+//                    .select(Projections.constructor(PictureDetailDto.class,
+//                                    picture.id,
+//                                    picture.url,
+//                                    picture.spot.id
+//                            )
+//                    )
+//                    .from(picture)
+//                    .innerJoin(picture.spot, spot)
+//                    .where(picture.spot.id.eq(spotId))
+//                    .limit(4)
+//                    .fetch();
+//
+//            spotListDtoList.stream().filter(s -> s.getSpotId() == spotId)
+//                    .forEach(s -> s.setPictureDetailDtoList(pictureDetailDtoList));
+//
+//        }
+
+        List<PictureDetailDto> pictureDetailDtoList = queryFactory
+                .select(Projections.constructor(PictureDetailDto.class,
+                                picture.id,
+                                picture.url,
+                                picture.spot.id
+                        )
+                )
+                .from(picture)
+                .innerJoin(picture.spot, spot)
+                .where(picture.spot.id.in(spotIdList))
+                .fetch();
+
+
+        Map<Long, List<PictureDetailDto>> collect1 = pictureDetailDtoList.stream().collect(Collectors.groupingBy(p -> p.getSpotId()));
+
+        spotListDtoList.forEach(sl -> sl.setPictureDetailDtoList(collect1.get(sl.getSpotId())));
+    }
+
     /**
      * 사용자 위시리스트에 특정 관광지가 포함되어 있는가?
      *
@@ -246,10 +288,6 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom {
     }
 
 
-
-
-
-
     private void getBooleanFavoriteSpot(Long memberId, List<SpotListDto> spotListDtoList, List<Long> spotIdList) {
 
         List<Long> favoriteSpotIdList = queryFactory
@@ -271,28 +309,6 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom {
         spotListDtoList.stream().filter(i -> !favoriteSpotIdSet.contains(i.getSpotId())).forEach(o -> o.setFavorite(false));
 
 
-    }
-
-    private void postSpotPictureUrlsToDto(List<SpotListDto> spotListDtoList) {
-
-        List<Long> spotIdList = spotListDtoList.stream().map(o -> o.getSpotId()).collect(Collectors.toList());
-
-        List<PictureDetailDto> pictureDetailDtoList = queryFactory
-                .select(Projections.constructor(PictureDetailDto.class,
-                                picture.id,
-                                picture.url,
-                                picture.spot.id
-                        )
-                )
-                .from(picture)
-                .innerJoin(picture.spot, spot)
-                .where(picture.spot.id.in(spotIdList))
-                .fetch();
-
-
-        Map<Long, List<PictureDetailDto>> collect1 = pictureDetailDtoList.stream().collect(Collectors.groupingBy(p -> p.getSpotId()));
-
-        spotListDtoList.forEach(sl -> sl.setPictureDetailDtoList(collect1.get(sl.getSpotId())));
     }
 
     @Override

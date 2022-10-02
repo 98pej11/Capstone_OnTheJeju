@@ -1,8 +1,10 @@
-package capstone.jejuTourrecommend.repository;
+package capstone.jejuTourrecommendV1.repository;
 
-import capstone.jejuTourrecommend.domain.*;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.UserWeightDto;
+import capstone.jejuTourrecommendV1.domain.*;
+import capstone.jejuTourrecommendV1.web.pageDto.mainPage.OptimizationSpotListDto;
+import capstone.jejuTourrecommendV1.web.pageDto.mainPage.ResultSpotListDto;
+import capstone.jejuTourrecommendV1.web.pageDto.mainPage.SpotListDto;
+import capstone.jejuTourrecommendV1.web.pageDto.mainPage.UserWeightDto;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -137,6 +139,41 @@ class SpotRepositoryTest {
     }
 
 
+    @Test
+    public void SpotLocationCategoryTest() throws Exception {
+
+
+        PageRequest pageRequest = PageRequest.of(0, 100);
+
+
+        List allList = Arrays.asList(Location.Jeju_si,Location.Aewol_eup,Location.Hallim_eup,
+                Location.Hangyeong_myeon,Location.Jocheon_eup,Location.Gujwa_eup,
+                Location.Daejeong_eup,Location.Andeok_myeon,Location.Seogwipo_si,
+                Location.Namwon_eup,Location.Pyoseon_myeon,Location.Seongsan_eup);
+        List northList = Arrays.asList(Location.Jeju_si, Location.Aewol_eup, Location.Hallim_eup);
+        List eastList = Arrays.asList(Location.Hangyeong_myeon, Location.Jocheon_eup, Location.Gujwa_eup);
+        List westList = Arrays.asList(Location.Daejeong_eup, Location.Andeok_myeon, Location.Seogwipo_si);
+        List southList = Arrays.asList(Location.Namwon_eup, Location.Pyoseon_myeon, Location.Seongsan_eup);
+
+
+        long before1 = System.currentTimeMillis();
+        Page<SpotListDto> results = spotRepository.
+                searchSpotByLocationAndCategory(westList, Category.VIEW, pageRequest);
+        long after1 = System.currentTimeMillis();
+
+        System.out.println("after1-before1 = " +  (after1 - before1));
+
+
+
+        for (SpotListDto result : results) {
+            System.out.println("result.getSpotId() = " + result.getSpotId());
+        }
+
+
+        ResultSpotListDto r = new ResultSpotListDto(200l, true, "성공", results);
+        System.out.println("r = " + r);
+    }
+
 
     //93 89 100
     //81 75 77
@@ -163,13 +200,10 @@ class SpotRepositoryTest {
 
         em.flush();
         em.clear();
-
-        System.out.println("==================");
         long before2 = System.currentTimeMillis();
-        Page<SpotListDto> results2 = spotRepository.
-                searchSpotByLocationAndCategory(optionByEmail.get().getId(), westList, Category.VIEW, pageRequest);
+        Page<OptimizationSpotListDto> results2 = spotRepository.
+                optimizationSearchSpotByLocationAndCategory(optionByEmail.get().getId(), westList, Category.VIEW, pageRequest);
         long after2 = System.currentTimeMillis();
-        System.out.println("==================");
 
 
 
@@ -177,6 +211,49 @@ class SpotRepositoryTest {
 
         System.out.println("after2-before2 = " +  (after2 - before2)); //-> ToDo: 10배 정도의 성능 최적화 됨
 
+
+    }
+
+    @Test
+    public void searchSpotByUserPriority() throws Exception {
+        //given
+
+        String memberEmail = "member1@gmail.com";
+
+        Optional<Member> optionByEmail = memberRepository.findOptionByEmail(memberEmail);
+
+        PageRequest pageRequest = PageRequest.of(0, 100);
+
+        List allList = Arrays.asList(Location.Jeju_si,Location.Aewol_eup,Location.Hallim_eup,
+                Location.Hangyeong_myeon,Location.Jocheon_eup,Location.Gujwa_eup,
+                Location.Daejeong_eup,Location.Andeok_myeon,Location.Seogwipo_si,
+                Location.Namwon_eup,Location.Pyoseon_myeon,Location.Seongsan_eup);
+        List northList = Arrays.asList(Location.Jeju_si, Location.Aewol_eup, Location.Hallim_eup);
+        List eastList = Arrays.asList(Location.Hangyeong_myeon, Location.Jocheon_eup, Location.Gujwa_eup);
+        List westList = Arrays.asList(Location.Daejeong_eup, Location.Andeok_myeon, Location.Seogwipo_si);
+        List southList = Arrays.asList(Location.Namwon_eup, Location.Pyoseon_myeon, Location.Seongsan_eup);
+
+
+
+        long before1 = System.currentTimeMillis();
+        Page<SpotListDto> result = spotRepository.searchSpotByUserPriority(optionByEmail.get().getId(), westList,
+                new UserWeightDto(1d, 4d, 1d, 1d)
+                , pageRequest);
+        long after1 = System.currentTimeMillis();
+
+        System.out.println("after1-before1 = " +  (after1 - before1));
+
+
+        List<MemberSpot> resultList = em.createQuery
+                ("select s from MemberSpot s", MemberSpot.class).getResultList();
+
+        for (MemberSpot memberSpot : resultList) {
+            log.info("memberSpot = {} ", memberSpot);
+        }
+
+        em.flush();
+
+        em.clear();
 
     }
 
@@ -204,7 +281,7 @@ class SpotRepositoryTest {
 
 
         long before2 = System.currentTimeMillis();
-        Page<SpotListDto> optimizationSpotListDtos = spotRepository.searchSpotByUserPriority(optionByEmail.get().getId(), westList,
+        Page<OptimizationSpotListDto> optimizationSpotListDtos = spotRepository.optimizationSearchSpotByUserPriority(optionByEmail.get().getId(), westList,
                 new UserWeightDto(1d, 4d, 1d, 1d)
                 , pageRequest);
         long after2 = System.currentTimeMillis();
@@ -241,14 +318,9 @@ class SpotRepositoryTest {
 
         PageRequest pageRequest = PageRequest.of(page, size);
 
-        String memberEmail = "member1@gmail.com";
-
-        Optional<Member> optionByEmail = memberRepository.findOptionByEmail(memberEmail);
-
-
         //when
         //spotRepository.findByNameLike("%우리%").stream().map(spot -> new SpotListDto(spo))
-        Page<SpotListDto> spotListDtos = spotRepository.searchBySpotNameContains(optionByEmail.get().getId(), "우리", pageRequest);
+        Page<SpotListDto> spotListDtos = spotRepository.searchBySpotNameContains("우리", pageRequest);
 
 
         //then
