@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.login.jwt;
+package capstone.jejuTourrecommend.web.login.dto;
 
 import lombok.Builder;
 import lombok.Getter;

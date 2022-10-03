@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.login.jwt;
+package capstone.jejuTourrecommend.web.login.jwt.service;
 
 
 import capstone.jejuTourrecommend.domain.Member;
@@ -14,11 +14,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 //토큰에 저장된 유저 정보를 활용해야 하기 때문에 CustomUserDetatilService 라는 이름의 클래스를 만들고
 //UserDetailsService를 상속받아 재정의 하는 과정을 진행한다
 @RequiredArgsConstructor
-@Service
+@Service("userDetailsService")//Todo: 수정된거
 public class CustomUserDetailService implements UserDetailsService {
 
     //private final UserRepository userRepository;
@@ -30,16 +33,19 @@ public class CustomUserDetailService implements UserDetailsService {
         //그리고 여시서 UserDetails라는 인터페이스를 리턴한
         //UserDetails 는 스프링이 제공하는 User라는 구현차 사용//여기도 나름 수정 필요 토큰 저장 장소화 멤버 저장장소 분리 필요
 
-        User user = memberRepository.findOptionByEmail(email)
-                .map(this::createSpringSecurityUser)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found in the database"));
+        Member member = memberRepository.findOptionByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("No user found with email: " + email));
 
+//        List<GrantedAuthority> grantedAuthorities = Collections
+//                .singletonList(new SimpleGrantedAuthority(member.getRole()));
+//
+////        AccountContext accountContext = new AccountContext(member, grantedAuthorities);
+////        return accountContext;
+
+        User user = createSpringSecurityUser(member);
         return user;
 
-        //회원정보 못 찾으면 runtime 예외처리해서 따로 @Exceptional로 처리해주도 됨 지금 우리는 안함
 
-//        return userRepository.findByEmail(username)
-//                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
     }
 
     private org.springframework.security.core.userdetails.User createSpringSecurityUser(Member member) {
@@ -47,9 +53,6 @@ public class CustomUserDetailService implements UserDetailsService {
         List<GrantedAuthority> grantedAuthorities = Collections
                 .singletonList(new SimpleGrantedAuthority(member.getRole()));
 
-        //TODO: 이쁘
-
-        //TODO: username 에 email을 넣는 방법이 적합한지?
         return new User(member.getEmail(), member.getPassword(), grantedAuthorities);
     }
 

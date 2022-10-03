@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.login.jwt;
+package capstone.jejuTourrecommend.web.login.jwt.provider;
 
 
 import io.jsonwebtoken.Claims;
@@ -88,7 +88,7 @@ public class JwtTokenProvider {//jwt토큰 제공자
     public Authentication getAuthentication(String token) {
         //Todo: 나 여기서 나만의 userDetailservice 만들어서 jpa 하고 연결시겨야함
         UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserPk(token));
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 
     //access 토큰에서 회원 정보(이메일) 추출******
@@ -141,7 +141,7 @@ public class JwtTokenProvider {//jwt토큰 제공자
                     .before(new Date());// 만료날짜가 현재날짜(Date)이전이지 않으면 반환
 
         } catch (Exception e) {         // 이후면 false 반환
-            log.info("만료된 토큰입니다");
+            log.info("만료된 토큰입니다 from validateToken");
 
             return false;
         }
