@@ -1,14 +1,14 @@
-package capstone.jejuTourrecommend.web.controller;
+package capstone.jejuTourrecommend.web.login;
 
 import capstone.jejuTourrecommend.Service.LoginService;
-import capstone.jejuTourrecommend.web.login.JoinDto;
-import capstone.jejuTourrecommend.web.login.LoginDto;
-import capstone.jejuTourrecommend.web.login.UserDto;
+import capstone.jejuTourrecommend.web.login.dto.JoinDto;
+import capstone.jejuTourrecommend.web.login.dto.LoginDto;
+import capstone.jejuTourrecommend.web.login.dto.UserDto;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
+import capstone.jejuTourrecommend.web.login.jwt.provider.JwtTokenProvider;
 import capstone.jejuTourrecommend.web.login.form.JoinForm;
 import capstone.jejuTourrecommend.web.login.form.LoginForm;
-import capstone.jejuTourrecommend.web.login.jwt.TokenResponse;
+import capstone.jejuTourrecommend.web.login.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
@@ -50,19 +50,19 @@ public class LoginController {
 
     //지금 로그인 정보를 http body 로 줘서 @RequestBody로 한거고 요청파라미터로 주면 @ModelAttribute로 객체에 담으면 됨
     // 로그인
-    @PostMapping("/login")
-    public LoginDto login(@Valid @RequestBody LoginForm form) throws IOException {
-
-        log.info("email={}, password={}",form.getEmail(),form.getPassword());
-
-        UserDto userDto = loginService.login(form.getEmail(), form.getPassword());
-
-        //로그인할때 이제서야 accestoken를 넘겨줌
-        String accesstoken = jwtTokenProvider.createToken(userDto.getEmail(), userDto.getRole());
-
-        return new LoginDto(200,true,"로그인 성공",userDto,accesstoken);
-
-    }
+//    @PostMapping("/login")
+//    public LoginDto login(@Valid @RequestBody LoginForm form) throws IOException {
+//
+//        log.info("email={}, password={}",form.getEmail(),form.getPassword());
+//
+//        UserDto userDto = loginService.login(form.getEmail(), form.getPassword());
+//
+//        //로그인할때 이제서야 accestoken를 넘겨줌
+//        String accesstoken = jwtTokenProvider.createToken(userDto.getEmail(), userDto.getRole());
+//
+//        return new LoginDto(200,true,"로그인 성공",userDto,accesstoken);
+//
+//    }
 
 
 

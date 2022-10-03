@@ -6,7 +6,7 @@ import capstone.jejuTourrecommend.web.controller.metaData.DefaultMetaDataBuilder
 import capstone.jejuTourrecommend.web.controller.metaData.MetaData;
 import capstone.jejuTourrecommend.web.controller.metaData.MetaDataDirector;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
+import capstone.jejuTourrecommend.web.login.jwt.provider.JwtTokenProvider;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -3,7 +3,7 @@ package capstone.jejuTourrecommend.web.controller;
 import capstone.jejuTourrecommend.Service.SpotService;
 import capstone.jejuTourrecommend.web.controller.metaData.DefaultMetaDataBuilder;
 import capstone.jejuTourrecommend.web.controller.metaData.MetaDataDirector;
-import capstone.jejuTourrecommend.web.login.jwt.JwtTokenProvider;
+import capstone.jejuTourrecommend.web.login.jwt.provider.JwtTokenProvider;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListMetaDataOp;
 import capstone.jejuTourrecommend.web.pageDto.spotPage.*;
 import lombok.RequiredArgsConstructor;
