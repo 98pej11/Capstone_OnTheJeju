@@ -5,7 +5,7 @@ import capstone.jejuTourrecommend.repository.MemberRepository;
 import capstone.jejuTourrecommend.web.login.dto.LoginDto;
 import capstone.jejuTourrecommend.web.login.dto.UserDto;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.login.form.LoginForm;
+import capstone.jejuTourrecommend.web.login.dto.form.LoginForm;
 import capstone.jejuTourrecommend.web.login.jwt.provider.JwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

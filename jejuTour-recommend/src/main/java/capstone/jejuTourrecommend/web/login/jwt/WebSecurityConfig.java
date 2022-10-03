@@ -1,7 +1,7 @@
 package capstone.jejuTourrecommend.web.login.jwt;
 
 import capstone.jejuTourrecommend.repository.MemberRepository;
-import capstone.jejuTourrecommend.web.login.jwt.filter.CustomUsernamePasswordAuthenticationFilter;
+import capstone.jejuTourrecommend.web.login.jwt.filter.CustomLoginProcessingAuthenticationFilter;
 import capstone.jejuTourrecommend.web.login.jwt.filter.JwtAuthenticationFilter;
 import capstone.jejuTourrecommend.web.login.jwt.handler.CustomAuthenticationFailureHandler;
 import capstone.jejuTourrecommend.web.login.jwt.handler.CustomAuthenticationSuccessHandler;
@@ -99,8 +99,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll() // 그외 나머지 요청은 누구나면접근 가능
 
                 .and()
-                .addFilterAt(customUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(jwtAuthenticationFilter, CustomUsernamePasswordAuthenticationFilter.class);
+                .addFilterAt(customLoginProcessingAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter, CustomLoginProcessingAuthenticationFilter.class);
 
 
         http.cors();
@@ -110,20 +110,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public CustomUsernamePasswordAuthenticationFilter customUsernamePasswordAuthenticationFilter() throws Exception {
+    public CustomLoginProcessingAuthenticationFilter customLoginProcessingAuthenticationFilter() throws Exception {
 
-        CustomUsernamePasswordAuthenticationFilter customUsernamePasswordAuthenticationFilter
-                = new CustomUsernamePasswordAuthenticationFilter(LOGIN_REQUEST_MATCHER);
+        CustomLoginProcessingAuthenticationFilter customLoginProcessingAuthenticationFilter
+                = new CustomLoginProcessingAuthenticationFilter(LOGIN_REQUEST_MATCHER);
 
-        customUsernamePasswordAuthenticationFilter.setAuthenticationManager(authenticationManagerBean());
+        customLoginProcessingAuthenticationFilter.setAuthenticationManager(authenticationManagerBean());
 
-        customUsernamePasswordAuthenticationFilter
+        customLoginProcessingAuthenticationFilter
                 .setAuthenticationSuccessHandler(new CustomAuthenticationSuccessHandler(jwtTokenProvider,memberRepository));//
 
-        customUsernamePasswordAuthenticationFilter
+        customLoginProcessingAuthenticationFilter
                 .setAuthenticationFailureHandler(new CustomAuthenticationFailureHandler());
 
-        return customUsernamePasswordAuthenticationFilter;
+        return customLoginProcessingAuthenticationFilter;
 
     }
 

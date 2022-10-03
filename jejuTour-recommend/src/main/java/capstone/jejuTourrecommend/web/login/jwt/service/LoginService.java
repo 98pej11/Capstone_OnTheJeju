@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.Service;
+package capstone.jejuTourrecommend.web.login.jwt.service;
 
 import capstone.jejuTourrecommend.domain.Member;
 import capstone.jejuTourrecommend.domain.MemberSpot;
@@ -8,7 +8,7 @@ import capstone.jejuTourrecommend.repository.MemberSpotRepository;
 import capstone.jejuTourrecommend.repository.SpotRepository;
 import capstone.jejuTourrecommend.web.login.dto.UserDto;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.login.form.JoinForm;
+import capstone.jejuTourrecommend.web.login.dto.form.JoinForm;
 import capstone.jejuTourrecommend.web.login.jwt.provider.JwtTokenProvider;
 import capstone.jejuTourrecommend.web.login.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;

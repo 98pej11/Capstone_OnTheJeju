@@ -1,6 +1,6 @@
 package capstone.jejuTourrecommend.web.login.jwt.filter;
 
-import capstone.jejuTourrecommend.web.login.form.LoginForm;
+import capstone.jejuTourrecommend.web.login.dto.form.LoginForm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,9 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-public class CustomUsernamePasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
+public class CustomLoginProcessingAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
-    public CustomUsernamePasswordAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
+    public CustomLoginProcessingAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
         super(requiresAuthenticationRequestMatcher);
     }
 

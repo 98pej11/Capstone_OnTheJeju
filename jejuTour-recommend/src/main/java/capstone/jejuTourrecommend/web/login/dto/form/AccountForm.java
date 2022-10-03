@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.web.login.form;
+package capstone.jejuTourrecommend.web.login.dto.form;
 
 import lombok.Data;
 
