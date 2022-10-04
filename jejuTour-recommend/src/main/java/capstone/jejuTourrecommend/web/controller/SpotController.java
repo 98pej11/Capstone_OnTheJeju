@@ -33,7 +33,6 @@ public class SpotController {
 
     @GetMapping("/user/spot/{spotId}")
     public SpotPageDto spotDetail(@PathVariable("spotId") Long spotId,
-                                  @RequestHeader("ACCESS-TOKEN") String accesstoken,
                                   @LoginUser Member member){
 
         log.info("spotId = {}",spotId);
@@ -54,7 +53,6 @@ public class SpotController {
 
     @GetMapping("/user/spot/review/{spotId}")
     public ReviewListDto reviewPage(@PathVariable("spotId") Long spotId,
-                                    @RequestHeader("ACCESS-TOKEN") String accesstoken,
                                     Pageable pageable){
         log.info("spotId = {}",spotId);
 

@@ -21,7 +21,6 @@ import java.util.Optional;
 @Transactional
 public class FavoriteService {
 
-    private final MemberRepository memberRepository;
     private final FavoriteRepository favoriteRepository;
     private final SpotRepository spotRepository;
     private final FavoriteSpotRepository favoriteSpotRepository;

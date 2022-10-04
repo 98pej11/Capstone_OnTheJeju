@@ -33,11 +33,11 @@ public class SpotListController {
     @PostMapping("/user/spotList/priority")//일단 토큰은 배재하고 검색해보자
     public ResultSpotListDto postSpot(@RequestBody MainPageForm mainPageForm,
                                       Pageable pageable,
-                                      @RequestHeader("ACCESS-TOKEN") String accesstoken,
                                       @LoginUser Member member){
 
         //userDetails.getUsername();
 
+        log.info("member = {}", member.toString());
         log.info("member.getUsername() = {}", member.getUsername());
         log.info("member.getPassword() = {}", member.getPassword());
 
@@ -67,7 +67,7 @@ public class SpotListController {
 
     @PostMapping("/user/spotList/search")//일단 토큰은 배재하고 검색해보자
     public ResultSpotListDto searchSpotListContains(@RequestBody SearchForm searchForm,
-                                      Pageable pageable,@RequestHeader("ACCESS-TOKEN") String accesstoken,
+                                      Pageable pageable,
                                                     @LoginUser Member member) {
 
         log.info("spotName = {}",searchForm.getSpotName());

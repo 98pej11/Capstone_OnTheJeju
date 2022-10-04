@@ -24,12 +24,11 @@ public class FavoriteController {
      * 선택한 관광지를 선태한 위시리스트에 추가
      * 선택한 관광지 정보, 사용자 정보, 위시리스트 정보 필요
      *
-     * @param accesstoken
      * @param favoriteForm
      * @return
      */
     @PostMapping("/user/favorite/form")
-    public GlobalDto postFavoriteForm(@RequestHeader("ACCESS-TOKEN") String accesstoken,
+    public GlobalDto postFavoriteForm(//@RequestHeader("ACCESS-TOKEN") String accesstoken,
                                       @RequestBody FavoriteForm favoriteForm) {
 
 
@@ -54,14 +53,13 @@ public class FavoriteController {
      * 새로운 위시 리스트를 만들고 해당 관광지 넣기
      * 선택한 관광지 정보, 사용자 정보, 위시리스트 이름 필요
      *
-     * @param accesstoken
      * @param form
      * @return
      */
     @PostMapping("/user/favorite/new")
-    public NewFavoriteListDto newFavoriteList(@RequestHeader("ACCESS-TOKEN") String accesstoken,
-                                              @RequestBody FavoriteNewForm form,
-                                              @LoginUser Member member) {
+    public NewFavoriteListDto newFavoriteList(
+            @RequestBody FavoriteNewForm form,
+            @LoginUser Member member) {
 
 
         Long spotId = form.getSpotId();
@@ -90,17 +88,15 @@ public class FavoriteController {
      * 위시 리스트 페이지
      * 사용자 정보 필요
      *
-     * @param accesstoken
      * @param pageable
      * @return
      */
     @GetMapping("/user/favoriteList")
-    public FavoriteListFinalDto favoriteList(@RequestHeader("ACCESS-TOKEN") String accesstoken,
-                                             Pageable pageable,
-                                             @LoginUser Member member) {
+    public FavoriteListFinalDto favoriteList(
+            Pageable pageable,
+            @LoginUser Member member) {
 
         //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함)
-
 
 
         //Todo: 테스트용 데이터

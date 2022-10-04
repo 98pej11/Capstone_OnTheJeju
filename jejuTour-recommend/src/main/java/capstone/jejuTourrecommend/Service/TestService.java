@@ -18,7 +18,7 @@ public class TestService {
     private final SpotRepository spotRepository;
     private final ReviewRepository reviewRepository;
     private final PictureRepository pictureRepository;
-    private final MemberSpotRepository memberSpotRepository;
+
     private final ScoreRepository scoreRepository;
 
 
