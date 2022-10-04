@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 public class SpotService {
 
     private final SpotRepository spotRepository;
-    private final MemberRepository memberRepository;
     private final ReviewRepository reviewRepository;
     private final PictureRepository pictureRepository;
 
@@ -40,15 +39,12 @@ public class SpotService {
 
     }
 
-    public SpotDetailDto spotPage(Long spotId, String memberEmail){
+    public SpotDetailDto spotPage(Long spotId, Long memberId){
 
         Spot spot = spotRepository.findOptionById(spotId)
                 .orElseThrow(() -> new UserException("spotId가 올바르지 않습니다."));
         SpotDto spotDto = new SpotDto(spot);
 
-        Member member = memberRepository.findOptionByEmail(memberEmail)
-                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
-        log.info("member = {}",member);
 
 
         List<PictureDto> pictureDtoList = pictureRepository.findBySpot(
@@ -57,7 +53,7 @@ public class SpotService {
 
         ScoreDto scoreDto = spotRepository.searchScore(spot);
 
-        Boolean isFavoriteSpot = spotRepository.isFavoriteSpot(member.getId(), spotId);
+        Boolean isFavoriteSpot = spotRepository.isFavoriteSpot(memberId, spotId);
 
 
         return new SpotDetailDto(spotDto,scoreDto,pictureDtoList, isFavoriteSpot);

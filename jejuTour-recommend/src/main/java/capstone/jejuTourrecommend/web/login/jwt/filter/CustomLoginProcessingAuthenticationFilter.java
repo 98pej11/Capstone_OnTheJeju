@@ -40,7 +40,7 @@ public class CustomLoginProcessingAuthenticationFilter extends AbstractAuthentic
 
 
         //여기서 빈칸 예외처리
-        if (StringUtils.hasText(email) || StringUtils.hasText(password)) {
+        if (!StringUtils.hasText(email) || !StringUtils.hasText(password)) {
             throw new AuthenticationServiceException("Username or Password not provided");
         }
 

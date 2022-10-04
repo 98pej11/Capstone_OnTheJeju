@@ -2,6 +2,7 @@ package capstone.jejuTourrecommend.domain.Service;
 
 import capstone.jejuTourrecommend.Service.SpotListService;
 import capstone.jejuTourrecommend.domain.*;
+import capstone.jejuTourrecommend.repository.MemberRepository;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.MainPageForm;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.ResultSpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.UserWeightDto;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Optional;
 import java.util.Random;
 
 
@@ -110,6 +112,9 @@ class SpotListServiceTest {
         return scores[i];
     }
 
+
+    @Autowired
+    MemberRepository memberRepository;
     //MainPageForm mainPageForm,String memberEmail, Pageable pageable
     @Test
     public void postSpotListTest() throws Exception{
@@ -117,6 +122,9 @@ class SpotListServiceTest {
         String memberEmail = "member1@gmail.com";
         int page = 2;
         int size = 10;
+
+        Optional<Member> optionByEmail = memberRepository.findOptionByEmail(memberEmail);
+
 
         PageRequest pageRequest = PageRequest.of(page, size);
         MainPageForm mainPageForm = new MainPageForm();
@@ -135,7 +143,7 @@ class SpotListServiceTest {
 
 
         //when
-        ResultSpotListDto result = spotListService.postSpotList(mainPageForm, memberEmail, pageRequest);
+        ResultSpotListDto result = spotListService.postSpotList(mainPageForm, optionByEmail.get().getId(), pageRequest);
 
 
         for(int i=0;i<size;i++) {

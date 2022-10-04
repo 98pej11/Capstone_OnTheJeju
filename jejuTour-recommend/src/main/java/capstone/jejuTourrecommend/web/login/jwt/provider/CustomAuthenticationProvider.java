@@ -1,6 +1,6 @@
 package capstone.jejuTourrecommend.web.login.jwt.provider;
 
-import capstone.jejuTourrecommend.web.login.jwt.service.CustomUserDetailService;
+import capstone.jejuTourrecommend.web.login.jwt.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    private CustomUserDetailService customUserDetailService;
+    private UserDetailServiceImpl userDetailServiceImpl;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -36,7 +36,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
 
-        UserDetails userDetails = customUserDetailService.loadUserByUsername(username);
+        UserDetails userDetails = userDetailServiceImpl.loadUserByUsername(username);
 
 
         if(!passwordEncoder.matches(password, userDetails.getPassword())){

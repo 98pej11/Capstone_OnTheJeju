@@ -28,7 +28,6 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
         if(exception instanceof BadCredentialsException) {
-
             errorMessage = "Invalid Username or Password";
             throw new UserException("Invalid Username or Password");
         } else if(exception instanceof DisabledException) {

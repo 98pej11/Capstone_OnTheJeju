@@ -24,21 +24,18 @@ public class SpotListService {
 
 
     private final SpotRepository spotRepository;
-    private final MemberRepository memberRepository;
 
-    public ResultSpotListDto searchSpotListContains(String memberEmail, String spotName, Pageable pageable) {
+    public ResultSpotListDto searchSpotListContains(Long memberId, String spotName, Pageable pageable) {
 
-        Member member = memberRepository.findOptionByEmail(memberEmail)
-                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
-        Page<SpotListDto> spotListDtos = spotRepository.searchBySpotNameContains(member.getId(), spotName, pageable);
+        Page<SpotListDto> spotListDtos = spotRepository.searchBySpotNameContains(memberId, spotName, pageable);
 
         return new ResultSpotListDto(200l, true, "성공", spotListDtos);
 
     }
 
 
-    public ResultSpotListDto postSpotList(MainPageForm mainPageForm, String memberEmail, Pageable pageable) {
+    public ResultSpotListDto postSpotList(MainPageForm mainPageForm, Long memberId, Pageable pageable) {
         
         List locationList = findLocationList(mainPageForm);
 
@@ -49,13 +46,11 @@ public class SpotListService {
         log.info("UserWeightDto() = {}", mainPageForm.getUserWeight());//Todo: 업데이트
 
 
-        Member member = memberRepository.findOptionByEmail(memberEmail)
-                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
         Page<SpotListDto> result;
 
         //가중치 존재 유무
-        result = isPriorityExist(mainPageForm, pageable, locationList, category, member);
+        result = isPriorityExist(mainPageForm, pageable, locationList, category, memberId);
 
         return new ResultSpotListDto(200l, true, "성공", result);
     }
@@ -128,7 +123,7 @@ public class SpotListService {
         return locationStrategy.getLocation();
     }
 
-    private Page<SpotListDto> isPriorityExist(MainPageForm mainPageForm, Pageable pageable, List locationList, Category category, Member member) {
+    private Page<SpotListDto> isPriorityExist(MainPageForm mainPageForm, Pageable pageable, List locationList, Category category, Long memberId) {
 
         Page<SpotListDto> result;
         if (mainPageForm.getUserWeight() == null ||
@@ -137,7 +132,7 @@ public class SpotListService {
                         mainPageForm.getUserWeight().get("facilityWeight").doubleValue() == 0 &&
                         mainPageForm.getUserWeight().get("surroundWeight").doubleValue() == 0
         ) {
-            result = spotRepository.searchSpotByLocationAndCategory(member.getId(),
+            result = spotRepository.searchSpotByLocationAndCategory(memberId,
                     locationList, category, pageable);
 
         } else {//사용자가 가중치를 넣은 경우
@@ -149,7 +144,7 @@ public class SpotListService {
             );
 
             result = spotRepository.searchSpotByUserPriority(
-                    member.getId(), locationList, userWeightDto, pageable);
+                    memberId, locationList, userWeightDto, pageable);
 
         }
         return result;

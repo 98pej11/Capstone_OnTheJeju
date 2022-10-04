@@ -2,7 +2,9 @@ package capstone.jejuTourrecommend.web.controller;
 
 
 import capstone.jejuTourrecommend.Service.FavoriteService;
+import capstone.jejuTourrecommend.domain.Member;
 import capstone.jejuTourrecommend.web.GlobalDto;
+import capstone.jejuTourrecommend.web.login.LoginUser;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.*;
 import capstone.jejuTourrecommend.web.login.jwt.provider.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +19,6 @@ import org.springframework.web.bind.annotation.*;
 public class FavoriteController {
 
     private final FavoriteService favoriteService;
-    private final JwtTokenProvider jwtTokenProvider;
-
 
     /**
      * 선택한 관광지를 선태한 위시리스트에 추가
@@ -60,14 +60,13 @@ public class FavoriteController {
      */
     @PostMapping("/user/favorite/new")
     public NewFavoriteListDto newFavoriteList(@RequestHeader("ACCESS-TOKEN") String accesstoken,
-                                              @RequestBody FavoriteNewForm form) {
+                                              @RequestBody FavoriteNewForm form,
+                                              @LoginUser Member member) {
 
 
         Long spotId = form.getSpotId();
         String favoriteName = form.getFavoriteName();
 
-        //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함)
-        String memberEmail = jwtTokenProvider.getUserPk(accesstoken);
 
         //여기서 관광지 정보 유무로 나눠야 함
         //있으면 위시리스트 생성 및 관광지 추가, 없으면 그냥 위시리스트 생성
@@ -82,7 +81,7 @@ public class FavoriteController {
         //jwtTokenProvider.getUserPk(jwtTokenProvider.createToken(memberEmailTest,"ROLE_USER"));
 
 
-        FavoriteDto favoriteDto = favoriteService.newFavoriteList(memberEmail, spotId, favoriteName);
+        FavoriteDto favoriteDto = favoriteService.newFavoriteList(member, spotId, favoriteName);
 
         return new NewFavoriteListDto(200l, true, "성공", favoriteDto);
     }
@@ -97,10 +96,11 @@ public class FavoriteController {
      */
     @GetMapping("/user/favoriteList")
     public FavoriteListFinalDto favoriteList(@RequestHeader("ACCESS-TOKEN") String accesstoken,
-                                             Pageable pageable) {
+                                             Pageable pageable,
+                                             @LoginUser Member member) {
 
         //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함)
-        String memberEmail = jwtTokenProvider.getUserPk(accesstoken);
+
 
 
         //Todo: 테스트용 데이터
@@ -109,7 +109,7 @@ public class FavoriteController {
         //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함)
         //jwtTokenProvider.getUserPk(jwtTokenProvider.createToken(memberEmail,"ROLE_USER"));
 
-        Page<FavoriteListDto> favoriteList = favoriteService.getFavoriteList(memberEmail, pageable);
+        Page<FavoriteListDto> favoriteList = favoriteService.getFavoriteList(member.getId(), pageable);
 
         return new FavoriteListFinalDto(200l, true, "성공,", favoriteList);
 
