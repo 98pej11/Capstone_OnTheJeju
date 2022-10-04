@@ -1,6 +1,7 @@
 package capstone.jejuTourrecommend.web.login.jwt.provider;
 
 
+import capstone.jejuTourrecommend.web.login.dto.AccountContext;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -88,6 +89,10 @@ public class JwtTokenProvider {//jwt토큰 제공자
     public Authentication getAuthentication(String token) {
         //Todo: 나 여기서 나만의 userDetailservice 만들어서 jpa 하고 연결시겨야함
         UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserPk(token));
+
+        //여기서 userDetail을 넣어야지 userDetails.getUsername() 를 넣으면 안됨!! @AuthenticationPrincipal 가 인식을 못함,
+        //파라미터 자리가 principal 이라고 해서 진짜 principal 넣으면 안됨
+        //UsernamePasswordAuthenticationToken 는 AuthenticationToken 의 인증 객체임
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 

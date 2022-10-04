@@ -140,7 +140,7 @@ class SpotServiceTest {
         List<FavoriteSpot> byFavoriteId = favoriteSpotRepository.findByFavoriteId(favorite.get().getId());
 
         //when
-        SpotDetailDto spotDetailDto = spotService.spotPage(byFavoriteId.get(0).getSpot().getId(), memberEmail);
+        SpotDetailDto spotDetailDto = spotService.spotPage(byFavoriteId.get(0).getSpot().getId(), member.getId());
 
         log.info("spotDto = {}",spotDetailDto);
 

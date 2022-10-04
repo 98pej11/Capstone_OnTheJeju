@@ -1,8 +1,10 @@
 package capstone.jejuTourrecommend.web.controller;
 
 import capstone.jejuTourrecommend.Service.SpotService;
+import capstone.jejuTourrecommend.domain.Member;
 import capstone.jejuTourrecommend.web.controller.metaData.DefaultMetaDataBuilder;
 import capstone.jejuTourrecommend.web.controller.metaData.MetaDataDirector;
+import capstone.jejuTourrecommend.web.login.LoginUser;
 import capstone.jejuTourrecommend.web.login.jwt.provider.JwtTokenProvider;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListMetaDataOp;
 import capstone.jejuTourrecommend.web.pageDto.spotPage.*;
@@ -31,7 +33,7 @@ public class SpotController {
 
     @GetMapping("/user/spot/{spotId}")
     public SpotPageDto spotDetail(@PathVariable("spotId") Long spotId,
-                                  @RequestHeader("ACCESS-TOKEN") String accesstoken){
+                                  @LoginUser Member member){
 
         log.info("spotId = {}",spotId);
         //여기서 spotId를 도메인 클래스 컨버터 사용가능 (jpa 실절)
@@ -41,9 +43,9 @@ public class SpotController {
         //String memberEmailTest = "member1@gmail.com";
 
         //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함) TODO: 실제 운영할 코드임
-        String memberEmail = jwtTokenProvider.getUserPk(accesstoken);
 
-        SpotDetailDto spotDetailDto = spotService.spotPage(spotId, memberEmail);
+
+        SpotDetailDto spotDetailDto = spotService.spotPage(spotId, member.getId());
 
         return new SpotPageDto(200l,true,"성공",spotDetailDto);
 
@@ -51,7 +53,6 @@ public class SpotController {
 
     @GetMapping("/user/spot/review/{spotId}")
     public ReviewListDto reviewPage(@PathVariable("spotId") Long spotId,
-                                    @RequestHeader("ACCESS-TOKEN") String accesstoken,
                                     Pageable pageable){
         log.info("spotId = {}",spotId);
 

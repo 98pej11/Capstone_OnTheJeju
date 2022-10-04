@@ -110,10 +110,11 @@ class FavoriteServiceTest {
 
         //Spot spot = new Spot("테스트")
 
+        Optional<Member> optionByEmail = memberRepository.findOptionByEmail(memberEmail);
 
         PageRequest pageRequest = PageRequest.of(0,10);
 
-        Page<FavoriteListDto> favoriteList = favoriteService.getFavoriteList(memberEmail, pageRequest);
+        Page<FavoriteListDto> favoriteList = favoriteService.getFavoriteList(optionByEmail.get().getId(), pageRequest);
 
 
         List<FavoriteListDto> content = favoriteList.getContent();
@@ -169,7 +170,7 @@ class FavoriteServiceTest {
 
         //when
 
-        FavoriteDto favoriteDto = favoriteService.newFavoriteList(memberEmail, spotId, favoriteName);
+        FavoriteDto favoriteDto = favoriteService.newFavoriteList(member, spotId, favoriteName);
 
         Optional<Favorite> favorite = favoriteRepository.findOptionByNameAndMemberId(favoriteName,member.getId());
 

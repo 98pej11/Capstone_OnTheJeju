@@ -74,12 +74,12 @@ public class ExControllerAdvice {
     }
 
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler
-    public ErrorResult exHandler(Exception e){
-        log.error("[exceptionHandler] ex",e);
-        return new ErrorResult(400,false,"내부 오류");
-    }
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ExceptionHandler
+//    public ErrorResult exHandler(Exception e){
+//        log.error("[exceptionHandler] ex",e);
+//        return new ErrorResult(400,false,"내부 오류");
+//    }
 }
 
 

@@ -21,7 +21,6 @@ import java.util.Optional;
 @Transactional
 public class FavoriteService {
 
-    private final MemberRepository memberRepository;
     private final FavoriteRepository favoriteRepository;
     private final SpotRepository spotRepository;
     private final FavoriteSpotRepository favoriteSpotRepository;
@@ -32,20 +31,18 @@ public class FavoriteService {
      * 사용자의 위시리스트 목록 "폼"+ 위시리스트 페이지 보여주기 + "여러 사진"도 줌
      * 폼 api 사용할때는 사진 여러장 중 하나만 고르면 되니깐 ㄱㅊ
      *
-     * @param memberEmail
+     * @param memberId
      * @param pageable
      * @return
      */
-    public Page<FavoriteListDto> getFavoriteList(String memberEmail, Pageable pageable) {
+    public Page<FavoriteListDto> getFavoriteList(Long memberId, Pageable pageable) {
 
 
-        Member member = memberRepository.findOptionByEmail(memberEmail)
-                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
         //이거 실험용 데이터임 TODO: 실험용 데이터임
         //PageRequest pageRequest = PageRequest.of(0,100);
 
-        Page<FavoriteListDto> favoriteListDtos = favoriteSpotQueryRepository.getFavoriteList(member.getId(), pageable);
+        Page<FavoriteListDto> favoriteListDtos = favoriteSpotQueryRepository.getFavoriteList(memberId, pageable);
 
 
         return favoriteListDtos;
@@ -91,15 +88,13 @@ public class FavoriteService {
      * 선택한 관광지 정보, 사용자 정보, 위시리스트 이름 필요
      * (추가 사항)관광지가 없기에 새로운 위시리스트 추가만 함
      *
-     * @param memberEmail
+     * @param member
      * @param spotId
      * @param favoriteName
      * @return
      */
-    public FavoriteDto newFavoriteList(String memberEmail, Long spotId, String favoriteName) {
+    public FavoriteDto newFavoriteList(Member member, Long spotId, String favoriteName) {
 
-        Member member = memberRepository.findOptionByEmail(memberEmail)
-                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
 
         Optional<Favorite> optionByName = favoriteRepository.findOptionByNameAndMemberId(favoriteName,member.getId());

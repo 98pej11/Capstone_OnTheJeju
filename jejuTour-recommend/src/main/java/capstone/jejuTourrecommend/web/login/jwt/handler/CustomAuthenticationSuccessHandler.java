@@ -36,7 +36,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     private final MemberRepository memberRepository;
     //private final CustomUserDetailService customUserDetailService;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -56,7 +56,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         Member member = memberRepository.findOptionByEmail(email)
                 .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
-        System.out.println("member.getCreatedDate() = " + member.getCreatedDate().toString());
+        log.info("member.getCreatedDate() = " + member.getCreatedDate().toString());
 
         UserDto userDto = new UserDto(
                 member.getId(),member.getUsername(),member.getEmail(),member.getRole()
@@ -68,26 +68,12 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         LoginDto loginDto = new LoginDto(200, true, "로그인 성공", userDto, accesstoken);
 
+        //Todo : 이거 아예 objectmapper 를 빈드로 설정하고 registermodule 할수 있
         objectMapper.registerModule(new JavaTimeModule());
 
         objectMapper.writeValue(response.getWriter(), loginDto);
     }
 
-    private LoginForm getLoginForm(HttpServletRequest request) throws IOException {
-        ServletInputStream inputStream = request.getInputStream();
-        log.info("inputStream = {} ",inputStream.toString());
 
-        String messageBody = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-        if (messageBody.isEmpty()) {
-            System.out.println("messageBody = " + messageBody);
-        }
-
-        //String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
-        log.info("messageBody = {}",messageBody);
-//        ObjectMapper objectMapper = new ObjectMapper();
-
-        LoginForm loginForm = objectMapper.readValue(messageBody, LoginForm.class);
-        return loginForm;
-    }
 
 }

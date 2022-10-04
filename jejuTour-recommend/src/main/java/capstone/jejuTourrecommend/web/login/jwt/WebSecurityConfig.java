@@ -8,6 +8,7 @@ import capstone.jejuTourrecommend.web.login.jwt.handler.CustomAuthenticationSucc
 import capstone.jejuTourrecommend.web.login.jwt.handler.RestAccessDeniedHandler;
 import capstone.jejuTourrecommend.web.login.jwt.handler.RestAuthenticationEntryPoint;
 import capstone.jejuTourrecommend.web.login.jwt.provider.JwtTokenProvider;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -55,11 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private static final RequestMatcher LOGIN_REQUEST_MATCHER = new AntPathRequestMatcher("/login","POST");
-
-
-    private final MemberRepository memberRepository;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-
     private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
 
@@ -109,6 +106,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+    private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+
     @Bean
     public CustomLoginProcessingAuthenticationFilter customLoginProcessingAuthenticationFilter() throws Exception {
 
@@ -118,10 +118,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         customLoginProcessingAuthenticationFilter.setAuthenticationManager(authenticationManagerBean());
 
         customLoginProcessingAuthenticationFilter
-                .setAuthenticationSuccessHandler(new CustomAuthenticationSuccessHandler(jwtTokenProvider,memberRepository));//
+                .setAuthenticationSuccessHandler(customAuthenticationSuccessHandler);
 
         customLoginProcessingAuthenticationFilter
-                .setAuthenticationFailureHandler(new CustomAuthenticationFailureHandler());
+                .setAuthenticationFailureHandler(customAuthenticationFailureHandler);
 
         return customLoginProcessingAuthenticationFilter;
 

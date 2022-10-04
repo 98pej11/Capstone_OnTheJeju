@@ -2,15 +2,20 @@ package capstone.jejuTourrecommend.web.controller;
 
 
 import capstone.jejuTourrecommend.Service.SpotListService;
+import capstone.jejuTourrecommend.domain.Member;
 import capstone.jejuTourrecommend.web.controller.metaData.DefaultMetaDataBuilder;
 import capstone.jejuTourrecommend.web.controller.metaData.MetaData;
 import capstone.jejuTourrecommend.web.controller.metaData.MetaDataDirector;
+import capstone.jejuTourrecommend.web.login.LoginUser;
+import capstone.jejuTourrecommend.web.login.dto.AccountContext;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.login.jwt.provider.JwtTokenProvider;
 import capstone.jejuTourrecommend.web.pageDto.mainPage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +28,18 @@ public class SpotListController {
 
 
     private final SpotListService spotListService;
-    private final JwtTokenProvider jwtTokenProvider;
 
 
     @PostMapping("/user/spotList/priority")//일단 토큰은 배재하고 검색해보자
     public ResultSpotListDto postSpot(@RequestBody MainPageForm mainPageForm,
-                                      Pageable pageable,@RequestHeader("ACCESS-TOKEN") String accesstoken){
+                                      Pageable pageable,
+                                      @LoginUser Member member){
+
+        //userDetails.getUsername();
+
+        log.info("member = {}", member.toString());
+        log.info("member.getUsername() = {}", member.getUsername());
+        log.info("member.getPassword() = {}", member.getPassword());
 
 
 
@@ -41,14 +52,14 @@ public class SpotListController {
 
         //이거 실제 데이터임 TODO: 실제 데이터임
         //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함)
-        String memberEmail = jwtTokenProvider.getUserPk(accesstoken);
-
-
-        log.info("memberEmail = {}",memberEmail);
-        log.info("pageable = {}",pageable);
+//        String memberEmail = jwtTokenProvider.getUserPk(accesstoken);
+//
+//
+//        log.info("memberEmail = {}",memberEmail);
+//        log.info("pageable = {}",pageable);
 
         ResultSpotListDto resultSpotListDto = spotListService
-                .postSpotList(mainPageForm, memberEmail, pageable);
+                .postSpotList(mainPageForm, member.getId(), pageable);
 
         return resultSpotListDto;
 
@@ -56,7 +67,8 @@ public class SpotListController {
 
     @PostMapping("/user/spotList/search")//일단 토큰은 배재하고 검색해보자
     public ResultSpotListDto searchSpotListContains(@RequestBody SearchForm searchForm,
-                                      Pageable pageable,@RequestHeader("ACCESS-TOKEN") String accesstoken) {
+                                      Pageable pageable,
+                                                    @LoginUser Member member) {
 
         log.info("spotName = {}",searchForm.getSpotName());
 
@@ -64,9 +76,7 @@ public class SpotListController {
             throw new UserException("관광지 이름에 빈 문자열이 왔습니다");
         }
 
-        String memberEmail = jwtTokenProvider.getUserPk(accesstoken);
-
-        ResultSpotListDto resultSpotListDto = spotListService.searchSpotListContains(memberEmail,searchForm.getSpotName(), pageable);
+        ResultSpotListDto resultSpotListDto = spotListService.searchSpotListContains(member.getId(), searchForm.getSpotName(), pageable);
 
         return resultSpotListDto;
     }
@@ -84,7 +94,7 @@ public class SpotListController {
 
     }
 
-    @GetMapping("/spotList/metaData1")
+    @GetMapping("/spotList/metaDataOp")
     public SpotListMetaDataOp getMetaData1(){
 
         MetaDataDirector metaDataDirector = new MetaDataDirector(new DefaultMetaDataBuilder());

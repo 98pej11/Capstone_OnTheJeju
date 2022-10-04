@@ -25,7 +25,7 @@ public class RouteService {
     private final EntityManager em;
 
     private final FavoriteSpotQueryRepository favoriteSpotQueryRepository;
-    private final FavoriteSpotRepository favoriteSpotRepository;
+
 
     //Todo:
     private final FavoriteRepository favoriteRepository;
@@ -45,7 +45,6 @@ public class RouteService {
 
     public List recommendSpotList(Long favoriteId, RouteForm routeForm){
 
-        //favoriteSpotRepository.findOptionBySpotIdAndFavoriteId()
 
         List list = favoriteSpotQueryRepository.recommendSpotList(favoriteId, routeForm);
 
