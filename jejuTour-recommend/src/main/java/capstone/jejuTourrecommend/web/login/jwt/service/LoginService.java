@@ -9,8 +9,11 @@ import capstone.jejuTourrecommend.repository.SpotRepository;
 import capstone.jejuTourrecommend.web.login.dto.UserDto;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.login.dto.form.JoinForm;
+import capstone.jejuTourrecommend.web.login.jwt.provider.JwtExpirationEnums;
 import capstone.jejuTourrecommend.web.login.jwt.provider.JwtTokenProvider;
 import capstone.jejuTourrecommend.web.login.dto.TokenResponse;
+import capstone.jejuTourrecommend.web.redis.LogoutAccessToken;
+import capstone.jejuTourrecommend.web.redis.LogoutAccessTokenRedisRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -78,6 +81,41 @@ public class LoginService {
 
 
         return userDto;
+    }
+
+    private final LogoutAccessTokenRedisRepository logoutAccessTokenRedisRepository;
+    /**
+     * logout 구현
+     */
+    public void logout(String accessToken, String userEmail) {
+
+        LogoutAccessToken logoutAccessToken = LogoutAccessToken
+                .createLogoutAccessToken(accessToken, userEmail, JwtExpirationEnums.ACCESS_TOKEN_EXPIRATION_TIME.getValue());
+
+        logoutAccessTokenRedisRepository.save(logoutAccessToken);
+
+    }
+
+
+    /**
+     * 회원 탈퇴
+     */
+    public void deleteMember(Member member, String accessToken) {
+
+        System.out.println("=======================1");
+        memberSpotRepository.bulkDeleteMemberSpotByMember(member);
+
+        System.out.println("=======================2");
+        memberRepository.deleteById(member.getId());//여기서 selectId 만하고 delete 는 이 메서드 전체 끝날때 처리함
+        System.out.println("=======================3");
+
+        //탈퇴한 회원의 토큰 blacklist 로 관리
+        LogoutAccessToken logoutAccessToken = LogoutAccessToken
+                .createLogoutAccessToken(accessToken, member.getEmail(), JwtExpirationEnums.ACCESS_TOKEN_EXPIRATION_TIME.getValue());
+
+        logoutAccessTokenRedisRepository.save(logoutAccessToken);
+        System.out.println("=======================4");
+
     }
 
     public void makeMemberSpot(Member member) {

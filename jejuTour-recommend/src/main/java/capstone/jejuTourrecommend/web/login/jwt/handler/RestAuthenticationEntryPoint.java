@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 인증 실패시 메시지 변경 클래스
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor

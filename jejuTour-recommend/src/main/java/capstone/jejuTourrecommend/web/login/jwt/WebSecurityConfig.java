@@ -24,6 +24,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+
 
 //Spring Security를 사용하기 위해서는 Spring Security Filter Chain 을 사용한다는 것을 명시해 주기 위해 @EnableWebSecurity 사용
 @RequiredArgsConstructor
@@ -75,13 +77,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable() // rest api 만을 고려하여 기본 설정은 해제하겠습니다.
                 //.formLogin().disable()
                 .csrf().disable() // csrf 보안 토큰 disable처리.
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .logout().disable() // jwt 토큰을 이용할거라서 logout 은 disable 설정해 놓음
+                //그리고 security는 기본으로 세션으로 회원정보를 저장하는데, jwt 를 사용할거라 무상태(stateless)로 해 놓음
+                .sessionManagement().sessionCreationPolicy(STATELESS)
 
 
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(restAuthenticationEntryPoint) // 인증 실패
                 .accessDeniedHandler(new RestAccessDeniedHandler()) // 인가 실패
+
 
 
 

@@ -1,5 +1,8 @@
 package capstone.jejuTourrecommend.web.login.controller;
 
+import capstone.jejuTourrecommend.domain.Member;
+import capstone.jejuTourrecommend.web.GlobalDto;
+import capstone.jejuTourrecommend.web.login.LoginUser;
 import capstone.jejuTourrecommend.web.login.jwt.service.LoginService;
 import capstone.jejuTourrecommend.web.login.dto.JoinDto;
 import capstone.jejuTourrecommend.web.login.dto.LoginDto;
@@ -48,21 +51,24 @@ public class LoginController {
 
     }
 
-    //지금 로그인 정보를 http body 로 줘서 @RequestBody로 한거고 요청파라미터로 주면 @ModelAttribute로 객체에 담으면 됨
-    // 로그인
-//    @PostMapping("/login")
-//    public LoginDto login(@Valid @RequestBody LoginForm form) throws IOException {
-//
-//        log.info("email={}, password={}",form.getEmail(),form.getPassword());
-//
-//        UserDto userDto = loginService.login(form.getEmail(), form.getPassword());
-//
-//        //로그인할때 이제서야 accestoken를 넘겨줌
-//        String accesstoken = jwtTokenProvider.createToken(userDto.getEmail(), userDto.getRole());
-//
-//        return new LoginDto(200,true,"로그인 성공",userDto,accesstoken);
-//
-//    }
+    @GetMapping("/logout")
+    public GlobalDto logout(@RequestHeader("ACCESS-TOKEN") String accesstoken,
+                            @LoginUser Member member) {
+
+        loginService.logout(accesstoken, member.getEmail());
+
+        return new GlobalDto(200l, true, "로그아웃 성공");
+    }
+
+    @GetMapping("/deleteUser")
+    public GlobalDto deleteUser(@RequestHeader("ACCESS-TOKEN") String accesstoken,
+                                @LoginUser Member member) {
+
+        loginService.deleteMember(member, accesstoken);
+
+        return new GlobalDto(200l, true, "회원탈퇴 성공");
+    }
+
 
 
 
@@ -75,23 +81,23 @@ public class LoginController {
                          HttpServletResponse response) throws IOException {
 
         //여기서 실패하면 이렇게가 실으면 따로 로그인만의 오류 클래스 따로 만들어도됨
-        if(bindingResult.hasErrors()){//공백 예외 처리
-            log.info("errors = {}",bindingResult);
+        if (bindingResult.hasErrors()) {//공백 예외 처리
+            log.info("errors = {}", bindingResult);
             //오류 상태 따로 클래스로 만들어도 좋음
             //bindingResult.reject("오류오류오륭ㅇ로", new ErrorResult(200,false,"sss"),"sss");
             String defaultMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
             throw new UserException(defaultMessage);
         }
 
-        log.info("username={} ,email={}, password={}",form.getUsername(),
-                form.getEmail(),form.getPassword());
+        log.info("username={} ,email={}, password={}", form.getUsername(),
+                form.getEmail(), form.getPassword());
 
         UserDto userDto = loginService.join(form);
 
         //회원가입할때는 accesstoken반환할 필요 없지
         //String accesstoken = jwtTokenProvider.createToken(userDto.getEmail(), userDto.getRole());
 
-        return new JoinDto(200,true,"회원가입 성공",userDto);
+        return new JoinDto(200, true, "회원가입 성공", userDto);
     }
 
     //로그인하기
@@ -137,24 +143,6 @@ public class LoginController {
 //    }
 
 
-    @GetMapping("/user/test")
-    public Map userResponseTest() {
-
-        //생각해보니깐 알아서 검증이 되네 그 로직은 jwt 패키지에 있음
-
-        Map<String, String> result = new HashMap<>();
-
-        result.put("result", "user ok");
-        return result;
-    }
-    //회원가입시 기본 권한은 user 다
-
-    @PostMapping("/admin/test")
-    public Map adminResponseTest() {
-        Map<String, String> result = new HashMap<>();
-        result.put("result", "admin ok");
-        return result;
-    }
 
 
 
