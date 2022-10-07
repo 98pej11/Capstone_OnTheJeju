@@ -34,7 +34,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
      * @return
      * value: 캐시 이름 , key : 해당 캐시 이름의 key //
      */
-    @Cacheable(value = "member", key = "#email", unless = "#result == null")
+    //@Cacheable(value = "member", key = "#email", unless = "#result == null")
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
