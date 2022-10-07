@@ -173,7 +173,7 @@ class FavoriteServiceTest {
         Long spotId = spot.getId(); //spots[14]);  //15번임
 
         String favoriteName = "새로운 위시리스트1";
-        
+
         Member member = memberRepository.findOptionByEmail(memberEmail)
                 .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
@@ -186,8 +186,6 @@ class FavoriteServiceTest {
         Optional<FavoriteSpot> result = favoriteSpotRepository.findOptionBySpotIdAndFavoriteId(spotId, favorite.get().getId());
 
 
-        //FavoriteDto favoriteDto = favoriteService.newFavoriteListO(memberEmail,spotId,favoriteName);
-
 
         //then
         assertThat(favorite).isNotEmpty();
@@ -197,8 +195,10 @@ class FavoriteServiceTest {
     }
 
 
-    //위시 리스트 삭제하기
-    //Long favoriteId
+    /**
+     * 위시 리스트 삭제하기
+     * @throws Exception
+     */
     @Test
     public void deleteFavoriteListTest() throws Exception {
         //given
