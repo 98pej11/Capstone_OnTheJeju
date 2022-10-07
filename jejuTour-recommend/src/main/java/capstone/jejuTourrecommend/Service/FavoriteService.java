@@ -51,7 +51,7 @@ public class FavoriteService {
     }
 
     /**
-     * 선택한 관광지를 선태한 위시리스트에 추가
+     * 선택한 관광지를 선택한 위시리스트에 추가
      * 선택한 관광지 정보, 사용자 정보, 위시리스트 정보 필요
      *
      * @param favoriteForm

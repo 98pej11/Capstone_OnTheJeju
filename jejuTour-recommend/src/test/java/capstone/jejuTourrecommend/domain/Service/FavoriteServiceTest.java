@@ -45,63 +45,97 @@ class FavoriteServiceTest {
     EntityManager em;
 
     @BeforeEach
-    public void testData(){
+    public void testData() {
 
-        Member member = new Member("leoJoo","em@naver.com","1234");
+        Member member = new Member("leoJoo", "em@naver.com", "1234");
         em.persist(member);
 
-        Favorite favorite1 = new Favorite("1일차",member);
-        Favorite favorite2 = new Favorite("2일차",member);
-        Favorite favorite3 = new Favorite("3일차",member);
-        Favorite favorite4 = new Favorite("4일차",member);
-        Favorite favorite5 = new Favorite("5일차",member);
+        Favorite favorite1 = new Favorite("1일차", member);
+        Favorite favorite2 = new Favorite("2일차", member);
+        Favorite favorite3 = new Favorite("3일차", member);
+        Favorite favorite4 = new Favorite("4일차", member);
+        Favorite favorite5 = new Favorite("5일차", member);
         em.persist(favorite1);
         em.persist(favorite2);
         em.persist(favorite3);
         em.persist(favorite4);
         em.persist(favorite5);
         em.persist(favorite5);
-        log.info("favorite1 = {}",favorite1);//1
-        log.info("favorite5 = {}",favorite5);//5
+        log.info("favorite1 = {}", favorite1);//1
+        log.info("favorite5 = {}", favorite5);//5
 
         Spot[] spots = new Spot[15];
-        for(int i=0;i<15;i++){
+        for (int i = 0; i < 15; i++) {
             spots[i] = new Spot("관광지 " + Integer.toString(i));
 
             em.persist(spots[i]);
         }
-        log.info("spot0 = {}",spots[0]);  //7번임
-        log.info("spot14 = {}",spots[14]);  //15번임
+        log.info("spot0 = {}", spots[0]);  //7번임
+        log.info("spot14 = {}", spots[14]);  //15번임
 
         FavoriteSpot[] favoriteSpots = new FavoriteSpot[15];
 
         Picture[] pictures = new Picture[15];
 
-        for(int i=0;i<5;i++){
-            favoriteSpots[i] = new FavoriteSpot(favorite1,spots[i]);
+        for (int i = 0; i < 5; i++) {
+            favoriteSpots[i] = new FavoriteSpot(favorite1, spots[i]);
             em.persist(favoriteSpots[i]);
-            pictures[i] = new Picture("숫자"+i ,spots[i]);
+            pictures[i] = new Picture("숫자" + i, spots[i]);
             em.persist(pictures[i]);
         }
-        for (int i=5;i<10;i++){
-            favoriteSpots[i] = new FavoriteSpot(favorite2,spots[i]);
+        for (int i = 5; i < 10; i++) {
+            favoriteSpots[i] = new FavoriteSpot(favorite2, spots[i]);
             em.persist(favoriteSpots[i]);
-            pictures[i] = new Picture("숫자"+i,spots[i]);
+            pictures[i] = new Picture("숫자" + i, spots[i]);
             em.persist(pictures[i]);
         }
-        for (int i=10;i<15;i++){
-            favoriteSpots[i] = new FavoriteSpot(favorite3,spots[i]);
+        for (int i = 10; i < 15; i++) {
+            favoriteSpots[i] = new FavoriteSpot(favorite3, spots[i]);
             em.persist(favoriteSpots[i]);
-            pictures[i] = new Picture("숫자"+i,spots[i]);
+            pictures[i] = new Picture("숫자" + i, spots[i]);
             em.persist(pictures[i]);
         }
 
 
     }
 
-    //사용자의 위시리스트 목록 "폼" 보여주기
+    /**
+     * 선택한 관광지를 선태한 위시리스트에 추가
+     * String memberEmail, Long spotId, Long favoriteId
+     * 사용자의 위시리스트 목록 "폼" 보여주기
+     * @throws Exception
+     */
     @Test
-    public void getFavoriteListTest() throws Exception{
+    public void postFavoriteFormTest() throws Exception {
+
+        Spot spot = spotRepository.findOptionByName("관광지 0").orElseThrow(() -> new UserException("해당 이름의 관광지가 없습니다."));
+
+        Favorite favorite = favoriteRepository.findByName("5일차").orElseThrow(() -> new UserException("해당 이름의 위시리스트가 없습니다."));
+
+        //given
+        //String memberEmail = "em@naver.com";
+        //7,2 중복된 관관지 존재, 새로운 추가 21,6
+        FavoriteForm favoriteForm = new FavoriteForm();
+
+        favoriteForm.setSpotId(spot.getId());
+        favoriteForm.setFavoriteId(favorite.getId());
+        Long spotId = spot.getId();
+        Long favoriteId = favorite.getId();
+
+        //when
+        favoriteService.postFavoriteForm(favoriteForm);
+
+        Optional<FavoriteSpot> result = favoriteSpotRepository.findOptionBySpotIdAndFavoriteId(spotId, favoriteId);
+
+        assertThat(result).isNotEmpty();
+
+//
+
+        //then
+    }
+
+    @Test
+    public void getFavoriteListTest() throws Exception {
         //given
 
         //when
@@ -112,59 +146,34 @@ class FavoriteServiceTest {
 
         Optional<Member> optionByEmail = memberRepository.findOptionByEmail(memberEmail);
 
-        PageRequest pageRequest = PageRequest.of(0,10);
+        PageRequest pageRequest = PageRequest.of(0, 10);
 
         Page<FavoriteListDto> favoriteList = favoriteService.getFavoriteList(optionByEmail.get().getId(), pageRequest);
 
 
         List<FavoriteListDto> content = favoriteList.getContent();
-        log.info("favoriteListContent = {}",content);
+        log.info("favoriteListContent = {}", content);
 
         assertThat(content.size()).isEqualTo(5);
         assertThat(favoriteList.getTotalElements()).isEqualTo(5);
 
     }
 
-    // 선택한 관광지를 선태한 위시리스트에 추가
-    //String memberEmail, Long spotId, Long favoriteId
 
-    //Todo: 각각 실행했는데 안되는 이유는 테스트 하고 데이터를 롤백하고 해서 id가 맞지 않는 것임 그리고 엔티티니 통합 sequence 전략이라 따로 id 할당 되지 않음
+    /**
+     * 새로운 위시 리스트를 만들고 해당 관광지 넣기
+     * String memberEmail, Long spotId, String favoriteName
+     * @throws Exception
+     */
     @Test
-    public void postFavoriteFormTest() throws Exception{
-        //given
-        //String memberEmail = "em@naver.com";
-        //7,2 중복된 관관지 존재, 새로운 추가 21,6
-        FavoriteForm favoriteForm = new FavoriteForm();
-
-        favoriteForm.setSpotId(15l);
-        favoriteForm.setFavoriteId(5l);
-        Long spotId = 15l;
-        Long favoriteId =5l;
-
-
-        //when
-        favoriteService.postFavoriteForm(favoriteForm);
-
-        Optional<FavoriteSpot> result = favoriteSpotRepository.findOptionBySpotIdAndFavoriteId(spotId, favoriteId);
-
-        assertThat(result).isNotEmpty();
-
-//
-        
-        //then
-    }
-
-
-    //새로운 위시 리스트를 만들고 해당 관광지 넣기
-    //String memberEmail, Long spotId, String favoriteName
-    @Test
-    public void newFavoriteListTest() throws Exception{
+    public void newFavoriteListTest() throws Exception {
         //given
         String memberEmail = "em@naver.com";
-        Long spotId = 15l;
-        String favoriteName = "새로운 위시리스트1";
-        //String favoriteName = "1일차";
+        Spot spot = spotRepository.findOptionByName("관광지 14").orElseThrow(() -> new UserException("해당 이름의 관광지가 없습니다."));
+        Long spotId = spot.getId(); //spots[14]);  //15번임
 
+        String favoriteName = "새로운 위시리스트1";
+        
         Member member = memberRepository.findOptionByEmail(memberEmail)
                 .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
@@ -172,7 +181,7 @@ class FavoriteServiceTest {
 
         FavoriteDto favoriteDto = favoriteService.newFavoriteList(member, spotId, favoriteName);
 
-        Optional<Favorite> favorite = favoriteRepository.findOptionByNameAndMemberId(favoriteName,member.getId());
+        Optional<Favorite> favorite = favoriteRepository.findOptionByNameAndMemberId(favoriteName, member.getId());
 
         Optional<FavoriteSpot> result = favoriteSpotRepository.findOptionBySpotIdAndFavoriteId(spotId, favorite.get().getId());
 
@@ -183,7 +192,7 @@ class FavoriteServiceTest {
         //then
         assertThat(favorite).isNotEmpty();
         assertThat(result).isNotEmpty();
-        log.info("favoriteDto = {}",favoriteDto);
+        log.info("favoriteDto = {}", favoriteDto);
         assertThat(favoriteDto).isNotNull();
     }
 
@@ -191,9 +200,9 @@ class FavoriteServiceTest {
     //위시 리스트 삭제하기
     //Long favoriteId
     @Test
-    public void deleteFavoriteListTest() throws Exception{
+    public void deleteFavoriteListTest() throws Exception {
         //given
-        Long favoriteId =5l;
+        Long favoriteId = 5l;
 
         //when
         favoriteService.deleteFavoriteList(favoriteId);
@@ -202,21 +211,6 @@ class FavoriteServiceTest {
         //then
         assertThat(result).isEmpty();
     }
-
-    @Test
-    public void deleteFavoriteListTest1() throws Exception{
-        //given
-        Long favoriteId =6l;
-
-        //when
-        favoriteService.deleteFavoriteList(favoriteId);
-        Optional<Favorite> result = favoriteRepository.findOptionById(favoriteId);
-
-        //then
-        assertThat(result).isEmpty();
-    }
-
-
 
 
 

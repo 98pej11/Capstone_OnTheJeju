@@ -16,6 +16,8 @@ public interface FavoriteRepository extends JpaRepository<Favorite,Long> {
 
     Optional<Favorite> findOptionByNameAndMemberId(String favoriteName,Long memberId);
 
+    Optional<Favorite> findByName(String favoriteName);
+
     //@Query("select f from Favorite f where f.name= :favoriteName and f.member= : member")
     //Optional<Favorite> findOptionByFavoriteNameAndMember(@Param("favoriteName") String favoriteName, @Param("member") Member member);
 
