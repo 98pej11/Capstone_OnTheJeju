@@ -4,7 +4,9 @@ package capstone.jejuTourrecommend.web.login.jwt.service;
 import capstone.jejuTourrecommend.domain.Member;
 import capstone.jejuTourrecommend.repository.MemberRepository;
 import capstone.jejuTourrecommend.web.login.dto.AccountContext;
+import capstone.jejuTourrecommend.web.redis.CacheKey;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -25,7 +27,14 @@ public class UserDetailServiceImpl implements UserDetailsService {
     //private final UserRepository userRepository;
     private final MemberRepository memberRepository;
 
-    //loadUserByUsername 메서드에서 실제 db의 회원정보를 가져온다
+
+    /**
+     * loadUserByUsername 메서드에서 실제 db의 회원정보를 가져온다
+     * @param email
+     * @return
+     * value: 캐시 이름 , key : 해당 캐시 이름의 key
+     */
+    @Cacheable(value = "member", key = "#email", unless = "#result == null")
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 

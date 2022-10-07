@@ -1,13 +1,13 @@
 package capstone.jejuTourrecommend.web.login.jwt.provider;
 
 
-import capstone.jejuTourrecommend.web.login.dto.AccountContext;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,15 +24,14 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {//jwt토큰 제공자
 
-    private String secretKey = "webfirewood";
+    @Value("${jwt.secret}")
+    private String secretKey;
 
     private String refreshKey = "webfirewood1";
 
 
-    private final long tokenValidTime = 40 * 60 * 10000L; // 토큰 유효시간 400분
-    //private final long tokenValidTime = 1L;
-
-    private final long refreshTokenValidTime = 60 * 60 * 24 * 7 * 1000L;   // 1주
+    //private final long tokenValidTime = 40 * 60 * 10000L; // 토큰 유효시간 400분
+    //private final long refreshTokenValidTime = 60 * 60 * 24 * 7 * 1000L;   // 1주
 
 
     private final UserDetailsService userDetailsService;
@@ -60,7 +59,7 @@ public class JwtTokenProvider {//jwt토큰 제공자
         return Jwts.builder()
                 .setClaims(claims) // 정보 저장
                 .setIssuedAt(now) // 토큰 발행 시간 정보
-                .setExpiration(new Date(now.getTime() + tokenValidTime)) // set Expire Time
+                .setExpiration(new Date(now.getTime() + JwtExpirationEnums.ACCESS_TOKEN_EXPIRATION_TIME.getValue())) // set Expire Time
                 .signWith(SignatureAlgorithm.HS256, secretKey)  // 사용할 암호화 알고리즘과
                                                                 // signature 에 들어갈 secret 값 세팅
                 .compact();
@@ -78,7 +77,7 @@ public class JwtTokenProvider {//jwt토큰 제공자
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + refreshTokenValidTime))
+                .setExpiration(new Date(now.getTime() + JwtExpirationEnums.REFRESH_TOKEN_EXPIRATION_TIME.getValue()))
                 .signWith(SignatureAlgorithm.HS256, refreshKey)
                 .compact();
     }
