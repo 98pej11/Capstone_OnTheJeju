@@ -32,7 +32,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
      * loadUserByUsername 메서드에서 실제 db의 회원정보를 가져온다
      * @param email
      * @return
-     * value: 캐시 이름 , key : 해당 캐시 이름의 key
+     * value: 캐시 이름 , key : 해당 캐시 이름의 key //
      */
     @Cacheable(value = "member", key = "#email", unless = "#result == null")
     @Override
