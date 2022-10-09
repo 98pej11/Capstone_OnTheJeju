@@ -1,7 +1,5 @@
 # Capstone-JejuTourRecommend
 
-
-
 # :star2: 소개 영상및 설명
 
 <details>
@@ -23,6 +21,7 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 그러나 위에 코드는 지속적인 빠른 테스트를 h2디비를 사용하였습니다.
 
 전반적인 자세한 소개와 시현영상은 아래 링크로 들어가면 자세히 볼수 있습니다.
+
 </details>
 
 # :star2: 성능 개선
@@ -56,9 +55,10 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 ## Spring Data JPA
 
 1. deleteAll 메서드
-   spring Data JPA에서의 기본 deleteAll(entities) 메서드는 엔티티 하나마다 쿼리문을 날리데 되어서 속도가 많이 느립니다
-   이를 성능 개선 하기 위해 한번에 delete 연산을 하는 메서드를 만들어 해결하였습니다.
-   <img src="./images/bulkDeleteMemberSpotByMember.png?raw=true"  width="800" height="180"/>
+
+- spring Data JPA에서의 기본 deleteAll(entities) 메서드는 엔티티 하나마다 쿼리문을 날리데 되어서 속도가 많이 느립니다
+  이를 성능 개선 하기 위해 한번에 delete 연산을 하는 메서드를 만들어 해결하였습니다.
+  <img src="./images/bulkDeleteMemberSpotByMember.png?raw=true"  width="800" height="180"/>
 
 - 위에와 비슷하게 회원가입시 관광지와 연관되어 다수의 회원 정보를 업데이트를 해야하는 경우가 있었는데 처음에는 entity 생성마다
   spring data jpa의 save()메서들 사용하여 하나씩 저장하였는데 성능이 너무 나오지 않았다
@@ -97,35 +97,38 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 1. 관광지 위치 전략 패턴 적용
 
-전략 패턴: “상황내용을 포함하는(가지고 있는) 역할”과 “상황에 따른 다양한 전략을 포함하는 역할”을 나누어 전략들을 분리하는 패턴을 만들었습니다
-저는 동서남북의 클래스를 따로 분리하여 "위치 정보를 가지고 있는 역할"을 만들고,
-이러한 "위치 정보를 관리하는 역할" LocationStrategy 인터페이스를 만들어 객체들간의 협력 관계를 만들었습니다
+- 전략 패턴: “상황내용을 포함하는(가지고 있는) 역할”과 “상황에 따른 다양한 전략을 포함하는 역할”을 나누어 전략들을 분리하는 패턴을 만들었습니다
+  저는 동서남북의 클래스를 따로 분리하여 "위치 정보를 가지고 있는 역할"을 만들고,
+  이러한 "위치 정보를 관리하는 역할" LocationStrategy 인터페이스를 만들어 객체들간의 협력 관계를 만들었습니다
 
 <img  alt="메인페이지" src="./images/stragetyPatternPackage.png?raw=true"  >
 <img  alt="메인페이지" src="./images/stragetyPatternExample.png?raw=true"  >
 
-- 전략 패턴을 사용한 이유 현재 동서남북으로 위치정보를 분리하 것은 설문조사와 각 읍별 관광지의 개수를 고려하여 저희 임의의 적절한 지억을 나누었습니다.
+- 전략 패턴을 사용한 이유: 현재 동서남북으로 위치정보를 분리하 것은 설문조사와 각 읍별 관광지의 개수를 고려하여 저희 임의의 적절한 지억을 나누었습니다.
   이는 관광지가 새로 생길수 있어 지역별 관광지 개수 변경이 되는 우려가 있었습니다
   그래새 유지보수를 더 편리하게 하기 위해서 전략 패턴을 적용하였습니다.
 
 2. 메타 데이터 빌더 패턴 적용
-   빌더패턴: “많은 인스턴스를 관리하는 역할”과 “해당 인스턴스를 생성하는 역할”을 만들어 기존 구조를 세부적(구체적)으로 분리시키는 패턴
-   메타 데이터 인스턴스를 관리하는 역햘은 MetaDataBuilder 인터페이스에게 역할 주었고
-   상황별 메타데이터를 생성하는 역할은 MetaDataDirector 클래스에게 역할을 부여하여 적용하였습니다
+
+- 빌더패턴: “많은 인스턴스를 관리하는 역할”과 “해당 인스턴스를 생성하는 역할”을 만들어 기존 구조를 세부적(구체적)으로 분리시키는 패턴
+- 메타 데이터 인스턴스를 관리하는 역햘은 MetaDataBuilder 인터페이스에게 역할 주었고
+  상황별 메타데이터를 생성하는 역할은 MetaDataDirector 클래스에게 역할을 부여하여 적용하였습니다
 
 <img  alt="메인페이지" src="./images/builderPatternExample.png?raw=true">
 <img  alt="메인페이지" src="./images/metaDataPackage.png?raw=true">
 
-새로운 메타 데이터가 생길때마다 list와 map을 사용하여 일일히 정보블 반환하는 것에 번거로움이 있었습니다
-또한 메타데이터의 정보를 수정되는 경우도 다수 발생하는 것에 대비하여 위와 같이 빌더 패턴을 적용하였습니다
+- 새로운 메타 데이터가 생길때마다 list와 map을 사용하여 일일히 정보블 반환하는 것에 번거로움이 있었습니다
+  또한 메타데이터의 정보를 수정되는 경우도 다수 발생하는 것에 대비하여 위와 같이 빌더 패턴을 적용하였습니다
 
 ## Spring Security 개선
 
 1. Spring Security 구조 개선
-   스프링과 JPA를 학습한지 3주만에 프로젝트를 들어간 상황이었어서 Spring Security는 제대로 학습하지 못하 본 프로젝트에 들어갔습니다.
-   프로젝트가 종료이후 Spring Security를 학습하여 기존에 엉망이었던 코드 내용을 수정 작업을 진행하였습니다.
+
+- 스프링과 JPA를 학습한지 3주만에 프로젝트를 들어간 상황이었어서 Spring Security는 제대로 학습하지 못하 본 프로젝트에 들어갔습니다.
+  프로젝트가 종료이후 Spring Security를 학습하여 기존에 엉망이었던 코드 내용을 수정 작업을 진행하였습니다.
 
 2. redis 데이터베이스 추가
-   logoutToken는 redis 데이터베이스를 새로 적용하여 토큰 정보를 가져오는데 성능 개선을 했습니다.
+
+- logoutToken는 redis 데이터베이스를 새로 적용하여 토큰 정보를 가져오는데 성능 개선을 했습니다.
 
 </details>
