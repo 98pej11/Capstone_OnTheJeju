@@ -1,11 +1,14 @@
 # Capstone-JejuTourRecommend
 
-# 소개 영상및 설명
+# :star2: 소개 영상및 설명
 
+<details>
+<summary> 본문 확인 (👈 Click)</summary>
 아래 블로그를 통해 자세한 내용을 확인할 수 있습니다
 
 https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=222783108548&categoryNo=1&isAfterWrite=true&isMrblogPost=false&isHappyBeanLeverage=true&contentLength=5077&isWeeklyDiaryPopupEnabled=true
 
+</details>
 # 기술 스택
 
 기술 스택으로는 spring-boot, jpa, querydsl로 백엔드를 구성하였습니다.
@@ -18,8 +21,9 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 <img width="1920" alt="메인페이지" src="https://user-images.githubusercontent.com/23393574/174818259-60db8349-8c55-487e-97ee-817f240b6a56.png"> -->
 
-# 성능 개선
+# :star2: 성능 개선
 
+<details>
 ## Querydsl
 
 1. 묵시적 조인을 모두 명시적 조인으로 수정
@@ -48,15 +52,18 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 1. deleteAll 메서드
    spring Data JPA에서의 기본 deleteAll(entities) 메서드는 엔티티 하나마다 쿼리문을 날리데 되어서 속도가 많이 느립니다
    이를 성능 개선 하기 위해 한번에 delete 연산을 하는 메서드를 만들어 해결하였습니다.
-   ![alt text](https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/bulkDeleteMemberSpotByMember.png?raw=true)
+   <img  alt="메인페이지" src="./images/bulkDeleteMemberSpotByMember.png?raw=true">
 
 - 위에와 비슷하게 회원가입시 관광지와 연관되어 다수의 회원 정보를 업데이트를 해야하는 경우가 있었는데 처음에는 entity 생성마다
   spring data jpa의 save()메서들 사용하여 하나씩 저장하였는데 성능이 너무 나오지 않았다
   그래서 for loop로 하나씩 save하는 것 보단 List에 entity를 전부 담아서 한 번의 saveAll이 더 성능에 좋은 것을 알게 되어 saveAllAndFlush()를 사용하여 선능 튜닝을 해결하였습니다
-  ![alt text](https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/saveAllAndFlush.png?raw=true)
+  <img  alt="메인페이지" src="./images/saveAllAndFlush.png?raw=true">
+
+</details>
 
 # :star2: 프로젝트 종료 이후 혼자서 진행한 리팩토링
 
+<details>
 ## API 명세서 수정
 
 프로젝트가 완료, 종료 되고 주번 지인, 그리고 발표 영상 및 심사위원님들의 피드백을 듣고 사용자 측면에서 더 편리할수 있는 UI를 고려하여 기존 API 명세서 내용을 수정하였습니다
@@ -85,8 +92,8 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 저는 동서남북의 클래스를 따로 분리하여 "위치 정보를 가지고 있는 역할"을 만들고,
 이러한 "위치 정보를 관리하는 역할" LocationStrategy 인터페이스를 만들어 객체들간의 협력 관계를 만들었습니다
 
-<img width="1920" alt="메인페이지" src="https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/images/stragetyPatternPackage.png?raw=true">
-![alt text](./images/stragetyPatternExample.png?raw=true)
+<img  alt="메인페이지" src="./images/stragetyPatternPackage.png?raw=true">
+<img  alt="메인페이지" src="./images/stragetyPatternExample.png?raw=true">
 
 - 전략 패턴을 사용한 이유 현재 동서남북으로 위치정보를 분리하 것은 설문조사와 각 읍별 관광지의 개수를 고려하여 저희 임의의 적절한 지억을 나누었습니다.
   이는 관광지가 새로 생길수 있어 지역별 관광지 개수 변경이 되는 우려가 있었습니다
@@ -97,8 +104,8 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
    메타 데이터 인스턴스를 관리하는 역햘은 MetaDataBuilder 인터페이스에게 역할 주었고
    상황별 메타데이터를 생성하는 역할은 MetaDataDirector 클래스에게 역할을 부여하여 적용하였습니다
 
-![alt text](https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/builderPatternExample.png?raw=true)
-![alt text](https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/metaDataPackage.png?raw=true)
+<img  alt="메인페이지" src="./images/builderPatternExample.png?raw=true">
+<img  alt="메인페이지" src="./images/metaDataPackage.png?raw=true">
 
 새로운 메타 데이터가 생길때마다 list와 map을 사용하여 일일히 정보블 반환하는 것에 번거로움이 있었습니다
 또한 메타데이터의 정보를 수정되는 경우도 다수 발생하는 것에 대비하여 위와 같이 빌더 패턴을 적용하였습니다
@@ -111,3 +118,5 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 2. redis 데이터베이스 추가
    logoutToken는 redis 데이터베이스를 새로 적용하여 토큰 정보를 가져오는데 성능 개선을 했습니다.
+
+</details>
