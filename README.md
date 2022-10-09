@@ -40,7 +40,7 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 - JPQL에서 select의 exists 를 지원하지 않습니다 (select exists 문법)
   (단, where의 exists는 지원합니다)
   ->그래서 exists 를 우회하기 위해 count 쿼리를 사용합니다 -> 이때 문제가 생깁니다
-  아래가 문제점 예시임
+
   ￼
 
 - querydsl의 exist는 실제로 성능이슈가 있는 count()>0으로 실행됩니다
@@ -87,12 +87,12 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 3. 위시리시트페이지 사진 노출 1장 -> 3장
 
-- 위시리스트페이지에서 위시리스화면에서 사진을 대표 사진 한장으로 대체 하였으나 여러장으로 보여줄수 있게 하였습니다.
+- 기존에 위시리스트 페이지에서 위시리스트 화면의 사진을 대표 사진 한장으로 대체 하였으나 여러장으로 보여줄수 있게 하였습니다.
 
 ## 객체지항의 오해와 사실, 디자인 패턴 적용
 
 - “객체 지향의 사실과 오해” 책을 통해 객체 지향의 의미를 좀 더 이해할 수 있는 계기 되었습니다. 그래서 "객체 지향 언어인 자바"를 책에서 말한 역할, 책임, 협력의 관점으로 바라보며 설계할 수 있다는 것을 알게 되었습니다.
-  이후 객체 지향의 역할, 책임, 협력을 23가지 패턴으로 만든 “GOF의 23가지 디자인 패턴”도 학습하여 제가 한 프로젝트에 적용하려고 역할, 책임, 협력 관점에서 디자인 패턴을 학습하여 적용하였습니다
+  이후 "객체 지향의 역할, 책임, 협력"을 23가지 패턴으로 만든 “GOF의 23가지 디자인 패턴”도 학습하여 본 프로젝트에 적용하여 좀더 객체 지향적인 코드로 바꾸었습니다
 
 1. 관광지 위치 전략 패턴 적용
 
@@ -116,15 +116,15 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 <img  alt="메인페이지" src="./images/builderPatternExample.png?raw=true">
 <img  alt="메인페이지" src="./images/metaDataPackage.png?raw=true">
 
-- 새로운 메타 데이터가 생길때마다 list와 map을 사용하여 일일히 정보블 반환하는 것에 번거로움이 있었습니다
+- 빌더 패턴을 사용한 이유: 새로운 메타 데이터가 생길때마다 list와 map을 사용하여 일일히 정보블 반환하는 것에 번거로움이 있었습니다
   또한 메타데이터의 정보를 수정되는 경우도 다수 발생하는 것에 대비하여 위와 같이 빌더 패턴을 적용하였습니다
 
 ## Spring Security 개선
 
 1. Spring Security 구조 개선
 
-- 스프링과 JPA를 학습한지 3주만에 프로젝트를 들어간 상황이었어서 Spring Security는 제대로 학습하지 못하 본 프로젝트에 들어갔습니다.
-  프로젝트가 종료이후 Spring Security를 학습하여 기존에 엉망이었던 코드 내용을 수정 작업을 진행하였습니다.
+- 스프링과 JPA를 학습한지 3주만에 프로젝트를 들어간 상황 이었기에 Spring Security는 제대로 모른 상태로 본 프로젝트에 들어갔습니다.
+  프로젝트가 종료이후 Spring Security를 학습하여 기존에 엉망이었던 코드 내용들을 수정 작업하였습니다.
 
 2. redis 데이터베이스 추가
 
