@@ -85,7 +85,7 @@ count는 전체 다 훑어보는 것으로 성능 저하 문제가 생깁니다
 저는 동서남북의 클래스를 따로 분리하여 "위치 정보를 가지고 있는 역할"을 만들고,
 이러한 "위치 정보를 관리하는 역할" LocationStrategy 인터페이스를 만들어 객체들간의 협력 관계를 만들었습니다
 
-![alt text](https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/stragetyPatternPackage.png?raw=true)
+<img width="1920" alt="메인페이지" src="https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/stragetyPatternPackage.png?raw=true">
 ![alt text](https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/stragetyPatternExample.png?raw=true)
 
 - 전략 패턴을 사용한 이유 현재 동서남북으로 위치정보를 분리하 것은 설문조사와 각 읍별 관광지의 개수를 고려하여 저희 임의의 적절한 지억을 나누었습니다.
