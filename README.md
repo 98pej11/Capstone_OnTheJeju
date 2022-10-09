@@ -86,7 +86,7 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 이러한 "위치 정보를 관리하는 역할" LocationStrategy 인터페이스를 만들어 객체들간의 협력 관계를 만들었습니다
 
 <img width="1920" alt="메인페이지" src="https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/images/stragetyPatternPackage.png?raw=true">
-![alt text](https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/images/stragetyPatternExample.png?raw=true)
+![alt text](./images/stragetyPatternExample.png?raw=true)
 
 - 전략 패턴을 사용한 이유 현재 동서남북으로 위치정보를 분리하 것은 설문조사와 각 읍별 관광지의 개수를 고려하여 저희 임의의 적절한 지억을 나누었습니다.
   이는 관광지가 새로 생길수 있어 지역별 관광지 개수 변경이 되는 우려가 있었습니다
@@ -109,5 +109,5 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
    스프링과 JPA를 학습한지 3주만에 프로젝트를 들어간 상황이었어서 Spring Security는 제대로 학습하지 못하 본 프로젝트에 들어갔습니다.
    프로젝트가 종료이후 Spring Security를 학습하여 기존에 엉망이었던 코드 내용을 수정 작업을 진행하였습니다.
 
-2. redis 추가
+2. redis 데이터베이스 추가
    logoutToken는 redis 데이터베이스를 새로 적용하여 토큰 정보를 가져오는데 성능 개선을 했습니다.
