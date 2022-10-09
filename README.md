@@ -1,6 +1,6 @@
 # :runner: Capstone-JejuTourRecommend
 
-# :star2: 소개 영상및 설명
+# :star2: 소개 영상 및 설명
 
 <details>
   
@@ -75,7 +75,7 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 ## API 명세서 수정
 
-프로젝트가 완료, 종료 되고 주변 지인, 그리고 발표 영상 및 심사위원님들의 피드백을 듣고 사용자 측면에서 더 편리한 UI를 고려하여 기존 API 명세서 내용을 수정하였습니다
+본 프로젝트가 종료 되고 주변 지인 그리고 발표 영상 평가 및 심사위원님들의 피드백을 듣고 사용자 측면에서 더 편리한 UI를 고려하여 기존 API 명세서 내용을 수정하였습니다
 
 1. 메인페이지에서 사용가 찜했던 관광지도 표시할수 있게 수정
 
