@@ -5,25 +5,31 @@
 # :star2: 소개 영상및 설명
 
 <details>
+  
 <summary> 본문 확인 (👈 Click)</summary>
 아래 블로그를 통해 자세한 내용을 확인할 수 있습니다
 
 https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=222783108548&categoryNo=1&isAfterWrite=true&isMrblogPost=false&isHappyBeanLeverage=true&contentLength=5077&isWeeklyDiaryPopupEnabled=true
 
 </details>
+
 # 기술 스택
 
+<details>
+
+<summary> 본문 확인 (👈 Click)</summary>
 기술 스택으로는 spring-boot, jpa, querydsl로 백엔드를 구성하였습니다.
 서버배포는 ec2 로 하였으며, 데이터베이스는 mysql로 진행하였습니다.
 그러나 위에 코드는 지속적인 빠른 테스트를 h2디비를 사용하였습니다.
 
 전반적인 자세한 소개와 시현영상은 아래 링크로 들어가면 자세히 볼수 있습니다.
-
+</details>
 
 # :star2: 성능 개선
 
 <details>
-
+<summary> 본문 확인 (👈 Click)</summary>
+  
 ## Querydsl
 
 1. 묵시적 조인을 모두 명시적 조인으로 수정
@@ -57,13 +63,15 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 - 위에와 비슷하게 회원가입시 관광지와 연관되어 다수의 회원 정보를 업데이트를 해야하는 경우가 있었는데 처음에는 entity 생성마다
   spring data jpa의 save()메서들 사용하여 하나씩 저장하였는데 성능이 너무 나오지 않았다
   그래서 for loop로 하나씩 save하는 것 보단 List에 entity를 전부 담아서 한 번의 saveAll이 더 성능에 좋은 것을 알게 되어 saveAllAndFlush()를 사용하여 선능 튜닝을 해결하였습니다
-  <img  alt="메인페이지" src="./images/saveAllAndFlush.png?raw=true">
+  <img  alt="메인페이지" src="./images/saveAllAndFlush.png?raw=true"  width="1000" height="250"/>
 
 </details>
 
 # :star2: 프로젝트 종료 이후 혼자서 진행한 리팩토링
 
 <details>
+
+  <summary> 본문 확인 (👈 Click)</summary>
 
 ## API 명세서 수정
 
@@ -93,8 +101,8 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 저는 동서남북의 클래스를 따로 분리하여 "위치 정보를 가지고 있는 역할"을 만들고,
 이러한 "위치 정보를 관리하는 역할" LocationStrategy 인터페이스를 만들어 객체들간의 협력 관계를 만들었습니다
 
-<img  alt="메인페이지" src="./images/stragetyPatternPackage.png?raw=true">
-<img  alt="메인페이지" src="./images/stragetyPatternExample.png?raw=true">
+<img  alt="메인페이지" src="./images/stragetyPatternPackage.png?raw=true"  >
+<img  alt="메인페이지" src="./images/stragetyPatternExample.png?raw=true"  >
 
 - 전략 패턴을 사용한 이유 현재 동서남북으로 위치정보를 분리하 것은 설문조사와 각 읍별 관광지의 개수를 고려하여 저희 임의의 적절한 지억을 나누었습니다.
   이는 관광지가 새로 생길수 있어 지역별 관광지 개수 변경이 되는 우려가 있었습니다
