@@ -13,7 +13,7 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 </details>
 
-# 기술 스택
+# :star2: 기술 스택
 
 <details>
 
