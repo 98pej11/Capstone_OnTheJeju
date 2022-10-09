@@ -1,5 +1,7 @@
 # Capstone-JejuTourRecommend
 
+
+
 # :star2: 소개 영상및 설명
 
 <details>
@@ -17,13 +19,11 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 전반적인 자세한 소개와 시현영상은 아래 링크로 들어가면 자세히 볼수 있습니다.
 
-<!-- # <메인 페이지>
-
-<img width="1920" alt="메인페이지" src="https://user-images.githubusercontent.com/23393574/174818259-60db8349-8c55-487e-97ee-817f240b6a56.png"> -->
 
 # :star2: 성능 개선
 
 <details>
+
 ## Querydsl
 
 1. 묵시적 조인을 모두 명시적 조인으로 수정
@@ -52,7 +52,7 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 1. deleteAll 메서드
    spring Data JPA에서의 기본 deleteAll(entities) 메서드는 엔티티 하나마다 쿼리문을 날리데 되어서 속도가 많이 느립니다
    이를 성능 개선 하기 위해 한번에 delete 연산을 하는 메서드를 만들어 해결하였습니다.
-   <img  alt="메인페이지" src="./images/bulkDeleteMemberSpotByMember.png?raw=true">
+   <img src="./images/bulkDeleteMemberSpotByMember.png?raw=true"  width="800" height="180"/>
 
 - 위에와 비슷하게 회원가입시 관광지와 연관되어 다수의 회원 정보를 업데이트를 해야하는 경우가 있었는데 처음에는 entity 생성마다
   spring data jpa의 save()메서들 사용하여 하나씩 저장하였는데 성능이 너무 나오지 않았다
@@ -64,6 +64,7 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 # :star2: 프로젝트 종료 이후 혼자서 진행한 리팩토링
 
 <details>
+
 ## API 명세서 수정
 
 프로젝트가 완료, 종료 되고 주번 지인, 그리고 발표 영상 및 심사위원님들의 피드백을 듣고 사용자 측면에서 더 편리할수 있는 UI를 고려하여 기존 API 명세서 내용을 수정하였습니다
