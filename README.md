@@ -28,15 +28,15 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 2. exit 함수 수정
 
-JPQL에서 select의 exists 를 지원하지 않습니다 (select exists 문법)
-(단, where의 exists는 지원합니다)
-->그래서 exists 를 우회하기 위해 count 쿼리를 사용합니다 -> 이때 문제가 생깁니다
-아래가 문제점 예시임
-￼
+- JPQL에서 select의 exists 를 지원하지 않습니다 (select exists 문법)
+  (단, where의 exists는 지원합니다)
+  ->그래서 exists 를 우회하기 위해 count 쿼리를 사용합니다 -> 이때 문제가 생깁니다
+  아래가 문제점 예시임
+  ￼
 
-querydsl의 exist는 실제로 성능이슈가 있는 count()>0으로 실행됩니다
-(Querydsl에서 기본적으로 지원하는 exists 를 보면 성능상 이슈가 있는 count 쿼리 방식을 사용했습니다)
-count는 전체 다 훑어보는 것으로 성능 저하 문제가 생깁니다
+- querydsl의 exist는 실제로 성능이슈가 있는 count()>0으로 실행됩니다
+  (Querydsl에서 기본적으로 지원하는 exists 를 보면 성능상 이슈가 있는 count 쿼리 방식을 사용했습니다)
+  count는 전체 다 훑어보는 것으로 성능 저하 문제가 생깁니다
 
 - 해결방법
   limit(1)을 사용하여 해결하였습니다
@@ -85,8 +85,8 @@ count는 전체 다 훑어보는 것으로 성능 저하 문제가 생깁니다
 저는 동서남북의 클래스를 따로 분리하여 "위치 정보를 가지고 있는 역할"을 만들고,
 이러한 "위치 정보를 관리하는 역할" LocationStrategy 인터페이스를 만들어 객체들간의 협력 관계를 만들었습니다
 
-<img width="1920" alt="메인페이지" src="https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/stragetyPatternPackage.png?raw=true">
-![alt text](https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/stragetyPatternExample.png?raw=true)
+<img width="1920" alt="메인페이지" src="https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/images/stragetyPatternPackage.png?raw=true">
+![alt text](https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/images/stragetyPatternExample.png?raw=true)
 
 - 전략 패턴을 사용한 이유 현재 동서남북으로 위치정보를 분리하 것은 설문조사와 각 읍별 관광지의 개수를 고려하여 저희 임의의 적절한 지억을 나누었습니다.
   이는 관광지가 새로 생길수 있어 지역별 관광지 개수 변경이 되는 우려가 있었습니다
