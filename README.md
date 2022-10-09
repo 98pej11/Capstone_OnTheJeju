@@ -1,4 +1,4 @@
-# Capstone-JejuTourRecommend
+# :runner: Capstone-JejuTourRecommend
 
 # :star2: 소개 영상및 설명
 
