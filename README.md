@@ -29,24 +29,36 @@ JejuTourRecommend는 테스트용 코드입니다
 
 전반적인 자세한 소개와 시현영상은 아래 링크로 들어가면 자세히 볼수 있습니다.
 
-<소개 영상 링크>
+#<소개 영상 링크>
 
 https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=222783108548&categoryNo=1&isAfterWrite=true&isMrblogPost=false&isHappyBeanLeverage=true&contentLength=5077&isWeeklyDiaryPopupEnabled=true
 
 
 
-<메인 페이지>
+#<메인 페이지>
 
 <img width="1920" alt="메인페이지" src="https://user-images.githubusercontent.com/23393574/174818259-60db8349-8c55-487e-97ee-817f240b6a56.png">
 
 
-<테이블 구성도>
+#<테이블 구성도>
 
 <img width="805" alt="테이블 구성도" src="https://user-images.githubusercontent.com/23393574/174819516-2381636f-06c8-40db-90ef-9db7efeb19fd.png">
 
 
+# 성능 개선
+
+##Querydsl
+묵지적 조인을 모두 명시적 조인으로 수정
 
 
+
+
+
+
+#:star2: 프로젝트 종료 이후 혼자서 진행한 리팩토링
+
+##Querydsl
+묵지적 조인 
 
 
 
