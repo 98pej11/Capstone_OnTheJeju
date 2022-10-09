@@ -129,12 +129,12 @@ public class LoginService {
 
         for (int i = 0; i < size; i++) {
             memberSpots.add(new MemberSpot(0d, member, spotList.get(i)));
-            //Todo: save를 스프링 데이터 jpa가 제공해주는 saveAll로 고침
-            //memberSpotRepository.save(memberSpots[i]);
+
             log.info("memberSpots.toArray() = {}", memberSpots.toArray());
         }
-
+        //Todo: save를 스프링 데이터 jpa가 제공해주는 saveAll로 고침
         memberSpotRepository.saveAllAndFlush(memberSpots);
+
 
         //em.flush();
         em.clear();

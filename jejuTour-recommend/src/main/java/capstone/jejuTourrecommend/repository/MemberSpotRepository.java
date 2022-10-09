@@ -19,6 +19,7 @@ public interface MemberSpotRepository extends JpaRepository<MemberSpot,Long> {
      @Query("delete from MemberSpot ms where ms.member = :member")
      int bulkDeleteMemberSpotByMember(@Param("member") Member member);
 
+
 }
 
 

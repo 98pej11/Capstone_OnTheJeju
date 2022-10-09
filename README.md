@@ -1,73 +1,113 @@
 # Capstone-JejuTourRecommend
 
+# 소개 영상및 설명
 
-이 본 프로젝트는 사용자 맞춤 제주도 관광지 추천 플랫폼입니다
+아래 블로그를 통해 자세한 내용을 확인할 수 있습니다
 
-제주도 관광시, 주요 평가요소 4가지를 추려 조사하였고, 그에 따라 관광지 리스트를 보여줍니다
+https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=222783108548&categoryNo=1&isAfterWrite=true&isMrblogPost=false&isHappyBeanLeverage=true&contentLength=5077&isWeeklyDiaryPopupEnabled=true
 
-관광지 선호도 판단은 네이버와 카카오 댓글들 기반으로 ai를 적용하였으며 
-관광지 상세 페이지에 뷰, 가격, 시설, 카페및주변시설 로 카테고리를 나누어 수치화 하여 보여줍니다
+# 기술 스택
 
-저희가 만든 ai로 사용자에게 4가지 맞춤 서비스를 제공합니다.
-
-첫번째로, 메인 페이지에서 제주도를 동서남북으로 나눠, 검색할 수 있도록 하였으며 뷰, 가격 , 주변시설, 서비스 총 4가지 카테고리에 맞춰 수치화된 점수 기반으로 관광지를 순위대로 보여줍니다
-
-2번째는 만약 사용자가 카테고리별 세부 설정을 하고 싶으면, 우선순위 버튼으로 각 카테고리에 가중치를 주어, 이에 따라 관광지 순위를 보여줍니다.
-
-3번째는 관광지 상세페이지에서 관광지의 상세점수를 볼 수 있게 하였습니다
-
-4번째는 찜하기 기능으로, 사용자 만의 관광지 리스트를 만들었을 경우, 해당 관광지의 최단 경로를 보여줍니다. 
-또한 사용자의 각 위시리스트를 분석하여, 사용자 성향을 파악해 여행경로 주변 관광지를 추천해줍니다.
-
-실제 구현 코드는 jejuTour-recommend를 보시며 됩니다
-JejuTourRecommend는 테스트용 코드입니다
- 
 기술 스택으로는 spring-boot, jpa, querydsl로 백엔드를 구성하였습니다.
 서버배포는 ec2 로 하였으며, 데이터베이스는 mysql로 진행하였습니다.
 그러나 위에 코드는 지속적인 빠른 테스트를 h2디비를 사용하였습니다.
 
-
 전반적인 자세한 소개와 시현영상은 아래 링크로 들어가면 자세히 볼수 있습니다.
 
-#<소개 영상 링크>
+<!-- # <메인 페이지>
 
-https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=222783108548&categoryNo=1&isAfterWrite=true&isMrblogPost=false&isHappyBeanLeverage=true&contentLength=5077&isWeeklyDiaryPopupEnabled=true
-
-
-
-#<메인 페이지>
-
-<img width="1920" alt="메인페이지" src="https://user-images.githubusercontent.com/23393574/174818259-60db8349-8c55-487e-97ee-817f240b6a56.png">
-
-
-#<테이블 구성도>
-
-<img width="805" alt="테이블 구성도" src="https://user-images.githubusercontent.com/23393574/174819516-2381636f-06c8-40db-90ef-9db7efeb19fd.png">
-
+<img width="1920" alt="메인페이지" src="https://user-images.githubusercontent.com/23393574/174818259-60db8349-8c55-487e-97ee-817f240b6a56.png"> -->
 
 # 성능 개선
 
-##Querydsl
-묵지적 조인을 모두 명시적 조인으로 수정
+## Querydsl
 
+1. 묵시적 조인을 모두 명시적 조인으로 수정
 
+- 기존에 묵시적 조인으로 상세한 조인 명령을 하지 않았더니 원하던 InnerJoin으로 쿼리문이 나가지 않고 Cross join으로 쿼리문이 나가는 것을 확인하여 수정하였습니다
 
+2. exit 함수 수정
 
+JPQL에서 select의 exists 를 지원하지 않습니다 (select exists 문법)
+(단, where의 exists는 지원합니다)
+->그래서 exists 를 우회하기 위해 count 쿼리를 사용합니다 -> 이때 문제가 생깁니다
+아래가 문제점 예시임
+￼
 
+querydsl의 exist는 실제로 성능이슈가 있는 count()>0으로 실행됩니다
+(Querydsl에서 기본적으로 지원하는 exists 를 보면 성능상 이슈가 있는 count 쿼리 방식을 사용했습니다)
+count는 전체 다 훑어보는 것으로 성능 저하 문제가 생깁니다
 
-#:star2: 프로젝트 종료 이후 혼자서 진행한 리팩토링
+- 해결방법
+  limit(1)을 사용하여 해결하였습니다
+  jpql에서는 from없이는 쿼리가 실행되지 않아서 limit(1)을 사용하였습니다
+  limit(1)로 조회제한을 한여 실행하였습니다 (= fetchFirst())
 
-##Querydsl
-묵지적 조인 
+## Spring Data JPA
 
+1. deleteAll 메서드
+   spring Data JPA에서의 기본 deleteAll(entities) 메서드는 엔티티 하나마다 쿼리문을 날리데 되어서 속도가 많이 느립니다
+   이를 성능 개선 하기 위해 한번에 delete 연산을 하는 메서드를 만들어 해결하였습니다.
+   ![alt text](https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/bulkDeleteMemberSpotByMember.png?raw=true)
 
+- 위에와 비슷하게 회원가입시 관광지와 연관되어 다수의 회원 정보를 업데이트를 해야하는 경우가 있었는데 처음에는 entity 생성마다
+  spring data jpa의 save()메서들 사용하여 하나씩 저장하였는데 성능이 너무 나오지 않았다
+  그래서 for loop로 하나씩 save하는 것 보단 List에 entity를 전부 담아서 한 번의 saveAll이 더 성능에 좋은 것을 알게 되어 saveAllAndFlush()를 사용하여 선능 튜닝을 해결하였습니다
+  ![alt text](https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/saveAllAndFlush.png?raw=true)
 
+# :star2: 프로젝트 종료 이후 혼자서 진행한 리팩토링
 
+## API 명세서 수정
 
+프로젝트가 완료, 종료 되고 주번 지인, 그리고 발표 영상 및 심사위원님들의 피드백을 듣고 사용자 측면에서 더 편리할수 있는 UI를 고려하여 기존 API 명세서 내용을 수정하였습니다
 
+1. 메인페이지에서 사용가 찜했던 관광지도 표시할수 있게 수정
 
+- 사용자가 기존에 위시리스트에 관광지를 추가했는지 알수있게 표시하도록 하였습니다
 
+2. 메인 페이지에서 사진 노출 1장 -> 3장
 
+- 기존 메인 페이지에서 관광지별 사진에 마우스 커서를 갖다대면, 설명이 나오게 했습니다. 거기에서 추가로 사진 한장이 아닌 여러장을 볼수 있게 api를 수정하였습니다.
 
+3. 위시리시트페이지 사진 노출 1장 -> 3장
 
+- 위시리스트페이지에서 위시리스화면에서 사진을 대표 사진 한장으로 대체 하였으나 여러장으로 보여줄수 있게 하였습니다.
 
+## 객체지항의 오해와 사실, 디자인 패턴 적용
+
+- 객체지향의 오해와 사실의 책을 일게 되어 객채들 간의 협력,
+  “객체 지향의 사실과 오해”이며, 이 책을 통해 객체 지향의 의미를 좀 더 이해할 수 있는 계기 되었습니다. 그래서 객체 지향 언어인 자바언어를 책에서 말한 역할, 책임, 협력의 관점으로 바라보며 설계할 수 있다는 것을 알게 되었습니다.
+  이후 객체 지향의 역할, 책임, 협력을 23가지 패턴으로 만든 “GOF의 23가지 디자인 패턴”을 제가 한 프로젝트에 적용하려고 역할, 책임, 협력 관점에서 디자인 패턴을 학습하여 적용하였습니다
+
+1. 관광지 위치 전략 패턴 적용
+
+전략 패턴: “상황내용을 포함하는(가지고 있는) 역할”과 “상황에 따른 다양한 전략을 포함하는 역할”을 나누어 전략들을 분리하는 패턴을 만들었습니다
+저는 동서남북의 클래스를 따로 분리하여 "위치 정보를 가지고 있는 역할"을 만들고,
+이러한 "위치 정보를 관리하는 역할" LocationStrategy 인터페이스를 만들어 객체들간의 협력 관계를 만들었습니다
+
+![alt text](https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/stragetyPatternPackage.png?raw=true)
+![alt text](https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/stragetyPatternExample.png?raw=true)
+
+- 전략 패턴을 사용한 이유 현재 동서남북으로 위치정보를 분리하 것은 설문조사와 각 읍별 관광지의 개수를 고려하여 저희 임의의 적절한 지억을 나누었습니다.
+  이는 관광지가 새로 생길수 있어 지역별 관광지 개수 변경이 되는 우려가 있었습니다
+  그래새 유지보수를 더 편리하게 하기 위해서 전략 패턴을 적용하였습니다.
+
+2. 메타 데이터 빌더 패턴 적용
+   빌더패턴: “많은 인스턴스를 관리하는 역할”과 “해당 인스턴스를 생성하는 역할”을 만들어 기존 구조를 세부적(구체적)으로 분리시키는 패턴
+   메타 데이터 인스턴스를 관리하는 역햘은 MetaDataBuilder 인터페이스에게 역할 주었고
+   상황별 메타데이터를 생성하는 역할은 MetaDataDirector 클래스에게 역할을 부여하여 적용하였습니다
+
+![alt text](https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/builderPatternExample.png?raw=true)
+![alt text](https://github.com/suheonjoo/Capstone-JejuTourRecommend/blob/main/metaDataPackage.png?raw=true)
+
+새로운 메타 데이터가 생길때마다 list와 map을 사용하여 일일히 정보블 반환하는 것에 번거로움이 있었습니다
+또한 메타데이터의 정보를 수정되는 경우도 다수 발생하는 것에 대비하여 위와 같이 빌더 패턴을 적용하였습니다
+
+## Spring Security 개선
+
+1. Spring Security 구조 개선
+   스프링과 JPA를 학습한지 3주만에 프로젝트를 들어간 상황이었어서 Spring Security는 제대로 학습하지 못하 본 프로젝트에 들어갔습니다.
+   프로젝트가 종료이후 Spring Security를 학습하여 기존에 엉망이었던 코드 내용을 수정 작업을 진행하였습니다.
+
+2. redis 추가
+   logoutToken는 redis 데이터베이스를 새로 적용하여 토큰 정보를 가져오는데 성능 개선을 했습니다.
