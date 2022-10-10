@@ -110,7 +110,8 @@ class FavoriteServiceTest {
 
         Spot spot = spotRepository.findOptionByName("관광지 0").orElseThrow(() -> new UserException("해당 이름의 관광지가 없습니다."));
 
-        Favorite favorite = favoriteRepository.findByName("5일차").orElseThrow(() -> new UserException("해당 이름의 위시리스트가 없습니다."));
+        Member member = memberRepository.findOptionByEmail("em@naver.com").orElseThrow(() -> new UserException("해당 이름의 회원이 없습니다."));
+        Favorite favorite = favoriteRepository.findOptionByNameAndMemberId("5일차", member.getId()).orElseThrow(() -> new UserException("해당 이름의 위시리스트가 없습니다."));
 
         //given
         //String memberEmail = "em@naver.com";
@@ -169,6 +170,7 @@ class FavoriteServiceTest {
     public void newFavoriteListTest() throws Exception {
         //given
         String memberEmail = "em@naver.com";
+
         Spot spot = spotRepository.findOptionByName("관광지 14").orElseThrow(() -> new UserException("해당 이름의 관광지가 없습니다."));
         Long spotId = spot.getId(); //spots[14]);  //15번임
 
@@ -202,7 +204,10 @@ class FavoriteServiceTest {
     @Test
     public void deleteFavoriteListTest() throws Exception {
         //given
-        Long favoriteId = 5l;
+        Member member = memberRepository.findOptionByEmail("em@naver.com").orElseThrow(() -> new UserException("해당 이름의 회원이 없습니다."));
+        Favorite favorite = favoriteRepository.findOptionByNameAndMemberId("5일차", member.getId()).orElseThrow(() -> new UserException("해당 이름의 위시리스트가 없습니다."));
+
+        Long favoriteId = favorite.getId();
 
         //when
         favoriteService.deleteFavoriteList(favoriteId);
