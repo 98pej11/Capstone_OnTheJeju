@@ -130,4 +130,9 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 - logoutToken는 redis 데이터베이스를 새로 적용하여 토큰 정보를 가져오는데 성능 개선을 했습니다.
 
+## CI/CD
+
+- 본 프로젝트 진행할 당시, 배포를 담당하지 않았습니다. 이후 프로젝트가 종료우 제가 따로 AWS, Deploy, GitHubAction으로 자동 배포가 되도록 하였습니다.
+
+
 </details>
