@@ -11,7 +11,7 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 </details>
 
-# :star2: 기술 스택
+# :package: 기술 스택
 
 <details>
 
@@ -24,7 +24,7 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 </details>
 
-# :star2: 성능 개선
+# :zap: 성능 개선
 
 <details>
 <summary> 본문 확인 (👈 Click)</summary>
@@ -67,13 +67,13 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 </details>
 
-# :star2: 프로젝트 종료 이후 혼자서 진행한 리팩토링
+# :recycle: 프로젝트 종료 이후 혼자서 진행한 리팩토링
 
 <details>
 
   <summary> 본문 확인 (👈 Click)</summary>
 
-## API 명세서 수정
+## 1. API 명세서 수정
 
 본 프로젝트가 종료 되고 주변 지인 그리고 발표 영상 평가 및 심사위원님들의 피드백을 듣고 사용자 측면에서 더 편리한 UI를 고려하여 기존 API 명세서 내용을 수정하였습니다
 
@@ -89,7 +89,7 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 - 기존에 위시리스트 페이지에서 위시리스트 화면의 사진을 대표 사진 한장으로 대체 하였으나 여러장으로 보여줄수 있게 하였습니다.
 
-## 객체지항의 오해와 사실, 디자인 패턴 적용
+## 2. 객체지항의 오해와 사실, 디자인 패턴 적용
 
 - “객체 지향의 사실과 오해” 책을 통해 객체 지향의 의미를 좀 더 이해할 수 있는 계기 되었습니다. 그래서 "객체 지향 언어인 자바"를 책에서 말한 역할, 책임, 협력의 관점으로 바라보며 설계할 수 있다는 것을 알게 되었습니다.
   이후 "객체 지향의 역할, 책임, 협력"을 23가지 패턴으로 만든 “GOF의 23가지 디자인 패턴”도 학습하여 본 프로젝트에 적용하여 좀더 객체 지향적인 코드로 바꾸었습니다
@@ -119,7 +119,7 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 - 빌더 패턴을 사용한 이유: 새로운 메타 데이터가 생길때마다 list와 map을 사용하여 일일히 정보블 반환하는 것에 번거로움이 있었습니다
   또한 메타데이터의 정보를 수정되는 경우도 다수 발생하는 것에 대비하여 위와 같이 빌더 패턴을 적용하였습니다
 
-## Spring Security 개선
+## 3. Spring Security 개선
 
 1. Spring Security 구조 개선
 
@@ -130,9 +130,16 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 - logoutToken는 redis 데이터베이스를 새로 적용하여 토큰 정보를 가져오는데 성능 개선을 했습니다.
 
-## CI/CD
+## 4. CI/CD
 
 - 본 프로젝트 진행할 당시, 배포를 담당하지 않았습니다. 이후 프로젝트가 종료우 제가 따로 AWS, Deploy, GitHubAction으로 자동 배포가 되도록 하였습니다.
+
+## 5. DDD 설계 (진행중)
+
+- 이전에 프로젝트는 mvc 패턴으로 repository, service, controller 만으로 나누어 설계를 하였습니다. 그런데 프로젝트가 요구사항이 많아질수록 
+ repository, service, controller 들이 각각 점점 커지게 되면서 원하는 클래스를 찾기가 힘들었습니다. 즉, 유지 보수가 어려웠습니다. 그래서 이에 대한 해결방법을 
+알아보던중 도메인 주도 설계(DDD)를 알게 되어 적용해 보는 중입니다. 
+
 
 
 </details>

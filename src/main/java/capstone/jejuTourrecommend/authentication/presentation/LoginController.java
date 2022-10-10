@@ -1,7 +1,7 @@
 package capstone.jejuTourrecommend.authentication.presentation;
 
 import capstone.jejuTourrecommend.authentication.domain.service.LoginService;
-import capstone.jejuTourrecommend.domain.Member;
+import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.common.GlobalDto;
 import capstone.jejuTourrecommend.authentication.LoginUser;
 import capstone.jejuTourrecommend.authentication.presentation.dto.response.JoinDto;

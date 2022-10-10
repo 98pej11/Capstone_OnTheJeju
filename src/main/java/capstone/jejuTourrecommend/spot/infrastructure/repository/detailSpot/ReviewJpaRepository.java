@@ -1,12 +1,12 @@
 package capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot;
 
-import capstone.jejuTourrecommend.domain.Review;
-import capstone.jejuTourrecommend.domain.Spot;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.Review;
+import capstone.jejuTourrecommend.spot.domain.Spot;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ReviewJpaQuerydslRepository extends JpaRepository<Review,Long>, ReviewQuerydslRepository {
+public interface ReviewJpaRepository extends JpaRepository<Review,Long> {
 
     //List<Review> findBySpot(Long spotId); 이거 안됨
 

@@ -1,14 +1,17 @@
 package capstone.jejuTourrecommend.favorite.infrastructure.repository;
 
 
-import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
+import capstone.jejuTourrecommend.favorite.domain.FavoriteSpot;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
+import capstone.jejuTourrecommend.domain.QFavoriteSpot;
+import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.favorite.domain.dto.FavoriteListDto;
 import capstone.jejuTourrecommend.favorite.domain.dto.SpotListDtoByFavoriteSpot;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.PictureDetailDto;
-import capstone.jejuTourrecommend.web.pageDto.routePage.QRouteSpotListDto;
-import capstone.jejuTourrecommend.route.presentation.dto.request.RouteForm;
+import capstone.jejuTourrecommend.route.domain.dto.QRouteSpotListDto;
 import capstone.jejuTourrecommend.route.domain.dto.RouteSpotListDto;
+import capstone.jejuTourrecommend.route.presentation.dto.request.RouteForm;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.PictureDetailDto;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;

@@ -1,7 +1,15 @@
 package capstone.jejuTourrecommend.domain.Service;
 
+import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.favorite.domain.Favorite;
+import capstone.jejuTourrecommend.favorite.domain.FavoriteSpot;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.Picture;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.Review;
+import capstone.jejuTourrecommend.spot.domain.Score;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
+import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListService;
-import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
 import capstone.jejuTourrecommend.spot.presentation.request.MainPageForm;
 import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
@@ -99,7 +107,7 @@ class SpotListServiceTest {
 
     }
 
-    public Score createScore(Score[] scores,int i){
+    public Score createScore(Score[] scores, int i){
         Random random = new Random();
         scores[i]= new Score(
                 (i+1)*10d,(i+2)*10d,

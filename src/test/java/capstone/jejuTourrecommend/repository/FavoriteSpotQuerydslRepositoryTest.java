@@ -1,7 +1,9 @@
 package capstone.jejuTourrecommend.repository;
 
-import capstone.jejuTourrecommend.domain.*;
+import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
+import capstone.jejuTourrecommend.favorite.domain.Favorite;
+import capstone.jejuTourrecommend.favorite.domain.FavoriteSpot;
 import capstone.jejuTourrecommend.favorite.domain.dto.FavoriteListDto;
 import capstone.jejuTourrecommend.favorite.domain.dto.SpotListDtoByFavoriteSpot;
 import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteJpaRepository;
@@ -9,6 +11,12 @@ import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpo
 import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpotQuerydslRepository;
 import capstone.jejuTourrecommend.route.presentation.dto.request.RouteForm;
 import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.Picture;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.Review;
+import capstone.jejuTourrecommend.spot.domain.Score;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
+import capstone.jejuTourrecommend.spot.domain.Spot;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
@@ -35,9 +43,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Transactional
 @Slf4j
 class FavoriteSpotQuerydslRepositoryTest {
-//
+    //
     @Autowired
-FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
+    FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
 
     @Autowired
     FavoriteSpotJpaRepository favoriteSpotJpaRepository;
@@ -52,20 +60,18 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
     EntityManager em;
 
 
-
-
     @BeforeEach
-    public void init(){
+    public void init() {
 
 
         //String encodedPassword = passwordEncoder.encode("1234");
         //log.info("password = {}",encodedPassword);
 
-        Member member1 = new Member("member1","member1@gmail.com","1234");
-        Member member2 = new Member("member2","member2@naver.com","2345");
+        Member member1 = new Member("member1", "member1@gmail.com", "1234");
+        Member member2 = new Member("member2", "member2@naver.com", "2345");
         em.persist(member1);
         em.persist(member2);
-        log.info("member1 ={}",member1);
+        log.info("member1 ={}", member1);
 
         MemberSpot[] memberSpots = new MemberSpot[100];
         Score[] scores = new Score[100];
@@ -73,40 +79,43 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
         Picture[][] pictures = new Picture[100][3];
         Review[] reviews = new Review[100];
 
-        Favorite favorite = new Favorite("1일차",member1);
+        Favorite favorite = new Favorite("1일차", member1);
         em.persist(favorite);
 
         FavoriteSpot[] favoriteSpots = new FavoriteSpot[50];
 
-        for(int i=0;i<100;i++){ //지역하고 score만
+        for (int i = 0; i < 100; i++) { //지역하고 score만
 
-            if(0<=i&&i<25) {
-                spots[i] = new Spot(Location.Aewol_eup,createScore(scores,i));
-                memberSpots[i] = new MemberSpot(0d,member2,spots[i]);
-            }if(25<=i&&i<50){
-                spots[i] = new Spot(Location.Aewol_eup,createScore(scores,i));
-                memberSpots[i] = new MemberSpot(0d,member2,spots[i]);
-            }if(50<=i&&i<75){
-                spots[i] = new Spot(Location.Andeok_myeon,createScore(scores,i));
-                memberSpots[i] = new MemberSpot(0d,member1,spots[i]);
-            }if(75<=i&&i<100){
-                spots[i] = new Spot(Location.Andeok_myeon,createScore(scores,i));
-                memberSpots[i] = new MemberSpot(0d,member1,spots[i]);
+            if (0 <= i && i < 25) {
+                spots[i] = new Spot(Location.Aewol_eup, createScore(scores, i));
+                memberSpots[i] = new MemberSpot(0d, member2, spots[i]);
             }
-            for(int j=0; j<3;j++) {
-                pictures[i][j] = new Picture("asdf1",spots[i]);
+            if (25 <= i && i < 50) {
+                spots[i] = new Spot(Location.Aewol_eup, createScore(scores, i));
+                memberSpots[i] = new MemberSpot(0d, member2, spots[i]);
+            }
+            if (50 <= i && i < 75) {
+                spots[i] = new Spot(Location.Andeok_myeon, createScore(scores, i));
+                memberSpots[i] = new MemberSpot(0d, member1, spots[i]);
+            }
+            if (75 <= i && i < 100) {
+                spots[i] = new Spot(Location.Andeok_myeon, createScore(scores, i));
+                memberSpots[i] = new MemberSpot(0d, member1, spots[i]);
+            }
+            for (int j = 0; j < 3; j++) {
+                pictures[i][j] = new Picture("asdf1", spots[i]);
                 em.persist(pictures[i][j]);
             }
             em.persist(spots[i]);
             em.persist(memberSpots[i]);
 
-            reviews[i] = new Review("content",spots[0]);
+            reviews[i] = new Review("content", spots[0]);
             em.persist(reviews[i]);
 
-            if(i%2==0) {
-                favoriteSpots[i/2] = new FavoriteSpot(favorite, spots[i]);
-                em.persist(favoriteSpots[i/2]);
-                log.info("favoriteSpot = {}", favoriteSpots[i/2]);
+            if (i % 2 == 0) {
+                favoriteSpots[i / 2] = new FavoriteSpot(favorite, spots[i]);
+                em.persist(favoriteSpots[i / 2]);
+                log.info("favoriteSpot = {}", favoriteSpots[i / 2]);
                 log.info("Spot = {}", spots[i]);
             }
 
@@ -116,34 +125,33 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
         em.clear();
 
         //member1 = Member(id=1, username=member1, email=member1@gmail.com, password=1234)
-        log.info("member1 = {}",member1);
+        log.info("member1 = {}", member1);
 
-        log.info("favoriteMain = {}",favorite);   //favorite = Favorite(id=1509, name=1일차)
+        log.info("favoriteMain = {}", favorite);   //favorite = Favorite(id=1509, name=1일차)
 
         //spots[0] = Spot(id=8, address=null, description=null, location=Aewol_eup..
-        log.info("spots[0] = {}",spots[0]);
+        log.info("spots[0] = {}", spots[0]);
 
-        log.info("favoriteSpots[0] = {}",favoriteSpots[0]);//favoriteSpots[0] = FavoriteSpot(id=11, count=0)
+        log.info("favoriteSpots[0] = {}", favoriteSpots[0]);//favoriteSpots[0] = FavoriteSpot(id=11, count=0)
 
     }
 
-    public Score createScore(Score[] scores,int i){
+    public Score createScore(Score[] scores, int i) {
         Random random = new Random();
-        scores[i]= new Score(
-                random.nextDouble()*10,random.nextDouble()*10,
-                random.nextDouble()*10,random.nextDouble()*10,
-                random.nextDouble()*10,random.nextDouble()*10,
-                random.nextDouble()*10,random.nextDouble()*10,
-                random.nextDouble()*10);
+        scores[i] = new Score(
+                random.nextDouble() * 10, random.nextDouble() * 10,
+                random.nextDouble() * 10, random.nextDouble() * 10,
+                random.nextDouble() * 10, random.nextDouble() * 10,
+                random.nextDouble() * 10, random.nextDouble() * 10,
+                random.nextDouble() * 10);
         em.persist(scores[i]);//여기서 이거 한해도 되는 이유는
         // cascade = CascadeType.ALL를 해놓아서 그런거임, 원래는 넣어줘야 함
         return scores[i];
     }
 
 
-
     @Test
-    public void favoriteSpotListTest(){
+    public void favoriteSpotListTest() {
 
 
         Long favoriteId = 1l;
@@ -156,9 +164,9 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
     }
 
     @Test
-    public void favoriteListTest() throws Exception{
+    public void favoriteListTest() throws Exception {
         //given
-        PageRequest pageRequest = PageRequest.of(0,3);
+        PageRequest pageRequest = PageRequest.of(0, 3);
 
         //when
         Optional<Member> optionByEmail = memberJpaRepository.findOptionByEmail("member1@gmail.com");
@@ -169,7 +177,7 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
                 .getFavoriteList(optionByEmail.get().getId(), pageRequest);
         long after1 = System.currentTimeMillis();
 
-        System.out.println("after1-before1 = " +  (after1 - before1));
+        System.out.println("after1-before1 = " + (after1 - before1));
 
 
         //then
@@ -179,9 +187,9 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
     //67 77 79
     //85 79 81
     @Test
-    public void optimizationFavoriteListTest() throws Exception{
+    public void optimizationFavoriteListTest() throws Exception {
         //given
-        PageRequest pageRequest = PageRequest.of(0,3);
+        PageRequest pageRequest = PageRequest.of(0, 3);
 
         //when
         Optional<Member> optionByEmail = memberJpaRepository.findOptionByEmail("member1@gmail.com");
@@ -193,7 +201,7 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
         long after2 = System.currentTimeMillis();
 
 
-        System.out.println("after2-before2 = " +  (after2 - before2));
+        System.out.println("after2-before2 = " + (after2 - before2));
 
         //then
 
@@ -203,7 +211,7 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
 
 
     @Test
-    public void exitSpotTest() throws Exception{
+    public void exitSpotTest() throws Exception {
         //given
         Long favoriteId = 3l;
         List<Long> spotIdList = Arrays.asList(10000l);
@@ -220,7 +228,7 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
 
 
     @Test
-    public void recommendSpotListTest() throws Exception{
+    public void recommendSpotListTest() throws Exception {
         //given
         //Long favoriteId = 3l;
         //8l, 23l, 38l
@@ -232,7 +240,7 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
 
         Member member = memberJpaRepository.findOptionByEmail(memberEmail)
                 .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
-        Favorite favorite = favoriteJpaRepository.findOptionByNameAndMemberId("1일차",member.getId())
+        Favorite favorite = favoriteJpaRepository.findOptionByNameAndMemberId("1일차", member.getId())
                 .orElseThrow(() -> new UserException("없는 위시리스트임"));
 
 
@@ -240,9 +248,9 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
         List<Long> collect = byFavoriteId.stream().map(o -> o.getSpot().getId()).collect(Collectors.toList());
 
         routeForm.setSpotIdList(collect);
-        List list = favoriteSpotQuerydslRepository.recommendSpotList(favorite.getId(),routeForm);
+        List list = favoriteSpotQuerydslRepository.recommendSpotList(favorite.getId(), routeForm);
 
-        log.info("list.toString() = {}",list.toString());
+        log.info("list.toString() = {}", list.toString());
 
         //when
 
@@ -252,12 +260,12 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
 
     @Order(3)
     @Test
-    public void deleteFavoriteSpot() throws Exception{
+    public void deleteFavoriteSpot() throws Exception {
         //given
         Favorite favorite = new Favorite("favorite");
         em.persist(favorite);
 
-        log.info("favoriteCheck = {}",favorite);
+        log.info("favoriteCheck = {}", favorite);
 
         FavoriteSpot favoriteSpot1 = new FavoriteSpot(favorite);
         FavoriteSpot favoriteSpot2 = new FavoriteSpot(favorite);
@@ -281,14 +289,13 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
 
         assertThat(favoriteSpotList1.size()).isEqualTo(6);
 
-        log.info("favoriteId = {}",favorite.getId());
+        log.info("favoriteId = {}", favorite.getId());
         //when
         favoriteSpotQuerydslRepository.deleteFavoriteSpotByFavoriteId(favorite.getId());
 
         List<FavoriteSpot> favoriteSpotList2 =
                 favoriteSpotJpaRepository.findByFavoriteId(favorite.getId());
-        log.info("favoriteSpotList2 = {}",favoriteSpotList2);
-
+        log.info("favoriteSpotList2 = {}", favoriteSpotList2);
 
 
         //then
@@ -298,7 +305,7 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
     }
 
     @Test
-    public void deleteTest() throws Exception{
+    public void deleteTest() throws Exception {
         //given
         Spot spot1 = new Spot("spot1");
         Spot spot2 = new Spot("spot2");
@@ -308,8 +315,8 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
         Favorite favorite1 = new Favorite("1일차");
         em.persist(favorite1);
 
-        FavoriteSpot favoriteSpot1 = new FavoriteSpot(favorite1,spot1);
-        FavoriteSpot favoriteSpot2 = new FavoriteSpot(favorite1,spot2);
+        FavoriteSpot favoriteSpot1 = new FavoriteSpot(favorite1, spot1);
+        FavoriteSpot favoriteSpot2 = new FavoriteSpot(favorite1, spot2);
         em.persist(favoriteSpot1);
         em.persist(favoriteSpot2);
 
@@ -318,7 +325,7 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
 
         log.info("22222");
         //when
-        favoriteSpotJpaRepository.deleteByFavoriteIdAndSpotId(favorite1.getId(),spot1.getId());
+        favoriteSpotJpaRepository.deleteByFavoriteIdAndSpotId(favorite1.getId(), spot1.getId());
 
         log.info("11111");
 
@@ -328,7 +335,6 @@ FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
 
         //then
     }
-
 
 
 }

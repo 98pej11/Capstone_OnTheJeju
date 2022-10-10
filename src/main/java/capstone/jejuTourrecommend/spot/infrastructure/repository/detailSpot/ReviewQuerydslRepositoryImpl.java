@@ -1,6 +1,6 @@
 package capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot;
 
-import capstone.jejuTourrecommend.domain.Spot;
+import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.ReviewDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -16,7 +17,7 @@ import java.util.List;
 
 import static capstone.jejuTourrecommend.domain.QReview.review;
 
-
+@Repository
 @Slf4j
 @Transactional
 public class ReviewQuerydslRepositoryImpl implements ReviewQuerydslRepository {

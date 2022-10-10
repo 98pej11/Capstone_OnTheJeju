@@ -1,10 +1,17 @@
 package capstone.jejuTourrecommend.repository;
 
-import capstone.jejuTourrecommend.domain.*;
+import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.Picture;
+import capstone.jejuTourrecommend.spot.domain.Score;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
+import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
-import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaQuerydslRepository;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaRepository;
 import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotQuerydslRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +38,11 @@ class SpotJpaRepositoryTest {
 
 
     @Autowired
-    SpotJpaQuerydslRepository spotJpaRepository;
+    SpotJpaRepository spotJpaRepository;
+
+    @Autowired
+    SpotQuerydslRepository spotQuerydslRepository;
+
     @Autowired
     MemberJpaRepository memberJpaRepository;
 
@@ -168,7 +179,7 @@ class SpotJpaRepositoryTest {
 
         System.out.println("==================");
         long before2 = System.currentTimeMillis();
-        Page<SpotListDto> results2 = spotJpaRepository.
+        Page<SpotListDto> results2 = spotQuerydslRepository.
                 searchSpotByLocationAndCategory(optionByEmail.get().getId(), westList, Category.VIEW, pageRequest);
         long after2 = System.currentTimeMillis();
         System.out.println("==================");
@@ -206,7 +217,7 @@ class SpotJpaRepositoryTest {
 
 
         long before2 = System.currentTimeMillis();
-        Page<SpotListDto> optimizationSpotListDtos = spotJpaRepository.searchSpotByUserPriority(optionByEmail.get().getId(), westList,
+        Page<SpotListDto> optimizationSpotListDtos = spotQuerydslRepository.searchSpotByUserPriority(optionByEmail.get().getId(), westList,
                 new UserWeightDto(1d, 4d, 1d, 1d)
                 , pageRequest);
         long after2 = System.currentTimeMillis();
@@ -250,7 +261,7 @@ class SpotJpaRepositoryTest {
 
         //when
         //spotRepository.findByNameLike("%우리%").stream().map(spot -> new SpotListDto(spo))
-        Page<SpotListDto> spotListDtos = spotJpaRepository.searchBySpotNameContains(optionByEmail.get().getId(), "우리", pageRequest);
+        Page<SpotListDto> spotListDtos = spotQuerydslRepository.searchBySpotNameContains(optionByEmail.get().getId(), "우리", pageRequest);
 
 
         //then

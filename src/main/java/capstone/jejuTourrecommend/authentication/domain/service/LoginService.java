@@ -1,11 +1,11 @@
 package capstone.jejuTourrecommend.authentication.domain.service;
 
 import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
-import capstone.jejuTourrecommend.domain.Member;
-import capstone.jejuTourrecommend.domain.MemberSpot;
-import capstone.jejuTourrecommend.domain.Spot;
+import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
+import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.MemberSpotJpaRepository;
-import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaQuerydslRepository;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaRepository;
 import capstone.jejuTourrecommend.config.security.dto.UserDto;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
 import capstone.jejuTourrecommend.authentication.presentation.dto.request.JoinForm;
@@ -40,7 +40,7 @@ public class LoginService {
 
     //Todo: 업데이트
     private final MemberSpotJpaRepository memberSpotJpaRepository;
-    private final SpotJpaQuerydslRepository spotJpaRepository;
+    private final SpotJpaRepository spotJpaRepository;
 
     private final EntityManager em;
 

@@ -1,6 +1,6 @@
 package capstone.jejuTourrecommend.config.security.dto;
 
-import capstone.jejuTourrecommend.domain.Member;
+import capstone.jejuTourrecommend.authentication.domain.Member;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

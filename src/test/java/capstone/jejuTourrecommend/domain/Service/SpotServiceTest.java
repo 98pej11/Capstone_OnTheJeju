@@ -1,12 +1,20 @@
 package capstone.jejuTourrecommend.domain.Service;
 
+import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.favorite.domain.Favorite;
+import capstone.jejuTourrecommend.favorite.domain.FavoriteSpot;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.Picture;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.Review;
+import capstone.jejuTourrecommend.spot.domain.Score;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.service.SpotService;
-import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteJpaRepository;
 import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpotJpaRepository;
 import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.SpotDetailDto;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
+import capstone.jejuTourrecommend.spot.domain.Spot;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

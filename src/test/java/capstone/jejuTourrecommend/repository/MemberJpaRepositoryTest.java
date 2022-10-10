@@ -1,6 +1,6 @@
 package capstone.jejuTourrecommend.repository;
 
-import capstone.jejuTourrecommend.domain.Member;
+import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

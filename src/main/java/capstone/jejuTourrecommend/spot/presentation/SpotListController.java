@@ -1,7 +1,7 @@
 package capstone.jejuTourrecommend.spot.presentation;
 
 
-import capstone.jejuTourrecommend.domain.Member;
+import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.common.metaDataBuilder.DefaultMetaDataBuilder;
 import capstone.jejuTourrecommend.common.metaDataBuilder.MetaData;
 import capstone.jejuTourrecommend.common.metaDataBuilder.MetaDataDirector;

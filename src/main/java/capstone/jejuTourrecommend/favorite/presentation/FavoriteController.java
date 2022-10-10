@@ -3,7 +3,7 @@ package capstone.jejuTourrecommend.favorite.presentation;
 
 import capstone.jejuTourrecommend.authentication.LoginUser;
 import capstone.jejuTourrecommend.common.GlobalDto;
-import capstone.jejuTourrecommend.domain.Member;
+import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.favorite.domain.dto.FavoriteDto;
 import capstone.jejuTourrecommend.favorite.domain.dto.FavoriteListDto;
 import capstone.jejuTourrecommend.favorite.domain.service.FavoriteService;

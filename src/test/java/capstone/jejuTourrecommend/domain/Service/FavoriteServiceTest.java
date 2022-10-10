@@ -1,7 +1,9 @@
 package capstone.jejuTourrecommend.domain.Service;
 
+import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.favorite.domain.Favorite;
+import capstone.jejuTourrecommend.favorite.domain.FavoriteSpot;
 import capstone.jejuTourrecommend.favorite.domain.service.FavoriteService;
-import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.favorite.domain.dto.FavoriteDto;
 import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteJpaRepository;
 import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpotJpaRepository;
@@ -9,7 +11,9 @@ import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpo
 import capstone.jejuTourrecommend.favorite.presentation.dto.request.FavoriteForm;
 import capstone.jejuTourrecommend.favorite.domain.dto.FavoriteListDto;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
-import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaQuerydslRepository;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.Picture;
+import capstone.jejuTourrecommend.spot.domain.Spot;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaRepository;
 import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +43,7 @@ class FavoriteServiceTest {
     @Autowired
     FavoriteJpaRepository favoriteJpaRepository;
     @Autowired
-    SpotJpaQuerydslRepository spotJpaRepository;
+    SpotJpaRepository spotJpaRepository;
     @Autowired
     FavoriteSpotJpaRepository favoriteSpotJpaRepository;
     @Autowired

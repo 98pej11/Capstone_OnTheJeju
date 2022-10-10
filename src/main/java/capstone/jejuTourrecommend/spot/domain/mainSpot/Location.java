@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.domain;
+package capstone.jejuTourrecommend.spot.domain.mainSpot;
 
 import lombok.Getter;
 

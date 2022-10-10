@@ -1,6 +1,6 @@
 package capstone.jejuTourrecommend.route.domain.service;
 
-import capstone.jejuTourrecommend.domain.Favorite;
+import capstone.jejuTourrecommend.favorite.domain.Favorite;
 import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteJpaRepository;
 import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpotQuerydslRepository;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 @Slf4j
@@ -21,12 +20,8 @@ import java.util.List;
 @Transactional
 public class RouteService {
 
-    private final EntityManager em;
-
     private final FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
 
-
-    //Todo:
     private final FavoriteJpaRepository favoriteJpaRepository;
 
     public ResultFavoriteSpotList favoriteSpotList(Long favoriteId){
@@ -38,8 +33,6 @@ public class RouteService {
         return new ResultFavoriteSpotList(200l,true,"성공",favorite.getName(), spotListDtoByFavoriteSpots);
 
     }
-
-
 
 
     public List recommendSpotList(Long favoriteId, RouteForm routeForm){

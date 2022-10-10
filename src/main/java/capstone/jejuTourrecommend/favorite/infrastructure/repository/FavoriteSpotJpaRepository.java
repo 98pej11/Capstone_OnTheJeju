@@ -1,6 +1,6 @@
 package capstone.jejuTourrecommend.favorite.infrastructure.repository;
 
-import capstone.jejuTourrecommend.domain.FavoriteSpot;
+import capstone.jejuTourrecommend.favorite.domain.FavoriteSpot;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

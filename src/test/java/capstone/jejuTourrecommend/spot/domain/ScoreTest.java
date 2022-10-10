@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.domain;
+package capstone.jejuTourrecommend.spot.domain;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -6,8 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 @SpringBootTest
 @Transactional
@@ -60,7 +62,7 @@ class ScoreTest {
         //then
     }
 
- 
+
 
     @Test
     public void tag_Test() throws Exception{
@@ -74,15 +76,6 @@ class ScoreTest {
 
 
 }
-
-
-
-
-
-
-
-
-
 
 
 

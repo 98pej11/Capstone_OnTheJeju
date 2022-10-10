@@ -2,11 +2,13 @@ package capstone.jejuTourrecommend.spot.domain.detailSpot.service;
 
 
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
-import capstone.jejuTourrecommend.domain.Spot;
+import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot.PictureJpaRepository;
-import capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot.ReviewJpaQuerydslRepository;
-import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaQuerydslRepository;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot.ReviewJpaRepository;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot.ReviewQuerydslRepository;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaRepository;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.*;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotQuerydslRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -23,8 +25,9 @@ import java.util.stream.Collectors;
 @Transactional
 public class SpotService {
 
-    private final SpotJpaQuerydslRepository spotJpaRepository;
-    private final ReviewJpaQuerydslRepository reviewJpaRepository;
+    private final SpotJpaRepository spotJpaRepository;
+    private final SpotQuerydslRepository spotQuerydslRepository;
+    private final ReviewQuerydslRepository reviewQuerydslRepository;
     private final PictureJpaRepository pictureJpaRepository;
 
 
@@ -34,7 +37,7 @@ public class SpotService {
                 .orElseThrow(() -> new UserException("spotId가 올바르지 않습니다."));
 
         //리뷰 데이터 받아오기
-        Page<ReviewDto> reviewDtoList = reviewJpaRepository.searchSpotReview(spot, pageable);
+        Page<ReviewDto> reviewDtoList = reviewQuerydslRepository.searchSpotReview(spot, pageable);
 
         return reviewDtoList;
 
@@ -52,9 +55,9 @@ public class SpotService {
                         spot).stream().map(picture -> new PictureDto(picture))
                 .collect(Collectors.toList());
 
-        ScoreDto scoreDto = spotJpaRepository.searchScore(spot);
+        ScoreDto scoreDto = spotQuerydslRepository.searchScore(spot);
 
-        Boolean isFavoriteSpot = spotJpaRepository.isFavoriteSpot(memberId, spotId);
+        Boolean isFavoriteSpot = spotQuerydslRepository.isFavoriteSpot(memberId, spotId);
 
 
         return new SpotDetailDto(spotDto,scoreDto,pictureDtoList, isFavoriteSpot);

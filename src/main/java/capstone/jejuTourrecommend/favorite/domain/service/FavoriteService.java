@@ -1,14 +1,14 @@
 package capstone.jejuTourrecommend.favorite.domain.service;
 
 
-import capstone.jejuTourrecommend.domain.Favorite;
-import capstone.jejuTourrecommend.domain.FavoriteSpot;
-import capstone.jejuTourrecommend.domain.Member;
-import capstone.jejuTourrecommend.domain.Spot;
+import capstone.jejuTourrecommend.favorite.domain.Favorite;
+import capstone.jejuTourrecommend.favorite.domain.FavoriteSpot;
+import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteJpaRepository;
 import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpotQuerydslRepository;
 import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpotJpaRepository;
-import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaQuerydslRepository;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaRepository;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
 import capstone.jejuTourrecommend.favorite.domain.dto.FavoriteDto;
 import capstone.jejuTourrecommend.favorite.presentation.dto.request.FavoriteForm;
@@ -29,7 +29,7 @@ import java.util.Optional;
 public class FavoriteService {
 
     private final FavoriteJpaRepository favoriteJpaRepository;
-    private final SpotJpaQuerydslRepository spotJpaRepository;
+    private final SpotJpaRepository spotJpaRepository;
     private final FavoriteSpotJpaRepository favoriteSpotJpaRepository;
     private final FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
 

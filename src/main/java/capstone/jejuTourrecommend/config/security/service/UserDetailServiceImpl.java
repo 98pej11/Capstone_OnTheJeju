@@ -2,7 +2,7 @@ package capstone.jejuTourrecommend.config.security.service;
 
 
 import capstone.jejuTourrecommend.config.security.dto.AccountContext;
-import capstone.jejuTourrecommend.domain.Member;
+import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

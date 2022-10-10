@@ -1,7 +1,7 @@
 package capstone.jejuTourrecommend.authentication.infrastructure.respository;
 
 
-import capstone.jejuTourrecommend.domain.Member;
+import capstone.jejuTourrecommend.authentication.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package capstone.jejuTourrecommend.repository;
 
-import capstone.jejuTourrecommend.domain.Favorite;
-import capstone.jejuTourrecommend.domain.FavoriteSpot;
+import capstone.jejuTourrecommend.favorite.domain.Favorite;
+import capstone.jejuTourrecommend.favorite.domain.FavoriteSpot;
 import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteJpaRepository;
 import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpotJpaRepository;
 import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpotQuerydslRepository;

@@ -1,6 +1,6 @@
 package capstone.jejuTourrecommend.route.domain.dto;
 
-import capstone.jejuTourrecommend.domain.Location;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 

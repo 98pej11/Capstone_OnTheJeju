@@ -1,6 +1,7 @@
-package capstone.jejuTourrecommend.domain;
+package capstone.jejuTourrecommend.favorite.domain;
 
 
+import capstone.jejuTourrecommend.spot.domain.Spot;
 import lombok.*;
 
 import javax.persistence.*;

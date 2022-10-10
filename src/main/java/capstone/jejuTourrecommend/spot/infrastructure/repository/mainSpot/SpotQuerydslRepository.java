@@ -1,7 +1,7 @@
 package capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot;
 
-import capstone.jejuTourrecommend.domain.Category;
-import capstone.jejuTourrecommend.domain.Spot;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
+import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.ScoreDto;

@@ -1,8 +1,8 @@
 package capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot;
 
-import capstone.jejuTourrecommend.domain.Member;
-import capstone.jejuTourrecommend.domain.MemberSpot;
-import capstone.jejuTourrecommend.domain.Spot;
+import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
+import capstone.jejuTourrecommend.spot.domain.Spot;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

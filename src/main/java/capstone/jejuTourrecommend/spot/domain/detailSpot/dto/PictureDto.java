@@ -1,6 +1,6 @@
 package capstone.jejuTourrecommend.spot.domain.detailSpot.dto;
 
-import capstone.jejuTourrecommend.domain.Picture;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.Picture;
 import lombok.Data;
 
 @Data

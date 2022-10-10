@@ -2,7 +2,7 @@ package capstone.jejuTourrecommend.config.security.handler;
 
 import capstone.jejuTourrecommend.config.security.dto.UserDto;
 import capstone.jejuTourrecommend.config.security.provider.JwtTokenProvider;
-import capstone.jejuTourrecommend.domain.Member;
+import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
 import capstone.jejuTourrecommend.authentication.presentation.dto.response.LoginDto;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;

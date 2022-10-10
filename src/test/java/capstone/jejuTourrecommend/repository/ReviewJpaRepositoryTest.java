@@ -1,10 +1,10 @@
 package capstone.jejuTourrecommend.repository;
 
-import capstone.jejuTourrecommend.domain.Picture;
-import capstone.jejuTourrecommend.domain.Review;
-import capstone.jejuTourrecommend.domain.Spot;
-import capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot.ReviewJpaQuerydslRepository;
-import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaQuerydslRepository;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.Picture;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.Review;
+import capstone.jejuTourrecommend.spot.domain.Spot;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot.ReviewJpaRepository;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +24,10 @@ import static org.assertj.core.api.Assertions.*;
 class ReviewJpaRepositoryTest {
 
     @Autowired
-    ReviewJpaQuerydslRepository reviewJpaRepository;
+    ReviewJpaRepository reviewJpaRepository;
 
     @Autowired
-    SpotJpaQuerydslRepository spotJpaRepository;
+    SpotJpaRepository spotJpaRepository;
 
     @PersistenceContext
     EntityManager em;

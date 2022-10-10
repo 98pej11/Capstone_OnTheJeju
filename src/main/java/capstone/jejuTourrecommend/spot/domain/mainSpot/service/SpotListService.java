@@ -1,12 +1,13 @@
 package capstone.jejuTourrecommend.spot.domain.mainSpot.service;
 
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
-import capstone.jejuTourrecommend.domain.Category;
-import capstone.jejuTourrecommend.domain.Location;
-import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaQuerydslRepository;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaRepository;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.service.locationStragety.*;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotQuerydslRepository;
 import capstone.jejuTourrecommend.spot.presentation.request.MainPageForm;
 import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +27,14 @@ import java.util.List;
 public class SpotListService {
 
 
-    private final SpotJpaQuerydslRepository spotJpaRepository;
+    private final SpotJpaRepository spotJpaRepository;
 
+    private final SpotQuerydslRepository spotQuerydslRepository;
 
     public ResultSpotListDto searchSpotListContains(Long memberId, String spotName, Pageable pageable) {
 
 
-        Page<SpotListDto> spotListDtos = spotJpaRepository.searchBySpotNameContains(memberId, spotName, pageable);
+        Page<SpotListDto> spotListDtos = spotQuerydslRepository.searchBySpotNameContains(memberId, spotName, pageable);
 
         return new ResultSpotListDto(200l, true, "성공", spotListDtos);
 
@@ -44,12 +46,6 @@ public class SpotListService {
         List locationList = findLocationList(mainPageForm);
 
         Category category = findCategory(mainPageForm);
-
-        log.info("location = {}", locationList);
-        log.info("category = {} ", category);
-        log.info("UserWeightDto() = {}", mainPageForm.getUserWeight());//Todo: 업데이트
-
-
 
         Page<SpotListDto> result;
 
@@ -64,7 +60,6 @@ public class SpotListService {
         log.info("mainPageCategory = {} ", mainPageForm.getCategory());
         Category category = null;
 
-        //log.info("isTrue? = {}",StringUtils.hasText(mainPageForm.getCategory()));
         if (!StringUtils.hasText(mainPageForm.getCategory())) {
             throw new UserException("올바른 카테고리를 입력하세요. null 값이 들어갔습니다");
         }
@@ -136,7 +131,7 @@ public class SpotListService {
                         mainPageForm.getUserWeight().get("facilityWeight").doubleValue() == 0 &&
                         mainPageForm.getUserWeight().get("surroundWeight").doubleValue() == 0
         ) {
-            result = spotJpaRepository.searchSpotByLocationAndCategory(memberId,
+            result = spotQuerydslRepository.searchSpotByLocationAndCategory(memberId,
                     locationList, category, pageable);
 
         } else {//사용자가 가중치를 넣은 경우
@@ -147,7 +142,7 @@ public class SpotListService {
                     mainPageForm.getUserWeight().get("surroundWeight").doubleValue()
             );
 
-            result = spotJpaRepository.searchSpotByUserPriority(
+            result = spotQuerydslRepository.searchSpotByUserPriority(
                     memberId, locationList, userWeightDto, pageable);
 
         }
@@ -158,11 +153,9 @@ public class SpotListService {
     public Location findLocation(MainPageForm mainPageForm) {
         log.info("mainPageLocation = {}", mainPageForm.getLocation());
         Location location = null;
-        //log.info("location = {}",location);
 
         if (!StringUtils.hasText(mainPageForm.getLocation())) {
             log.info("카테고리 null에 들어감");
-            //category = Category.VIEW;   //기본값은 뷰로 한다
             return location;
         }
 
