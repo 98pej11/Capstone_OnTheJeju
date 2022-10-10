@@ -1,11 +1,11 @@
 package capstone.jejuTourrecommend.domain.Service;
 
-import capstone.jejuTourrecommend.spotList.SpotListService;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListService;
 import capstone.jejuTourrecommend.domain.*;
-import capstone.jejuTourrecommend.repository.MemberRepository;
-import capstone.jejuTourrecommend.spotList.dto.MainPageForm;
-import capstone.jejuTourrecommend.spotList.dto.ResultSpotListDto;
-import capstone.jejuTourrecommend.spotList.dto.UserWeightDto;
+import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
+import capstone.jejuTourrecommend.spot.presentation.request.MainPageForm;
+import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -114,7 +114,7 @@ class SpotListServiceTest {
 
 
     @Autowired
-    MemberRepository memberRepository;
+    MemberJpaRepository memberJpaRepository;
     //MainPageForm mainPageForm,String memberEmail, Pageable pageable
     @Test
     public void postSpotListTest() throws Exception{
@@ -123,7 +123,7 @@ class SpotListServiceTest {
         int page = 2;
         int size = 10;
 
-        Optional<Member> optionByEmail = memberRepository.findOptionByEmail(memberEmail);
+        Optional<Member> optionByEmail = memberJpaRepository.findOptionByEmail(memberEmail);
 
 
         PageRequest pageRequest = PageRequest.of(page, size);

@@ -1,10 +1,16 @@
 package capstone.jejuTourrecommend.domain.Service;
 
-import capstone.jejuTourrecommend.Service.FavoriteService;
+import capstone.jejuTourrecommend.favorite.domain.service.FavoriteService;
 import capstone.jejuTourrecommend.domain.*;
-import capstone.jejuTourrecommend.repository.*;
-import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.pageDto.favoritePage.*;
+import capstone.jejuTourrecommend.favorite.domain.dto.FavoriteDto;
+import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteJpaRepository;
+import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpotJpaRepository;
+import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpotQuerydslRepository;
+import capstone.jejuTourrecommend.favorite.presentation.dto.request.FavoriteForm;
+import capstone.jejuTourrecommend.favorite.domain.dto.FavoriteListDto;
+import capstone.jejuTourrecommend.common.exceptionClass.UserException;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaQuerydslRepository;
+import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,15 +35,15 @@ class FavoriteServiceTest {
 
 
     @Autowired
-    MemberRepository memberRepository;
+    MemberJpaRepository memberJpaRepository;
     @Autowired
-    FavoriteRepository favoriteRepository;
+    FavoriteJpaRepository favoriteJpaRepository;
     @Autowired
-    SpotRepository spotRepository;
+    SpotJpaQuerydslRepository spotJpaRepository;
     @Autowired
-    FavoriteSpotRepository favoriteSpotRepository;
+    FavoriteSpotJpaRepository favoriteSpotJpaRepository;
     @Autowired
-    FavoriteSpotQueryRepository favoriteSpotQueryRepository;
+    FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
     @Autowired
     FavoriteService favoriteService;
 
@@ -108,10 +114,10 @@ class FavoriteServiceTest {
     @Test
     public void postFavoriteFormTest() throws Exception {
 
-        Spot spot = spotRepository.findOptionByName("관광지 0").orElseThrow(() -> new UserException("해당 이름의 관광지가 없습니다."));
+        Spot spot = spotJpaRepository.findOptionByName("관광지 0").orElseThrow(() -> new UserException("해당 이름의 관광지가 없습니다."));
 
-        Member member = memberRepository.findOptionByEmail("em@naver.com").orElseThrow(() -> new UserException("해당 이름의 회원이 없습니다."));
-        Favorite favorite = favoriteRepository.findOptionByNameAndMemberId("5일차", member.getId()).orElseThrow(() -> new UserException("해당 이름의 위시리스트가 없습니다."));
+        Member member = memberJpaRepository.findOptionByEmail("em@naver.com").orElseThrow(() -> new UserException("해당 이름의 회원이 없습니다."));
+        Favorite favorite = favoriteJpaRepository.findOptionByNameAndMemberId("5일차", member.getId()).orElseThrow(() -> new UserException("해당 이름의 위시리스트가 없습니다."));
 
         //given
         //String memberEmail = "em@naver.com";
@@ -126,7 +132,7 @@ class FavoriteServiceTest {
         //when
         favoriteService.postFavoriteForm(favoriteForm);
 
-        Optional<FavoriteSpot> result = favoriteSpotRepository.findOptionBySpotIdAndFavoriteId(spotId, favoriteId);
+        Optional<FavoriteSpot> result = favoriteSpotJpaRepository.findOptionBySpotIdAndFavoriteId(spotId, favoriteId);
 
         assertThat(result).isNotEmpty();
 
@@ -145,7 +151,7 @@ class FavoriteServiceTest {
 
         //Spot spot = new Spot("테스트")
 
-        Optional<Member> optionByEmail = memberRepository.findOptionByEmail(memberEmail);
+        Optional<Member> optionByEmail = memberJpaRepository.findOptionByEmail(memberEmail);
 
         PageRequest pageRequest = PageRequest.of(0, 10);
 
@@ -171,21 +177,21 @@ class FavoriteServiceTest {
         //given
         String memberEmail = "em@naver.com";
 
-        Spot spot = spotRepository.findOptionByName("관광지 14").orElseThrow(() -> new UserException("해당 이름의 관광지가 없습니다."));
+        Spot spot = spotJpaRepository.findOptionByName("관광지 14").orElseThrow(() -> new UserException("해당 이름의 관광지가 없습니다."));
         Long spotId = spot.getId(); //spots[14]);  //15번임
 
         String favoriteName = "새로운 위시리스트1";
 
-        Member member = memberRepository.findOptionByEmail(memberEmail)
+        Member member = memberJpaRepository.findOptionByEmail(memberEmail)
                 .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
 
         //when
 
         FavoriteDto favoriteDto = favoriteService.newFavoriteList(member, spotId, favoriteName);
 
-        Optional<Favorite> favorite = favoriteRepository.findOptionByNameAndMemberId(favoriteName, member.getId());
+        Optional<Favorite> favorite = favoriteJpaRepository.findOptionByNameAndMemberId(favoriteName, member.getId());
 
-        Optional<FavoriteSpot> result = favoriteSpotRepository.findOptionBySpotIdAndFavoriteId(spotId, favorite.get().getId());
+        Optional<FavoriteSpot> result = favoriteSpotJpaRepository.findOptionBySpotIdAndFavoriteId(spotId, favorite.get().getId());
 
 
 
@@ -204,14 +210,14 @@ class FavoriteServiceTest {
     @Test
     public void deleteFavoriteListTest() throws Exception {
         //given
-        Member member = memberRepository.findOptionByEmail("em@naver.com").orElseThrow(() -> new UserException("해당 이름의 회원이 없습니다."));
-        Favorite favorite = favoriteRepository.findOptionByNameAndMemberId("5일차", member.getId()).orElseThrow(() -> new UserException("해당 이름의 위시리스트가 없습니다."));
+        Member member = memberJpaRepository.findOptionByEmail("em@naver.com").orElseThrow(() -> new UserException("해당 이름의 회원이 없습니다."));
+        Favorite favorite = favoriteJpaRepository.findOptionByNameAndMemberId("5일차", member.getId()).orElseThrow(() -> new UserException("해당 이름의 위시리스트가 없습니다."));
 
         Long favoriteId = favorite.getId();
 
         //when
         favoriteService.deleteFavoriteList(favoriteId);
-        Optional<Favorite> result = favoriteRepository.findOptionById(favoriteId);
+        Optional<Favorite> result = favoriteJpaRepository.findOptionById(favoriteId);
 
         //then
         assertThat(result).isEmpty();

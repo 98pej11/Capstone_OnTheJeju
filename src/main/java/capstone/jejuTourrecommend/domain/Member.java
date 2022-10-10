@@ -1,12 +1,10 @@
 package capstone.jejuTourrecommend.domain;
 
 
-import capstone.jejuTourrecommend.domain.baseEntity.BaseEntity;
+import capstone.jejuTourrecommend.common.baseEntity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 

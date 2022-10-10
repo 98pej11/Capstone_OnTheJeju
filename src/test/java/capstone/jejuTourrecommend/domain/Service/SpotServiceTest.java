@@ -1,12 +1,12 @@
 package capstone.jejuTourrecommend.domain.Service;
 
-import capstone.jejuTourrecommend.Service.SpotService;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.service.SpotService;
 import capstone.jejuTourrecommend.domain.*;
-import capstone.jejuTourrecommend.repository.FavoriteRepository;
-import capstone.jejuTourrecommend.repository.FavoriteSpotRepository;
-import capstone.jejuTourrecommend.repository.MemberRepository;
-import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.pageDto.spotPage.SpotDetailDto;
+import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteJpaRepository;
+import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpotJpaRepository;
+import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
+import capstone.jejuTourrecommend.common.exceptionClass.UserException;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.SpotDetailDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,13 +31,13 @@ class SpotServiceTest {
     SpotService spotService;
 
     @Autowired
-    FavoriteSpotRepository favoriteSpotRepository;
+    FavoriteSpotJpaRepository favoriteSpotJpaRepository;
 
     @Autowired
-    FavoriteRepository favoriteRepository;
+    FavoriteJpaRepository favoriteJpaRepository;
 
     @Autowired
-    MemberRepository memberRepository;
+    MemberJpaRepository memberJpaRepository;
 
     @PersistenceContext
     EntityManager em;
@@ -133,11 +133,11 @@ class SpotServiceTest {
         //Long spotId = 8l;
         String memberEmail = "member1@gmail.com";
 
-        Member member = memberRepository.findOptionByEmail(memberEmail)
+        Member member = memberJpaRepository.findOptionByEmail(memberEmail)
                 .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
-        Optional<Favorite> favorite = favoriteRepository.findOptionByNameAndMemberId("1일차",member.getId());
+        Optional<Favorite> favorite = favoriteJpaRepository.findOptionByNameAndMemberId("1일차",member.getId());
 
-        List<FavoriteSpot> byFavoriteId = favoriteSpotRepository.findByFavoriteId(favorite.get().getId());
+        List<FavoriteSpot> byFavoriteId = favoriteSpotJpaRepository.findByFavoriteId(favorite.get().getId());
 
         //when
         SpotDetailDto spotDetailDto = spotService.spotPage(byFavoriteId.get(0).getSpot().getId(), member.getId());
