@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.047s</div>
+<div class="counter">0.042s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,17 +79,17 @@
 </thead>
 <tr>
 <td class="success">OptimizationSearchSpotByUserPriority()</td>
-<td class="success">0.021s</td>
+<td class="success">0.018s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">OptimizationSpotLocationCategoryTest()</td>
-<td class="success">0.009s</td>
+<td class="success">0.008s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">searchSpotName()</td>
-<td class="success">0.017s</td>
+<td class="success">0.016s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -97,529 +97,529 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2022-10-10 13:48:04.890  INFO 3923 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [capstone.jejuTourrecommend.repository.SpotRepositoryTest], using SpringBootContextLoader
-2022-10-10 13:48:04.891  INFO 3923 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [capstone.jejuTourrecommend.repository.SpotRepositoryTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-2022-10-10 13:48:04.891  INFO 3923 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [capstone.jejuTourrecommend.repository.SpotRepositoryTest]: SpotRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2022-10-10 13:48:04.892  INFO 3923 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration capstone.jejuTourrecommend.JejuTourRecommendApplication for test class capstone.jejuTourrecommend.repository.SpotRepositoryTest
-2022-10-10 13:48:04.893  INFO 3923 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-2022-10-10 13:48:04.894  INFO 3923 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@29d02aa2, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@21a83a8a, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@7c97da9e, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@6806bd04, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@40ab0f9c, org.springframework.test.context.support.DirtiesContextTestExecutionListener@20371169, org.springframework.test.context.transaction.TransactionalTestExecutionListener@62b66cdb, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3f051314, org.springframework.test.context.event.EventPublishingTestExecutionListener@27ca2c87, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@3f6ecd4e, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@6e6faecc, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@79e59da6, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@f3d3809, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@4670901d, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@55fa5fd1]
-2022-10-10 13:48:04.895  INFO 3923 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@1c9646e1 testClass = SpotRepositoryTest, testInstance = capstone.jejuTourrecommend.repository.SpotRepositoryTest@19472cc6, testMethod = OptimizationSearchSpotByUserPriority@SpotRepositoryTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@4a5755ed testClass = SpotRepositoryTest, locations = '{}', classes = '{class capstone.jejuTourrecommend.JejuTourRecommendApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@239b0f9d, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@c260bdc, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3f363cf5, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@1bb1fde8, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@26a4842b, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@34b9f960], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@5843ab8]; rollback [true]
-2022-10-10 13:48:04.896  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284896 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+<pre>2022-10-10 14:33:47.637  INFO 4460 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [capstone.jejuTourrecommend.repository.SpotRepositoryTest], using SpringBootContextLoader
+2022-10-10 14:33:47.638  INFO 4460 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [capstone.jejuTourrecommend.repository.SpotRepositoryTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-10-10 14:33:47.638  INFO 4460 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [capstone.jejuTourrecommend.repository.SpotRepositoryTest]: SpotRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-10-10 14:33:47.639  INFO 4460 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration capstone.jejuTourrecommend.JejuTourRecommendApplication for test class capstone.jejuTourrecommend.repository.SpotRepositoryTest
+2022-10-10 14:33:47.640  INFO 4460 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-10-10 14:33:47.641  INFO 4460 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@27f065, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@66bc6d18, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@240ef9aa, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@238d3e2d, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@1c9646e1, org.springframework.test.context.support.DirtiesContextTestExecutionListener@19472cc6, org.springframework.test.context.transaction.TransactionalTestExecutionListener@4a5755ed, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@6176dc, org.springframework.test.context.event.EventPublishingTestExecutionListener@2eee997f, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@e6fa178, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@7e677565, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@75bb3be3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@2fc4714a, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@5c5371ab, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@19dafb19]
+2022-10-10 14:33:47.643  INFO 4460 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@1048dc3d testClass = SpotRepositoryTest, testInstance = capstone.jejuTourrecommend.repository.SpotRepositoryTest@2f963181, testMethod = OptimizationSearchSpotByUserPriority@SpotRepositoryTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@18dc67de testClass = SpotRepositoryTest, locations = '{}', classes = '{class capstone.jejuTourrecommend.JejuTourRecommendApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@749c877b, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@60f7cc1d, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@207ea13, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@5827af16, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@50fe837a, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@51bd8b5c], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@4545ac62]; rollback [true]
+2022-10-10 14:33:47.643  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027643 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.896  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284896 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.643  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027643 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.896  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284896 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.643  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027643 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.896  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284896 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.643  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027643 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.896  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284896 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.643  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027643 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.896  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284896 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member (created_date, last_modified_date, created_by, last_modified_by, email, password, refresh_token, role, username, member_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into member (created_date, last_modified_date, created_by, last_modified_by, email, password, refresh_token, role, username, member_id) values ('2022-10-10T13:48:04.896+0900', '2022-10-10T13:48:04.896+0900', '040876f1-d78d-47ed-8726-5f88ade7bfa6', '040876f1-d78d-47ed-8726-5f88ade7bfa6', 'member1@gmail.com', NULL, NULL, NULL, 'wwntn', 27);
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into member (created_date, last_modified_date, created_by, last_modified_by, email, password, refresh_token, role, username, member_id) values ('2022-10-10T14:33:47.643+0900', '2022-10-10T14:33:47.643+0900', 'e460dc6b-02a3-49ee-bcff-81714d8a6bf4', 'e460dc6b-02a3-49ee-bcff-81714d8a6bf4', 'member1@gmail.com', NULL, NULL, NULL, 'wwntn', 27);
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (3.2912612817008813, 3.0120197275580374, 1.7495092005339141, 5.5498061650712565, 2.196708932810524, 6.429864189556086, 3.641566430456126, 5.4931926006213505, 0.5357074702728104, 903);
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (6.743258768312057, 0.22028672905479274, 2.133053394440172, 6.110660235386068, 0.5314440486723893, 0.30523266847634956, 8.977379183028786, 1.9394766839941435, 6.846281346495152, 903);
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, 'Andeok_myeon', NULL, 903, 973);
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (?, ?, ?, ?)
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (27, 0.0, 973, 3666);
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (973, 'java.io.StringReader@514bda2d', 3667);
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (973, 'java.io.StringReader@c41cb44', 3667);
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (973, 'java.io.StringReader@4dca2862', 3668);
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (973, 'java.io.StringReader@3b8b746b', 3668);
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (1.1549873954246581, 3.875175809851239, 2.2070327563139793, 6.185313022946408, 8.705507737643748, 8.618434405887541, 8.422047641755958, 6.292986123307136, 8.530429240380048, 904);
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (1.4879066427534515, 6.49540109536673, 2.7565876664877687, 9.964816715128231, 4.931692288096183, 8.293863578340016, 8.099077889936872, 8.259002675152942, 3.5684229736099704, 904);
+2022-10-10 14:33:47.644  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027644 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, 'Andeok_myeon', NULL, 904, 974);
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (?, ?, ?, ?)
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (27, 0.0, 974, 3669);
-2022-10-10 13:48:04.897  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284897 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (974, 'java.io.StringReader@67e55073', 3670);
-2022-10-10 13:48:04.898  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284898 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (974, 'java.io.StringReader@1d941c5a', 3670);
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (974, 'java.io.StringReader@4a2c98de', 3671);
-2022-10-10 13:48:04.898  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284898 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (974, 'java.io.StringReader@ca4725f', 3671);
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (7.833398551474481, 3.004721423964145, 8.36713541655006, 9.873760113559602, 9.43621648407438, 2.3128266188808775, 7.529926485978276, 6.554748697093563, 4.064457578680618, 905);
-2022-10-10 13:48:04.898  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284898 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (1.0556627163381171, 6.917889389428136, 9.47541288239993, 5.160948379939086, 3.4818792598452744, 4.646471000794007, 6.90407538186141, 2.291656401350175, 1.8589154037747446, 905);
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, 'Andeok_myeon', NULL, 905, 975);
-2022-10-10 13:48:04.898  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284898 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (?, ?, ?, ?)
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (27, 0.0, 975, 3672);
-2022-10-10 13:48:04.898  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284898 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (975, 'java.io.StringReader@2fb1ecc2', 3673);
-2022-10-10 13:48:04.898  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284898 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (975, 'java.io.StringReader@433f5f3b', 3673);
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (975, 'java.io.StringReader@73bd4791', 3674);
-2022-10-10 13:48:04.898  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284898 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (975, 'java.io.StringReader@653312a4', 3674);
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (5.368203305143996, 3.6295662984489385, 4.388891354358426, 8.819173389509498, 1.088073012928269, 6.046125655143209, 3.911589855108739, 9.161663189355034, 5.194942592163661, 906);
-2022-10-10 13:48:04.898  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284898 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (9.249376153608818, 5.326898119204717, 5.828672050254275, 8.898764327841157, 1.8488975268787433, 4.0857687445342386, 4.127378039116973, 8.737749723813454, 9.737733649628836, 906);
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, 'Andeok_myeon', NULL, 906, 976);
-2022-10-10 13:48:04.898  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284898 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (?, ?, ?, ?)
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (27, 0.0, 976, 3675);
-2022-10-10 13:48:04.898  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284898 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (976, 'java.io.StringReader@76b8bdb6', 3676);
-2022-10-10 13:48:04.898  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284898 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (976, 'java.io.StringReader@45a572c9', 3676);
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (976, 'java.io.StringReader@311902f', 3677);
-2022-10-10 13:48:04.898  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284898 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (976, 'java.io.StringReader@684c8402', 3677);
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (6.131839517126776, 1.103516578121232, 2.467184004649221, 8.553997178642994, 5.42763466706382, 1.2146211488248704, 1.6821997495860286, 7.14730226758678, 1.5757787371126142, 907);
-2022-10-10 13:48:04.898  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284898 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (8.223421286920546, 1.940518540590368, 7.224156937739813, 0.5420628693068141, 3.320734221608342, 1.7374023090503943, 2.905125814157312, 0.14324313900955343, 9.456115411465504, 907);
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, 'Andeok_myeon', NULL, 907, 977);
-2022-10-10 13:48:04.898  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284898 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (?, ?, ?, ?)
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (27, 0.0, 977, 3678);
-2022-10-10 13:48:04.898  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284898 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (977, 'java.io.StringReader@6849e57c', 3679);
-2022-10-10 13:48:04.898  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284898 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (977, 'java.io.StringReader@2b3e4f18', 3679);
+2022-10-10 14:33:47.645  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027645 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (977, 'java.io.StringReader@139faee6', 3680);
-spot = capstone.jejuTourrecommend.domain.Spot@75bb3be3
+insert into picture (spot_id, url, picture_id) values (977, 'java.io.StringReader@50ae2804', 3680);
 spot = capstone.jejuTourrecommend.domain.Spot@22a27596
 spot = capstone.jejuTourrecommend.domain.Spot@23be072e
 spot = capstone.jejuTourrecommend.domain.Spot@44ae2851
 spot = capstone.jejuTourrecommend.domain.Spot@19232acb
-memberSpot = MemberSpot(id=3666, score=0.0, member=Member(id=27, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@75bb3be3)
-memberSpot = MemberSpot(id=3669, score=0.0, member=Member(id=27, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@22a27596)
-memberSpot = MemberSpot(id=3672, score=0.0, member=Member(id=27, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@23be072e)
-memberSpot = MemberSpot(id=3675, score=0.0, member=Member(id=27, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@44ae2851)
-memberSpot = MemberSpot(id=3678, score=0.0, member=Member(id=27, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@19232acb)
-picture = Picture(id=3667, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@75bb3be3)
-picture = Picture(id=3668, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@75bb3be3)
-picture = Picture(id=3670, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@22a27596)
-picture = Picture(id=3671, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@22a27596)
-picture = Picture(id=3673, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@23be072e)
-picture = Picture(id=3674, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@23be072e)
-picture = Picture(id=3676, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@44ae2851)
-picture = Picture(id=3677, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@44ae2851)
-picture = Picture(id=3679, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@19232acb)
-picture = Picture(id=3680, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@19232acb)
-2022-10-10 13:48:04.899  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284899 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+spot = capstone.jejuTourrecommend.domain.Spot@443c098
+memberSpot = MemberSpot(id=3666, score=0.0, member=Member(id=27, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@22a27596)
+memberSpot = MemberSpot(id=3669, score=0.0, member=Member(id=27, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@23be072e)
+memberSpot = MemberSpot(id=3672, score=0.0, member=Member(id=27, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@44ae2851)
+memberSpot = MemberSpot(id=3675, score=0.0, member=Member(id=27, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@19232acb)
+memberSpot = MemberSpot(id=3678, score=0.0, member=Member(id=27, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@443c098)
+picture = Picture(id=3667, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@22a27596)
+picture = Picture(id=3668, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@22a27596)
+picture = Picture(id=3670, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@23be072e)
+picture = Picture(id=3671, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@23be072e)
+picture = Picture(id=3673, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@44ae2851)
+picture = Picture(id=3674, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@44ae2851)
+picture = Picture(id=3676, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@19232acb)
+picture = Picture(id=3677, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@19232acb)
+picture = Picture(id=3679, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@443c098)
+picture = Picture(id=3680, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@443c098)
+2022-10-10 14:33:47.647  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027647 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 select member0_.member_id as member_i1_2_, member0_.created_date as created_2_2_, member0_.last_modified_date as last_mod3_2_, member0_.created_by as created_4_2_, member0_.last_modified_by as last_mod5_2_, member0_.email as email6_2_, member0_.password as password7_2_, member0_.refresh_token as refresh_8_2_, member0_.role as role9_2_, member0_.username as usernam10_2_ from member member0_ where member0_.email=?
 select member0_.member_id as member_i1_2_, member0_.created_date as created_2_2_, member0_.last_modified_date as last_mod3_2_, member0_.created_by as created_4_2_, member0_.last_modified_by as last_mod5_2_, member0_.email as email6_2_, member0_.password as password7_2_, member0_.refresh_token as refresh_8_2_, member0_.role as role9_2_, member0_.username as usernam10_2_ from member member0_ where member0_.email='member1@gmail.com';
-2022-10-10 13:48:04.900  INFO 3923 --- [    Test worker] c.j.repository.SpotRepositoryImpl        : memberId = 27
-2022-10-10 13:48:04.900  INFO 3923 --- [    Test worker] c.j.repository.SpotRepositoryImpl        : location = [Daejeong_eup, Andeok_myeon, Seogwipo_si]
-2022-10-10 13:48:04.900  INFO 3923 --- [    Test worker] c.j.repository.SpotRepositoryImpl        : userWeight = UserWeightDto(viewWeight=1.0, priceWeight=4.0, facilityWeight=1.0, surroundWeight=1.0)
-2022-10-10 13:48:04.901  INFO 3923 --- [    Test worker] c.j.repository.SpotRepositoryImpl        : updatedScore = select (spot.score.viewScore * ?1 + spot.score.priceScore * ?2 + spot.score.facilityScore * ?3 + spot.score.surroundScore * ?4) / ?5
+2022-10-10 14:33:47.647  INFO 4460 --- [    Test worker] c.j.repository.SpotRepositoryImpl        : memberId = 27
+2022-10-10 14:33:47.647  INFO 4460 --- [    Test worker] c.j.repository.SpotRepositoryImpl        : location = [Daejeong_eup, Andeok_myeon, Seogwipo_si]
+2022-10-10 14:33:47.647  INFO 4460 --- [    Test worker] c.j.repository.SpotRepositoryImpl        : userWeight = UserWeightDto(viewWeight=1.0, priceWeight=4.0, facilityWeight=1.0, surroundWeight=1.0)
+2022-10-10 14:33:47.648  INFO 4460 --- [    Test worker] c.j.repository.SpotRepositoryImpl        : updatedScore = select (spot.score.viewScore * ?1 + spot.score.priceScore * ?2 + spot.score.facilityScore * ?3 + spot.score.surroundScore * ?4) / ?5
 from Spot spot
 where spot = memberSpot.spot
-2022-10-10 13:48:04.905  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284905 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.652  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027652 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 update member_spot set score=(select (score2_.view_score*?+score2_.price_score*?+score2_.facility_score*?+score2_.surround_score*?)/? from spot spot1_ cross join score score2_ where spot1_.score_id=score2_.score_id and spot1_.spot_id=member_spot.spot_id) where member_id=?
 update member_spot set score=(select (score2_.view_score*1.0+score2_.price_score*4.0+score2_.facility_score*1.0+score2_.surround_score*1.0)/7.0 from spot spot1_ cross join score score2_ where spot1_.score_id=score2_.score_id and spot1_.spot_id=member_spot.spot_id) where member_id=27;
-2022-10-10 13:48:04.908  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284908 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.655  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027655 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 select memberspot0_.member_spot_id as member_s1_3_0_, spot1_.spot_id as spot_id1_7_1_, memberspot0_.member_id as member_i3_3_0_, memberspot0_.score as score2_3_0_, memberspot0_.spot_id as spot_id4_3_0_, spot1_.address as address2_7_1_, spot1_.description as descript3_7_1_, spot1_.location as location4_7_1_, spot1_.name as name5_7_1_, spot1_.score_id as score_id6_7_1_ from member_spot memberspot0_ inner join spot spot1_ on memberspot0_.spot_id=spot1_.spot_id where (spot1_.location in (? , ? , ?)) and memberspot0_.member_id=? order by memberspot0_.score desc limit ?
 select memberspot0_.member_spot_id as member_s1_3_0_, spot1_.spot_id as spot_id1_7_1_, memberspot0_.member_id as member_i3_3_0_, memberspot0_.score as score2_3_0_, memberspot0_.spot_id as spot_id4_3_0_, spot1_.address as address2_7_1_, spot1_.description as descript3_7_1_, spot1_.location as location4_7_1_, spot1_.name as name5_7_1_, spot1_.score_id as score_id6_7_1_ from member_spot memberspot0_ inner join spot spot1_ on memberspot0_.spot_id=spot1_.spot_id where (spot1_.location in ('Daejeong_eup' , 'Andeok_myeon' , 'Seogwipo_si')) and memberspot0_.member_id=27 order by memberspot0_.score desc limit 100;
-2022-10-10 13:48:04.910  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284910 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.657  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027657 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 select favoritesp0_.spot_id as col_0_0_ from favorite_spot favoritesp0_ cross join favorite favorite1_ where favoritesp0_.favorite_id=favorite1_.favorite_id and favorite1_.member_id=? and (favoritesp0_.spot_id in (? , ? , ? , ? , ?))
-select favoritesp0_.spot_id as col_0_0_ from favorite_spot favoritesp0_ cross join favorite favorite1_ where favoritesp0_.favorite_id=favorite1_.favorite_id and favorite1_.member_id=27 and (favoritesp0_.spot_id in (975 , 976 , 974 , 977 , 973));
-2022-10-10 13:48:04.911  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284911 | took 0ms | statement | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+select favoritesp0_.spot_id as col_0_0_ from favorite_spot favoritesp0_ cross join favorite favorite1_ where favoritesp0_.favorite_id=favorite1_.favorite_id and favorite1_.member_id=27 and (favoritesp0_.spot_id in (974 , 976 , 973 , 975 , 977));
+2022-10-10 14:33:47.658  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027658 | took 0ms | statement | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 select picture0_.picture_id as col_0_0_, picture0_.url as col_1_0_, picture0_.spot_id as col_2_0_ from picture picture0_ inner join spot spot1_ on picture0_.spot_id=spot1_.spot_id where picture0_.spot_id in (? , ? , ? , ? , ?)
-select picture0_.picture_id as col_0_0_, picture0_.url as col_1_0_, picture0_.spot_id as col_2_0_ from picture picture0_ inner join spot spot1_ on picture0_.spot_id=spot1_.spot_id where picture0_.spot_id in (975 , 976 , 974 , 977 , 973);
-after2-before2 = 12
-optimizationSpotListDtos.getContent() = [SpotListDto(spotId=975, spotName=null, spotAddress=null, spotDescription=null, pictureDetailDtoList=[PictureDetailDto(pictureId=3673, url=asdf1, spotId=975), PictureDetailDto(pictureId=3674, url=asdf1, spotId=975)], isFavorite=false), SpotListDto(spotId=976, spotName=null, spotAddress=null, spotDescription=null, pictureDetailDtoList=[PictureDetailDto(pictureId=3676, url=asdf1, spotId=976), PictureDetailDto(pictureId=3677, url=asdf1, spotId=976)], isFavorite=false), SpotListDto(spotId=974, spotName=null, spotAddress=null, spotDescription=null, pictureDetailDtoList=[PictureDetailDto(pictureId=3670, url=asdf1, spotId=974), PictureDetailDto(pictureId=3671, url=asdf1, spotId=974)], isFavorite=false), SpotListDto(spotId=977, spotName=null, spotAddress=null, spotDescription=null, pictureDetailDtoList=[PictureDetailDto(pictureId=3679, url=asdf1, spotId=977), PictureDetailDto(pictureId=3680, url=asdf1, spotId=977)], isFavorite=false), SpotListDto(spotId=973, spotName=null, spotAddress=null, spotDescription=null, pictureDetailDtoList=[PictureDetailDto(pictureId=3667, url=asdf1, spotId=973), PictureDetailDto(pictureId=3668, url=asdf1, spotId=973)], isFavorite=false)]
-2022-10-10 13:48:04.915  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284915 | took 0ms | rollback | connection 32| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+select picture0_.picture_id as col_0_0_, picture0_.url as col_1_0_, picture0_.spot_id as col_2_0_ from picture picture0_ inner join spot spot1_ on picture0_.spot_id=spot1_.spot_id where picture0_.spot_id in (974 , 976 , 973 , 975 , 977);
+after2-before2 = 11
+optimizationSpotListDtos.getContent() = [SpotListDto(spotId=974, spotName=null, spotAddress=null, spotDescription=null, pictureDetailDtoList=[PictureDetailDto(pictureId=3670, url=asdf1, spotId=974), PictureDetailDto(pictureId=3671, url=asdf1, spotId=974)], isFavorite=false), SpotListDto(spotId=976, spotName=null, spotAddress=null, spotDescription=null, pictureDetailDtoList=[PictureDetailDto(pictureId=3676, url=asdf1, spotId=976), PictureDetailDto(pictureId=3677, url=asdf1, spotId=976)], isFavorite=false), SpotListDto(spotId=973, spotName=null, spotAddress=null, spotDescription=null, pictureDetailDtoList=[PictureDetailDto(pictureId=3667, url=asdf1, spotId=973), PictureDetailDto(pictureId=3668, url=asdf1, spotId=973)], isFavorite=false), SpotListDto(spotId=975, spotName=null, spotAddress=null, spotDescription=null, pictureDetailDtoList=[PictureDetailDto(pictureId=3673, url=asdf1, spotId=975), PictureDetailDto(pictureId=3674, url=asdf1, spotId=975)], isFavorite=false), SpotListDto(spotId=977, spotName=null, spotAddress=null, spotDescription=null, pictureDetailDtoList=[PictureDetailDto(pictureId=3679, url=asdf1, spotId=977), PictureDetailDto(pictureId=3680, url=asdf1, spotId=977)], isFavorite=false)]
+2022-10-10 14:33:47.660  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027660 | took 0ms | rollback | connection 32| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 
 ;
-2022-10-10 13:48:04.916  INFO 3923 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@1c9646e1 testClass = SpotRepositoryTest, testInstance = capstone.jejuTourrecommend.repository.SpotRepositoryTest@19472cc6, testMethod = OptimizationSearchSpotByUserPriority@SpotRepositoryTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@4a5755ed testClass = SpotRepositoryTest, locations = '{}', classes = '{class capstone.jejuTourrecommend.JejuTourRecommendApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@239b0f9d, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@c260bdc, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3f363cf5, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@1bb1fde8, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@26a4842b, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@34b9f960], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]
-2022-10-10 13:48:04.917  INFO 3923 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@1c9646e1 testClass = SpotRepositoryTest, testInstance = capstone.jejuTourrecommend.repository.SpotRepositoryTest@163b92db, testMethod = searchSpotName@SpotRepositoryTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@4a5755ed testClass = SpotRepositoryTest, locations = '{}', classes = '{class capstone.jejuTourrecommend.JejuTourRecommendApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@239b0f9d, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@c260bdc, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3f363cf5, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@1bb1fde8, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@26a4842b, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@34b9f960], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@5843ab8]; rollback [true]
-2022-10-10 13:48:04.917  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284917 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.660  INFO 4460 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@1048dc3d testClass = SpotRepositoryTest, testInstance = capstone.jejuTourrecommend.repository.SpotRepositoryTest@2f963181, testMethod = OptimizationSearchSpotByUserPriority@SpotRepositoryTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@18dc67de testClass = SpotRepositoryTest, locations = '{}', classes = '{class capstone.jejuTourrecommend.JejuTourRecommendApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@749c877b, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@60f7cc1d, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@207ea13, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@5827af16, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@50fe837a, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@51bd8b5c], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]
+2022-10-10 14:33:47.661  INFO 4460 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@1048dc3d testClass = SpotRepositoryTest, testInstance = capstone.jejuTourrecommend.repository.SpotRepositoryTest@5c3e6623, testMethod = searchSpotName@SpotRepositoryTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@18dc67de testClass = SpotRepositoryTest, locations = '{}', classes = '{class capstone.jejuTourrecommend.JejuTourRecommendApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@749c877b, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@60f7cc1d, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@207ea13, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@5827af16, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@50fe837a, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@51bd8b5c], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@4545ac62]; rollback [true]
+2022-10-10 14:33:47.662  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027662 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.917  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284917 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.662  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027662 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.918  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284918 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.662  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027662 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.918  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284918 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.662  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027662 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.918  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284918 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.662  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027662 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.918  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284918 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.662  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027662 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.918  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284918 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.662  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027662 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.918  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284918 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.662  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027662 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.918  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284918 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.662  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027662 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.918  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284918 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.662  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027662 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.918  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284918 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.662  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027662 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.918  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284918 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.662  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027662 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.918  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284918 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.662  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027662 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.918  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284918 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.662  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027662 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.918  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284918 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.662  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027662 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.918  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284918 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member (created_date, last_modified_date, created_by, last_modified_by, email, password, refresh_token, role, username, member_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into member (created_date, last_modified_date, created_by, last_modified_by, email, password, refresh_token, role, username, member_id) values ('2022-10-10T13:48:04.917+0900', '2022-10-10T13:48:04.917+0900', 'c563a792-5ce1-4972-bed5-006473cfb1a9', 'c563a792-5ce1-4972-bed5-006473cfb1a9', 'member1@gmail.com', NULL, NULL, NULL, 'wwntn', 28);
-2022-10-10 13:48:04.918  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284918 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into member (created_date, last_modified_date, created_by, last_modified_by, email, password, refresh_token, role, username, member_id) values ('2022-10-10T14:33:47.662+0900', '2022-10-10T14:33:47.662+0900', '0c6d74af-a3a1-4e2d-9d82-68ba1a395893', '0c6d74af-a3a1-4e2d-9d82-68ba1a395893', 'member1@gmail.com', NULL, NULL, NULL, 'wwntn', 28);
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (1.4639838267302707, 4.5814301134262205, 0.4958239720981217, 7.483556849444566, 0.4275208167996225, 0.26171719660605275, 9.15415473526766, 5.997137123964582, 0.8582059602579839, 908);
-2022-10-10 13:48:04.918  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284918 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (8.086973545198928, 3.2839907305712392, 2.2616384732015513, 0.12468535516544699, 9.772177838458248, 3.778963590357497, 8.973941170626174, 7.165865190661721, 2.3795354057428684, 908);
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, 'Andeok_myeon', NULL, 908, 978);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (?, ?, ?, ?)
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (28, 0.0, 978, 3681);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (978, 'java.io.StringReader@553bad33', 3682);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (978, 'java.io.StringReader@6e565ad1', 3682);
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (978, 'java.io.StringReader@18096558', 3683);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (978, 'java.io.StringReader@55805d', 3683);
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (2.5361093309195892, 3.4602852092334246, 8.421480146922333, 2.1873061664180105, 2.242151389716475, 2.8816020979212764, 8.360506602625664, 3.6245117904450916, 1.1253830488841277, 909);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (0.9539787611260431, 6.104221672292153, 8.501925403599483, 7.856341064427807, 3.6035971948156686, 9.647790876408587, 3.79469656604674, 1.2553625991898898, 3.6299849923909444, 909);
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, 'Andeok_myeon', NULL, 909, 979);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (?, ?, ?, ?)
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (28, 0.0, 979, 3684);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (979, 'java.io.StringReader@7af7cb30', 3685);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (979, 'java.io.StringReader@3e2711cf', 3685);
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (979, 'java.io.StringReader@6ff3b8a1', 3686);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (979, 'java.io.StringReader@3f57b76c', 3686);
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (4.593833008445886, 3.5742397422237513, 6.8319117345973925, 9.259844410199282, 6.450819224703656, 9.843302326228235, 6.027612197701282, 3.6122924834975088, 6.491938741955475, 910);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (1.413895921399877, 0.2439753870505168, 1.8952742360286845, 5.798070434490604, 1.66496394102023, 0.5086634401275714, 2.4442612895816787, 0.42294555389634225, 9.22506830536536, 910);
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, 'Andeok_myeon', NULL, 910, 980);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (?, ?, ?, ?)
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (28, 0.0, 980, 3687);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (980, 'java.io.StringReader@466d3577', 3688);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (980, 'java.io.StringReader@466c4700', 3688);
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (980, 'java.io.StringReader@4e37ea5f', 3689);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (980, 'java.io.StringReader@ab8c4a9', 3689);
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (0.8160598914048367, 2.071786629272631, 5.517975413839071, 5.9501649667755885, 3.46757966011473, 2.7289196475887523, 1.5342476429056173, 5.598302755642147, 3.318239165397834, 911);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (8.667971697477054, 7.8135182224115045, 2.045058017597312, 4.3946012667421925, 4.708634035240595, 2.841711238477717, 3.7510011232363762, 1.1710245259814478, 4.285337758101184, 911);
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, 'Andeok_myeon', NULL, 911, 981);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.663  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027663 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (?, ?, ?, ?)
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (28, 0.0, 981, 3690);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.664  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027664 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (981, 'java.io.StringReader@6a94c70', 3691);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (981, 'java.io.StringReader@4841ab7', 3691);
+2022-10-10 14:33:47.664  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027664 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (981, 'java.io.StringReader@573bc7e8', 3692);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (981, 'java.io.StringReader@1f572c08', 3692);
+2022-10-10 14:33:47.664  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027664 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (9.501443149619863, 6.576407044721209, 2.4320250502769767, 9.507820067323632, 4.304267466115812, 3.658212091281584, 8.079784887302463, 9.816284706829677, 8.053172595519197, 912);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (9.265575545072215, 9.874182479875348, 9.122058135605725, 8.310677393536938, 2.2284588618697287, 0.15960480254521126, 2.2485283201635022, 1.056365867528376, 9.137577581221242, 912);
+2022-10-10 14:33:47.664  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027664 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, 'Andeok_myeon', NULL, 912, 982);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.664  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027664 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (?, ?, ?, ?)
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (28, 0.0, 982, 3693);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.664  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027664 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (982, 'java.io.StringReader@5608176e', 3694);
-2022-10-10 13:48:04.919  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284919 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (982, 'java.io.StringReader@39fdae51', 3694);
+2022-10-10 14:33:47.664  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027664 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (982, 'java.io.StringReader@5e712710', 3695);
-spot = capstone.jejuTourrecommend.domain.Spot@4ef67d9f
+insert into picture (spot_id, url, picture_id) values (982, 'java.io.StringReader@78bd654a', 3695);
 spot = capstone.jejuTourrecommend.domain.Spot@3f42caef
 spot = capstone.jejuTourrecommend.domain.Spot@4700499
 spot = capstone.jejuTourrecommend.domain.Spot@5b8fab08
 spot = capstone.jejuTourrecommend.domain.Spot@1f0c054a
-memberSpot = MemberSpot(id=3681, score=0.0, member=Member(id=28, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@4ef67d9f)
-memberSpot = MemberSpot(id=3684, score=0.0, member=Member(id=28, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@3f42caef)
-memberSpot = MemberSpot(id=3687, score=0.0, member=Member(id=28, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@4700499)
-memberSpot = MemberSpot(id=3690, score=0.0, member=Member(id=28, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@5b8fab08)
-memberSpot = MemberSpot(id=3693, score=0.0, member=Member(id=28, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@1f0c054a)
-picture = Picture(id=3682, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@4ef67d9f)
-picture = Picture(id=3683, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@4ef67d9f)
-picture = Picture(id=3685, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@3f42caef)
-picture = Picture(id=3686, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@3f42caef)
-picture = Picture(id=3688, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@4700499)
-picture = Picture(id=3689, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@4700499)
-picture = Picture(id=3691, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@5b8fab08)
-picture = Picture(id=3692, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@5b8fab08)
-picture = Picture(id=3694, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@1f0c054a)
-picture = Picture(id=3695, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@1f0c054a)
-2022-10-10 13:48:04.920  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284920 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+spot = capstone.jejuTourrecommend.domain.Spot@2f288883
+memberSpot = MemberSpot(id=3681, score=0.0, member=Member(id=28, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@3f42caef)
+memberSpot = MemberSpot(id=3684, score=0.0, member=Member(id=28, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@4700499)
+memberSpot = MemberSpot(id=3687, score=0.0, member=Member(id=28, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@5b8fab08)
+memberSpot = MemberSpot(id=3690, score=0.0, member=Member(id=28, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@1f0c054a)
+memberSpot = MemberSpot(id=3693, score=0.0, member=Member(id=28, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@2f288883)
+picture = Picture(id=3682, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@3f42caef)
+picture = Picture(id=3683, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@3f42caef)
+picture = Picture(id=3685, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@4700499)
+picture = Picture(id=3686, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@4700499)
+picture = Picture(id=3688, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@5b8fab08)
+picture = Picture(id=3689, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@5b8fab08)
+picture = Picture(id=3691, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@1f0c054a)
+picture = Picture(id=3692, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@1f0c054a)
+picture = Picture(id=3694, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@2f288883)
+picture = Picture(id=3695, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@2f288883)
+2022-10-10 14:33:47.668  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027668 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 select member0_.member_id as member_i1_2_, member0_.created_date as created_2_2_, member0_.last_modified_date as last_mod3_2_, member0_.created_by as created_4_2_, member0_.last_modified_by as last_mod5_2_, member0_.email as email6_2_, member0_.password as password7_2_, member0_.refresh_token as refresh_8_2_, member0_.role as role9_2_, member0_.username as usernam10_2_ from member member0_ where member0_.email=?
 select member0_.member_id as member_i1_2_, member0_.created_date as created_2_2_, member0_.last_modified_date as last_mod3_2_, member0_.created_by as created_4_2_, member0_.last_modified_by as last_mod5_2_, member0_.email as email6_2_, member0_.password as password7_2_, member0_.refresh_token as refresh_8_2_, member0_.role as role9_2_, member0_.username as usernam10_2_ from member member0_ where member0_.email='member1@gmail.com';
-2022-10-10 13:48:04.925  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284925 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.670  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027670 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, NULL, '가우리는', NULL, 983);
-2022-10-10 13:48:04.925  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284925 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.670  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027670 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, NULL, '우리는', NULL, 984);
-2022-10-10 13:48:04.925  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284925 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.670  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027670 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, NULL, '가우리', NULL, 985);
-2022-10-10 13:48:04.925  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284925 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.670  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027670 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, NULL, '가우리 는', NULL, 986);
-2022-10-10 13:48:04.925  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284925 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.670  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027670 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, NULL, '가 우리는', NULL, 987);
-2022-10-10 13:48:04.925  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284925 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.670  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027670 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, NULL, '가 우리 는', NULL, 988);
-2022-10-10 13:48:04.926  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284926 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.671  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027671 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 select spot0_.spot_id as col_0_0_, spot0_.name as col_1_0_, spot0_.address as col_2_0_, spot0_.description as col_3_0_ from spot spot0_ where spot0_.name like ? escape '!' limit ?
 select spot0_.spot_id as col_0_0_, spot0_.name as col_1_0_, spot0_.address as col_2_0_, spot0_.description as col_3_0_ from spot spot0_ where spot0_.name like '%우리%' escape '!' limit 3;
-2022-10-10 13:48:04.928  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284928 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.673  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027673 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 select favoritesp0_.spot_id as col_0_0_ from favorite_spot favoritesp0_ cross join favorite favorite1_ where favoritesp0_.favorite_id=favorite1_.favorite_id and favorite1_.member_id=? and (favoritesp0_.spot_id in (? , ? , ?))
 select favoritesp0_.spot_id as col_0_0_ from favorite_spot favoritesp0_ cross join favorite favorite1_ where favoritesp0_.favorite_id=favorite1_.favorite_id and favorite1_.member_id=28 and (favoritesp0_.spot_id in (983 , 984 , 985));
-2022-10-10 13:48:04.930  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284930 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.674  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027674 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 select picture0_.picture_id as col_0_0_, picture0_.url as col_1_0_, picture0_.spot_id as col_2_0_ from picture picture0_ inner join spot spot1_ on picture0_.spot_id=spot1_.spot_id where picture0_.spot_id in (? , ? , ?)
 select picture0_.picture_id as col_0_0_, picture0_.url as col_1_0_, picture0_.spot_id as col_2_0_ from picture picture0_ inner join spot spot1_ on picture0_.spot_id=spot1_.spot_id where picture0_.spot_id in (983 , 984 , 985);
-2022-10-10 13:48:04.931  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284931 | took 0ms | statement | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.675  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027675 | took 0ms | statement | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 select count(spot0_.spot_id) as col_0_0_ from spot spot0_ where spot0_.name like ? escape '!'
 select count(spot0_.spot_id) as col_0_0_ from spot spot0_ where spot0_.name like '%우리%' escape '!';
-2022-10-10 13:48:04.933  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284933 | took 0ms | rollback | connection 33| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.676  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027676 | took 0ms | rollback | connection 33| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 
 ;
-2022-10-10 13:48:04.933  INFO 3923 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@1c9646e1 testClass = SpotRepositoryTest, testInstance = capstone.jejuTourrecommend.repository.SpotRepositoryTest@163b92db, testMethod = searchSpotName@SpotRepositoryTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@4a5755ed testClass = SpotRepositoryTest, locations = '{}', classes = '{class capstone.jejuTourrecommend.JejuTourRecommendApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@239b0f9d, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@c260bdc, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3f363cf5, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@1bb1fde8, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@26a4842b, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@34b9f960], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]
-2022-10-10 13:48:04.934  INFO 3923 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@1c9646e1 testClass = SpotRepositoryTest, testInstance = capstone.jejuTourrecommend.repository.SpotRepositoryTest@764d17ab, testMethod = OptimizationSpotLocationCategoryTest@SpotRepositoryTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@4a5755ed testClass = SpotRepositoryTest, locations = '{}', classes = '{class capstone.jejuTourrecommend.JejuTourRecommendApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@239b0f9d, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@c260bdc, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3f363cf5, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@1bb1fde8, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@26a4842b, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@34b9f960], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@5843ab8]; rollback [true]
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.677  INFO 4460 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@1048dc3d testClass = SpotRepositoryTest, testInstance = capstone.jejuTourrecommend.repository.SpotRepositoryTest@5c3e6623, testMethod = searchSpotName@SpotRepositoryTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@18dc67de testClass = SpotRepositoryTest, locations = '{}', classes = '{class capstone.jejuTourrecommend.JejuTourRecommendApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@749c877b, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@60f7cc1d, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@207ea13, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@5827af16, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@50fe837a, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@51bd8b5c], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]
+2022-10-10 14:33:47.677  INFO 4460 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@1048dc3d testClass = SpotRepositoryTest, testInstance = capstone.jejuTourrecommend.repository.SpotRepositoryTest@2904a088, testMethod = OptimizationSpotLocationCategoryTest@SpotRepositoryTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@18dc67de testClass = SpotRepositoryTest, locations = '{}', classes = '{class capstone.jejuTourrecommend.JejuTourRecommendApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@749c877b, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@60f7cc1d, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@207ea13, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@5827af16, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@50fe837a, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@51bd8b5c], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@4545ac62]; rollback [true]
+2022-10-10 14:33:47.678  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027678 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.678  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027678 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.678  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027678 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.678  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027678 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.678  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027678 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.678  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027678 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.678  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027678 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.678  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027678 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.678  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027678 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.678  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027678 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.678  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027678 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 call next value for hibernate_sequence
 call next value for hibernate_sequence;
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member (created_date, last_modified_date, created_by, last_modified_by, email, password, refresh_token, role, username, member_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into member (created_date, last_modified_date, created_by, last_modified_by, email, password, refresh_token, role, username, member_id) values ('2022-10-10T13:48:04.934+0900', '2022-10-10T13:48:04.934+0900', '766994e7-f57f-4efe-9034-7664475ff7e4', '766994e7-f57f-4efe-9034-7664475ff7e4', 'member1@gmail.com', NULL, NULL, NULL, 'wwntn', 29);
-2022-10-10 13:48:04.935  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284935 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into member (created_date, last_modified_date, created_by, last_modified_by, email, password, refresh_token, role, username, member_id) values ('2022-10-10T14:33:47.678+0900', '2022-10-10T14:33:47.678+0900', 'd27689ee-93e2-4912-b49e-03a6f33e293e', 'd27689ee-93e2-4912-b49e-03a6f33e293e', 'member1@gmail.com', NULL, NULL, NULL, 'wwntn', 29);
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (9.01812759305805, 9.725355327224547, 4.013956055643691, 5.315999674160721, 8.851201820210138, 2.32485541589599, 9.7642719708353, 3.696565486620167, 3.9006850428204265, 913);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (0.7229040166372946, 0.14446142433968356, 1.8070323590509274, 5.310205383506793, 6.887909182949864, 9.015635680700113, 1.133480787854686, 2.3136573102853744, 3.5601133403229235, 913);
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, 'Andeok_myeon', NULL, 913, 989);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (?, ?, ?, ?)
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (29, 0.0, 989, 3696);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (989, 'java.io.StringReader@22690f1e', 3697);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (989, 'java.io.StringReader@5a16d90e', 3697);
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (989, 'java.io.StringReader@676bf28e', 3698);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (989, 'java.io.StringReader@5c54f8f0', 3698);
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (8.701032438331449, 3.3517663513472353, 3.0258214118196425, 7.254110615699529, 9.807580543627859, 6.3001522113150275, 1.1582630776216385, 3.2737794929035924, 4.252595326255953, 914);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (9.204541376692067, 8.217508318594316, 8.723863453335023, 9.68985892000356, 8.049747084014582, 1.7311427572315374, 7.403913587763556, 9.28053969613901, 4.584952588204717, 914);
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, 'Andeok_myeon', NULL, 914, 990);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (?, ?, ?, ?)
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (29, 0.0, 990, 3699);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (990, 'java.io.StringReader@4e4b9736', 3700);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (990, 'java.io.StringReader@5449b53c', 3700);
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (990, 'java.io.StringReader@292d6dba', 3701);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (990, 'java.io.StringReader@610dd237', 3701);
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (7.331517294435069, 8.975611594533683, 0.8825553275934961, 9.317184954510772, 6.151496315413106, 2.86423151614425, 2.385222443152901, 9.780979608832002, 3.1259707505568644, 915);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (8.716133431095015, 7.465618340294013, 6.4108287170580756, 0.6139215795420405, 8.989793783710487, 4.613585560231934, 3.587739377595638, 3.885707227748724, 6.900480397923536, 915);
+2022-10-10 14:33:47.679  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027679 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, 'Andeok_myeon', NULL, 915, 991);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.680  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027680 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (?, ?, ?, ?)
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (29, 0.0, 991, 3702);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.680  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027680 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (991, 'java.io.StringReader@23ac203d', 3703);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (991, 'java.io.StringReader@205889fe', 3703);
+2022-10-10 14:33:47.680  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027680 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (991, 'java.io.StringReader@1f44b9f3', 3704);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (991, 'java.io.StringReader@33194c00', 3704);
+2022-10-10 14:33:47.680  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027680 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (0.8694027722198738, 0.6397296591121637, 9.768175017186087, 3.621551139261292, 9.298065031408099, 0.5495962304345836, 0.5020083510163664, 4.630192291439251, 0.304095500070487, 916);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (9.41999737771653, 7.1993093366652205, 0.9445341034035393, 1.2276084355950456, 9.339455760299304, 3.176236579114935, 4.02576425305075, 7.9762459303953515, 1.415029512135475, 916);
+2022-10-10 14:33:47.680  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027680 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, 'Andeok_myeon', NULL, 916, 992);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.680  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027680 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (?, ?, ?, ?)
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (29, 0.0, 992, 3705);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.680  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027680 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (992, 'java.io.StringReader@7ee34ce1', 3706);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (992, 'java.io.StringReader@7e0cca89', 3706);
+2022-10-10 14:33:47.680  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027680 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (992, 'java.io.StringReader@37c8b676', 3707);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (992, 'java.io.StringReader@19d636c', 3707);
+2022-10-10 14:33:47.680  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027680 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (9.938989509072398, 5.019454683922576, 1.7755409331808492, 1.6201361146921733, 4.266484686159991, 8.346171605102498, 6.1051642566484325, 0.9415086795518768, 0.2806588668858334, 917);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into score (facility_rank, facility_score, price_rank, price_score, rank_average, surround_rank, surround_score, view_rank, view_score, score_id) values (0.21158596662398055, 4.08672110887372, 9.898557585275295, 7.455895518367751, 9.112238840146428, 3.1722192465580457, 2.3224600785872807, 6.856713989483762, 8.95024033235456, 917);
+2022-10-10 14:33:47.680  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027680 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into spot (address, description, location, name, score_id, spot_id) values (?, ?, ?, ?, ?, ?)
 insert into spot (address, description, location, name, score_id, spot_id) values (NULL, NULL, 'Andeok_myeon', NULL, 917, 993);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.680  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027680 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (?, ?, ?, ?)
 insert into member_spot (member_id, score, spot_id, member_spot_id) values (29, 0.0, 993, 3708);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.680  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027680 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (993, 'java.io.StringReader@5d7658ea', 3709);
-2022-10-10 13:48:04.936  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284936 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+insert into picture (spot_id, url, picture_id) values (993, 'java.io.StringReader@62b4b5ce', 3709);
+2022-10-10 14:33:47.680  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027680 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 insert into picture (spot_id, url, picture_id) values (?, ?, ?)
-insert into picture (spot_id, url, picture_id) values (993, 'java.io.StringReader@6e074366', 3710);
-spot = capstone.jejuTourrecommend.domain.Spot@5ac8bc27
+insert into picture (spot_id, url, picture_id) values (993, 'java.io.StringReader@765df306', 3710);
 spot = capstone.jejuTourrecommend.domain.Spot@46bfb6fd
 spot = capstone.jejuTourrecommend.domain.Spot@47a7d0b7
 spot = capstone.jejuTourrecommend.domain.Spot@680d0a69
 spot = capstone.jejuTourrecommend.domain.Spot@39f9bb45
-memberSpot = MemberSpot(id=3696, score=0.0, member=Member(id=29, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@5ac8bc27)
-memberSpot = MemberSpot(id=3699, score=0.0, member=Member(id=29, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@46bfb6fd)
-memberSpot = MemberSpot(id=3702, score=0.0, member=Member(id=29, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@47a7d0b7)
-memberSpot = MemberSpot(id=3705, score=0.0, member=Member(id=29, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@680d0a69)
-memberSpot = MemberSpot(id=3708, score=0.0, member=Member(id=29, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@39f9bb45)
-picture = Picture(id=3697, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@5ac8bc27)
-picture = Picture(id=3698, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@5ac8bc27)
-picture = Picture(id=3700, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@46bfb6fd)
-picture = Picture(id=3701, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@46bfb6fd)
-picture = Picture(id=3703, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@47a7d0b7)
-picture = Picture(id=3704, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@47a7d0b7)
-picture = Picture(id=3706, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@680d0a69)
-picture = Picture(id=3707, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@680d0a69)
-picture = Picture(id=3709, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@39f9bb45)
-picture = Picture(id=3710, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@39f9bb45)
-2022-10-10 13:48:04.937  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284937 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+spot = capstone.jejuTourrecommend.domain.Spot@272b0608
+memberSpot = MemberSpot(id=3696, score=0.0, member=Member(id=29, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@46bfb6fd)
+memberSpot = MemberSpot(id=3699, score=0.0, member=Member(id=29, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@47a7d0b7)
+memberSpot = MemberSpot(id=3702, score=0.0, member=Member(id=29, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@680d0a69)
+memberSpot = MemberSpot(id=3705, score=0.0, member=Member(id=29, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@39f9bb45)
+memberSpot = MemberSpot(id=3708, score=0.0, member=Member(id=29, username=wwntn, email=member1@gmail.com, password=null), spot=capstone.jejuTourrecommend.domain.Spot@272b0608)
+picture = Picture(id=3697, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@46bfb6fd)
+picture = Picture(id=3698, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@46bfb6fd)
+picture = Picture(id=3700, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@47a7d0b7)
+picture = Picture(id=3701, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@47a7d0b7)
+picture = Picture(id=3703, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@680d0a69)
+picture = Picture(id=3704, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@680d0a69)
+picture = Picture(id=3706, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@39f9bb45)
+picture = Picture(id=3707, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@39f9bb45)
+picture = Picture(id=3709, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@272b0608)
+picture = Picture(id=3710, url=asdf1, spot=capstone.jejuTourrecommend.domain.Spot@272b0608)
+2022-10-10 14:33:47.681  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027681 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 select member0_.member_id as member_i1_2_, member0_.created_date as created_2_2_, member0_.last_modified_date as last_mod3_2_, member0_.created_by as created_4_2_, member0_.last_modified_by as last_mod5_2_, member0_.email as email6_2_, member0_.password as password7_2_, member0_.refresh_token as refresh_8_2_, member0_.role as role9_2_, member0_.username as usernam10_2_ from member member0_ where member0_.email=?
 select member0_.member_id as member_i1_2_, member0_.created_date as created_2_2_, member0_.last_modified_date as last_mod3_2_, member0_.created_by as created_4_2_, member0_.last_modified_by as last_mod5_2_, member0_.email as email6_2_, member0_.password as password7_2_, member0_.refresh_token as refresh_8_2_, member0_.role as role9_2_, member0_.username as usernam10_2_ from member member0_ where member0_.email='member1@gmail.com';
 ==================
-2022-10-10 13:48:04.938  INFO 3923 --- [    Test worker] c.j.repository.SpotRepositoryImpl        : location = [Daejeong_eup, Andeok_myeon, Seogwipo_si]
-2022-10-10 13:48:04.938  INFO 3923 --- [    Test worker] c.j.repository.SpotRepositoryImpl        : category = VIEW
-2022-10-10 13:48:04.940  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284940 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.681  INFO 4460 --- [    Test worker] c.j.repository.SpotRepositoryImpl        : location = [Daejeong_eup, Andeok_myeon, Seogwipo_si]
+2022-10-10 14:33:47.681  INFO 4460 --- [    Test worker] c.j.repository.SpotRepositoryImpl        : category = VIEW
+2022-10-10 14:33:47.683  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027683 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 select spot0_.spot_id as col_0_0_, spot0_.name as col_1_0_, spot0_.address as col_2_0_, spot0_.description as col_3_0_ from spot spot0_ left outer join score score1_ on spot0_.score_id=score1_.score_id where spot0_.location in (? , ? , ?) order by score1_.view_score desc limit ?
 select spot0_.spot_id as col_0_0_, spot0_.name as col_1_0_, spot0_.address as col_2_0_, spot0_.description as col_3_0_ from spot spot0_ left outer join score score1_ on spot0_.score_id=score1_.score_id where spot0_.location in ('Daejeong_eup' , 'Andeok_myeon' , 'Seogwipo_si') order by score1_.view_score desc limit 100;
-2022-10-10 13:48:04.940  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284940 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+2022-10-10 14:33:47.683  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027683 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 select favoritesp0_.spot_id as col_0_0_ from favorite_spot favoritesp0_ cross join favorite favorite1_ where favoritesp0_.favorite_id=favorite1_.favorite_id and favorite1_.member_id=? and (favoritesp0_.spot_id in (? , ? , ? , ? , ?))
-select favoritesp0_.spot_id as col_0_0_ from favorite_spot favoritesp0_ cross join favorite favorite1_ where favoritesp0_.favorite_id=favorite1_.favorite_id and favorite1_.member_id=29 and (favoritesp0_.spot_id in (990 , 989 , 991 , 992 , 993));
-2022-10-10 13:48:04.941  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284941 | took 0ms | statement | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+select favoritesp0_.spot_id as col_0_0_ from favorite_spot favoritesp0_ cross join favorite favorite1_ where favoritesp0_.favorite_id=favorite1_.favorite_id and favorite1_.member_id=29 and (favoritesp0_.spot_id in (993 , 991 , 990 , 989 , 992));
+2022-10-10 14:33:47.684  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027684 | took 0ms | statement | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 select picture0_.picture_id as col_0_0_, picture0_.url as col_1_0_, picture0_.spot_id as col_2_0_ from picture picture0_ inner join spot spot1_ on picture0_.spot_id=spot1_.spot_id where picture0_.spot_id in (? , ? , ? , ? , ?)
-select picture0_.picture_id as col_0_0_, picture0_.url as col_1_0_, picture0_.spot_id as col_2_0_ from picture picture0_ inner join spot spot1_ on picture0_.spot_id=spot1_.spot_id where picture0_.spot_id in (990 , 989 , 991 , 992 , 993);
+select picture0_.picture_id as col_0_0_, picture0_.url as col_1_0_, picture0_.spot_id as col_2_0_ from picture picture0_ inner join spot spot1_ on picture0_.spot_id=spot1_.spot_id where picture0_.spot_id in (993 , 991 , 990 , 989 , 992);
 ==================
-after2-before2 = 4
-2022-10-10 13:48:04.942  INFO 3923 --- [    Test worker] p6spy                                    : #1665377284942 | took 0ms | rollback | connection 34| url jdbc:h2:mem:6a3784ae-1aa6-4bbf-b617-4d4aeabcc2af
+after2-before2 = 3
+2022-10-10 14:33:47.685  INFO 4460 --- [    Test worker] p6spy                                    : #1665380027685 | took 0ms | rollback | connection 34| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
 
 ;
-2022-10-10 13:48:04.942  INFO 3923 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@1c9646e1 testClass = SpotRepositoryTest, testInstance = capstone.jejuTourrecommend.repository.SpotRepositoryTest@764d17ab, testMethod = OptimizationSpotLocationCategoryTest@SpotRepositoryTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@4a5755ed testClass = SpotRepositoryTest, locations = '{}', classes = '{class capstone.jejuTourrecommend.JejuTourRecommendApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@239b0f9d, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@c260bdc, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3f363cf5, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@1bb1fde8, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@26a4842b, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@34b9f960], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]
+2022-10-10 14:33:47.685  INFO 4460 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@1048dc3d testClass = SpotRepositoryTest, testInstance = capstone.jejuTourrecommend.repository.SpotRepositoryTest@2904a088, testMethod = OptimizationSpotLocationCategoryTest@SpotRepositoryTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@18dc67de testClass = SpotRepositoryTest, locations = '{}', classes = '{class capstone.jejuTourrecommend.JejuTourRecommendApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@749c877b, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@60f7cc1d, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@207ea13, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@5827af16, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@50fe837a, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@51bd8b5c], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]
 </pre>
 </span>
 </div>
@@ -631,7 +631,7 @@ after2-before2 = 4
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.5.1</a> at 2022. 10. 10. 오후 1:48:05</p>
+<a href="http://www.gradle.org">Gradle 7.5.1</a> at 2022. 10. 10. 오후 2:33:47</p>
 </div>
 </div>
 </body>

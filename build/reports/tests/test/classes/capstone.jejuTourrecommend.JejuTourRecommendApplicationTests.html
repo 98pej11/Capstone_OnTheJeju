@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.006s</div>
+<div class="counter">0.066s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,7 +79,7 @@
 </thead>
 <tr>
 <td class="success">contextLoads()</td>
-<td class="success">0.006s</td>
+<td class="success">0.066s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -87,12 +87,177 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2022-10-10 13:48:03.829  INFO 3923 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [capstone.jejuTourrecommend.JejuTourRecommendApplicationTests], using SpringBootContextLoader
-2022-10-10 13:48:03.830  INFO 3923 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [capstone.jejuTourrecommend.JejuTourRecommendApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
-2022-10-10 13:48:03.830  INFO 3923 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [capstone.jejuTourrecommend.JejuTourRecommendApplicationTests]: JejuTourRecommendApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2022-10-10 13:48:03.832  INFO 3923 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration capstone.jejuTourrecommend.JejuTourRecommendApplication for test class capstone.jejuTourrecommend.JejuTourRecommendApplicationTests
-2022-10-10 13:48:03.833  INFO 3923 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-2022-10-10 13:48:03.833  INFO 3923 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@3366a998, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@3c0403a, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@5ea206bc, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@7c87c960, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@7a2b8501, org.springframework.test.context.support.DirtiesContextTestExecutionListener@7b6bcbee, org.springframework.test.context.transaction.TransactionalTestExecutionListener@3532b5d9, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@77bca6d6, org.springframework.test.context.event.EventPublishingTestExecutionListener@511936ad, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@7408b3db, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@54b45cfe, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@462ccaa8, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@5e18309e, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@6fbfd6ed, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@191a3448]
+<pre>14:33:41.839 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+14:33:41.845 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+14:33:41.866 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [capstone.jejuTourrecommend.JejuTourRecommendApplicationTests] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+14:33:41.874 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [capstone.jejuTourrecommend.JejuTourRecommendApplicationTests], using SpringBootContextLoader
+14:33:41.876 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [capstone.jejuTourrecommend.JejuTourRecommendApplicationTests]: class path resource [capstone/jejuTourrecommend/JejuTourRecommendApplicationTests-context.xml] does not exist
+14:33:41.876 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [capstone.jejuTourrecommend.JejuTourRecommendApplicationTests]: class path resource [capstone/jejuTourrecommend/JejuTourRecommendApplicationTestsContext.groovy] does not exist
+14:33:41.877 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [capstone.jejuTourrecommend.JejuTourRecommendApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+14:33:41.877 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [capstone.jejuTourrecommend.JejuTourRecommendApplicationTests]: JejuTourRecommendApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:33:41.901 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [capstone.jejuTourrecommend.JejuTourRecommendApplicationTests]
+14:33:41.933 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/suheonjoo/git/Spring/Capstone/jejuTour-recommend/build/classes/java/main/capstone/jejuTourrecommend/JejuTourRecommendApplication.class]
+14:33:41.934 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration capstone.jejuTourrecommend.JejuTourRecommendApplication for test class capstone.jejuTourrecommend.JejuTourRecommendApplicationTests
+14:33:41.987 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [capstone.jejuTourrecommend.JejuTourRecommendApplicationTests]: using defaults.
+14:33:41.987 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+14:33:41.997 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@df5f5c0, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@308a6984, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@66b72664, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@7a34b7b8, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@58cd06cb, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3be8821f, org.springframework.test.context.transaction.TransactionalTestExecutionListener@64b31700, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3b65e559, org.springframework.test.context.event.EventPublishingTestExecutionListener@bae47a0, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@74a9c4b0, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@85ec632, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@1c05a54d, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@65ef722a, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@5fd9b663, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@214894fc]
+14:33:41.999 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@3add81c4 testClass = JejuTourRecommendApplicationTests, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@1a1d3c1a testClass = JejuTourRecommendApplicationTests, locations = '{}', classes = '{class capstone.jejuTourrecommend.JejuTourRecommendApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@749c877b, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@60f7cc1d, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@207ea13, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@5827af16, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@50fe837a, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@51bd8b5c], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true]], class annotated with @DirtiesContext [false] with mode [null].
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.6)
+
+2022-10-10 14:33:42.258  INFO 4460 --- [    Test worker] c.j.JejuTourRecommendApplicationTests    : Starting JejuTourRecommendApplicationTests using Java 11.0.14 on Heon-MacBookPro.local with PID 4460 (started by suheonjoo in /Users/suheonjoo/git/Spring/Capstone/jejuTour-recommend)
+2022-10-10 14:33:42.259  INFO 4460 --- [    Test worker] c.j.JejuTourRecommendApplicationTests    : The following 1 profile is active: &quot;test&quot;
+2022-10-10 14:33:42.707  INFO 4460 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-10-10 14:33:42.708  INFO 4460 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-10-10 14:33:42.820  INFO 4460 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface capstone.jejuTourrecommend.web.redis.LogoutAccessTokenRedisRepository. If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository.
+2022-10-10 14:33:42.833  INFO 4460 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 121 ms. Found 8 JPA repository interfaces.
+2022-10-10 14:33:42.843  INFO 4460 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-10-10 14:33:42.843  INFO 4460 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-10-10 14:33:42.855  INFO 4460 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface capstone.jejuTourrecommend.repository.FavoriteRepository. If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository.
+2022-10-10 14:33:42.855  INFO 4460 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface capstone.jejuTourrecommend.repository.FavoriteSpotRepository. If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository.
+2022-10-10 14:33:42.857  INFO 4460 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface capstone.jejuTourrecommend.repository.MemberRepository. If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository.
+2022-10-10 14:33:42.857  INFO 4460 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface capstone.jejuTourrecommend.repository.MemberSpotRepository. If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository.
+2022-10-10 14:33:42.857  INFO 4460 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface capstone.jejuTourrecommend.repository.PictureRepository. If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository.
+2022-10-10 14:33:42.858  INFO 4460 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface capstone.jejuTourrecommend.repository.ReviewRepository. If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository.
+2022-10-10 14:33:42.858  INFO 4460 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface capstone.jejuTourrecommend.repository.ScoreRepository. If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository.
+2022-10-10 14:33:42.858  INFO 4460 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface capstone.jejuTourrecommend.repository.SpotRepository. If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository.
+2022-10-10 14:33:42.863  INFO 4460 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 1 Redis repository interfaces.
+2022-10-10 14:33:43.293  INFO 4460 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-10-10 14:33:43.393  INFO 4460 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-10-10 14:33:43.451  INFO 4460 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-10-10 14:33:43.478  INFO 4460 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.7.Final
+2022-10-10 14:33:43.589  INFO 4460 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-10-10 14:33:43.653  INFO 4460 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2022-10-10 14:33:43.793  INFO 4460 --- [    Test worker] p6spy                                    : #1665380023793 | took 3ms | statement | connection 2| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+select * from INFORMATION_SCHEMA.SEQUENCES
+select * from INFORMATION_SCHEMA.SEQUENCES;
+2022-10-10 14:33:44.133  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024133 | took 0ms | statement | connection 3| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+drop table if exists favorite CASCADE 
+drop table if exists favorite CASCADE ;
+2022-10-10 14:33:44.134  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024134 | took 0ms | statement | connection 3| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+drop table if exists favorite_spot CASCADE 
+drop table if exists favorite_spot CASCADE ;
+2022-10-10 14:33:44.134  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024134 | took 0ms | statement | connection 3| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+drop table if exists member CASCADE 
+drop table if exists member CASCADE ;
+2022-10-10 14:33:44.134  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024134 | took 0ms | statement | connection 3| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+drop table if exists member_spot CASCADE 
+drop table if exists member_spot CASCADE ;
+2022-10-10 14:33:44.134  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024134 | took 0ms | statement | connection 3| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+drop table if exists picture CASCADE 
+drop table if exists picture CASCADE ;
+2022-10-10 14:33:44.134  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024134 | took 0ms | statement | connection 3| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+drop table if exists review CASCADE 
+drop table if exists review CASCADE ;
+2022-10-10 14:33:44.134  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024134 | took 0ms | statement | connection 3| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+drop table if exists score CASCADE 
+drop table if exists score CASCADE ;
+2022-10-10 14:33:44.134  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024134 | took 0ms | statement | connection 3| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+drop table if exists spot CASCADE 
+drop table if exists spot CASCADE ;
+2022-10-10 14:33:44.135  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024135 | took 0ms | statement | connection 3| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+drop sequence if exists favorite_seq
+drop sequence if exists favorite_seq;
+2022-10-10 14:33:44.135  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024135 | took 0ms | statement | connection 3| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+drop sequence if exists favoritespot_seq
+drop sequence if exists favoritespot_seq;
+2022-10-10 14:33:44.135  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024135 | took 0ms | statement | connection 3| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+drop sequence if exists hibernate_sequence
+drop sequence if exists hibernate_sequence;
+2022-10-10 14:33:44.135  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024135 | took 0ms | statement | connection 3| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+drop sequence if exists member_seq
+drop sequence if exists member_seq;
+2022-10-10 14:33:44.135  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024135 | took 0ms | statement | connection 3| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+drop sequence if exists review_seq
+drop sequence if exists review_seq;
+2022-10-10 14:33:44.135  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024135 | took 0ms | statement | connection 3| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+drop sequence if exists score_seq
+drop sequence if exists score_seq;
+2022-10-10 14:33:44.135  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024135 | took 0ms | statement | connection 3| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+drop sequence if exists spot_seq
+drop sequence if exists spot_seq;
+2022-10-10 14:33:44.138  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024138 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+create sequence favorite_seq start with 1 increment by 50
+create sequence favorite_seq start with 1 increment by 50;
+2022-10-10 14:33:44.138  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024138 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+create sequence favoritespot_seq start with 1 increment by 50
+create sequence favoritespot_seq start with 1 increment by 50;
+2022-10-10 14:33:44.138  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024138 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+create sequence hibernate_sequence start with 1 increment by 1
+create sequence hibernate_sequence start with 1 increment by 1;
+2022-10-10 14:33:44.138  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024138 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+create sequence member_seq start with 1 increment by 50
+create sequence member_seq start with 1 increment by 50;
+2022-10-10 14:33:44.139  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024139 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+create sequence review_seq start with 1 increment by 50
+create sequence review_seq start with 1 increment by 50;
+2022-10-10 14:33:44.139  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024139 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+create sequence score_seq start with 1 increment by 50
+create sequence score_seq start with 1 increment by 50;
+2022-10-10 14:33:44.139  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024139 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+create sequence spot_seq start with 1 increment by 50
+create sequence spot_seq start with 1 increment by 50;
+2022-10-10 14:33:44.142  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024142 | took 2ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+create table favorite (favorite_id bigint not null, name varchar(255), member_id bigint, primary key (favorite_id))
+create table favorite (favorite_id bigint not null, name varchar(255), member_id bigint, primary key (favorite_id));
+2022-10-10 14:33:44.142  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024142 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+create table favorite_spot (favorite_spot_id bigint not null, count integer not null, favorite_id bigint, spot_id bigint, primary key (favorite_spot_id))
+create table favorite_spot (favorite_spot_id bigint not null, count integer not null, favorite_id bigint, spot_id bigint, primary key (favorite_spot_id));
+2022-10-10 14:33:44.143  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024143 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+create table member (member_id bigint not null, created_date timestamp, last_modified_date timestamp, created_by varchar(255), last_modified_by varchar(255), email varchar(255), password varchar(255), refresh_token varchar(255), role varchar(255), username varchar(255), primary key (member_id))
+create table member (member_id bigint not null, created_date timestamp, last_modified_date timestamp, created_by varchar(255), last_modified_by varchar(255), email varchar(255), password varchar(255), refresh_token varchar(255), role varchar(255), username varchar(255), primary key (member_id));
+2022-10-10 14:33:44.144  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024144 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+create table member_spot (member_spot_id bigint not null, score double, member_id bigint, spot_id bigint, primary key (member_spot_id))
+create table member_spot (member_spot_id bigint not null, score double, member_id bigint, spot_id bigint, primary key (member_spot_id));
+2022-10-10 14:33:44.145  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024145 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+create table picture (picture_id bigint not null, url clob, spot_id bigint, primary key (picture_id))
+create table picture (picture_id bigint not null, url clob, spot_id bigint, primary key (picture_id));
+2022-10-10 14:33:44.145  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024145 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+create table review (review_id bigint not null, content clob, spot_id bigint, primary key (review_id))
+create table review (review_id bigint not null, content clob, spot_id bigint, primary key (review_id));
+2022-10-10 14:33:44.146  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024146 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+create table score (score_id bigint not null, facility_rank double, facility_score double, price_rank double, price_score double, rank_average double, surround_rank double, surround_score double, view_rank double, view_score double, primary key (score_id))
+create table score (score_id bigint not null, facility_rank double, facility_score double, price_rank double, price_score double, rank_average double, surround_rank double, surround_score double, view_rank double, view_score double, primary key (score_id));
+2022-10-10 14:33:44.146  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024146 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+create table spot (spot_id bigint not null, address varchar(255), description clob, location varchar(255), name varchar(255), score_id bigint, primary key (spot_id))
+create table spot (spot_id bigint not null, address varchar(255), description clob, location varchar(255), name varchar(255), score_id bigint, primary key (spot_id));
+2022-10-10 14:33:44.152  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024152 | took 4ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+alter table favorite add constraint FK5w3q9ljpthkixo71hetx3ired foreign key (member_id) references member
+alter table favorite add constraint FK5w3q9ljpthkixo71hetx3ired foreign key (member_id) references member;
+2022-10-10 14:33:44.153  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024153 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+alter table favorite_spot add constraint FKnu53qqljw7fls7xwqrnv1k05k foreign key (favorite_id) references favorite
+alter table favorite_spot add constraint FKnu53qqljw7fls7xwqrnv1k05k foreign key (favorite_id) references favorite;
+2022-10-10 14:33:44.154  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024154 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+alter table favorite_spot add constraint FK6xula6i2dtvmobe4y3fahchpk foreign key (spot_id) references spot
+alter table favorite_spot add constraint FK6xula6i2dtvmobe4y3fahchpk foreign key (spot_id) references spot;
+2022-10-10 14:33:44.154  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024154 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+alter table member_spot add constraint FK92xw3mgtk0vd1wolgw5do0m38 foreign key (member_id) references member
+alter table member_spot add constraint FK92xw3mgtk0vd1wolgw5do0m38 foreign key (member_id) references member;
+2022-10-10 14:33:44.156  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024156 | took 1ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+alter table member_spot add constraint FKmw9mig1h9hj4h51c5uaubl2mv foreign key (spot_id) references spot
+alter table member_spot add constraint FKmw9mig1h9hj4h51c5uaubl2mv foreign key (spot_id) references spot;
+2022-10-10 14:33:44.157  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024157 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+alter table picture add constraint FKcfsmw2afskeede7bm8ft5peue foreign key (spot_id) references spot
+alter table picture add constraint FKcfsmw2afskeede7bm8ft5peue foreign key (spot_id) references spot;
+2022-10-10 14:33:44.158  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024158 | took 0ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+alter table review add constraint FKdbuk0k3a1m7onbgkkm7yinebr foreign key (spot_id) references spot
+alter table review add constraint FKdbuk0k3a1m7onbgkkm7yinebr foreign key (spot_id) references spot;
+2022-10-10 14:33:44.160  INFO 4460 --- [    Test worker] p6spy                                    : #1665380024160 | took 1ms | statement | connection 4| url jdbc:h2:mem:ad3a9e80-f26d-4a3e-9691-17f803db5723
+alter table spot add constraint FKsgrd6l8ytoy7arpulxhtddhpp foreign key (score_id) references score
+alter table spot add constraint FKsgrd6l8ytoy7arpulxhtddhpp foreign key (score_id) references score;
+2022-10-10 14:33:44.161  INFO 4460 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-10-10 14:33:44.166  INFO 4460 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-10-10 14:33:45.534  WARN 4460 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-10-10 14:33:45.798  WARN 4460 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@354a1239. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-10-10 14:33:45.798  INFO 4460 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@354a1239 with []
+2022-10-10 14:33:45.835  INFO 4460 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure any request
+2022-10-10 14:33:46.114  INFO 4460 --- [    Test worker] c.j.JejuTourRecommendApplicationTests    : Started JejuTourRecommendApplicationTests in 4.085 seconds (JVM running for 4.774)
 </pre>
 </span>
 </div>
@@ -104,7 +269,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.5.1</a> at 2022. 10. 10. 오후 1:48:05</p>
+<a href="http://www.gradle.org">Gradle 7.5.1</a> at 2022. 10. 10. 오후 2:33:47</p>
 </div>
 </div>
 </body>
