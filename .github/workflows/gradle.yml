@@ -16,6 +16,12 @@ on:
 permissions:
   contents: read
 
+
+env: # 새로 추가한 부분
+  S3_BUCKET_NAME: logging-system-deploy
+  PROJECT_NAME: playground-logging
+
+
 jobs:
   build:
 
