@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of={"id","username","address","description","location","score"})//원래 연관관계 없는 필드만 넣어야 서로 toSting 하면 무한루프 발생함
+//@ToString(of={"id","username","address","description","location"}) //원래 연관관계 없는 필드만 넣어야 서로 toSting 하면 무한루프 발생함
 //@Table(indexes = @Index(name = "i_spot", columnList = "spot_id"))
 public class Spot {
 
