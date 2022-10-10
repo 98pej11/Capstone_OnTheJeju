@@ -15,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static capstone.jejuTourrecommend.domain.QReview.review;
+import static capstone.jejuTourrecommend.spot.domain.detailSpot.QReview.review;
+
 
 @Repository
 @Slf4j

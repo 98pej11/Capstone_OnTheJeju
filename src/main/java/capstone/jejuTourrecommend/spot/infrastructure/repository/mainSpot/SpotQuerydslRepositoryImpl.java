@@ -1,8 +1,9 @@
 package capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot;
 
+import capstone.jejuTourrecommend.spot.domain.QSpot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
-import capstone.jejuTourrecommend.domain.QSpot;
+
 import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.PictureDetailDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
@@ -19,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,13 +29,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static capstone.jejuTourrecommend.domain.QFavorite.favorite;
-import static capstone.jejuTourrecommend.domain.QFavoriteSpot.favoriteSpot;
-import static capstone.jejuTourrecommend.domain.QMember.member;
-import static capstone.jejuTourrecommend.domain.QMemberSpot.memberSpot;
-import static capstone.jejuTourrecommend.domain.QPicture.picture;
-import static capstone.jejuTourrecommend.domain.QScore.score;
-import static capstone.jejuTourrecommend.domain.QSpot.spot;
+import static capstone.jejuTourrecommend.authentication.domain.QMember.member;
+import static capstone.jejuTourrecommend.favorite.domain.QFavorite.favorite;
+import static capstone.jejuTourrecommend.favorite.domain.QFavoriteSpot.favoriteSpot;
+import static capstone.jejuTourrecommend.spot.domain.QScore.score;
+import static capstone.jejuTourrecommend.spot.domain.QSpot.spot;
+import static capstone.jejuTourrecommend.spot.domain.detailSpot.QPicture.picture;
+import static capstone.jejuTourrecommend.spot.domain.mainSpot.QMemberSpot.memberSpot;
 
 
 @Repository

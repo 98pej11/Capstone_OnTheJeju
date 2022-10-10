@@ -2,15 +2,16 @@ package capstone.jejuTourrecommend.favorite.infrastructure.repository;
 
 
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
+
 import capstone.jejuTourrecommend.favorite.domain.FavoriteSpot;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
-import capstone.jejuTourrecommend.domain.QFavoriteSpot;
-import capstone.jejuTourrecommend.spot.domain.Spot;
+import capstone.jejuTourrecommend.favorite.domain.QFavoriteSpot;
 import capstone.jejuTourrecommend.favorite.domain.dto.FavoriteListDto;
 import capstone.jejuTourrecommend.favorite.domain.dto.SpotListDtoByFavoriteSpot;
 import capstone.jejuTourrecommend.route.domain.dto.QRouteSpotListDto;
 import capstone.jejuTourrecommend.route.domain.dto.RouteSpotListDto;
 import capstone.jejuTourrecommend.route.presentation.dto.request.RouteForm;
+import capstone.jejuTourrecommend.spot.domain.Spot;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.PictureDetailDto;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
@@ -31,12 +32,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static capstone.jejuTourrecommend.domain.QFavorite.favorite;
-import static capstone.jejuTourrecommend.domain.QFavoriteSpot.favoriteSpot;
-import static capstone.jejuTourrecommend.domain.QMember.member;
-import static capstone.jejuTourrecommend.domain.QPicture.picture;
-import static capstone.jejuTourrecommend.domain.QScore.score;
-import static capstone.jejuTourrecommend.domain.QSpot.spot;
+
+import static capstone.jejuTourrecommend.authentication.domain.QMember.member;
+import static capstone.jejuTourrecommend.favorite.domain.QFavorite.favorite;
+import static capstone.jejuTourrecommend.favorite.domain.QFavoriteSpot.favoriteSpot;
+import static capstone.jejuTourrecommend.spot.domain.QScore.score;
+import static capstone.jejuTourrecommend.spot.domain.QSpot.spot;
+import static capstone.jejuTourrecommend.spot.domain.detailSpot.QPicture.picture;
 import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Repository
