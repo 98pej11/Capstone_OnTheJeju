@@ -1,0 +1,77 @@
+
+#spring:
+#  profiles:
+#    active: local
+#  datasource:
+#    url: jdbc:h2:tcp://localhost/~/jejudata
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+#      default_batch_fetch_size: 1000
+#    properties:
+#      hibernate:
+#        #show_sql: true
+#        format_sql: true
+#        use_sql_comments: true
+
+
+server:
+  servlet:
+    session:
+      tracking-modes: cookie
+
+
+#  thymeleaf:
+#    #prefix: classpath:src/main/resources/
+#    check-template-location: true
+#    suffix: .html
+#    mode: HTML
+#    cache: false
+#    order: 0
+
+
+logging.level:
+  org.hibernate.SQL: debug
+  #  org.hibernate.type: trace
+
+
+
+#Mysql 디비 설정
+spring :
+  profiles:
+    active: local
+  datasource :
+    driver-class-name : com.mysql.cj.jdbc.Driver # MySQL 설정
+    url : jdbc:mysql://localhost:3306/jejudata?serverTimezone=Asia/Seoul
+#    url : jdbc:mysql://database-jeju.cm9aip6gf6nn.us-west-1.rds.amazonaws.com:3306/jejudata
+    username : root
+    password : 1111
+  jpa :
+    show-sql : true # true 설정시 JPA 쿼리문 확인 가능
+    hibernate :
+      ddl-auto : create # DDL(create, alter, drop) 정의시 DB의 고유 기능을 사용할 수 있다.
+    properties :
+      hibernate :
+        format_sql : true # JPA의 구현체인 Hibernate가 동작하면서 발생한 SQL의 가독성을 높여준다.
+        default_batch_fetch_size: 1000
+
+    defer-datasource-initialization: true
+
+    sql:
+      init:
+        mode: always
+  redis:
+    pool:
+      min-idle: 0
+      max-idle: 8
+      max-active: 8
+    port: 6379
+    host: 127.0.0.1
+jwt:
+  secret: webfirewood
+
+
+

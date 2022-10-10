@@ -1,0 +1,72 @@
+package capstone.jejuTourrecommend.Service;
+
+import capstone.jejuTourrecommend.domain.Favorite;
+import capstone.jejuTourrecommend.repository.FavoriteRepository;
+import capstone.jejuTourrecommend.repository.FavoriteSpotQueryRepository;
+import capstone.jejuTourrecommend.repository.FavoriteSpotRepository;
+import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
+import capstone.jejuTourrecommend.web.pageDto.favoritePage.SpotListDtoByFavoriteSpot;
+import capstone.jejuTourrecommend.web.pageDto.routePage.ResultFavoriteSpotList;
+import capstone.jejuTourrecommend.web.pageDto.routePage.RouteForm;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import java.util.List;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+@Transactional
+public class RouteService {
+
+    private final EntityManager em;
+
+    private final FavoriteSpotQueryRepository favoriteSpotQueryRepository;
+
+
+    //Todo:
+    private final FavoriteRepository favoriteRepository;
+
+    public ResultFavoriteSpotList favoriteSpotList(Long favoriteId){
+
+        Favorite favorite = favoriteRepository.findOptionById(favoriteId).orElseThrow(() -> new UserException("올바르지 않은 favoriteId 입니다"));
+
+        List<SpotListDtoByFavoriteSpot> spotListDtoByFavoriteSpots = favoriteSpotQueryRepository.favoriteSpotList(favoriteId);
+
+        return new ResultFavoriteSpotList(200l,true,"성공",favorite.getName(), spotListDtoByFavoriteSpots);
+
+    }
+
+
+
+
+    public List recommendSpotList(Long favoriteId, RouteForm routeForm){
+
+
+        List list = favoriteSpotQueryRepository.recommendSpotList(favoriteId, routeForm);
+
+        return list;
+
+    }
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
