@@ -58,7 +58,7 @@ jobs:
     ### 새로 추가한 부분 ###
     - name: Code Deploy
       run: aws deploy create-deployment --application-name Capstone-JejuTourRecommend --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name develop --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
-##Capstone-JejuTourRecommend : aws codedeploy 에서 만든 어플리케이션 이름임
+##Capstone-JejuTourRecommend : aws codedeploy 에서 만든 어플리케이션 이름 임 
 
 
 
