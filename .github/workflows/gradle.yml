@@ -17,9 +17,9 @@ permissions:
   contents: read
 
 
-env: # 새로 추가한 부분
-  S3_BUCKET_NAME: logging-system-deploy
-  PROJECT_NAME: playground-logging
+env: # 새로 추가한 부분 S3 관련
+  S3_BUCKET_NAME: jeju-deploy
+  PROJECT_NAME: Capstone-JejuTourRecommend
 
 
 jobs:
