@@ -1,8 +1,8 @@
 package capstone.jejuTourrecommend.repository;
 
 import capstone.jejuTourrecommend.domain.*;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListDto;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.UserWeightDto;
+import capstone.jejuTourrecommend.spotList.dto.SpotListDto;
+import capstone.jejuTourrecommend.spotList.dto.UserWeightDto;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

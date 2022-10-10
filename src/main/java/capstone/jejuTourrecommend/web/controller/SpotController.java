@@ -2,11 +2,11 @@ package capstone.jejuTourrecommend.web.controller;
 
 import capstone.jejuTourrecommend.Service.SpotService;
 import capstone.jejuTourrecommend.domain.Member;
+import capstone.jejuTourrecommend.spotList.dto.SpotListMetaDataOp;
 import capstone.jejuTourrecommend.web.controller.metaData.DefaultMetaDataBuilder;
 import capstone.jejuTourrecommend.web.controller.metaData.MetaDataDirector;
 import capstone.jejuTourrecommend.web.login.LoginUser;
 import capstone.jejuTourrecommend.web.login.jwt.provider.JwtTokenProvider;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.SpotListMetaDataOp;
 import capstone.jejuTourrecommend.web.pageDto.spotPage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;

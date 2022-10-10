@@ -1,7 +1,5 @@
 package capstone.jejuTourrecommend.domain;
 
-import capstone.jejuTourrecommend.web.pageDto.mainPage.CategoryDto;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.RegionDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,10 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @SpringBootTest
 @Transactional

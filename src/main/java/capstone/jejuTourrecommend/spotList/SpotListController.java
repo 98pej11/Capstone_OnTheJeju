@@ -1,25 +1,26 @@
-package capstone.jejuTourrecommend.web.controller;
+package capstone.jejuTourrecommend.spotList;
 
 
-import capstone.jejuTourrecommend.Service.SpotListService;
 import capstone.jejuTourrecommend.domain.Member;
+import capstone.jejuTourrecommend.spotList.dto.*;
 import capstone.jejuTourrecommend.web.controller.metaData.DefaultMetaDataBuilder;
 import capstone.jejuTourrecommend.web.controller.metaData.MetaData;
 import capstone.jejuTourrecommend.web.controller.metaData.MetaDataDirector;
 import capstone.jejuTourrecommend.web.login.LoginUser;
-import capstone.jejuTourrecommend.web.login.dto.AccountContext;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.login.jwt.provider.JwtTokenProvider;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor

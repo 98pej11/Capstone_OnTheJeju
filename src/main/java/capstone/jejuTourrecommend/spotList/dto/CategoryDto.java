@@ -1,11 +1,9 @@
-package capstone.jejuTourrecommend.web.pageDto.mainPage;
+package capstone.jejuTourrecommend.spotList.dto;
 
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Data
 public class CategoryDto {

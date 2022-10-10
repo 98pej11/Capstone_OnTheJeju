@@ -5,7 +5,7 @@ import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.FavoriteListDto;
 import capstone.jejuTourrecommend.web.pageDto.favoritePage.SpotListDtoByFavoriteSpot;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.PictureDetailDto;
+import capstone.jejuTourrecommend.spotList.dto.PictureDetailDto;
 import capstone.jejuTourrecommend.web.pageDto.routePage.QRouteSpotListDto;
 import capstone.jejuTourrecommend.web.pageDto.routePage.RouteForm;
 import capstone.jejuTourrecommend.web.pageDto.routePage.RouteSpotListDto;

@@ -1,11 +1,11 @@
 package capstone.jejuTourrecommend.domain.Service;
 
-import capstone.jejuTourrecommend.Service.SpotListService;
+import capstone.jejuTourrecommend.spotList.SpotListService;
 import capstone.jejuTourrecommend.domain.*;
 import capstone.jejuTourrecommend.repository.MemberRepository;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.MainPageForm;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.ResultSpotListDto;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.UserWeightDto;
+import capstone.jejuTourrecommend.spotList.dto.MainPageForm;
+import capstone.jejuTourrecommend.spotList.dto.ResultSpotListDto;
+import capstone.jejuTourrecommend.spotList.dto.UserWeightDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

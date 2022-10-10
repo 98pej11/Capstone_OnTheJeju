@@ -1,7 +1,9 @@
 package capstone.jejuTourrecommend.repository;
 
 import capstone.jejuTourrecommend.domain.*;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.*;
+import capstone.jejuTourrecommend.spotList.dto.PictureDetailDto;
+import capstone.jejuTourrecommend.spotList.dto.SpotListDto;
+import capstone.jejuTourrecommend.spotList.dto.UserWeightDto;
 import capstone.jejuTourrecommend.web.pageDto.spotPage.ScoreDto;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
@@ -379,18 +381,6 @@ public class SpotRepositoryImpl implements SpotRepositoryCustom {
         return memberId != null ? favorite.member.id.eq(memberId) : null;
     }
 
-    private BooleanExpression favoriteListEq(List<Long> favoriteList) {
-        return favoriteList != null ? favoriteSpot.favorite.id.in(favoriteList) : null;
-    }
-
-
-    private BooleanExpression locationEq(Location location) {
-        return location != null ? spot.location.eq(location) : null;
-    }
-
-    private BooleanExpression location1Eq(Location location) {
-        return location != null ? memberSpot.spot.location.eq(location) : null;
-    }
 
     private BooleanExpression memberEq(Long memberId) {
         return memberId != null ? memberSpot.member.id.eq(memberId) : null;

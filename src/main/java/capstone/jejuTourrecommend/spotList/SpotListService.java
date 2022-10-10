@@ -1,11 +1,14 @@
-package capstone.jejuTourrecommend.Service;
+package capstone.jejuTourrecommend.spotList;
 
-import capstone.jejuTourrecommend.Service.spotList.*;
-import capstone.jejuTourrecommend.domain.*;
-import capstone.jejuTourrecommend.repository.MemberRepository;
+import capstone.jejuTourrecommend.domain.Category;
+import capstone.jejuTourrecommend.domain.Location;
 import capstone.jejuTourrecommend.repository.SpotRepository;
+import capstone.jejuTourrecommend.spotList.locationStragety.*;
 import capstone.jejuTourrecommend.web.login.exceptionClass.UserException;
-import capstone.jejuTourrecommend.web.pageDto.mainPage.*;
+import capstone.jejuTourrecommend.spotList.dto.MainPageForm;
+import capstone.jejuTourrecommend.spotList.dto.ResultSpotListDto;
+import capstone.jejuTourrecommend.spotList.dto.SpotListDto;
+import capstone.jejuTourrecommend.spotList.dto.UserWeightDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -24,6 +27,7 @@ public class SpotListService {
 
 
     private final SpotRepository spotRepository;
+
 
     public ResultSpotListDto searchSpotListContains(Long memberId, String spotName, Pageable pageable) {
 

@@ -1,6 +1,5 @@
-package capstone.jejuTourrecommend.Service.spotList;
+package capstone.jejuTourrecommend.spotList.locationStragety;
 
-import capstone.jejuTourrecommend.Service.spotList.LocationStrategy;
 import capstone.jejuTourrecommend.domain.Location;
 
 import java.util.Arrays;

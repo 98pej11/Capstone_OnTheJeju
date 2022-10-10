@@ -1,6 +1,6 @@
 package capstone.jejuTourrecommend.web.pageDto.favoritePage;
 
-import capstone.jejuTourrecommend.web.pageDto.mainPage.PictureDetailDto;
+import capstone.jejuTourrecommend.spotList.dto.PictureDetailDto;
 import lombok.Data;
 
 import java.util.ArrayList;
