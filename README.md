@@ -18,7 +18,7 @@
 
 <summary> 본문 확인 (👈 Click)</summary>
 
-- 백엔드: 주수헌 [GitHub](https://github.com/n0eyes) (본인) |
+- 백엔드: 주수헌 [GitHub](https://github.com/suheonjoo) (본인) |
   기술 스택으로는 spring-boot, jpa, querydsl로 백엔드를 구성하였습니다.
 서버배포는 ec2 로 하였으며, 데이터베이스는 mysql로 진행하였습니다.
 그러나 위에 코드는 지속적인 빠른 테스트를 h2디비를 사용하였습니다.
@@ -52,8 +52,6 @@
   (단, where의 exists는 지원합니다)
   ->그래서 exists 를 우회하기 위해 count 쿼리를 사용합니다 -> 이때 문제가 생깁니다
 
-  ￼
-
 - querydsl의 exist는 실제로 성능이슈가 있는 count()>0으로 실행됩니다
   (Querydsl에서 기본적으로 지원하는 exists 를 보면 성능상 이슈가 있는 count 쿼리 방식을 사용했습니다)
   count는 전체 다 훑어보는 것으로 성능 저하 문제가 생깁니다
@@ -63,7 +61,11 @@
   jpql에서는 from없이는 쿼리가 실행되지 않아서 limit(1)을 사용하였습니다
   limit(1)로 조회제한을 한여 실행하였습니다 (= fetchFirst())
 
-3. 서브쿼리 -> 조인, 쿼리분할
+<img  alt="querydslExitUpgrade" src="./images/querydslExitUpgrade.png?raw=true"  >
+
+
+
+### (3) 서브쿼리 -> 조인, 쿼리분할
 
 - querydsl에서 서브쿼리는 안티패턴인 것을 확인하여, 조인을 사용하고, 쿼리 분할을 하여 서브쿼리를 대체하였습니다.
 
@@ -108,6 +110,9 @@
 
 - “객체 지향의 사실과 오해” 책을 통해 객체 지향의 의미를 좀 더 이해할 수 있는 계기 되었습니다. 그래서 "객체 지향 언어인 자바"를 책에서 말한 역할, 책임, 협력의 관점으로 바라보며 설계할 수 있다는 것을 알게 되었습니다.
   이후 "객체 지향의 역할, 책임, 협력"을 23가지 패턴으로 만든 “GOF의 23가지 디자인 패턴”도 학습하여 본 프로젝트에 적용하여 좀더 객체 지향적인 코드로 바꾸었습니다
+
+([디자인 패턴 학습 내용](https://github.com/suheonjoo/Study-Document/tree/master/%EB%94%94%EC%9E%90%EC%9D%B8%20%ED%8C%A8%ED%84%B4%20%EC%A0%95%EB%A6%AC))
+
 
 ### (1) "관광지 위치" 전략 패턴 적용
 
