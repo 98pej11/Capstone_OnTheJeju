@@ -5,9 +5,10 @@
 <details>
   
 <summary> 본문 확인 (👈 Click)</summary>
-아래 블로그를 통해 자세한 내용을 확인할 수 있습니다
 
-https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=222783108548&categoryNo=1&isAfterWrite=true&isMrblogPost=false&isHappyBeanLeverage=true&contentLength=5077&isWeeklyDiaryPopupEnabled=true
+- 아래 블로그를 통해 자세한 내용을 확인할 수 있습니다
+
+   https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=222783108548&categoryNo=1&isAfterWrite=true&isMrblogPost=false&isHappyBeanLeverage=true&contentLength=5077&isWeeklyDiaryPopupEnabled=true
 
 </details>
 
@@ -39,7 +40,7 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 <details>
 <summary> 본문 확인 (👈 Click)</summary>
   
-## Querydsl
+## 1. Querydsl
 
 1. 묵시적 조인을 모두 명시적 조인으로 수정
 
@@ -66,7 +67,7 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 - querydsl에서 서브쿼리는 안티패턴인 것을 확인하여, 조인과 쿼리를 분할하여 서브쿼리를 대체하였습니다.
 
-## Spring Data JPA
+## 2. Spring Data JPA
 
 1. deleteAll 메서드
 
