@@ -11,16 +11,26 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 </details>
 
-# :package: 기술 스택
+# :package: 역할
 
 <details>
 
 <summary> 본문 확인 (👈 Click)</summary>
-기술 스택으로는 spring-boot, jpa, querydsl로 백엔드를 구성하였습니다.
+
+- 백엔드: 주수헌 [GitHub](https://github.com/n0eyes) (본인) |
+  기술 스택으로는 spring-boot, jpa, querydsl로 백엔드를 구성하였습니다.
 서버배포는 ec2 로 하였으며, 데이터베이스는 mysql로 진행하였습니다.
 그러나 위에 코드는 지속적인 빠른 테스트를 h2디비를 사용하였습니다.
+ 
 
-전반적인 자세한 소개와 시현영상은 아래 링크로 들어가면 자세히 볼수 있습니다.
+- 프런트엔드: 정세연 [GitHub](https://github.com/n0eyes) 
+
+
+- AI : 박은정 [GitHub](https://github.com/98pej11)
+
+
+
+- 크롤링, 배포 : @정진찬
 
 </details>
 
