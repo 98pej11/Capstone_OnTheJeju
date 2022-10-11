@@ -2,17 +2,16 @@ package capstone.jejuTourrecommend.wishList.infrastructure.repository;
 
 
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
-
-import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
-import capstone.jejuTourrecommend.wishList.domain.QFavoriteSpot;
-import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
-import capstone.jejuTourrecommend.wishList.domain.dto.SpotListDtoByFavoriteSpot;
-import capstone.jejuTourrecommend.route.domain.dto.QRouteSpotListDto;
-import capstone.jejuTourrecommend.wishList.domain.dto.RouteSpotListDto;
-import capstone.jejuTourrecommend.wishList.presentation.dto.request.RouteForm;
 import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.PictureDetailDto;
+import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
+import capstone.jejuTourrecommend.wishList.domain.QFavoriteSpot;
+import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
+import capstone.jejuTourrecommend.wishList.domain.dto.QRouteSpotListDto;
+import capstone.jejuTourrecommend.wishList.domain.dto.RouteSpotListDto;
+import capstone.jejuTourrecommend.wishList.domain.dto.SpotListDtoByFavoriteSpot;
+import capstone.jejuTourrecommend.wishList.presentation.dto.request.RouteForm;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
@@ -25,20 +24,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 import static capstone.jejuTourrecommend.authentication.domain.QMember.member;
-import static capstone.jejuTourrecommend.wishList.domain.QFavorite.favorite;
-import static capstone.jejuTourrecommend.wishList.domain.QFavoriteSpot.favoriteSpot;
 import static capstone.jejuTourrecommend.spot.domain.QScore.score;
 import static capstone.jejuTourrecommend.spot.domain.QSpot.spot;
 import static capstone.jejuTourrecommend.spot.domain.detailSpot.QPicture.picture;
+import static capstone.jejuTourrecommend.wishList.domain.QFavorite.favorite;
+import static capstone.jejuTourrecommend.wishList.domain.QFavoriteSpot.favoriteSpot;
 import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Repository

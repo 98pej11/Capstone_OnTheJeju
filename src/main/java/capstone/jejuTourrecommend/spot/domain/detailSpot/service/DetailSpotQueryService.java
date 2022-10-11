@@ -28,9 +28,7 @@ import java.util.stream.Collectors;
 public class DetailSpotQueryService implements DetailSpotQueryUseCase{
 
     private final SpotRepository spotRepository;
-
     private final ReviewRepository reviewRepository;
-
     private final PictureRepository pictureRepository;
 
     //readONly
@@ -52,8 +50,6 @@ public class DetailSpotQueryService implements DetailSpotQueryUseCase{
         Spot spot = spotRepository.findOptionById(spotId)
                 .orElseThrow(() -> new UserException("spotId가 올바르지 않습니다."));
         SpotDto spotDto = new SpotDto(spot);
-
-
 
         List<PictureDto> pictureDtoList = pictureRepository.findBySpot(
                         spot).stream().map(picture -> new PictureDto(picture))
