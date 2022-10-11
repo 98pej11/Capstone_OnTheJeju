@@ -129,9 +129,13 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 그래서 @Transaction 에 readOnly 옵션 유뮤에 따라 클래스를 분리하였으며, 해당 클래스들을 Facade 패턴을 사용하여 객체 관리하도록 하였습니다.
 
 <img  alt="FavoriteServiceFacade" src="./images/FavoriteServiceFacade.png?raw=true">
+
 <img  alt="FavoriteServiceSeperate" src="./images/FavoriteServiceSeperate.png?raw=true">
 
 (성능 최적화 내용은 프로젝트 종료 이후 혼자서 진행한 리팩토링의 6. @Transaction 최적화에 있습니다)
+
+- Facade 패턴을 사용한 이유: repository 특성(readonly 유무)별로 service를 분리하였지만, controller 에서 service 종류에 따라 호출하게 되면 변경사항이 있을시 수정할 부분이 다수라 변경이 번거로웠습니다. 
+그래서 service 호출하는 곳을 한곳에 관리하여 controller가 "한 개의 service"에서 호출할 수 있도록 하여 유지보수를 편리하게 하였습니다.
 
 ## 3. Spring Security 개선
 
