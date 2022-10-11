@@ -129,7 +129,7 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 그래서 @Transaction 에 readOnly 옵션 유뮤에 따라 클래스를 분리하였으며, 해당 클래스들을 Facade 패턴을 사용하여 객체 관리하도록 하였습니다.
 
 <img  alt="FavoriteServiceFacade" src="./images/FavoriteServiceFacade.png?raw=true">
-<img  alt="FavoriteService분할" src="./images/FavoriteService분할.png?raw=true">
+<img  alt="FavoriteServiceSeperate" src="./images/FavoriteServiceSeperate.png?raw=true">
 
 (성능 최적화 내용은 프로젝트 종료 이후 혼자서 진행한 리팩토링의 6. @Transaction 최적화에 있습니다)
 
