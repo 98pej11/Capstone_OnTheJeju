@@ -142,7 +142,7 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 2. redis 데이터베이스 추가
 
-- logoutToken는 redis 데이터베이스를 새로 적용하여 토큰 정보를 가져오는데 성능 개선을 했습니다.
+- logoutToken는 redis 데이터베이스를 새로 적용하여 토큰 정보를 가져오도록 하여 성능 개선을 했습니다.
 
 
 ## 4. CI/CD
@@ -160,9 +160,12 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 - readOnly=true 옵션을 사용하면 읽기 전용 트랜잭션이 생성됩니다.
   (readOnly 는 사용하면 하면 말그대로 읽지 전용이라, 데이터 변경 안될 때 사용하는 트랜잭션 애노테이션입니다.)
-- readOnly 옵셥이 선을을 최적화 할수 있다는 것을 알고 데이터를 읽기만하는 Service 같은 경우 CommandUseCase, QueryUseCase 분리하여 reaOnly 옵션을 처리하였습니다.
-그 후 디자인 패턴인 Facade 패턴을 사용하여 Service 를 한곳에 관리하는 역할을 만들어 분리하였습니다. 
 
+- JPA(하이버네이트)는 읽기 전용 트랜잭션의 경우 커밋 시점에 플러시를 호출하지 않습니다. 읽기 전용이니 변경에 사용되는 플러시(em.flush: 영속성 컨텍스트에 있는 것을 디비에 저장)를 호출할 필요가 없습니다.
+추가로 변경이 필요 없으니 변경 감지를 위한 스냅샷 객체도 생성하지 않습니다.
 
+- readOnly 옵셥으로 선능을 최적화 할수 있다는 것을 알고 데이터를 읽기만하는 Service 같은 경우 CommandUseCase, QueryUseCase 분리하여 reaOnly 옵션을 처리하였습니다.
+그 후 디자인 패턴인 Facade 패턴을 사용하여 Service 를 한곳에 관리하는 역할을 만들어 분리하였습니다.
+  
 
 </details>
