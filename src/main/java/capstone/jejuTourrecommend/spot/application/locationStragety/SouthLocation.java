@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.spot.domain.mainSpot.service.locationStragety;
+package capstone.jejuTourrecommend.spot.application.locationStragety;
 
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
 

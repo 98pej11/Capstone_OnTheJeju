@@ -1,20 +1,17 @@
 package capstone.jejuTourrecommend.spot.application;
 
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
+import capstone.jejuTourrecommend.spot.application.locationStragety.*;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListCommandUseCase;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListQueryUserCase;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.service.locationStragety.*;
 import capstone.jejuTourrecommend.spot.presentation.request.MainPageForm;
 import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
