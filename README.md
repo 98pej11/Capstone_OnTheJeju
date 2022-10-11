@@ -52,18 +52,22 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
   jpql에서는 from없이는 쿼리가 실행되지 않아서 limit(1)을 사용하였습니다
   limit(1)로 조회제한을 한여 실행하였습니다 (= fetchFirst())
 
+3. 서브쿼리 -> 조인, 쿼리분할
+
+- querydsl에서 서브쿼리는 안티패턴인 것을 확인하여, 조인과 쿼리를 분할하여 서브쿼리를 대체하였습니다.
+
 ## Spring Data JPA
 
 1. deleteAll 메서드
 
 - spring Data JPA에서의 기본 deleteAll(entities) 메서드는 엔티티 하나마다 쿼리문을 날리데 되어서 속도가 많이 느립니다
   이를 성능 개선 하기 위해 한번에 delete 연산을 하는 메서드를 만들어 해결하였습니다.
-  <img src="./images/bulkDeleteMemberSpotByMember.png?raw=true"  width="800" height="180"/>
+  <img alt="bulkDeleteMemberSpotByMember" src="./images/bulkDeleteMemberSpotByMember.png?raw=true"  width="800" height="180"/>
 
 - 위에와 비슷하게 회원가입시 관광지와 연관되어 다수의 회원 정보를 업데이트를 해야하는 경우가 있었는데 처음에는 entity 생성마다
   spring data jpa의 save()메서들 사용하여 하나씩 저장하였는데 성능이 너무 나오지 않았다
   그래서 for loop로 하나씩 save하는 것 보단 List에 entity를 전부 담아서 한 번의 saveAll이 더 성능에 좋은 것을 알게 되어 saveAllAndFlush()를 사용하여 선능 튜닝을 해결하였습니다
-  <img  alt="메인페이지" src="./images/saveAllAndFlush.png?raw=true"  width="1000" height="250"/>
+  <img  alt="saveAllAndFlush" src="./images/saveAllAndFlush.png?raw=true"  width="1000" height="250"/>
 
 </details>
 
@@ -94,30 +98,40 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 - “객체 지향의 사실과 오해” 책을 통해 객체 지향의 의미를 좀 더 이해할 수 있는 계기 되었습니다. 그래서 "객체 지향 언어인 자바"를 책에서 말한 역할, 책임, 협력의 관점으로 바라보며 설계할 수 있다는 것을 알게 되었습니다.
   이후 "객체 지향의 역할, 책임, 협력"을 23가지 패턴으로 만든 “GOF의 23가지 디자인 패턴”도 학습하여 본 프로젝트에 적용하여 좀더 객체 지향적인 코드로 바꾸었습니다
 
-1. 관광지 위치 전략 패턴 적용
+1. "관광지 위치" 전략 패턴 적용
 
 - 전략 패턴: “상황내용을 포함하는(가지고 있는) 역할”과 “상황에 따른 다양한 전략을 포함하는 역할”을 나누어 전략들을 분리하는 패턴을 만들었습니다
   저는 동서남북의 클래스를 따로 분리하여 "위치 정보를 가지고 있는 역할"을 만들고,
   이러한 "위치 정보를 관리하는 역할" LocationStrategy 인터페이스를 만들어 객체들간의 협력 관계를 만들었습니다
 
-<img  alt="메인페이지" src="./images/stragetyPatternPackage.png?raw=true"  >
-<img  alt="메인페이지" src="./images/stragetyPatternExample.png?raw=true"  >
+<img  alt="stragetyPatternPackage" src="./images/stragetyPatternPackage.png?raw=true"  >
+<img  alt="stragetyPatternExample" src="./images/stragetyPatternExample.png?raw=true"  >
 
 - 전략 패턴을 사용한 이유: 현재 동서남북으로 위치정보를 분리하 것은 설문조사와 각 읍별 관광지의 개수를 고려하여 저희 임의의 적절한 지억을 나누었습니다.
   이는 관광지가 새로 생길수 있어 지역별 관광지 개수 변경이 되는 우려가 있었습니다
   그래새 유지보수를 더 편리하게 하기 위해서 전략 패턴을 적용하였습니다.
 
-2. 메타 데이터 빌더 패턴 적용
+2. "메타 데이터" 빌더 패턴 적용
 
 - 빌더패턴: “많은 인스턴스를 관리하는 역할”과 “해당 인스턴스를 생성하는 역할”을 만들어 기존 구조를 세부적(구체적)으로 분리시키는 패턴
 - 메타 데이터 인스턴스를 관리하는 역햘은 MetaDataBuilder 인터페이스에게 역할 주었고
   상황별 메타데이터를 생성하는 역할은 MetaDataDirector 클래스에게 역할을 부여하여 적용하였습니다
 
-<img  alt="메인페이지" src="./images/builderPatternExample.png?raw=true">
-<img  alt="메인페이지" src="./images/metaDataPackage.png?raw=true">
+<img  alt="builderPatternExample" src="./images/builderPatternExample.png?raw=true">
+<img  alt="metaDataPackage" src="./images/metaDataPackage.png?raw=true">
 
 - 빌더 패턴을 사용한 이유: 새로운 메타 데이터가 생길때마다 list와 map을 사용하여 일일히 정보블 반환하는 것에 번거로움이 있었습니다
   또한 메타데이터의 정보를 수정되는 경우도 다수 발생하는 것에 대비하여 위와 같이 빌더 패턴을 적용하였습니다
+
+3. "Service" Facade 패턴 적용
+- Facade 패턴: "어떤 역할들의 집합"을 만들어 클라이언트 요청을 따로 “한번에” 관리하는 패턴입니다
+- 본 프로젝트에서 Service 역할을 @Transaction 에 readOnly 옵션이 들어가는 곳과 들어가기 Service의 역할을 분리하였습니다.
+그래서 @Transaction 에 readOnly 옵션 유뮤에 따라 클래스를 분리하였으며, 해당 클래스들을 Facade 패턴을 사용하여 객체 관리하도록 하였습니다.
+
+<img  alt="FavoriteServiceFacade" src="./images/FavoriteServiceFacade.png?raw=true">
+<img  alt="FavoriteService분할" src="./images/FavoriteService분할.png?raw=true">
+
+(성능 최적화 내용은 프로젝트 종료 이후 혼자서 진행한 리팩토링의 6. @Transaction 최적화에 있습니다)
 
 ## 3. Spring Security 개선
 
@@ -130,15 +144,24 @@ https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=22278
 
 - logoutToken는 redis 데이터베이스를 새로 적용하여 토큰 정보를 가져오는데 성능 개선을 했습니다.
 
+
 ## 4. CI/CD
 
 - 본 프로젝트 진행할 당시, 배포를 담당하지 않았습니다. 이후 프로젝트가 종료우 제가 따로 AWS, Deploy, GitHubAction으로 자동 배포가 되도록 하였습니다.
 
-## 5. DDD 설계 (진행중)
+## 5. DDD 설계 (진행 중)
 
 - 이전에 프로젝트는 mvc 패턴으로 repository, service, controller 만으로 나누어 설계를 하였습니다. 그런데 프로젝트가 요구사항이 많아질수록 
  repository, service, controller 들이 각각 점점 커지게 되면서 원하는 클래스를 찾기가 힘들었습니다. 즉, 유지 보수가 어려웠습니다. 그래서 이에 대한 해결방법을 
 알아보던중 도메인 주도 설계(DDD)를 알게 되어 적용해 보는 중입니다. 
+
+
+## 6. @Transaction 최적화
+
+- readOnly=true 옵션을 사용하면 읽기 전용 트랜잭션이 생성됩니다.
+  (readOnly 는 사용하면 하면 말그대로 읽지 전용이라, 데이터 변경 안될 때 사용하는 트랜잭션 애노테이션입니다.)
+- readOnly 옵셥이 선을을 최적화 할수 있다는 것을 알고 데이터를 읽기만하는 Service 같은 경우 CommandUseCase, QueryUseCase 분리하여 reaOnly 옵션을 처리하였습니다.
+그 후 디자인 패턴인 Facade 패턴을 사용하여 Service 를 한곳에 관리하는 역할을 만들어 분리하였습니다. 
 
 
 

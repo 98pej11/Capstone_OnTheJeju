@@ -3,10 +3,11 @@ package capstone.jejuTourrecommend.spot.presentation;
 import capstone.jejuTourrecommend.common.metaDataBuilder.DefaultMetaDataBuilder;
 import capstone.jejuTourrecommend.common.metaDataBuilder.MetaDataDirector;
 import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.spot.application.DetailSpotFacade;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.ReviewDto;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.SpotDetailDto;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.SpotMetaDto;
-import capstone.jejuTourrecommend.spot.domain.detailSpot.service.SpotService;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.service.DetailSpotQueryService;
 import capstone.jejuTourrecommend.spot.presentation.response.ReviewListDto;
 import capstone.jejuTourrecommend.spot.presentation.response.SpotListMetaDataOp;
 import capstone.jejuTourrecommend.spot.presentation.response.SpotPageDto;
@@ -31,38 +32,23 @@ import java.util.Map;
 @RestController
 public class SpotController {
 
-    private final SpotService spotService;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final DetailSpotFacade detailSpotFacade;
 
     @GetMapping("/user/spot/{spotId}")
-    public SpotPageDto spotDetail(@PathVariable("spotId") Long spotId,
-                                  @LoginUser Member member){
+    public SpotPageDto spotDetail(@PathVariable("spotId") Long spotId, @LoginUser Member member){
 
-        log.info("spotId = {}",spotId);
-        //여기서 spotId를 도메인 클래스 컨버터 사용가능 (jpa 실절)
-
-        //이거 실험용 데이터임 TODO: 실험용 데이터임
-        //Long spotIdTest = 8l;
-        //String memberEmailTest = "member1@gmail.com";
-
-        //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함) TODO: 실제 운영할 코드임
-
-
-        SpotDetailDto spotDetailDto = spotService.spotPage(spotId, member.getId());
+        SpotDetailDto spotDetailDto = detailSpotFacade.spotPage(spotId, member.getId());
 
         return new SpotPageDto(200l,true,"성공",spotDetailDto);
 
     }
 
     @GetMapping("/user/spot/review/{spotId}")
-    public ReviewListDto reviewPage(@PathVariable("spotId") Long spotId,
-                                    Pageable pageable){
-        log.info("spotId = {}",spotId);
+    public ReviewListDto reviewPage(@PathVariable("spotId") Long spotId, Pageable pageable){
 
-        Page<ReviewDto> reviewDtos = spotService.reviewPage(spotId, pageable);
+        Page<ReviewDto> reviewDtos = detailSpotFacade.reviewPage(spotId, pageable);
 
         return new ReviewListDto(200l,true,"성공",reviewDtos);
-
 
     }
 

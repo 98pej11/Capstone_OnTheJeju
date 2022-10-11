@@ -1,7 +1,7 @@
 package capstone.jejuTourrecommend.domain;
 
-import capstone.jejuTourrecommend.favorite.domain.Favorite;
-import capstone.jejuTourrecommend.favorite.domain.FavoriteSpot;
+import capstone.jejuTourrecommend.wishList.domain.Favorite;
+import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
 import capstone.jejuTourrecommend.spot.domain.Spot;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -3,28 +3,29 @@ package capstone.jejuTourrecommend.domain.Service;
 import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.wishList.domain.Favorite;
 import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
-import capstone.jejuTourrecommend.spot.application.SpotListFacade;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.Picture;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.Review;
 import capstone.jejuTourrecommend.spot.domain.Score;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.service.DetailSpotQueryService;
+import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteJpaRepository;
+import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotJpaRepository;
+import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
+import capstone.jejuTourrecommend.common.exceptionClass.UserException;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.SpotDetailDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
 import capstone.jejuTourrecommend.spot.domain.Spot;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListService;
-import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
-import capstone.jejuTourrecommend.spot.presentation.request.MainPageForm;
-import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -32,14 +33,19 @@ import java.util.Random;
 @Slf4j
 @SpringBootTest
 @Transactional
-class SpotListServiceTest {
+class DetailSpotQueryServiceTest {
 
     @Autowired
-    SpotListFacade spotListFacade;
+    DetailSpotQueryService detailSpotQueryService;
+
+    @Autowired
+    FavoriteSpotJpaRepository favoriteSpotJpaRepository;
+
+    @Autowired
+    FavoriteJpaRepository favoriteJpaRepository;
 
     @Autowired
     MemberJpaRepository memberJpaRepository;
-
 
     @PersistenceContext
     EntityManager em;
@@ -113,11 +119,11 @@ class SpotListServiceTest {
 
     }
 
-    public Score createScore(Score[] scores, int i){
+    public Score createScore(Score[] scores,int i){
         Random random = new Random();
         scores[i]= new Score(
-                (i+1)*10d,(i+2)*10d,
-                (i+3)*10d,(i+4)*10d,
+                random.nextDouble()*10,random.nextDouble()*10,
+                random.nextDouble()*10,random.nextDouble()*10,
                 random.nextDouble()*10,random.nextDouble()*10,
                 random.nextDouble()*10,random.nextDouble()*10,
                 random.nextDouble()*10);
@@ -127,51 +133,26 @@ class SpotListServiceTest {
     }
 
 
-
+    //Long spotId, String memberEmail, Pageable pageable
     @Test
-    public void postSpotListTest() throws Exception{
+    public void spotPageTest() throws Exception{
         //given
+
+        //Long spotId = 8l;
         String memberEmail = "member1@gmail.com";
-        int page = 2;
-        int size = 10;
 
-        Optional<Member> optionByEmail = memberJpaRepository.findOptionByEmail(memberEmail);
+        Member member = memberJpaRepository.findOptionByEmail(memberEmail)
+                .orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
+        Optional<Favorite> favorite = favoriteJpaRepository.findOptionByNameAndMemberId("1일차",member.getId());
 
-
-        PageRequest pageRequest = PageRequest.of(page, size);
-        MainPageForm mainPageForm = new MainPageForm();
-
-        UserWeightDto userWeightDto = new UserWeightDto(1d,2d,0d,0d);
-
-
-        //ToDo: 사용자가 location 유무, 케테고리 유무, 가중치 유무에따라 반환되는 값 다름
-        //mainPageForm.setLocation("안덕면");
-        mainPageForm.setLocation("전체");
-        mainPageForm.setCategory("서비스");
-        //mainPageForm.setCategory(null);
-        //mainPageForm.setUserWeightDto(userWeightDto);
-        //mainPageForm.setUserWeightDto(null);
-
-
+        List<FavoriteSpot> byFavoriteId = favoriteSpotJpaRepository.findByFavoriteId(favorite.get().getId());
 
         //when
-        ResultSpotListDto result = spotListFacade.getUserSpotList(mainPageForm, optionByEmail.get().getId(), pageRequest);
+        SpotDetailDto spotDetailDto = detailSpotQueryService.spotPage(byFavoriteId.get(0).getSpot().getId(), member.getId());
 
-
-        for(int i=0;i<size;i++) {
-            log.info("result = {}", result.getData().getContent().get(i));
-        }
-
-        //when
-//        ResultSpotListDto result1 = spotListService.postSpotList(mainPageForm, memberEmail, pageRequest);
-//
-//        for(int i=0;i<100;i++) {
-//            log.info("result1 = {}", result.getData().getContent().get(i));
-//        }
+        log.info("spotDto = {}",spotDetailDto);
 
         //then
     }
-
-
 
 }

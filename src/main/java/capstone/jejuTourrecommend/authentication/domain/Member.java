@@ -2,7 +2,7 @@ package capstone.jejuTourrecommend.authentication.domain;
 
 
 import capstone.jejuTourrecommend.common.baseEntity.BaseEntity;
-import capstone.jejuTourrecommend.favorite.domain.Favorite;
+import capstone.jejuTourrecommend.wishList.domain.Favorite;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
 import lombok.*;
 

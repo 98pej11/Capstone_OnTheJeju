@@ -5,6 +5,8 @@ import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.common.metaDataBuilder.DefaultMetaDataBuilder;
 import capstone.jejuTourrecommend.common.metaDataBuilder.MetaData;
 import capstone.jejuTourrecommend.common.metaDataBuilder.MetaDataDirector;
+import capstone.jejuTourrecommend.spot.application.DetailSpotFacade;
+import capstone.jejuTourrecommend.spot.application.SpotListFacade;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListService;
 import capstone.jejuTourrecommend.spot.presentation.request.MainPageForm;
 import capstone.jejuTourrecommend.spot.presentation.request.SearchForm;
@@ -35,37 +37,15 @@ public class SpotListController {
 
     private final SpotListService spotListService;
 
+    private final SpotListFacade spotListFacade;
 
     @PostMapping("/user/spotList/priority")//일단 토큰은 배재하고 검색해보자
-    public ResultSpotListDto postSpot(@RequestBody MainPageForm mainPageForm,
-                                      Pageable pageable,
-                                      @LoginUser Member member){
+    public ResultSpotListDto getUserSpotList(@RequestBody MainPageForm mainPageForm,
+                                             Pageable pageable,
+                                             @LoginUser Member member){
 
-        //userDetails.getUsername();
-
-        log.info("member = {}", member.toString());
-        log.info("member.getUsername() = {}", member.getUsername());
-        log.info("member.getPassword() = {}", member.getPassword());
-
-
-
-        log.info("mainPageForm.getCategory() = {}",mainPageForm.getCategory());
-        log.info("mainPageForm.getLocation() = {}",mainPageForm.getLocation());
-        log.info("mainPageForm..getUserWeightDto() ={}",mainPageForm.getUserWeight());
-
-        //이거 실험용 데이터임 TODO: 실험용 데이터임
-        //String memberEmailTest = "member1@gmail.com";
-
-        //이거 실제 데이터임 TODO: 실제 데이터임
-        //여기서 토큰으로 역할(role) 조회 가능함(header에서 토큰 가져와야함)
-//        String memberEmail = jwtTokenProvider.getUserPk(accesstoken);
-//
-//
-//        log.info("memberEmail = {}",memberEmail);
-//        log.info("pageable = {}",pageable);
-
-        ResultSpotListDto resultSpotListDto = spotListService
-                .postSpotList(mainPageForm, member.getId(), pageable);
+        ResultSpotListDto resultSpotListDto = spotListFacade
+                .getUserSpotList(mainPageForm, member.getId(), pageable);
 
         return resultSpotListDto;
 
@@ -73,16 +53,13 @@ public class SpotListController {
 
     @PostMapping("/user/spotList/search")//일단 토큰은 배재하고 검색해보자
     public ResultSpotListDto searchSpotListContains(@RequestBody SearchForm searchForm,
-                                      Pageable pageable,
-                                                    @LoginUser Member member) {
-
-        log.info("spotName = {}",searchForm.getSpotName());
+                                      Pageable pageable, @LoginUser Member member) {
 
         if(!StringUtils.hasText(searchForm.getSpotName())){
             throw new UserException("관광지 이름에 빈 문자열이 왔습니다");
         }
 
-        ResultSpotListDto resultSpotListDto = spotListService.searchSpotListContains(member.getId(), searchForm.getSpotName(), pageable);
+        ResultSpotListDto resultSpotListDto = spotListFacade.searchSpotListContains(member.getId(), searchForm.getSpotName(), pageable);
 
         return resultSpotListDto;
     }
@@ -91,9 +68,7 @@ public class SpotListController {
     @GetMapping("/spotList/metaData")
     public SpotListMetaDto getMetaData(){
 
-
         SpotListMetaDto spotListMetaDto = getSpotListMetaDto();
-
 
         return spotListMetaDto;
 
@@ -108,7 +83,6 @@ public class SpotListController {
         MetaData metaData2 = metaDataDirector.locationMetaData();
 
         return new SpotListMetaDataOp(200l, true, metaData2.getMetaDataList());
-
 
     }
 

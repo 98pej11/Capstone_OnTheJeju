@@ -1,15 +1,15 @@
 package capstone.jejuTourrecommend.domain.Service;
 
 import capstone.jejuTourrecommend.authentication.domain.Member;
-import capstone.jejuTourrecommend.favorite.domain.Favorite;
-import capstone.jejuTourrecommend.favorite.domain.FavoriteSpot;
-import capstone.jejuTourrecommend.favorite.domain.service.FavoriteService;
-import capstone.jejuTourrecommend.favorite.domain.dto.FavoriteDto;
-import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteJpaRepository;
-import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpotJpaRepository;
-import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpotQuerydslRepository;
-import capstone.jejuTourrecommend.favorite.presentation.dto.request.FavoriteForm;
-import capstone.jejuTourrecommend.favorite.domain.dto.FavoriteListDto;
+import capstone.jejuTourrecommend.wishList.application.FavoriteFacade;
+import capstone.jejuTourrecommend.wishList.domain.Favorite;
+import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
+import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteDto;
+import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteJpaRepository;
+import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotJpaRepository;
+import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotQuerydslRepository;
+import capstone.jejuTourrecommend.wishList.presentation.dto.request.FavoriteForm;
+import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.Picture;
 import capstone.jejuTourrecommend.spot.domain.Spot;
@@ -49,7 +49,7 @@ class FavoriteServiceTest {
     @Autowired
     FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
     @Autowired
-    FavoriteService favoriteService;
+    FavoriteFacade favoriteFacade;
 
     @PersistenceContext
     EntityManager em;
@@ -134,7 +134,7 @@ class FavoriteServiceTest {
         Long favoriteId = favorite.getId();
 
         //when
-        favoriteService.postFavoriteForm(favoriteForm);
+        favoriteFacade.postFavoriteForm(favoriteForm);
 
         Optional<FavoriteSpot> result = favoriteSpotJpaRepository.findOptionBySpotIdAndFavoriteId(spotId, favoriteId);
 
@@ -159,7 +159,7 @@ class FavoriteServiceTest {
 
         PageRequest pageRequest = PageRequest.of(0, 10);
 
-        Page<FavoriteListDto> favoriteList = favoriteService.getFavoriteList(optionByEmail.get().getId(), pageRequest);
+        Page<FavoriteListDto> favoriteList = favoriteFacade.getFavoriteList(optionByEmail.get().getId(), pageRequest);
 
 
         List<FavoriteListDto> content = favoriteList.getContent();
@@ -191,7 +191,7 @@ class FavoriteServiceTest {
 
         //when
 
-        FavoriteDto favoriteDto = favoriteService.newFavoriteList(member, spotId, favoriteName);
+        FavoriteDto favoriteDto = favoriteFacade.newFavoriteList(member, spotId, favoriteName);
 
         Optional<Favorite> favorite = favoriteJpaRepository.findOptionByNameAndMemberId(favoriteName, member.getId());
 
@@ -220,7 +220,7 @@ class FavoriteServiceTest {
         Long favoriteId = favorite.getId();
 
         //when
-        favoriteService.deleteFavoriteList(favoriteId);
+        favoriteFacade.deleteFavoriteList(favoriteId);
         Optional<Favorite> result = favoriteJpaRepository.findOptionById(favoriteId);
 
         //then

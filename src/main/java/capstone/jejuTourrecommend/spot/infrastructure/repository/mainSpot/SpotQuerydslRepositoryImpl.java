@@ -30,8 +30,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static capstone.jejuTourrecommend.authentication.domain.QMember.member;
-import static capstone.jejuTourrecommend.favorite.domain.QFavorite.favorite;
-import static capstone.jejuTourrecommend.favorite.domain.QFavoriteSpot.favoriteSpot;
+import static capstone.jejuTourrecommend.wishList.domain.QFavorite.favorite;
+import static capstone.jejuTourrecommend.wishList.domain.QFavoriteSpot.favoriteSpot;
 import static capstone.jejuTourrecommend.spot.domain.QScore.score;
 import static capstone.jejuTourrecommend.spot.domain.QSpot.spot;
 import static capstone.jejuTourrecommend.spot.domain.detailSpot.QPicture.picture;
@@ -291,7 +291,6 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
         } else {
             return true;
         }
-
 
     }
 

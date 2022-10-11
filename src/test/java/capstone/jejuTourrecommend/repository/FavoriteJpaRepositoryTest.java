@@ -1,10 +1,10 @@
 package capstone.jejuTourrecommend.repository;
 
-import capstone.jejuTourrecommend.favorite.domain.Favorite;
-import capstone.jejuTourrecommend.favorite.domain.FavoriteSpot;
-import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteJpaRepository;
-import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpotJpaRepository;
-import capstone.jejuTourrecommend.favorite.infrastructure.repository.FavoriteSpotQuerydslRepository;
+import capstone.jejuTourrecommend.wishList.domain.Favorite;
+import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
+import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteJpaRepository;
+import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotJpaRepository;
+import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotQuerydslRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
