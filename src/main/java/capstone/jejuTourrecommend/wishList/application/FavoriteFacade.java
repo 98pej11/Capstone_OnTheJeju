@@ -1,11 +1,8 @@
 package capstone.jejuTourrecommend.wishList.application;
 
 import capstone.jejuTourrecommend.authentication.domain.Member;
-import capstone.jejuTourrecommend.common.exceptionClass.UserException;
-import capstone.jejuTourrecommend.wishList.domain.Favorite;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteDto;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
-import capstone.jejuTourrecommend.wishList.domain.dto.SpotListDtoByFavoriteSpot;
 import capstone.jejuTourrecommend.wishList.domain.service.FavoriteCommandUseCase;
 import capstone.jejuTourrecommend.wishList.domain.service.FavoriteQueryUseCase;
 import capstone.jejuTourrecommend.wishList.presentation.dto.request.FavoriteForm;
@@ -26,6 +23,7 @@ public class FavoriteFacade {
 
     private final FavoriteQueryUseCase favoriteQueryUseCase;
 
+
     public void postFavoriteForm(FavoriteForm favoriteForm) {
         favoriteCommandUseCase.postFavoriteForm(favoriteForm);
     }
@@ -40,13 +38,14 @@ public class FavoriteFacade {
     }
 
 
+
     public Page<FavoriteListDto> getFavoriteList(Long memberId, Pageable pageable) {
         return favoriteQueryUseCase.getFavoriteList(memberId, pageable);
     }
 
     public void deleteFavoriteList(Long favoriteId) {
 
-        favoriteCommandUseCase.deleteFavoriteList(favoriteId);
+        favoriteQueryUseCase.deleteFavoriteList(favoriteId);
     }
 
     public List recommendSpotList(Long favoriteId, RouteForm routeForm){

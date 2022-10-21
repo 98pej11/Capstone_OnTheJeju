@@ -1,14 +1,14 @@
 package capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot;
 
+import capstone.jejuTourrecommend.common.exceptionClass.UserException;
 import capstone.jejuTourrecommend.spot.domain.QSpot;
+import capstone.jejuTourrecommend.spot.domain.Spot;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.ScoreDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
-
-import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.PictureDetailDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
-import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.ScoreDto;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -28,14 +28,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static capstone.jejuTourrecommend.authentication.domain.QMember.member;
-import static capstone.jejuTourrecommend.wishList.domain.QFavorite.favorite;
-import static capstone.jejuTourrecommend.wishList.domain.QFavoriteSpot.favoriteSpot;
 import static capstone.jejuTourrecommend.spot.domain.QScore.score;
 import static capstone.jejuTourrecommend.spot.domain.QSpot.spot;
 import static capstone.jejuTourrecommend.spot.domain.detailSpot.QPicture.picture;
 import static capstone.jejuTourrecommend.spot.domain.mainSpot.QMemberSpot.memberSpot;
+import static capstone.jejuTourrecommend.wishList.domain.QFavorite.favorite;
+import static capstone.jejuTourrecommend.wishList.domain.QFavoriteSpot.favoriteSpot;
 
 
 @Repository
@@ -78,9 +79,12 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 
         List<Long> spotIdList = spotListDtoList.stream().map(o -> o.getSpotId()).collect(Collectors.toList());
 
+        if (spotListDtoList.isEmpty()) {
+            throw new UserException("검색된 결과가 없습니다");
+        }
 
+        //spotlist 중 찜한 목록에 있는 것인가?의 정보 가져옴
         getBooleanFavoriteSpot(memberId, spotListDtoList, spotIdList);
-
 
         postSpotPictureUrlsToDto(spotListDtoList);
 
@@ -127,7 +131,7 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
         List<MemberSpot> memberSpotList = queryFactory
                 .select(memberSpot)
                 .from(memberSpot)
-                .innerJoin(memberSpot.spot, spot).fetchJoin()
+                .innerJoin(memberSpot.spot, spot)
                 .where(spot.location.in(locationList), memberEq(memberId))
                 .orderBy(memberSpot.score.desc())
                 .offset(pageable.getOffset())
@@ -146,7 +150,6 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 
         postSpotPictureUrlsToDto(spotListDtoList);
 
-
         JPAQuery<Long> countQuery = queryFactory
                 .select(memberSpot.count())
                 .from(memberSpot)
@@ -155,7 +158,6 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
                 .where(spot.location.in(locationList), memberEq(memberId));
 
         return PageableExecutionUtils.getPage(spotListDtoList, pageable, countQuery::fetchOne);
-
 
     }
 
@@ -173,8 +175,6 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 
         log.info("location = {}", locationList);
         log.info("category = {}", category);
-        //log.info("offset = {}",pageable.getOffset());
-        //log.info("size = {}",pageable.getPageSize());
         OrderSpecifier<Double> orderSpecifier = getDoubleOrderSpecifier(category);
 
 
@@ -195,24 +195,15 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
                 .fetch();
 
 
-        //찜한 유무 포함
-        //favortiespot 에서 spotid 들로 데티어 가져옴
-        //데이터가 있으면 찜 한거에 있는거고, 없음 찜한 목록에 없는 것임
-        //이것 한 dto에 담아서 줘야함
-        //isExit는 count>0으로 해서 성능 이슈가 있음 그래서  limit(1)으로 해결하든 해야함
-
         List<Long> spotIdList = spotListDtoList.stream().map(o -> o.getSpotId()).collect(Collectors.toList());
 
-
         getBooleanFavoriteSpot(memberId, spotListDtoList, spotIdList);
-
 
         postSpotPictureUrlsToDto(spotListDtoList);
 
         JPAQuery<Long> countQuery = queryFactory
                 .select(spot.count())
                 .from(spot)
-                //.where(locationEq(location))
                 .where(spot.location.in(locationList));
 
         return PageableExecutionUtils.getPage(spotListDtoList, pageable, () -> countQuery.fetchOne());
@@ -224,26 +215,7 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 
         List<Long> spotIdList = spotListDtoList.stream().map(o -> o.getSpotId()).collect(Collectors.toList());
 
-//        for (Long spotId : spotIdList) {
-//
-//            List<PictureDetailDto> pictureDetailDtoList = queryFactory
-//                    .select(Projections.constructor(PictureDetailDto.class,
-//                                    picture.id,
-//                                    picture.url,
-//                                    picture.spot.id
-//                            )
-//                    )
-//                    .from(picture)
-//                    .innerJoin(picture.spot, spot)
-//                    .where(picture.spot.id.eq(spotId))
-//                    .limit(4)
-//                    .fetch();
-//
-//            spotListDtoList.stream().filter(s -> s.getSpotId() == spotId)
-//                    .forEach(s -> s.setPictureDetailDtoList(pictureDetailDtoList));
-//
-//        }
-
+        //to many 관계를 한번에 many 기준으로 한번에 가져오고 map을 이용하여 O(1)시간으로 단축 시켰다
         List<PictureDetailDto> pictureDetailDtoList = queryFactory
                 .select(Projections.constructor(PictureDetailDto.class,
                                 picture.id,
@@ -257,9 +229,22 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
                 .fetch();
 
 
-        Map<Long, List<PictureDetailDto>> collect1 = pictureDetailDtoList.stream().collect(Collectors.groupingBy(p -> p.getSpotId()));
+        Map<Long, List<PictureDetailDto>> collect = pictureDetailDtoList.stream().collect(Collectors.groupingBy(p -> p.getSpotId()));
 
-        spotListDtoList.forEach(sl -> sl.setPictureDetailDtoList(collect1.get(sl.getSpotId())));
+        //사진이 없는 경우
+        if (collect.isEmpty()) {
+            return;
+        }
+
+        spotListDtoList.forEach(sl -> {
+            int size = collect.get(sl.getSpotId()).size();
+            if (size < 3) {
+                sl.setPictureDetailDtoList(collect.get(sl.getSpotId()));
+            }
+            else {
+                IntStream.range(0,3).forEach( i -> sl.getPictureDetailDtoList().add(collect.get(sl.getSpotId()).get(i)));
+            }
+        });
     }
 
     /**

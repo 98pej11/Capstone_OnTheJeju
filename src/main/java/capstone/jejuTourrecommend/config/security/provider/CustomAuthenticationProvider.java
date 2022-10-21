@@ -20,9 +20,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private GrantedAuthoritiesMapper grantedAuthoritiesMapper;
-
     /**
      * 검증위한 메서드
      *

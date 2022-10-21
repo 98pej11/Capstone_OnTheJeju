@@ -19,6 +19,9 @@ public interface FavoriteSpotJpaRepository extends JpaRepository<FavoriteSpot, L
     @Query("delete from FavoriteSpot fs where fs.favorite.id= :favoriteId and fs.spot.id= :spotId")
     void deleteByFavoriteIdAndSpotId(@Param("favoriteId") Long favoriteId, @Param("spotId") Long spotId);
 
+    @Modifying(clearAutomatically = true)
+    @Query("delete from FavoriteSpot fs where fs.favorite.id= :favoriteId")
+    void deleteAllByFavoriteId(@Param("favoriteId") Long favoriteId);
 
 }
 

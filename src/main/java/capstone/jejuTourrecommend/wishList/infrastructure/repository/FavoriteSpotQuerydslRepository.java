@@ -4,19 +4,14 @@ package capstone.jejuTourrecommend.wishList.infrastructure.repository;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
 import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.PictureDetailDto;
 import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
 import capstone.jejuTourrecommend.wishList.domain.QFavoriteSpot;
-import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
-import capstone.jejuTourrecommend.wishList.domain.dto.QRouteSpotListDto;
-import capstone.jejuTourrecommend.wishList.domain.dto.RouteSpotListDto;
-import capstone.jejuTourrecommend.wishList.domain.dto.SpotListDtoByFavoriteSpot;
+import capstone.jejuTourrecommend.wishList.domain.dto.*;
 import capstone.jejuTourrecommend.wishList.presentation.dto.request.RouteForm;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +23,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static capstone.jejuTourrecommend.authentication.domain.QMember.member;
@@ -49,7 +45,7 @@ public class FavoriteSpotQuerydslRepository {
     }
 
     /**
-     * 사용자 위시리스트 보여주기
+     * 사용자 위시리스트 페이지 보여주기
      *
      * @param memberId
      * @param pageable
@@ -72,20 +68,7 @@ public class FavoriteSpotQuerydslRepository {
                 .fetch();
 
 
-
         List<Long> favoriteIdList = favoriteListDtos.stream().map(o -> o.getFavoriteId()).collect(Collectors.toList());
-
-//        List<FavoriteSpot> favoriteSpotList = queryFactory
-//                .selectFrom(favoriteSpot)
-//                .where(favoriteSpot.favorite.id.in(favoriteIdList))
-//                .leftJoin(favoriteSpot.favorite, favorite)
-//                .leftJoin(favoriteSpot.spot, spot).fetchJoin()
-//                .fetch();
-//
-//        Map<Long, List<FavoriteSpot>> favoriteSpotListByFavoriteId = favoriteSpotList.stream().collect(Collectors.groupingBy(o -> o.getFavorite().getId()));
-//
-//        favoriteSpotListByFavoriteId.
-//
 
 
         for (Long favoriteId : favoriteIdList) {
@@ -97,27 +80,26 @@ public class FavoriteSpotQuerydslRepository {
                     .where(favoriteSpot.favorite.id.eq(favoriteId))
                     .fetch();
 
-            for (Long spotId : spotIdList) {
+            //이거 spotreposi 에 있는 거 하고 다름 -> 거기에 있는 건 한 관광지에서 사진을 선별하는 거고 여기는 여러 관광지에서 사진하나를 선별하는 것임!
+            //또한 위시리스트에 많은 관광지를 담지 않을 것으로 하여 picture과 groupBy, max로 해결함
+            //groupby 로 해결, picture 대상으로만 쿼리문을 날려서 굳이 사진이 없는 경우를 고려할 필요가 없다
+            System.out.println("=======================");
+            List<PictureUrlDto> pictureUrlDtos = queryFactory
+                    .select(Projections.constructor(PictureUrlDto.class,
+                                    picture.spot.id,
+                                    picture.url
+                            )
+                    )
+                    .from(picture)
+                    .innerJoin(picture.spot, spot)
+                    .where(picture.spot.id.in(spotIdList))
+                    .groupBy(picture.spot.id)
+                    .limit(3)
+                    .fetch();
+            System.out.println("=======================");
 
-                List<PictureDetailDto> pictureDetailDtoList = queryFactory
-                        .select(
-                                Projections.constructor(
-                                        PictureDetailDto.class,
-                                        picture.id,
-                                        picture.url,
-                                        picture.spot.id
-                                )
-                        )
-                        .from(picture)
-                        .innerJoin(picture.spot, spot)
-                        .where(picture.spot.id.eq(spotId))
-                        .limit(3)
-                        .fetch();
 
-                favoriteListDtos.stream().filter(o-> o.getFavoriteId()==favoriteId)
-                        .forEach(o->o.getPictureDetailDtoListBySpotId().add(pictureDetailDtoList));
-            }
-
+            favoriteListDtos.forEach(sl -> sl.setPictureUrlDtoList(pictureUrlDtos));
 
         }
 
@@ -136,61 +118,62 @@ public class FavoriteSpotQuerydslRepository {
 
     /**
      * 특정 위시리스트에 넣은 관광지 정보 보여주기
+     * -> 이거 최단 경로 페이지에서 특정 위시리스트에 있는 관광지의 정보 보여줄때 필요한 것임
      *
      * @param favoriteId
      * @return
      */
     public List<SpotListDtoByFavoriteSpot> favoriteSpotList(Long favoriteId) {
 
-        //서브 쿼리 성능 속도가 느려서 아래와 같이 쿼리문을 2개로 쪼개서 함
-//        List<FavoriteSpotListDto> favoriteSpotListDtos = queryFactory
-//                .select(
-//                        new QFavoriteSpotListDto(
-//                                spot.id,
-//                                spot.name,
-//                                spot.address,
-//                                spot.description,
-//                                JPAExpressions
-//                                        .select(picture.url.max())//스칼라 서브커리에서 limit 못 사용함 그래서 max 사용
-//                                        .from(picture)
-//                                        .where(picture.spot.id.eq(favoriteSpot.spot.id))
-//
-//                        )
-//                )
-//                .from(favoriteSpot)
-//                .join(favoriteSpot.spot,spot)//명시적 조인
-//                //.join(favoriteSpot.spot, spot).fetchJoin()
-//                .where(favoriteSpot.favorite.id.eq(favoriteId))
-//                .fetch();
 
+        System.out.println("================================");
 
         List<FavoriteSpot> spotListFirstDtos = queryFactory
                 .select(favoriteSpot
                 )
                 .from(favoriteSpot)
-                .join(favoriteSpot.spot, spot).fetchJoin()
+                .join(favoriteSpot.spot, spot)
                 .where(favoriteSpot.favorite.id.eq(favoriteId))
                 .fetch();
 
-        List<Long> spotList = spotListFirstDtos.stream().mapToLong(i -> i.getSpot().getId()).boxed().collect(Collectors.toList());
+        System.out.println("================================");
+        List<Long> spotIdList = spotListFirstDtos.stream().mapToLong(i -> i.getSpot().getId()).boxed().collect(Collectors.toList());
+        System.out.println("================================");
 
+        //여기서 페치조인을 하지 않으면 select picture 쿼리 문 엄청 많이 날라 //-> 아래와 같이 페치 조인으로 in절로 spotlist 잡아줌
+        //select spot0_.spot_id as spot_id1_7_0_, pictures1_.picture_id as picture_1_4_1_, spot0_.address as address2_7_0_, spot0_.description as descript3_7_0_, spot0_.location as location4_7_0_, spot0_.name as name5_7_0_, spot0_.score_id as score_id6_7_0_, pictures1_.spot_id as spot_id3_4_1_, pictures1_.url as url2_4_1_, pictures1_.spot_id as spot_id3_4_0__, pictures1_.picture_id as picture_1_4_0__ from spot spot0_ inner join picture pictures1_ on spot0_.spot_id=pictures1_.spot_id where spot0_.spot_id in (1 , 3 , 5 , 7 , 9 , 11 , 13 , 15 , 17 , 19 , 21 , 23 , 25 , 27 , 29 , 31 , 33 , 35 , 37 , 39 , 41 , 43 , 45 , 47 , 49 , 51 , 53 , 55 , 57 , 59 , 61 , 63 , 65 , 67 , 69 , 71 , 73 , 75 , 77 , 79 , 81 , 83 , 85 , 87 , 89 , 91 , 93 , 95 , 97 , 99);
+        //spot, picture 관계는 1대 다 관계임, 내가 여기서 batch 사이즈를 yml에 잡아줘서 여러개의 spotid 리스트에 있는 picture들 한번에 가져옴
         List<Spot> spotList1 = queryFactory
                 .select(spot
                 )
                 .from(spot)
                 .innerJoin(spot.pictures, picture).fetchJoin()
-                //.on(spot.id.eq(picture.spot.id))//페치 조인에서는 조인 대상을 필터링(on, where 사용) 할수 없음
-                .where(spot.id.in(spotList))
+                .where(spot.id.in(spotIdList))
                 .fetch();
+        System.out.println("================================");
+        //만약 패치 조인을 해주지 않으면, 여기부분에서 spot id 당  select picture 쿼리문들이 날아감
+        //패치 조인을 하면 여기 == 사이는 추가 쿼리문이 날아가지 않음
 
-        List<SpotListDtoByFavoriteSpot> spotListDtos1ByFavoriteSpot = spotList1.stream()
-                .map(spot1 ->
-                        new SpotListDtoByFavoriteSpot(spot1.getId(), spot1.getName(), spot1.getAddress(), spot1.getDescription(),
-                                spot1.getPictures().get(0).getUrl()))
-                .collect(Collectors.toList());
+        List<SpotListDtoByFavoriteSpot> spotListDtosByFavoriteSpot = new ArrayList<>();
+
+        spotList1.stream().forEach(spot -> {
+            if (!spot.getPictures().isEmpty()) {
+                spotListDtosByFavoriteSpot.add(
+                        new SpotListDtoByFavoriteSpot(spot.getId(), spot.getName(), spot.getAddress(), spot.getDescription(),
+                                spot.getPictures().get(0).getUrl()));
+            } else {
+                spotListDtosByFavoriteSpot.add(
+                        new SpotListDtoByFavoriteSpot(spot.getId(), spot.getName(), spot.getAddress(), spot.getDescription(),
+                                "Empty"));
+            }
+
+        });
 
 
-        return spotListDtos1ByFavoriteSpot;
+        System.out.println("================================");
+
+
+        return spotListDtosByFavoriteSpot;
 
     }
 
@@ -221,20 +204,128 @@ public class FavoriteSpotQuerydslRepository {
      */
     public List recommendSpotList(Long favoriteId, RouteForm routeForm) {
 
-        // 특정 위시리시트에 있는 관광지 리스트 조회
-        List<Spot> spotList = queryFactory
-                .select(favoriteSpot.spot)
+        //favoriteId 에 있는 spotid 리스트를 가지고 옴
+        List<Long> spotIdList = getSpotIdList(favoriteId, routeForm);
+
+        // 가져온 spotId 리스트로 점수가 제일 높은 카테고리 구하고 정렬 기준 정하기
+        OrderSpecifier<Double> orderSpecifier = getDoubleOrderSpecifier(spotIdList);
+
+
+        List<List<RouteSpotListDto>> list = getRecommandedSpotListByLocation(spotIdList, orderSpecifier);
+
+        return list;
+
+
+    }
+
+    /**
+     * 지역별 추천된 관광지 담기
+     *
+     * @param spotIdList
+     * @param orderSpecifier
+     * @return
+     */
+    private List<List<RouteSpotListDto>> getRecommandedSpotListByLocation(List<Long> spotIdList, OrderSpecifier<Double> orderSpecifier) {
+
+        List<List<RouteSpotListDto>> list = new ArrayList<>();
+
+        //위시리스트에 있는 관광지들이 속한 location 리스트 가져오기
+        List<Location> locationList = queryFactory
+                .select(spot.location).distinct()
+                .from(spot)
+                .where(spot.id.in(spotIdList))
+                .fetch();
+
+        log.info("location = {}", locationList);
+
+        //location 리스트 별로 top 10 관광지 정보가져오기
+        for (Location location : locationList) {
+
+            List<RouteSpotListDto> spotListDtos = queryFactory
+                    .select(new QRouteSpotListDto(
+                                    spot.id,
+                                    spot.name,
+                                    spot.address,
+                                    spot.description,
+                                    spot.location
+                            )
+                    )
+                    .from(spot)
+                    .where(locationEq(location))
+                    .orderBy(orderSpecifier)
+                    .offset(0)
+                    .limit(10)
+                    .fetch();
+
+
+            postSpotPictureUrlsToDto(spotListDtos);
+
+            list.add(spotListDtos);
+
+        }
+        return list;
+    }
+
+    private void postSpotPictureUrlsToDto(List<RouteSpotListDto> spotListDtos) {
+
+        //해당 지역에 있는 top 10 지역들 가져오기
+        List<Long> spotIdList = spotListDtos.stream().map(s -> s.getSpotId()).collect(Collectors.toList());
+
+        List<PictureUrlDto> pictureUrlDtos = queryFactory
+                .select(Projections.constructor(PictureUrlDto.class,
+                                picture.spot.id,
+                                picture.url.max()
+                        )
+                )
+                .from(picture)
+                .innerJoin(picture.spot, spot)
+                .where(picture.spot.id.in(spotIdList))
+                .groupBy(picture.spot.id)
+                .fetch();
+
+
+        Map<Long, List<PictureUrlDto>> collect = pictureUrlDtos.stream().collect(Collectors.groupingBy(p -> p.getSpotId()));
+
+
+        if (collect.isEmpty()) {//사진이 없는 경우
+            return;
+        }
+
+        spotListDtos.forEach(sl -> sl.setUrl(collect.get(sl.getSpotId()).get(0).getPictureUrl()));
+
+    }
+
+    /**
+     * 특정 위시리시트에 있는 관광지 리스트 조회
+     *
+     * @param favoriteId
+     * @param routeForm
+     * @return
+     */
+    private List<Long> getSpotIdList(Long favoriteId, RouteForm routeForm) {
+        List<Long> spotIdList = queryFactory
+                .select(favoriteSpot.spot.id)
                 .from(favoriteSpot)
-                .innerJoin(favoriteSpot.spot, spot)//명시적 조인// 근데 여기서는 명시적 조인은 안해도 "cross join"이 안 나감. 알아서 최적화를 해줌
+                .innerJoin(favoriteSpot.spot, spot)
                 .where(favoriteIdEq(favoriteId), spot.id.in(routeForm.getSpotIdList()))
                 .fetch();
 
-        if (isEmpty(spotList)) {
-            log.info("spotList = {}", spotList);
+
+        if (isEmpty(spotIdList)) {
+            log.info("spotIdList = {}", spotIdList);
             throw new UserException("모든 spotId가 위시리스트에 있는 spotId가 아닙니다");
         }
+        return spotIdList;
+    }
 
-        //특정 위시리스트에 있는 각 관광지들의 카테고리별 합산 점수 조회
+    /**
+     * 특정 위시리스트에 있는 각 관광지들의 카테고리별 합산 점수 조회 및 정렬 기준 정하기
+     *
+     * @param spotIdList
+     * @return
+     */
+    private OrderSpecifier<Double> getDoubleOrderSpecifier(List<Long> spotIdList) {
+
         List<Tuple> tupleList = queryFactory
                 .select(
                         spot.score.viewScore.sum(),
@@ -244,14 +335,7 @@ public class FavoriteSpotQuerydslRepository {
                 )
                 .from(spot)
                 .innerJoin(spot.score, score)
-                .where(spot.in(spotList))
-                .fetch();
-
-        //위시리스트에 있느 관광지들이 속한 지역들 리스트
-        List<Location> locationList = queryFactory
-                .select(spot.location).distinct()
-                .from(spot)
-                .where(spot.in(spotList))
+                .where(spot.id.in(spotIdList))
                 .fetch();
 
 
@@ -285,61 +369,9 @@ public class FavoriteSpotQuerydslRepository {
             orderSpecifier = spot.score.facilityScore.desc();
         else
             orderSpecifier = spot.score.surroundScore.desc();
-
-
-        // 지역별 추천된 관광지 담기
-        List list = new ArrayList<>();
-
-        //list.add(Location.Aewol_eup);
-
-        log.info("location = {}", locationList);
-        for (Location location : locationList) {
-
-            List<RouteSpotListDto> spotListDtos = queryFactory
-                    .select(new QRouteSpotListDto(
-                                    spot.id,
-                                    spot.name,
-                                    spot.address,
-                                    spot.description,
-                                    JPAExpressions
-                                            .select(picture.url.max())//스칼라 서브커리에서 limit 못 사용함 그래서 max 사용
-                                            .from(picture)
-                                            .where(picture.spot.id.eq(spot.id)),
-                                    //spot.pictures.any().url//패이징할꺼라 일대다 패치조인 안할거임
-                                    //picture.url
-                                    spot.location
-                            )
-                    )
-                    .from(spot)
-                    .where(locationEq(location))
-                    .orderBy(orderSpecifier)
-                    .offset(0)
-                    .limit(10)
-                    .fetch();
-
-            list.add(spotListDtos);
-
-        }
-
-        return list;
-
-
+        return orderSpecifier;
     }
 
-
-    /**
-     * 위시리스트 삭제시 연관된 favoriteSpot 삭제해야함 - 벌크 연산
-     *
-     * @param favoriteId
-     */
-    public void deleteFavoriteSpotByFavoriteId(Long favoriteId) {
-
-        queryFactory
-                .delete(favoriteSpot)
-                .where(favoriteIdEq(favoriteId))
-                .execute();
-
-    }
 
     private BooleanExpression favoriteIdEq(Long favoriteId) {
         return isEmpty(favoriteId) ? null : favoriteSpot.favorite.id.eq(favoriteId);

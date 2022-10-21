@@ -187,7 +187,7 @@ class FavoriteSpotQuerydslRepositoryTest {
     //67 77 79
     //85 79 81
     @Test
-    public void optimizationFavoriteListTest() throws Exception {
+    public void optimizationFavoriteListTest() {
         //given
         PageRequest pageRequest = PageRequest.of(0, 3);
 
@@ -291,7 +291,7 @@ class FavoriteSpotQuerydslRepositoryTest {
 
         log.info("favoriteId = {}", favorite.getId());
         //when
-        favoriteSpotQuerydslRepository.deleteFavoriteSpotByFavoriteId(favorite.getId());
+        favoriteSpotJpaRepository.deleteAllByFavoriteId(favorite.getId());
 
         List<FavoriteSpot> favoriteSpotList2 =
                 favoriteSpotJpaRepository.findByFavoriteId(favorite.getId());

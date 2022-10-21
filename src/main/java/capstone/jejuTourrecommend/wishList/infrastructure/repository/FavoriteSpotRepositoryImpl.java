@@ -41,6 +41,13 @@ public class FavoriteSpotRepositoryImpl implements FavoriteSpotRepository {
         favoriteSpotJpaRepository.save(favoriteSpot);
     }
 
+    //////////////
+    @Override
+    public void deleteAllByFavoriteId(Long favoriteId) {
+        favoriteSpotJpaRepository.deleteAllByFavoriteId(favoriteId);
+    }
+
+
     @Override
     public Page<FavoriteListDto> getFavoriteList(Long memberId, Pageable pageable) {
         return favoriteSpotQuerydslRepository.getFavoriteList(memberId, pageable);
@@ -61,8 +68,5 @@ public class FavoriteSpotRepositoryImpl implements FavoriteSpotRepository {
         return favoriteSpotQuerydslRepository.recommendSpotList(favoriteId, routeForm);
     }
 
-    @Override
-    public void deleteFavoriteSpotByFavoriteId(Long favoriteId) {
-        favoriteSpotQuerydslRepository.deleteFavoriteSpotByFavoriteId(favoriteId);
-    }
+
 }

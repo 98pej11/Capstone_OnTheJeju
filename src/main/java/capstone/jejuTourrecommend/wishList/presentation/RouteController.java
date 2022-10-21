@@ -21,9 +21,6 @@ public class RouteController {
     @GetMapping("/user/route/spot/{favoriteId}")
     public ResultFavoriteSpotList favoriteRoute(@PathVariable("favoriteId") Long favoriteId){
 
-        //Todo: 테스트 데이터
-        //Long favoriteIdTest = 3l;
-
         ResultFavoriteSpotList resultFavoriteSpotList = favoriteFacade.favoriteSpotList(favoriteId);
 
         return resultFavoriteSpotList;

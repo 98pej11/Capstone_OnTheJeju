@@ -16,4 +16,5 @@ public interface FavoriteQueryUseCase {
 
     ResultFavoriteSpotList favoriteSpotList(Long favoriteId);
 
+    void deleteFavoriteList(Long favoriteId);
 }

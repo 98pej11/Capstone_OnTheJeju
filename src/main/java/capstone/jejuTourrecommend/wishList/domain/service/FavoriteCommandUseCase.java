@@ -10,8 +10,6 @@ public interface FavoriteCommandUseCase{
 
     FavoriteDto newFavoriteList(Member member, Long spotId, String favoriteName);
 
-    void deleteFavoriteList(Long favoriteId);
-
     void deleteSpotInFavoriteList(Long favoriteId, Long spotId);
 
 }

@@ -18,15 +18,11 @@ public class RouteSpotListDto {
 
 
     @QueryProjection
-    public RouteSpotListDto(Long spotId, String spotName, String spotAddress, String spotDescription, String url, Location location) {
+    public RouteSpotListDto(Long spotId, String spotName, String spotAddress, String spotDescription, Location location) {
         this.spotId = spotId;
         this.spotName = spotName;
         this.spotAddress = spotAddress;
         this.spotDescription = spotDescription;
-        this.url = url;
         this.location = location.getKrName();
     }
-
-
-
 }

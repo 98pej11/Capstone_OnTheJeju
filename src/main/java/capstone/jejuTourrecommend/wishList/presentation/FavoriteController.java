@@ -40,8 +40,7 @@ public class FavoriteController {
 
         return new GlobalDto(200l, true, "성공");
 
-
-    }//나 여기서 get post 의미를 정보 수정의 의미로 두었음 반화값은 유무가 아니라
+    }
 
     /**
      * 새로운 위시 리스트를 만들고 해당 관광지 넣기

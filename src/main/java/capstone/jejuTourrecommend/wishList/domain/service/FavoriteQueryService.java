@@ -1,17 +1,11 @@
 package capstone.jejuTourrecommend.wishList.domain.service;
 
-import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
-import capstone.jejuTourrecommend.spot.domain.Spot;
-import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaRepository;
 import capstone.jejuTourrecommend.wishList.domain.Favorite;
-import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
-import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteDto;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
 import capstone.jejuTourrecommend.wishList.domain.dto.SpotListDtoByFavoriteSpot;
 import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteRepository;
 import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteSpotRepository;
-import capstone.jejuTourrecommend.wishList.presentation.dto.request.FavoriteForm;
 import capstone.jejuTourrecommend.wishList.presentation.dto.request.RouteForm;
 import capstone.jejuTourrecommend.wishList.presentation.dto.response.ResultFavoriteSpotList;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -75,6 +68,24 @@ public class FavoriteQueryService implements FavoriteQueryUseCase{
 
     }
 
+
+    /**
+     * 위시 리스트 삭제하기
+     * 해당 위시리스트 정보 필요
+     *
+     * @param favoriteId
+     */
+    public void deleteFavoriteList(Long favoriteId) {
+
+        favoriteRepository.findOptionById(favoriteId)
+                .orElseThrow(() -> new UserException("올바르지 않는 favoriteId 입니다"));
+
+        favoriteSpotRepository.deleteAllByFavoriteId(favoriteId);
+
+        favoriteRepository.deleteById(favoriteId);
+
+
+    }
 
 
 

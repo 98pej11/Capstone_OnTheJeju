@@ -13,12 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Slf4j
 @SpringBootTest
@@ -88,7 +86,7 @@ class FavoriteJpaRepositoryTest {
         //인단 단건 삭제할때는 영속성 컨텍스트에 있는 것도 삭제됨
 
         //favoriteRepository.deleteById(favorite1.getId());
-        favoriteSpotQuerydslRepository.deleteFavoriteSpotByFavoriteId(favorite1.getId());
+        favoriteSpotJpaRepository.deleteAllByFavoriteId(favorite1.getId());
         //원래는 이 기능을 실행하고 나서는 em.flush, em.clear 해줘야 영속성 컨텍스트 내용과 다른 경우가 안생기는데 여기서
         //그거안써도 되는 이유는 favoriteSpotQueryRepository 에 @Transactional 기능이 있기 때문임
         List<FavoriteSpot> byFavoriteId = favoriteSpotJpaRepository.findByFavoriteId(favorite1.getId());

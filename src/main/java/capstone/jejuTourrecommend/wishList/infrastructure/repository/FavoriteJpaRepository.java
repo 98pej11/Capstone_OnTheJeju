@@ -1,7 +1,7 @@
 package capstone.jejuTourrecommend.wishList.infrastructure.repository;
 
-import capstone.jejuTourrecommend.wishList.domain.Favorite;
 import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.wishList.domain.Favorite;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

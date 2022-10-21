@@ -81,13 +81,26 @@
   jpql에서는 from없이는 쿼리가 실행되지 않아서 limit(1)을 사용하였습니다
   limit(1)로 조회제한을 한여 실행하였습니다 (= fetchFirst())
 
-<img  alt="querydslExitUpgrade" src="./images/querydslExitUpgrade.png?raw=true"  >
+<img  alt="querydslExitUpgrade" src="./img/querydslExitUpgrade.png?raw=true"  >
 
 
 
 ### (3) 서브쿼리 -> 조인, 쿼리분할
 
-- querydsl에서 서브쿼리는 안티패턴인 것을 확인하여, 조인을 사용하고, 쿼리 분할을 하여 서브쿼리를 대체하였습니다.
+- mysql 5.5 버전의 서브 쿼리를 EXPLAIN 명령으로 실행 계획을 보면 "DEPENDENT SUBQUERY"로 줄력이 됩니다. 즉 먼저 서브쿼리를 실행하고 상위쿼리를 실행하는 것이 아니라 상위쿼리 데이터를 모두 가져오고 서브쿼리를 실행합니다. -> 이럴때 성능 문제가 발생합니다
+- 그러나 mysql 5.6 버전부터 서브쿼리의 성능 문제가 대폭 최적화 되어 이러한 문제가 개선 되었습니다. 
+- 현재 저희 프로젝트는 mysql 8.0 버전을 사용하여 서브쿼리에 대한 성능 이슈에 대한 문제가 거의 없지만, 버전간의 호환성문제를 제거하기 위해 서브쿼리를 조인 또는 쿼리분할로 대체하였습니다.
+
+
+### (4) 컬렉션 페치조인 최적화
+
+- 일대다 관계를 맺은 컬렉션 패치 조인의 경우, n+1문제가 발생하게 됩니다. 그러나 페치조인 같은 경우 페이징을 할수 없습니다.
+	1. 방법1 :  그래서 저는 루트 데이터 1번에 컬렉션 데이터 n번의 컬렉션 데이터를 가져오는 방식을 해결하였으나 이 또한 데이터를 가져오는 데 시간이 오래 걸렸습니다.
+	2. 방법2 : 방법1 문제를 해결하고자 ToOne 관계들을 먼저 조회하고, ToOne관계에서 얻은 "식별자 관광지 아이디"로 ToMany 관계인 사진 URL 한꺼번에 조회하였습니다. 그리고 map을 사용하여 관광지 아이디를 매칭하였습니다.
+		-   그러자 성능 향상이 O(1)로 줄어들게 되었습니다. 이렇게 접근하니, 수만 개의 데이터를 가져오려 해도 전보다 2배의 성능 개선을 할 수 있었습니다
+
+<img alt="collectionPagingEx1" src="./img/collectionPagingEx1.png?raw=true"  width="800" height="180"/>
+
 
 ## 2. Spring Data JPA
 
@@ -95,12 +108,12 @@
 
 - spring Data JPA에서의 기본 deleteAll(entities) 메서드는 엔티티 하나마다 쿼리문을 날리데 되어서 속도가 많이 느립니다
   이를 성능 개선 하기 위해 한번에 delete 연산을 하는 메서드를 만들어 해결하였습니다.
-  <img alt="bulkDeleteMemberSpotByMember" src="./images/bulkDeleteMemberSpotByMember.png?raw=true"  width="800" height="180"/>
+  <img alt="bulkDeleteMemberSpotByMember" src="./img/bulkDeleteMemberSpotByMember.png?raw=true"  width="800" height="180"/>
 
 - 위에와 비슷하게 회원가입시 관광지와 연관되어 다수의 회원 정보를 업데이트를 해야하는 경우가 있었는데 처음에는 entity 생성마다
   spring data jpa의 save()메서들 사용하여 하나씩 저장하였는데 성능이 너무 나오지 않았다
   그래서 for loop로 하나씩 save하는 것 보단 List에 entity를 전부 담아서 한 번의 saveAll이 더 성능에 좋은 것을 알게 되어 saveAllAndFlush()를 사용하여 선능 튜닝을 해결하였습니다
-  <img  alt="saveAllAndFlush" src="./images/saveAllAndFlush.png?raw=true"  width="1000" height="250"/>
+  <img  alt="saveAllAndFlush" src="./img/saveAllAndFlush.png?raw=true"  width="1000" height="250"/>
 
 </details>
 
@@ -140,8 +153,8 @@
   저는 동서남북의 클래스를 따로 분리하여 "위치 정보를 가지고 있는 역할"을 만들고,
   이러한 "위치 정보를 관리하는 역할" LocationStrategy 인터페이스를 만들어 객체들간의 협력 관계를 만들었습니다
 
-<img  alt="stragetyPatternPackage" src="./images/stragetyPatternPackage.png?raw=true"  >
-<img  alt="stragetyPatternExample" src="./images/stragetyPatternExample.png?raw=true"  >
+<img  alt="stragetyPatternPackage" src="./img/stragetyPatternPackage.png?raw=true"  >
+<img  alt="stragetyPatternExample" src="./img/stragetyPatternExample.png?raw=true"  >
 
 - 전략 패턴을 사용한 이유: 현재 동서남북으로 위치정보를 분리하 것은 설문조사와 각 읍별 관광지의 개수를 고려하여 저희 임의의 적절한 지억을 나누었습니다.
   이는 관광지가 새로 생길수 있어 지역별 관광지 개수 변경이 되는 우려가 있었습니다
@@ -153,8 +166,8 @@
 - 메타 데이터 인스턴스를 관리하는 역햘은 MetaDataBuilder 인터페이스에게 역할 주었고
   상황별 메타데이터를 생성하는 역할은 MetaDataDirector 클래스에게 역할을 부여하여 적용하였습니다
 
-<img  alt="builderPatternExample" src="./images/builderPatternExample.png?raw=true">
-<img  alt="metaDataPackage" src="./images/metaDataPackage.png?raw=true">
+<img  alt="builderPatternExample" src="./img/builderPatternExample.png?raw=true">
+<img  alt="metaDataPackage" src="./img/metaDataPackage.png?raw=true">
 
 - 빌더 패턴을 사용한 이유: 새로운 메타 데이터가 생길때마다 list와 map을 사용하여 일일히 정보블 반환하는 것에 번거로움이 있었습니다
   또한 메타데이터의 정보를 수정되는 경우도 다수 발생하는 것에 대비하여 위와 같이 빌더 패턴을 적용하였습니다
@@ -164,9 +177,9 @@
 - 본 프로젝트에서 Service 역할을 @Transaction 에 readOnly 옵션이 들어가는 곳과 들어가기 Service의 역할을 분리하였습니다.
 그래서 @Transaction 에 readOnly 옵션 유뮤에 따라 클래스를 분리하였으며, 해당 클래스들을 Facade 패턴을 사용하여 객체 관리하도록 하였습니다.
 
-<img  alt="FavoriteServiceFacade" src="./images/FavoriteServiceFacade.png?raw=true">
+<img  alt="FavoriteServiceFacade" src="./img/FavoriteServiceFacade.png?raw=true">
 
-<img  alt="FavoriteServiceSeperate" src="./images/FavoriteServiceSeperate.png?raw=true">
+<img  alt="FavoriteServiceSeperate" src="./img/FavoriteServiceSeperate.png?raw=true">
 
 (성능 최적화 내용은 "프로젝트 종료 이후 혼자서 진행한 리팩토링"의 6. @Transaction 최적화에 있습니다)
 
@@ -178,7 +191,12 @@
 ### (1) Spring Security 구조 개선
 
 - 스프링과 JPA를 학습한지 3주만에 프로젝트를 들어간 상황 이었기에 Spring Security는 제대로 모른 상태로 본 프로젝트에 들어갔습니다.
-  프로젝트가 종료이후 Spring Security를 학습하여 기존에 엉망이었던 코드 내용들을 수정 작업하였습니다.
+	-  프로젝트가 종료이후 Spring Security를 학습하여 기존에 엉망이었던 코드 내용들을 수정 작업하였습니다.
+- 기존에 spring Security의 인증 인가 처리를 제가 만든 개별 filter에 모든 것을 처리하였습니다. 
+	- Spring security 학습 후, 
+	- filter (CustomLoginProcessingAuthenticationFilter)
+	- handler(CustomAuthenticationFailureHandler, CustomAuthenticationSuccessHandler, RestAccessDeniedHandler)
+	- provider(RestAuthenticationEntryPoint, CustomAuthenticationProvider)를 만들어, security 라이브러리 클래스 목적에 맞게 implement 하여 재정의하였습니다.
 
 ### (2) redis 데이터베이스 추가
 
@@ -207,5 +225,10 @@
 - readOnly 옵셥으로 선능을 최적화 할수 있다는 것을 알고 데이터를 읽기만하는 Service 같은 경우 CommandUseCase, QueryUseCase 분리하여 reaOnly 옵션을 처리하였습니다.
 그 후 디자인 패턴인 Facade 패턴을 사용하여 Service 를 한곳에 관리하는 역할을 만들어 분리하였습니다.
   
+<!--
+## 7. 쿼리 튜닝
+
+- -->
+
 
 </details>

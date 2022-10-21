@@ -8,17 +8,14 @@ import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJp
 import capstone.jejuTourrecommend.wishList.domain.Favorite;
 import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteDto;
-import capstone.jejuTourrecommend.wishList.domain.dto.SpotListDtoByFavoriteSpot;
 import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteRepository;
 import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteSpotRepository;
 import capstone.jejuTourrecommend.wishList.presentation.dto.request.FavoriteForm;
-import capstone.jejuTourrecommend.wishList.presentation.dto.response.ResultFavoriteSpotList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -102,23 +99,7 @@ public class FavoriteCommandService implements FavoriteCommandUseCase{
     }
 
 
-    /**
-     * 위시 리스트 삭제하기
-     * 해당 위시리스트 정보 필요
-     *
-     * @param favoriteId
-     */
-    public void deleteFavoriteList(Long favoriteId) {
 
-        favoriteRepository.findOptionById(favoriteId)
-                .orElseThrow(() -> new UserException("올바르지 않는 favoriteId 입니다"));
-
-        favoriteSpotRepository.deleteFavoriteSpotByFavoriteId(favoriteId);
-
-        favoriteRepository.deleteById(favoriteId);
-
-
-    }
 
     public void deleteSpotInFavoriteList(Long favoriteId, Long spotId) {
 

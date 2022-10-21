@@ -1,6 +1,5 @@
 package capstone.jejuTourrecommend.wishList.domain.dto;
 
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.PictureDetailDto;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -12,12 +11,14 @@ public class FavoriteListDto {
     private Long favoriteId;
     private String favoriteName;
 
-    private List<List<PictureDetailDto>> pictureDetailDtoListBySpotId;
+    private List<PictureUrlDto> PictureUrlDtoList;
 
 
     public FavoriteListDto(Long favoriteId, String favoriteName) {
         this.favoriteId = favoriteId;
         this.favoriteName = favoriteName;
-        pictureDetailDtoListBySpotId = new ArrayList<>();
+        PictureUrlDtoList = new ArrayList<>();
     }
+
+
 }

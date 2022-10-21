@@ -26,7 +26,7 @@ public interface FavoriteSpotRepository {
 
     List recommendSpotList(Long favoriteId, RouteForm routeForm);
 
-    void deleteFavoriteSpotByFavoriteId(Long favoriteId);
+    void deleteAllByFavoriteId(Long favoriteId);
 
     void save(FavoriteSpot favoriteSpot);
 }
