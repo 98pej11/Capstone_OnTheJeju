@@ -5,5 +5,14 @@
 
 
 <suppressions>
-    <suppress files="ApplicationTest.java" checks="MethodName"/>
+    <suppress files="QBaseEntity.java" checks=".*"/>
+    <suppress files="QPicture.java" checks=".*"/>
+    <suppress files="QReview.java" checks=".*"/>
+    <suppress files="QSpotScoreDto.java" checks=".*"/>
+    <suppress files="QMemberSpot.java" checks=".*"/>
+    <suppress files="QScore.java" checks=".*"/>
+    <suppress files="QRouteSpotListDto.java" checks=".*"/>
+    <suppress files="QSpotListDtoByFavoriteSpot.java" checks=".*"/>
+    <suppress files="QFavorite.java" checks=".*"/>
+    <suppress files="QFavoriteSpot.java" checks=".*"/>
 </suppressions>

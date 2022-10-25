@@ -13,27 +13,27 @@ plugins {
 
     id 'java'
 
-    //자바 컨벤션
-    id 'org.ec4j.editorconfig' version '0.0.3'
-    id 'checkstyle'
+//    //자바 컨벤션
+//    id 'org.ec4j.editorconfig' version '0.0.3'
+//    id 'checkstyle'
 
 }
-
-editorconfig {
-    excludes = ['build']
-}
-checkstyle {
-    maxWarnings = 0
-    configFile = file("${rootDir}/naver-checkstyle-rules.xml") //// 규칙이 어긋나는 코드가 하나라도 있을 경우 빌드 fail을 내고 싶다면 이 선언을 추가한다.
-    configProperties = ["suppressionFile": "${rootDir}/naver-checkstyle-suppressions.xml"]
-    toolVersion = "9.2" // checkstyle 버전 8.24 이상 선언
-
-}
-
-check.dependsOn editorconfigCheck
-
-compileJava.options.encoding = 'UTF-8'
-compileTestJava.options.encoding = 'UTF-8'
+//
+//editorconfig {
+//    excludes = ['build']
+//}
+//checkstyle {
+//    maxWarnings = 0
+//    configFile = file("${rootDir}/naver-checkstyle-rules.xml") //// 규칙이 어긋나는 코드가 하나라도 있을 경우 빌드 fail을 내고 싶다면 이 선언을 추가한다.
+//    configProperties = ["suppressionFile": "${rootDir}/naver-checkstyle-suppressions.xml"]
+//    toolVersion = "9.2" // checkstyle 버전 8.24 이상 선언
+//
+//}
+//
+//check.dependsOn editorconfigCheck
+//
+//compileJava.options.encoding = 'UTF-8'
+//compileTestJava.options.encoding = 'UTF-8'
 
 
 group = 'capstone'
