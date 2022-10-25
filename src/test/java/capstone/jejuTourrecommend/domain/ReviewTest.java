@@ -1,57 +1,57 @@
 package capstone.jejuTourrecommend.domain;
 
-import capstone.jejuTourrecommend.spot.domain.detailSpot.Review;
-import capstone.jejuTourrecommend.spot.domain.Spot;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import capstone.jejuTourrecommend.spot.domain.Spot;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.Review;
 
 @SpringBootTest
 @Transactional
-//@Commit
+	//@Commit
 class ReviewTest {
 
-    @PersistenceContext
-    EntityManager em;
+	@PersistenceContext
+	EntityManager em;
 
-    @Test
-    public void review_spotTest() throws Exception{
-        //given
-        Spot spot1 = new Spot("spot1");
-        Spot spot2 = new Spot("spot2");
+	@Test
+	public void review_spotTest() throws Exception {
+		//given
+		Spot spot1 = new Spot("spot1");
+		Spot spot2 = new Spot("spot2");
 
-        em.persist(spot1);
-        em.persist(spot2);
+		em.persist(spot1);
+		em.persist(spot2);
 
-        Review review1 = new Review("123123", spot1);
-        Review review2 = new Review("234234", spot1);
-        Review review3 = new Review("3453453", spot2);
-        Review review4 = new Review("456456", spot2);
+		Review review1 = new Review("123123", spot1);
+		Review review2 = new Review("234234", spot1);
+		Review review3 = new Review("3453453", spot2);
+		Review review4 = new Review("456456", spot2);
 
-        em.persist(review1);
-        em.persist(review2);
-        em.persist(review3);
-        em.persist(review4);
+		em.persist(review1);
+		em.persist(review2);
+		em.persist(review3);
+		em.persist(review4);
 
-        em.flush();
-        em.clear();
+		em.flush();
+		em.clear();
 
-        List<Spot> resultList = em.createQuery("select s from Spot s", Spot.class)
-                .getResultList();
+		List<Spot> resultList = em.createQuery("select s from Spot s", Spot.class)
+			.getResultList();
 
-        for (Spot spot : resultList) {
-            System.out.println("spot = " + spot);
-            System.out.println("spot.getReviews() = " + spot.getReviews());
-        }
+		for (Spot spot : resultList) {
+			System.out.println("spot = " + spot);
+			System.out.println("spot.getReviews() = " + spot.getReviews());
+		}
 
+		//when
 
-        //when
-
-        //then
-    }
+		//then
+	}
 }

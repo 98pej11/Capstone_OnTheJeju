@@ -1,54 +1,54 @@
 package capstone.jejuTourrecommend.domain;
 
-import capstone.jejuTourrecommend.spot.domain.detailSpot.Picture;
-import capstone.jejuTourrecommend.spot.domain.Spot;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import java.util.List;
-
+import capstone.jejuTourrecommend.spot.domain.Spot;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.Picture;
 
 @SpringBootTest
 @Transactional
-//@Commit
+	//@Commit
 class PictureTest {
 
-    @PersistenceContext
-    EntityManager em;
+	@PersistenceContext
+	EntityManager em;
 
-    @Test
-    public void picture_spotTest() throws Exception{
+	@Test
+	public void picture_spotTest() throws Exception {
 
-        Spot spot1 = new Spot("spot1");
-        Spot spot2 = new Spot("spot2");
+		Spot spot1 = new Spot("spot1");
+		Spot spot2 = new Spot("spot2");
 
-        em.persist(spot1);
-        em.persist(spot2);
+		em.persist(spot1);
+		em.persist(spot2);
 
-        Picture pictureA = new Picture("http123", spot1);
-        Picture pictureB = new Picture("http234",spot1);
-        Picture pictureC = new Picture("http345",spot2);
-        Picture pictureD = new Picture("http456",spot2);
+		Picture pictureA = new Picture("http123", spot1);
+		Picture pictureB = new Picture("http234", spot1);
+		Picture pictureC = new Picture("http345", spot2);
+		Picture pictureD = new Picture("http456", spot2);
 
-        em.persist(pictureA);
-        em.persist(pictureB);
-        em.persist(pictureC);
-        em.persist(pictureD);
+		em.persist(pictureA);
+		em.persist(pictureB);
+		em.persist(pictureC);
+		em.persist(pictureD);
 
-        em.flush();
-        em.clear();
+		em.flush();
+		em.clear();
 
-        List<Picture> resultList = em.createQuery("select p from Picture p", Picture.class)
-                .getResultList();
+		List<Picture> resultList = em.createQuery("select p from Picture p", Picture.class)
+			.getResultList();
 
-        Assertions.assertThat(resultList.size()).isEqualTo(4);
+		Assertions.assertThat(resultList.size()).isEqualTo(4);
 
-    }
+	}
 
 }
 

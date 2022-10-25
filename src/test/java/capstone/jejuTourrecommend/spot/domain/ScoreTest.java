@@ -1,79 +1,69 @@
 package capstone.jejuTourrecommend.spot.domain;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-
 @SpringBootTest
 @Transactional
-//@Commit
+	//@Commit
 class ScoreTest {
 
+	@PersistenceContext
+	EntityManager em;
 
-    @PersistenceContext
-    EntityManager em;
+	@Test
+	public void score_spotTest() throws Exception {
 
+		Score score1 = new Score();
+		Score score2 = new Score();
 
-    @Test
-    public void score_spotTest() throws Exception{
+		em.persist(score1);
+		em.persist(score2);
 
-        Score score1 = new Score();
-        Score score2 = new Score();
+		//spot이 주인임
+		Spot spot1 = new Spot("spot1", score1);
+		Spot spot2 = new Spot("spot2", score2);
 
-        em.persist(score1);
-        em.persist(score2);
+		em.persist(spot1);
+		em.persist(spot2);
 
-        //spot이 주인임
-        Spot spot1 = new Spot("spot1",score1);
-        Spot spot2 = new Spot("spot2",score2);
+		em.flush();
+		em.clear();
 
-        em.persist(spot1);
-        em.persist(spot2);
+		List<Spot> resultList = em.createQuery("select s from Spot s", Spot.class)
+			.getResultList();
 
-        em.flush();
-        em.clear();
+		for (Spot spot : resultList) {
+			System.out.println("spot = " + spot);
+			System.out.println("spot.getScore() = " + spot.getScore());
+		}
 
-        List<Spot> resultList = em.createQuery("select s from Spot s", Spot.class)
-                .getResultList();
+	}
 
-        for (Spot spot : resultList) {
-            System.out.println("spot = " + spot);
-            System.out.println("spot.getScore() = " + spot.getScore());
-        }
+	@Test
+	public void abstract_test() throws Exception {
 
-    }
+		//given
 
-    @Test
-    public void abstract_test() throws Exception{
+		//when
 
+		//then
+	}
 
+	@Test
+	public void tag_Test() throws Exception {
+		//given
 
-        //given
+		//when
 
-        //when
-
-        //then
-    }
-
-
-
-    @Test
-    public void tag_Test() throws Exception{
-        //given
-
-        //when
-
-        //then
-    }
-
-
+		//then
+	}
 
 }
 

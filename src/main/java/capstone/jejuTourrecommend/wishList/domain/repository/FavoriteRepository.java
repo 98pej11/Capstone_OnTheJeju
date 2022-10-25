@@ -1,24 +1,25 @@
 package capstone.jejuTourrecommend.wishList.domain.repository;
 
-import capstone.jejuTourrecommend.authentication.domain.Member;
-import capstone.jejuTourrecommend.wishList.domain.Favorite;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
+import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.wishList.domain.Favorite;
 
 public interface FavoriteRepository {
 
-    Page<Favorite> findByMember(Member member, Pageable pageable);
+	Page<Favorite> findByMember(Member member, Pageable pageable);
 
-    Optional<Favorite> findOptionById(Long favoriteId);
+	Optional<Favorite> findOptionById(Long favoriteId);
 
-    Optional<Favorite> findOptionByNameAndMemberId(String favoriteName,Long memberId);
+	Optional<Favorite> findOptionByNameAndMemberId(String favoriteName, Long memberId);
 
-    Optional<Favorite> findByNameAndMember(String favoriteName, Member member);
+	Optional<Favorite> findByNameAndMember(String favoriteName, Member member);
 
-    void deleteById(Long favoriteId);
+	void deleteById(Long favoriteId);
 
-    void save(Favorite favorite);
+	void save(Favorite favorite);
 
 }

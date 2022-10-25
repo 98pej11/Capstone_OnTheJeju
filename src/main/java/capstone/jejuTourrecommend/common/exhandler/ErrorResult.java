@@ -7,15 +7,15 @@ import lombok.Data;
 @AllArgsConstructor
 public class ErrorResult {
 
-//    {
-//        "status": 400,
-//            "success": false,
-//            "message": "이미 존재하는 이메일입니다."
-//    }
+	//    {
+	//        "status": 400,
+	//            "success": false,
+	//            "message": "이미 존재하는 이메일입니다."
+	//    }
 
-    private int status;
-    private Boolean success;
-    private String message;
+	private int status;
+	private Boolean success;
+	private String message;
 
 }
 

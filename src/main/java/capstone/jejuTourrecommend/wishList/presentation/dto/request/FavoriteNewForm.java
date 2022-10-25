@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class FavoriteNewForm {
 
-    private Long spotId;
-    private String favoriteName;
+	private Long spotId;
+	private String favoriteName;
 
 }

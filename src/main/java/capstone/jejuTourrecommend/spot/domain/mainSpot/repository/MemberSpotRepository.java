@@ -1,14 +1,14 @@
 package capstone.jejuTourrecommend.spot.domain.mainSpot.repository;
 
-import capstone.jejuTourrecommend.authentication.domain.Member;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
-import capstone.jejuTourrecommend.spot.domain.Spot;
-
 import java.util.Optional;
 
-public interface MemberSpotRepository{
+import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.spot.domain.Spot;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
 
-    Optional<MemberSpot> findBySpotAndMember(Spot spot, Member member);
+public interface MemberSpotRepository {
 
-    int bulkDeleteMemberSpotByMember(Member member);
+	Optional<MemberSpot> findBySpotAndMember(Spot spot, Member member);
+
+	int bulkDeleteMemberSpotByMember(Member member);
 }

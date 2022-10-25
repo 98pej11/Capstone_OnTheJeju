@@ -8,13 +8,10 @@ import lombok.Data;
 @AllArgsConstructor
 public class JoinDto {
 
-
-
-    private int status;
-    private Boolean success;
-    private String message;
-    private UserDto userDto;
-
+	private int status;
+	private Boolean success;
+	private String message;
+	private UserDto userDto;
 
 }
 

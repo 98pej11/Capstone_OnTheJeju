@@ -1,15 +1,15 @@
 package capstone.jejuTourrecommend.common.metaDataBuilder;
 
-import lombok.Data;
-
 import java.util.List;
+
+import lombok.Data;
 
 @Data
 public class MetaData {
 
-    private List<MetaDataDetail> metaDataList;
+	private List<MetaDataDetail> metaDataList;
 
-    public MetaData(List<MetaDataDetail> metaDataList) {
-        this.metaDataList = metaDataList;
-    }
+	public MetaData(List<MetaDataDetail> metaDataList) {
+		this.metaDataList = metaDataList;
+	}
 }

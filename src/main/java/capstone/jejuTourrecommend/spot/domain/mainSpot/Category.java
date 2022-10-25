@@ -1,5 +1,5 @@
 package capstone.jejuTourrecommend.spot.domain.mainSpot;
 
 public enum Category {
-    VIEW,PRICE,FACILITY,SURROUND;
+	VIEW, PRICE, FACILITY, SURROUND;
 }

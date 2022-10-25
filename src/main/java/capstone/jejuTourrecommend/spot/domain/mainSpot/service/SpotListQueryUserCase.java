@@ -1,18 +1,17 @@
 package capstone.jejuTourrecommend.spot.domain.mainSpot.service;
 
-import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
-import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
-import org.springframework.data.domain.Page;
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
+import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
 
 public interface SpotListQueryUserCase {
 
-    ResultSpotListDto searchSpotListContains(Long memberId, String spotName, Pageable pageable);
+	ResultSpotListDto searchSpotListContains(Long memberId, String spotName, Pageable pageable);
 
-    ResultSpotListDto getSpotListWithoutPriority(Pageable pageable, List locationList, Category category, Long memberId);
+	ResultSpotListDto getSpotListWithoutPriority(Pageable pageable, List locationList, Category category,
+		Long memberId);
 
 }

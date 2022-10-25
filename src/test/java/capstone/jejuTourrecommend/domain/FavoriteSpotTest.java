@@ -1,87 +1,88 @@
 package capstone.jejuTourrecommend.domain;
 
-import capstone.jejuTourrecommend.wishList.domain.Favorite;
-import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
-import capstone.jejuTourrecommend.spot.domain.Spot;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import capstone.jejuTourrecommend.spot.domain.Spot;
+import capstone.jejuTourrecommend.wishList.domain.Favorite;
+import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
 
 @SpringBootTest
 @Transactional
-//@Rollback(value = false)
+	//@Rollback(value = false)
 class FavoriteSpotTest {
 
-    @PersistenceContext
-    EntityManager em;
+	@PersistenceContext
+	EntityManager em;
 
-    @Test
-    public void fs_favoriteTest() throws Exception{
-        Favorite favoriteA = new Favorite("favoriteA");
-        Favorite favoriteB = new Favorite("favoriteB");
+	@Test
+	public void fs_favoriteTest() throws Exception {
+		Favorite favoriteA = new Favorite("favoriteA");
+		Favorite favoriteB = new Favorite("favoriteB");
 
-        em.persist(favoriteA);
-        em.persist(favoriteB);
-        
-        FavoriteSpot favoriteSpot1 = new FavoriteSpot(favoriteA);
-        FavoriteSpot favoriteSpot2 = new FavoriteSpot(favoriteA);
-        FavoriteSpot favoriteSpot3 = new FavoriteSpot(favoriteB);
-        FavoriteSpot favoriteSpot4 = new FavoriteSpot(favoriteB);
+		em.persist(favoriteA);
+		em.persist(favoriteB);
 
-        em.persist(favoriteSpot1);
-        em.persist(favoriteSpot2);
-        em.persist(favoriteSpot3);
-        em.persist(favoriteSpot4);
+		FavoriteSpot favoriteSpot1 = new FavoriteSpot(favoriteA);
+		FavoriteSpot favoriteSpot2 = new FavoriteSpot(favoriteA);
+		FavoriteSpot favoriteSpot3 = new FavoriteSpot(favoriteB);
+		FavoriteSpot favoriteSpot4 = new FavoriteSpot(favoriteB);
 
-        em.flush();
-        em.clear();
+		em.persist(favoriteSpot1);
+		em.persist(favoriteSpot2);
+		em.persist(favoriteSpot3);
+		em.persist(favoriteSpot4);
 
-        List<FavoriteSpot> favoriteSpotList = em.createQuery("select fs from FavoriteSpot fs",FavoriteSpot.class)
-                .getResultList();
+		em.flush();
+		em.clear();
 
-        for (FavoriteSpot favoriteSpot : favoriteSpotList) {
-            System.out.println("favoriteSpot = " + favoriteSpot);
-            System.out.println("favoriteSpot.getFavorite() = " + favoriteSpot.getFavorite());
-        }
-        
-    }
+		List<FavoriteSpot> favoriteSpotList = em.createQuery("select fs from FavoriteSpot fs", FavoriteSpot.class)
+			.getResultList();
 
-    @Test
-    public void fs_SpotTest() throws Exception{
-        //given
-        Spot spot1 = new Spot("spot1");
-        Spot spot2 = new Spot("spot2");
+		for (FavoriteSpot favoriteSpot : favoriteSpotList) {
+			System.out.println("favoriteSpot = " + favoriteSpot);
+			System.out.println("favoriteSpot.getFavorite() = " + favoriteSpot.getFavorite());
+		}
 
-        em.persist(spot1);
-        em.persist(spot2);
+	}
 
-        FavoriteSpot favoriteSpot1 = new FavoriteSpot(spot1);
-        FavoriteSpot favoriteSpot2 = new FavoriteSpot(spot1);
-        FavoriteSpot favoriteSpot3 = new FavoriteSpot(spot2);
-        FavoriteSpot favoriteSpot4 = new FavoriteSpot(spot2);
+	@Test
+	public void fs_SpotTest() throws Exception {
+		//given
+		Spot spot1 = new Spot("spot1");
+		Spot spot2 = new Spot("spot2");
 
-        em.persist(favoriteSpot1);
-        em.persist(favoriteSpot2);
-        em.persist(favoriteSpot3);
-        em.persist(favoriteSpot4);
+		em.persist(spot1);
+		em.persist(spot2);
 
-        em.flush();
-        em.clear();
+		FavoriteSpot favoriteSpot1 = new FavoriteSpot(spot1);
+		FavoriteSpot favoriteSpot2 = new FavoriteSpot(spot1);
+		FavoriteSpot favoriteSpot3 = new FavoriteSpot(spot2);
+		FavoriteSpot favoriteSpot4 = new FavoriteSpot(spot2);
 
-        List<FavoriteSpot> favoriteSpotList = em.createQuery("select fs from FavoriteSpot fs", FavoriteSpot.class)
-                .getResultList();
+		em.persist(favoriteSpot1);
+		em.persist(favoriteSpot2);
+		em.persist(favoriteSpot3);
+		em.persist(favoriteSpot4);
 
-        for (FavoriteSpot favoriteSpot : favoriteSpotList) {
-            System.out.println("favoriteSpot = " + favoriteSpot);
-            System.out.println("favoriteSpot.getSpot() = " + favoriteSpot.getSpot());
-        }
+		em.flush();
+		em.clear();
 
-    }
+		List<FavoriteSpot> favoriteSpotList = em.createQuery("select fs from FavoriteSpot fs", FavoriteSpot.class)
+			.getResultList();
+
+		for (FavoriteSpot favoriteSpot : favoriteSpotList) {
+			System.out.println("favoriteSpot = " + favoriteSpot);
+			System.out.println("favoriteSpot.getSpot() = " + favoriteSpot.getSpot());
+		}
+
+	}
 
 }
 
