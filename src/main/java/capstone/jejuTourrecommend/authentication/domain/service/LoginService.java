@@ -1,15 +1,5 @@
 package capstone.jejuTourrecommend.authentication.domain.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
 import capstone.jejuTourrecommend.authentication.presentation.dto.request.JoinForm;
@@ -26,6 +16,14 @@ import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.Member
 import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service

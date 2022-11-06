@@ -1,16 +1,14 @@
 package capstone.jejuTourrecommend.domain;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.wishList.domain.Favorite;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import capstone.jejuTourrecommend.authentication.domain.Member;
-import capstone.jejuTourrecommend.wishList.domain.Favorite;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @SpringBootTest
 @Transactional

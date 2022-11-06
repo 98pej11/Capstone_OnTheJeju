@@ -1,9 +1,8 @@
 package capstone.jejuTourrecommend.wishList.presentation.dto.response;
 
-import org.springframework.data.domain.Page;
-
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
 import lombok.Data;
+import org.springframework.data.domain.Page;
 
 @Data
 public class FavoriteListFinalDto {

@@ -1,24 +1,21 @@
 package capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot;
 
-import static capstone.jejuTourrecommend.spot.domain.detailSpot.QReview.*;
-
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
+import capstone.jejuTourrecommend.spot.domain.Spot;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.ReviewDto;
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.impl.JPAQuery;
-import com.querydsl.jpa.impl.JPAQueryFactory;
+import javax.persistence.EntityManager;
+import java.util.List;
 
-import capstone.jejuTourrecommend.spot.domain.Spot;
-import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.ReviewDto;
-import lombok.extern.slf4j.Slf4j;
+import static capstone.jejuTourrecommend.spot.domain.detailSpot.QReview.review;
 
 @Repository
 @Slf4j

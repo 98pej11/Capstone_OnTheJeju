@@ -1,8 +1,8 @@
 package capstone.jejuTourrecommend.wishList.domain.dto;
 
-import javax.persistence.Lob;
-
 import lombok.Data;
+
+import javax.persistence.Lob;
 
 @Data
 public class PictureUrlDto {

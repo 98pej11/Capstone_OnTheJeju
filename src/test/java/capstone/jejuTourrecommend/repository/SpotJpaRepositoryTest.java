@@ -1,23 +1,5 @@
 package capstone.jejuTourrecommend.repository;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.MemberSpotQuerydslRepository;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.transaction.annotation.Transactional;
-
 import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
 import capstone.jejuTourrecommend.spot.domain.Score;
@@ -27,10 +9,25 @@ import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.MemberSpotQuerydslRepository;
 import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaRepository;
 import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotQuerydslRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 @Slf4j
 @SpringBootTest

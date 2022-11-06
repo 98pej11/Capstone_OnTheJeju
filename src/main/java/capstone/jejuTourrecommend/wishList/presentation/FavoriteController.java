@@ -1,15 +1,5 @@
 package capstone.jejuTourrecommend.wishList.presentation;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import capstone.jejuTourrecommend.authentication.LoginUser;
 import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.common.GlobalDto;
@@ -22,6 +12,9 @@ import capstone.jejuTourrecommend.wishList.presentation.dto.response.FavoriteLis
 import capstone.jejuTourrecommend.wishList.presentation.dto.response.NewFavoriteListDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor

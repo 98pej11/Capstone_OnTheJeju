@@ -1,18 +1,5 @@
 package capstone.jejuTourrecommend.domain.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
-
 import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
@@ -29,6 +16,17 @@ import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteJpaRepository;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotJpaRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 @Slf4j
 @SpringBootTest

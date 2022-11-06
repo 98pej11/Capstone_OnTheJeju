@@ -1,17 +1,12 @@
 package capstone.jejuTourrecommend.authentication.presentation.dto.response;
 
-import static java.util.stream.Collectors.*;
+import lombok.*;
+import org.springframework.validation.BindingResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.validation.BindingResult;
-
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import static java.util.stream.Collectors.toList;
 
 @Getter
 @Builder

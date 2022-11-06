@@ -1,7 +1,6 @@
 package capstone.jejuTourrecommend.wishList.domain.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
-
 import lombok.Data;
 
 @Data

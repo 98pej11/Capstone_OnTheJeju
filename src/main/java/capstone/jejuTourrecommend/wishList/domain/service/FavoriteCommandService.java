@@ -1,10 +1,5 @@
 package capstone.jejuTourrecommend.wishList.domain.service;
 
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
 import capstone.jejuTourrecommend.spot.domain.Spot;
@@ -17,6 +12,10 @@ import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteSpotReposit
 import capstone.jejuTourrecommend.wishList.presentation.dto.request.FavoriteForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Slf4j
 @Service

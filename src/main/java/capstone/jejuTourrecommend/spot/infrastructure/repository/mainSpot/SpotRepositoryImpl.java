@@ -1,19 +1,16 @@
 package capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot;
 
-import java.util.List;
-import java.util.Optional;
-
+import capstone.jejuTourrecommend.spot.domain.Spot;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.repository.SpotRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import capstone.jejuTourrecommend.spot.domain.Spot;
-import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.ScoreDto;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.repository.SpotRepository;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -48,5 +45,10 @@ class SpotRepositoryImpl implements SpotRepository {
 	public Page<SpotListDto> searchSpotByLocationAndCategory(Long memberId, List locationList, Category category,
 		Pageable pageable) {
 		return spotQuerydslRepository.searchSpotByLocationAndCategory(memberId, locationList, category, pageable);
+	}
+
+	@Override
+	public List<Spot> findSpotFetchJoinBySpotIdList(List<Long> spotIdList) {
+		return spotJpaRepository.findSpotFetchJoinBySpotIdList(spotIdList);
 	}
 }

@@ -1,26 +1,5 @@
 package capstone.jejuTourrecommend.repository;
 
-import static org.assertj.core.api.Assertions.*;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-import java.util.stream.Collectors;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.transaction.annotation.Transactional;
-
 import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
@@ -33,12 +12,29 @@ import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
 import capstone.jejuTourrecommend.wishList.domain.Favorite;
 import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
-import capstone.jejuTourrecommend.wishList.domain.dto.SpotListDtoByFavoriteSpot;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteJpaRepository;
+import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteQuerydslRepositoryImpl;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotJpaRepository;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotQuerydslRepositoryImpl;
 import capstone.jejuTourrecommend.wishList.presentation.dto.request.RouteForm;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
+import java.util.stream.Collectors;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 //@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 //@TestMethodOrder(MethodOrderer.OrderAnnotation.class)//근데 이거 대로 해도 보인는 것은 순서대로 작동해서 삭제가 먼저 되면 다음테스트에 영향 있음
@@ -49,6 +45,9 @@ class FavoriteSpotQuerydslRepositoryImplTest {
 	//
 	@Autowired
 	FavoriteSpotQuerydslRepositoryImpl favoriteSpotQuerydslRepositoryImpl;
+
+	@Autowired
+	FavoriteQuerydslRepositoryImpl favoriteQuerydslRepository;
 
 	@Autowired
 	FavoriteSpotJpaRepository favoriteSpotJpaRepository;
@@ -151,18 +150,6 @@ class FavoriteSpotQuerydslRepositoryImplTest {
 	}
 
 	@Test
-	public void favoriteSpotListTest() {
-
-		Long favoriteId = 1l;
-
-		List<SpotListDtoByFavoriteSpot> spotListDtoByFavoriteSpots = favoriteSpotQuerydslRepositoryImpl.favoriteSpotList(
-			favoriteId);
-
-		log.info("spotListDtos = {} ", spotListDtoByFavoriteSpots);
-
-	}
-
-	@Test
 	public void favoriteListTest() throws Exception {
 		//given
 		PageRequest pageRequest = PageRequest.of(0, 3);
@@ -171,7 +158,7 @@ class FavoriteSpotQuerydslRepositoryImplTest {
 		Optional<Member> optionByEmail = memberJpaRepository.findOptionByEmail("member1@gmail.com");
 
 		long before1 = System.currentTimeMillis();
-		Page<FavoriteListDto> favoriteListDtos = favoriteSpotQuerydslRepositoryImpl
+		Page<FavoriteListDto> favoriteListDtos = favoriteQuerydslRepository
 			.getFavoriteList(optionByEmail.get().getId(), pageRequest);
 		long after1 = System.currentTimeMillis();
 
@@ -192,7 +179,7 @@ class FavoriteSpotQuerydslRepositoryImplTest {
 		Optional<Member> optionByEmail = memberJpaRepository.findOptionByEmail("member1@gmail.com");
 
 		long before2 = System.currentTimeMillis();
-		Page<FavoriteListDto> optimizationFavoriteListDtos = favoriteSpotQuerydslRepositoryImpl
+		Page<FavoriteListDto> optimizationFavoriteListDtos = favoriteQuerydslRepository
 			.getFavoriteList(optionByEmail.get().getId(), pageRequest);
 		long after2 = System.currentTimeMillis();
 
@@ -204,21 +191,7 @@ class FavoriteSpotQuerydslRepositoryImplTest {
 
 	}
 
-	@Test
-	public void exitSpotTest() throws Exception {
-		//given
-		Long favoriteId = 3l;
-		List<Long> spotIdList = Arrays.asList(10000l);
-		RouteForm routeForm = new RouteForm();
-		routeForm.setSpotIdList(spotIdList);
 
-		//when
-		FavoriteSpot favoriteSpot = favoriteSpotQuerydslRepositoryImpl.existSpot(favoriteId, routeForm);
-
-		Assertions.assertThat(favoriteSpot).isNull();
-
-		//then
-	}
 
 	@Test
 	public void recommendSpotListTest() throws Exception {

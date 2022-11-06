@@ -1,8 +1,8 @@
 package capstone.jejuTourrecommend.spot.domain.detailSpot.dto;
 
-import java.util.List;
-
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class SpotMetaDto {

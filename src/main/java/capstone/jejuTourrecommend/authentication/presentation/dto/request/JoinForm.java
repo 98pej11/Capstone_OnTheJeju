@@ -1,9 +1,9 @@
 package capstone.jejuTourrecommend.authentication.presentation.dto.request;
 
+import lombok.Data;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-
-import lombok.Data;
 
 @Data
 public class JoinForm {

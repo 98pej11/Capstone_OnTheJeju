@@ -6,15 +6,6 @@ import lombok.Data;
 @Data
 public class PictureDto {
 
-	//        "picture": {
-	//            "id": 1,
-	//                    "urls":
-	//						[
-	//            "url": "http//~~",
-	//								...
-	//						]
-	//        },
-
 	private Long id;
 	private String url;
 

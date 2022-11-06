@@ -1,15 +1,15 @@
 package capstone.jejuTourrecommend.wishList.infrastructure.repository;
 
-import java.util.Optional;
-
+import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.wishList.domain.Favorite;
+import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
+import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import capstone.jejuTourrecommend.authentication.domain.Member;
-import capstone.jejuTourrecommend.wishList.domain.Favorite;
-import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteRepository;
-import lombok.RequiredArgsConstructor;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -52,5 +52,11 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
 	public Boolean isFavoriteSpot(Long memberId, Long spotId) {
 		return favoriteQuerydslRepository.isFavoriteSpot(memberId,spotId);
 	}
+
+	@Override
+	public Page<FavoriteListDto> getFavoriteList(Long memberId, Pageable pageable) {
+		return favoriteQuerydslRepository.getFavoriteList(memberId,pageable);
+	}
+
 
 }

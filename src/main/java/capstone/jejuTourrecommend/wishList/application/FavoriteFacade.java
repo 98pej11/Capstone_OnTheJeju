@@ -1,11 +1,5 @@
 package capstone.jejuTourrecommend.wishList.application;
 
-import java.util.List;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
 import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteDto;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
@@ -15,6 +9,11 @@ import capstone.jejuTourrecommend.wishList.presentation.dto.request.FavoriteForm
 import capstone.jejuTourrecommend.wishList.presentation.dto.request.RouteForm;
 import capstone.jejuTourrecommend.wishList.presentation.dto.response.ResultFavoriteSpotList;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor

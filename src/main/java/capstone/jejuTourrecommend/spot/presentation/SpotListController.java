@@ -1,17 +1,5 @@
 package capstone.jejuTourrecommend.spot.presentation;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.data.domain.Pageable;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import capstone.jejuTourrecommend.authentication.LoginUser;
 import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
@@ -24,9 +12,14 @@ import capstone.jejuTourrecommend.spot.presentation.request.MainPageForm;
 import capstone.jejuTourrecommend.spot.presentation.request.SearchForm;
 import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
 import capstone.jejuTourrecommend.spot.presentation.response.SpotListMetaDataOp;
-import capstone.jejuTourrecommend.spot.presentation.response.SpotListMetaDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RequiredArgsConstructor

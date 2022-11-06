@@ -1,18 +1,13 @@
 package capstone.jejuTourrecommend.wishList.infrastructure.repository;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
-
 import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
-import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
-import capstone.jejuTourrecommend.wishList.domain.dto.SpotListDtoByFavoriteSpot;
 import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteSpotRepository;
 import capstone.jejuTourrecommend.wishList.presentation.dto.request.RouteForm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -46,25 +41,15 @@ public class FavoriteSpotRepositoryImpl implements FavoriteSpotRepository {
 		return favoriteSpotQuerydslRepository.getBooleanFavoriteSpot(memberId, spotIdList);
 	}
 
+	@Override
+	public List<Long> findSpotIdByFavoriteId(Long favoriteId) {
+		return favoriteSpotJpaRepository.findSpotIdByFavoriteId(favoriteId);
+	}
+
 	//////////////
 	@Override
 	public void deleteAllByFavoriteId(Long favoriteId) {
 		favoriteSpotJpaRepository.deleteAllByFavoriteId(favoriteId);
-	}
-
-	@Override
-	public Page<FavoriteListDto> getFavoriteList(Long memberId, Pageable pageable) {
-		return favoriteSpotQuerydslRepository.getFavoriteList(memberId, pageable);
-	}
-
-	@Override
-	public List<SpotListDtoByFavoriteSpot> favoriteSpotList(Long favoriteId) {
-		return favoriteSpotQuerydslRepository.favoriteSpotList(favoriteId);
-	}
-
-	@Override
-	public FavoriteSpot existSpot(Long favoriteId, RouteForm routeForm) {
-		return favoriteSpotQuerydslRepository.existSpot(favoriteId, routeForm);
 	}
 
 	@Override

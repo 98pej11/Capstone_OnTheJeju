@@ -1,11 +1,10 @@
 package capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot;
 
-import java.util.List;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.Picture;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 public interface PictureJpaRepository extends JpaRepository<Picture, Long> {
 

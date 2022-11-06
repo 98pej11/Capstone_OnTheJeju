@@ -1,15 +1,15 @@
 package capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot;
 
-import java.util.List;
-
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.PictureDetailDto;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
-import org.springframework.stereotype.Repository;
-
 import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.Picture;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.repository.PictureRepository;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.PictureDetailDto;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
+import capstone.jejuTourrecommend.wishList.domain.dto.PictureUrlDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -29,8 +29,13 @@ public class PictureRepositoryImpl implements PictureRepository {
 	}
 
 	@Override
-	public List<PictureDetailDto> postSpotPictureUrlsToDto(List<SpotListDto> spotListDtoList) {
-		return pictureQuerydslRepository.postSpotPictureUrlsToDto(spotListDtoList);
+	public List<PictureDetailDto> getPictureDetailDtoBySpotIdList(List<SpotListDto> spotListDtoList) {
+		return pictureQuerydslRepository.getPictureDetailDtoBySpotIdList(spotListDtoList);
+	}
+
+	@Override
+	public List<PictureUrlDto> findPictureUrlDtos(List<Long> spotIdList, Integer limit) {
+		return pictureQuerydslRepository.findPictureUrlDtos(spotIdList, limit);
 	}
 
 

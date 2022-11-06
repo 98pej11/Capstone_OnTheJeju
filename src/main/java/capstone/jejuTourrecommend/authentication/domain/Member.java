@@ -1,24 +1,13 @@
 package capstone.jejuTourrecommend.authentication.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-
 import capstone.jejuTourrecommend.common.baseEntity.BaseEntity;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
 import capstone.jejuTourrecommend.wishList.domain.Favorite;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @SequenceGenerator(
 	name = "MEMBER_SEQ_GENERATOR",

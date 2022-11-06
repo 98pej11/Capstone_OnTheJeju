@@ -1,8 +1,8 @@
 package capstone.jejuTourrecommend.spot.domain.mainSpot.dto;
 
-import javax.persistence.Lob;
-
 import lombok.Data;
+
+import javax.persistence.Lob;
 
 @Data
 public class PictureDetailDto {

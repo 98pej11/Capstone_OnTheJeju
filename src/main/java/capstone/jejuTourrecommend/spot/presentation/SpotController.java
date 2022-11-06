@@ -1,16 +1,5 @@
 package capstone.jejuTourrecommend.spot.presentation;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-
 import capstone.jejuTourrecommend.authentication.LoginUser;
 import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.common.metaDataBuilder.DefaultMetaDataBuilder;
@@ -18,12 +7,16 @@ import capstone.jejuTourrecommend.common.metaDataBuilder.MetaDataDirector;
 import capstone.jejuTourrecommend.spot.application.DetailSpotFacade;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.ReviewDto;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.SpotDetailDto;
-import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.SpotMetaDto;
 import capstone.jejuTourrecommend.spot.presentation.response.ReviewListDto;
 import capstone.jejuTourrecommend.spot.presentation.response.SpotListMetaDataOp;
 import capstone.jejuTourrecommend.spot.presentation.response.SpotPageDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RequiredArgsConstructor

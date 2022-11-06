@@ -1,8 +1,8 @@
 package capstone.jejuTourrecommend.common.exhandler;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
+import capstone.jejuTourrecommend.common.exceptionClass.JwtException;
+import capstone.jejuTourrecommend.common.exceptionClass.UserException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import capstone.jejuTourrecommend.common.exceptionClass.JwtException;
-import capstone.jejuTourrecommend.common.exceptionClass.UserException;
-import lombok.extern.slf4j.Slf4j;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Slf4j//*****************여기 패치지 지정한거 보셈*****이렇게 페키지 별로 오류설정 가능함(로그인이면 로그인 api면 api)
 @RestControllerAdvice(basePackages = "capstone.jejuTourrecommend")

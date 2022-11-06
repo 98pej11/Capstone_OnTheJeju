@@ -1,38 +1,25 @@
 package capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot;
 
-import static capstone.jejuTourrecommend.authentication.domain.QMember.*;
-import static capstone.jejuTourrecommend.spot.domain.QSpot.*;
-import static capstone.jejuTourrecommend.spot.domain.detailSpot.QPicture.*;
-import static capstone.jejuTourrecommend.spot.domain.mainSpot.QMemberSpot.*;
-import static capstone.jejuTourrecommend.wishList.domain.QFavorite.*;
-import static capstone.jejuTourrecommend.wishList.domain.QFavoriteSpot.*;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import javax.persistence.EntityManager;
-
+import capstone.jejuTourrecommend.common.exceptionClass.UserException;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQuery;
-import com.querydsl.jpa.impl.JPAQueryFactory;
+import javax.persistence.EntityManager;
+import java.util.List;
 
-import capstone.jejuTourrecommend.common.exceptionClass.UserException;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.PictureDetailDto;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
-import lombok.extern.slf4j.Slf4j;
+import static capstone.jejuTourrecommend.spot.domain.QSpot.spot;
+import static capstone.jejuTourrecommend.wishList.domain.QFavorite.favorite;
 
 @Repository
 @Slf4j

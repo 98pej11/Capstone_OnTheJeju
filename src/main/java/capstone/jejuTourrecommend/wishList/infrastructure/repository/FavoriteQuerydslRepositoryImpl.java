@@ -1,14 +1,21 @@
 package capstone.jejuTourrecommend.wishList.infrastructure.repository;
 
+import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static capstone.jejuTourrecommend.authentication.domain.QMember.member;
 import static capstone.jejuTourrecommend.wishList.domain.QFavorite.favorite;
 import static capstone.jejuTourrecommend.wishList.domain.QFavoriteSpot.favoriteSpot;
 
@@ -54,6 +61,41 @@ public class FavoriteQuerydslRepositoryImpl implements FavoriteQuerydslRepositor
 		}
 
 	}
+
+	/**
+	 * 사용자 위시리스트 페이지 보여주기
+	 *
+	 * @param memberId
+	 * @param pageable
+	 * @return
+	 */
+	public Page<FavoriteListDto> getFavoriteList(Long memberId, Pageable pageable) {
+
+		List<FavoriteListDto> favoriteListDtos = queryFactory
+			.select(
+				Projections.constructor(
+					FavoriteListDto.class,
+					favorite.id,
+					favorite.name
+				)
+			)
+			.from(favorite)
+			.where(favorite.member.id.eq(memberId))
+			.offset(pageable.getOffset())
+			.limit(pageable.getPageSize())
+			.fetch();
+
+		JPAQuery<Long> countQuery = queryFactory
+			.select(favorite.count())
+			.from(favorite)
+			.innerJoin(favorite.member, member)
+			.where(favorite.member.id.eq(memberId));
+
+		return PageableExecutionUtils.getPage(favoriteListDtos, pageable, countQuery::fetchOne);
+
+	}
+
+
 
 	private BooleanExpression memberFavoriteEq(Long memberId) {
 		return memberId != null ? favorite.member.id.eq(memberId) : null;

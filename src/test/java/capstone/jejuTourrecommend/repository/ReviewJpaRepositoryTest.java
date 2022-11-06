@@ -1,23 +1,21 @@
 package capstone.jejuTourrecommend.repository;
 
-import static org.assertj.core.api.Assertions.*;
-
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
-
 import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.Picture;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.Review;
 import capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot.ReviewJpaRepository;
 import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @SpringBootTest

@@ -1,22 +1,9 @@
 package capstone.jejuTourrecommend.spot.domain.detailSpot;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-
 import capstone.jejuTourrecommend.spot.domain.Spot;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
+import javax.persistence.*;
 
 @SequenceGenerator(
 	name = "REVIEW_SEQ_GENERATOR",

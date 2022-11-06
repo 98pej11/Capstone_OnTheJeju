@@ -1,11 +1,10 @@
 package capstone.jejuTourrecommend.config.security.dto;
 
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor

@@ -1,9 +1,9 @@
 package capstone.jejuTourrecommend.spot.application.locationStragety;
 
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
+
 import java.util.Arrays;
 import java.util.List;
-
-import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
 
 public class WestLocation implements LocationStrategy {
 	@Override

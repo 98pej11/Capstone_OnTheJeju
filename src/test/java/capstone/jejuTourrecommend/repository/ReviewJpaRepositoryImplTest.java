@@ -1,10 +1,11 @@
 package capstone.jejuTourrecommend.repository;
 
-import java.util.Optional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import capstone.jejuTourrecommend.spot.domain.Spot;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.Review;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.ReviewDto;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot.ReviewQuerydslRepository;
+import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,12 +13,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
-import capstone.jejuTourrecommend.spot.domain.Spot;
-import capstone.jejuTourrecommend.spot.domain.detailSpot.Review;
-import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.ReviewDto;
-import capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot.ReviewQuerydslRepository;
-import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaRepository;
-import lombok.extern.slf4j.Slf4j;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.Optional;
 
 @Slf4j
 @SpringBootTest

@@ -1,7 +1,13 @@
 package capstone.jejuTourrecommend.config;
 
-import static org.springframework.security.config.http.SessionCreationPolicy.*;
-
+import capstone.jejuTourrecommend.config.security.filter.CustomLoginProcessingAuthenticationFilter;
+import capstone.jejuTourrecommend.config.security.filter.JwtAuthenticationFilter;
+import capstone.jejuTourrecommend.config.security.handler.CustomAuthenticationFailureHandler;
+import capstone.jejuTourrecommend.config.security.handler.CustomAuthenticationSuccessHandler;
+import capstone.jejuTourrecommend.config.security.handler.RestAccessDeniedHandler;
+import capstone.jejuTourrecommend.config.security.handler.RestAuthenticationEntryPoint;
+import capstone.jejuTourrecommend.config.security.provider.JwtTokenProvider;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,14 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import capstone.jejuTourrecommend.config.security.filter.CustomLoginProcessingAuthenticationFilter;
-import capstone.jejuTourrecommend.config.security.filter.JwtAuthenticationFilter;
-import capstone.jejuTourrecommend.config.security.handler.CustomAuthenticationFailureHandler;
-import capstone.jejuTourrecommend.config.security.handler.CustomAuthenticationSuccessHandler;
-import capstone.jejuTourrecommend.config.security.handler.RestAccessDeniedHandler;
-import capstone.jejuTourrecommend.config.security.handler.RestAuthenticationEntryPoint;
-import capstone.jejuTourrecommend.config.security.provider.JwtTokenProvider;
-import lombok.RequiredArgsConstructor;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 //Spring Security를 사용하기 위해서는 Spring Security Filter Chain 을 사용한다는 것을 명시해 주기 위해 @EnableWebSecurity 사용
 @RequiredArgsConstructor

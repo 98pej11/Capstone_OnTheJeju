@@ -1,16 +1,15 @@
 package capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot;
 
-import java.util.List;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
-
 import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.Review;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.ReviewDto;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor

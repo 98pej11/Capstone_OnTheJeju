@@ -1,8 +1,8 @@
 package capstone.jejuTourrecommend.wishList.presentation.dto.request;
 
-import java.util.List;
-
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class RouteForm {

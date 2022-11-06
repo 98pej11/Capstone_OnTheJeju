@@ -1,9 +1,9 @@
 package capstone.jejuTourrecommend.wishList.presentation.dto.response;
 
-import java.util.List;
-
 import capstone.jejuTourrecommend.wishList.domain.dto.SpotListDtoByFavoriteSpot;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class ResultFavoriteSpotList {

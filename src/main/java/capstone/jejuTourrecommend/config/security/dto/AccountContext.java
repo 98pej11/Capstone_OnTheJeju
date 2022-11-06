@@ -1,12 +1,11 @@
 package capstone.jejuTourrecommend.config.security.dto;
 
-import java.util.Collection;
-
+import capstone.jejuTourrecommend.authentication.domain.Member;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import capstone.jejuTourrecommend.authentication.domain.Member;
-import lombok.Getter;
+import java.util.Collection;
 
 @Getter
 public class AccountContext extends User {

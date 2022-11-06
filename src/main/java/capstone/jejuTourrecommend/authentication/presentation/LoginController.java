@@ -1,13 +1,5 @@
 package capstone.jejuTourrecommend.authentication.presentation;
 
-import javax.validation.Valid;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
-
 import capstone.jejuTourrecommend.authentication.LoginUser;
 import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.authentication.domain.service.LoginService;
@@ -18,6 +10,9 @@ import capstone.jejuTourrecommend.config.security.dto.UserDto;
 import capstone.jejuTourrecommend.config.security.provider.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 // Controller 에서 회원 가입과 로그인을 통한 인증 과정
 @Slf4j

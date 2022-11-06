@@ -1,13 +1,12 @@
 package capstone.jejuTourrecommend.wishList.infrastructure.repository;
 
-import java.util.Optional;
-
+import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.wishList.domain.Favorite;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import capstone.jejuTourrecommend.authentication.domain.Member;
-import capstone.jejuTourrecommend.wishList.domain.Favorite;
+import java.util.Optional;
 
 public interface FavoriteJpaRepository extends JpaRepository<Favorite, Long> {
 

@@ -1,5 +1,6 @@
 package capstone.jejuTourrecommend.config.security.provider;
 
+import capstone.jejuTourrecommend.config.security.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -8,8 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import capstone.jejuTourrecommend.config.security.service.UserDetailServiceImpl;
 
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 

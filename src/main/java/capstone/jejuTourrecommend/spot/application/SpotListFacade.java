@@ -1,18 +1,7 @@
 package capstone.jejuTourrecommend.spot.application;
 
-import java.util.List;
-
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
-import capstone.jejuTourrecommend.spot.application.locationStragety.DefaultLocation;
-import capstone.jejuTourrecommend.spot.application.locationStragety.EastLocation;
-import capstone.jejuTourrecommend.spot.application.locationStragety.LocationStrategy;
-import capstone.jejuTourrecommend.spot.application.locationStragety.NorthLocation;
-import capstone.jejuTourrecommend.spot.application.locationStragety.SouthLocation;
-import capstone.jejuTourrecommend.spot.application.locationStragety.WestLocation;
+import capstone.jejuTourrecommend.spot.application.locationStragety.*;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListCommandUseCase;
@@ -21,6 +10,11 @@ import capstone.jejuTourrecommend.spot.presentation.request.MainPageForm;
 import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 @Slf4j
 @Service

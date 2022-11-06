@@ -1,8 +1,9 @@
 package capstone.jejuTourrecommend.config.security.service;
 
-import java.util.Collections;
-import java.util.List;
-
+import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
+import capstone.jejuTourrecommend.config.security.dto.AccountContext;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -11,10 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import capstone.jejuTourrecommend.authentication.domain.Member;
-import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
-import capstone.jejuTourrecommend.config.security.dto.AccountContext;
-import lombok.RequiredArgsConstructor;
+import java.util.Collections;
+import java.util.List;
 
 //토큰에 저장된 유저 정보를 활용해야 하기 때문에 CustomUserDetatilService 라는 이름의 클래스를 만들고
 //UserDetailsService를 상속받아 재정의 하는 과정을 진행한다

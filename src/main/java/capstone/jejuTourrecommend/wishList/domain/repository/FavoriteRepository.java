@@ -1,12 +1,12 @@
 package capstone.jejuTourrecommend.wishList.domain.repository;
 
-import java.util.Optional;
-
+import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.wishList.domain.Favorite;
+import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import capstone.jejuTourrecommend.authentication.domain.Member;
-import capstone.jejuTourrecommend.wishList.domain.Favorite;
+import java.util.Optional;
 
 public interface FavoriteRepository {
 
@@ -23,5 +23,7 @@ public interface FavoriteRepository {
 	void save(Favorite favorite);
 
 	Boolean isFavoriteSpot(Long memberId, Long spotId);
+
+	Page<FavoriteListDto> getFavoriteList(Long memberId, Pageable pageable);
 
 }

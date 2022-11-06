@@ -1,19 +1,18 @@
 package capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot;
 
-import java.util.List;
-import java.util.Optional;
-
+import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.spot.domain.Spot;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.repository.MemberSpotRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import capstone.jejuTourrecommend.authentication.domain.Member;
-import capstone.jejuTourrecommend.spot.domain.Spot;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.repository.MemberSpotRepository;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor

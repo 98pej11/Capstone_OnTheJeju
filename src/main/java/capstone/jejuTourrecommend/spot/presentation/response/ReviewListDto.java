@@ -1,9 +1,8 @@
 package capstone.jejuTourrecommend.spot.presentation.response;
 
-import org.springframework.data.domain.Page;
-
 import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.ReviewDto;
 import lombok.Data;
+import org.springframework.data.domain.Page;
 
 @Data
 public class ReviewListDto {

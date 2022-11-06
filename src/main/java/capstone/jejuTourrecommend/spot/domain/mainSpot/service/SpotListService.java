@@ -1,27 +1,26 @@
 package capstone.jejuTourrecommend.spot.domain.mainSpot.service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 import capstone.jejuTourrecommend.spot.domain.detailSpot.repository.PictureRepository;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.PictureDetailDto;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.repository.MemberSpotRepository;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.repository.SpotRepository;
+import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
 import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteSpotRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
-import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Slf4j
 @Service
@@ -63,7 +62,7 @@ public class SpotListService implements SpotListQueryUserCase, SpotListCommandUs
 	}
 
 	private void postPictureAndBooleanFavoriteOnSpotListDto(Page<SpotListDto> spotListDtos, Long memberId) {
-		List<PictureDetailDto> pictureDetailDtos = pictureRepository.postSpotPictureUrlsToDto(spotListDtos.getContent());
+		List<PictureDetailDto> pictureDetailDtos = pictureRepository.getPictureDetailDtoBySpotIdList(spotListDtos.getContent());
 		postPictureUrlToDto(spotListDtos.getContent(),pictureDetailDtos);
 		List<Long> spotIdList = spotListDtos.getContent().stream().map(o -> o.getSpotId()).collect(Collectors.toList());
 		List<Long> favoriteSpotIdList = favoriteSpotRepository.getBooleanFavoriteSpot(memberId, spotIdList);

@@ -1,9 +1,9 @@
 package capstone.jejuTourrecommend.spot.presentation.response;
 
-import java.util.List;
-
 import capstone.jejuTourrecommend.common.metaDataBuilder.MetaDataDetail;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class SpotListMetaDataOp {
