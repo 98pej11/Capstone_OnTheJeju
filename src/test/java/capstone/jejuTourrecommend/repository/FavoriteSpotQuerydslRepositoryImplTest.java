@@ -12,6 +12,7 @@ import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
 import capstone.jejuTourrecommend.wishList.domain.Favorite;
 import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
+import capstone.jejuTourrecommend.wishList.domain.service.FavoriteQueryService;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteJpaRepository;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteQuerydslRepositoryImpl;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotJpaRepository;
@@ -58,8 +59,12 @@ class FavoriteSpotQuerydslRepositoryImplTest {
 	@Autowired
 	MemberJpaRepository memberJpaRepository;
 
+	@Autowired
+	FavoriteQueryService favoriteQueryService;
+
 	@PersistenceContext
 	EntityManager em;
+
 
 	@BeforeEach
 	public void init() {
@@ -213,7 +218,7 @@ class FavoriteSpotQuerydslRepositoryImplTest {
 		List<Long> collect = byFavoriteId.stream().map(o -> o.getSpot().getId()).collect(Collectors.toList());
 
 		routeForm.setSpotIdList(collect);
-		List list = favoriteSpotQuerydslRepositoryImpl.recommendSpotList(favorite.getId(), routeForm);
+		List list = favoriteQueryService.recommendSpotList(favorite.getId(), routeForm);
 
 		log.info("list.toString() = {}", list.toString());
 

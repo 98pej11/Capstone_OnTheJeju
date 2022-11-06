@@ -3,6 +3,7 @@ package capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.PictureDetailDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
 import capstone.jejuTourrecommend.wishList.domain.dto.PictureUrlDto;
+import capstone.jejuTourrecommend.wishList.domain.dto.RouteSpotListDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +48,37 @@ public class PictureQuerydslRepositoryImpl implements PictureQuerydslRepository{
 		return pictureDetailDtoList;
 
 	}
+
+	public List<PictureUrlDto> postSpotPictureUrlsToDto(List<RouteSpotListDto> spotListDtos) {
+
+		//해당 지역에 있는 top 10 지역들 가져오기
+		List<Long> spotIdList = spotListDtos.stream().map(s -> s.getSpotId()).collect(Collectors.toList());
+
+		List<PictureUrlDto> pictureUrlDtos = queryFactory
+			.select(Projections.constructor(PictureUrlDto.class,
+					picture.spot.id,
+					picture.url.max()
+				)
+			)
+			.from(picture)
+			.innerJoin(picture.spot, spot)
+			.where(picture.spot.id.in(spotIdList))
+			.groupBy(picture.spot.id)
+			.fetch();
+
+		return pictureUrlDtos;
+
+//		Map<Long, List<PictureUrlDto>> collect = pictureUrlDtos.stream()
+//			.collect(Collectors.groupingBy(p -> p.getSpotId()));
+//
+//		if (collect.isEmpty()) {//사진이 없는 경우
+//			return;
+//		}
+//
+//		spotListDtos.forEach(sl -> sl.setUrl(collect.get(sl.getSpotId()).get(0).getPictureUrl()));
+
+	}
+
 
 	public List<PictureUrlDto> findPictureUrlDtos(List<Long> spotIdList, Integer limit){
 

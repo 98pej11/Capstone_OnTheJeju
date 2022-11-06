@@ -3,15 +3,16 @@ package capstone.jejuTourrecommend.wishList.domain.service;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
 import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.repository.PictureRepository;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.repository.SpotRepository;
 import capstone.jejuTourrecommend.wishList.domain.Favorite;
-import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
-import capstone.jejuTourrecommend.wishList.domain.dto.PictureUrlDto;
-import capstone.jejuTourrecommend.wishList.domain.dto.SpotListDtoByFavoriteSpot;
+import capstone.jejuTourrecommend.wishList.domain.dto.*;
 import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteRepository;
 import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteSpotRepository;
 import capstone.jejuTourrecommend.wishList.presentation.dto.request.RouteForm;
 import capstone.jejuTourrecommend.wishList.presentation.dto.response.ResultFavoriteSpotList;
+import com.querydsl.core.types.OrderSpecifier;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -64,12 +66,79 @@ public class FavoriteQueryService implements FavoriteQueryUseCase {
 	}
 
 
-	public List recommendSpotList(Long favoriteId, RouteForm routeForm) {
+	public List<List<RouteSpotListDto>> recommendSpotList(Long favoriteId, RouteForm routeForm) {
 
-		List list = favoriteSpotRepository.recommendSpotList(favoriteId, routeForm);
+		List<Long> spotIdList = favoriteSpotRepository.getSpotIdList(favoriteId, routeForm);
+		ScoreSumDto scoreSumDto = favoriteSpotRepository.getScoreSumDto(spotIdList);
 
+		Category highestScoreCategory = getHighestScoreCategory(scoreSumDto);
+
+		List<Location> distinctLocationBySpotIdList = spotRepository.findDistinctLocationBySpotIdList(spotIdList);
+
+		return getRouteSpotDtoList(highestScoreCategory, distinctLocationBySpotIdList);
+
+	}
+
+	private List<List<RouteSpotListDto>> getRouteSpotDtoList(Category highestScoreCategory, List<Location> distinctLocationBySpotIdList) {
+		List<List<RouteSpotListDto>> list = new ArrayList<>();
+		for (Location location : distinctLocationBySpotIdList) {
+			List<RouteSpotListDto> routeSpotListDtos = spotRepository.getRouteSpotListDtos(location, highestScoreCategory);
+			List<PictureUrlDto> pictureUrlDtos = pictureRepository.postSpotPictureUrlsToDto(routeSpotListDtos);
+			Map<Long, List<PictureUrlDto>> collect = pictureUrlDtos.stream()
+				.collect(Collectors.groupingBy(p -> p.getSpotId()));
+			if (collect.isEmpty()) {//사진이 없는 경우
+				continue;
+			}
+			routeSpotListDtos.forEach(sl -> sl.setUrl(collect.get(sl.getSpotId()).get(0).getPictureUrl()));
+			list.add(routeSpotListDtos);
+		}
 		return list;
+	}
 
+	/**
+	 * 위시 리스트 삭제하기
+	 * 해당 위시리스트 정보 필요
+	 *
+	 * @param favoriteId
+	 */
+	public void deleteFavoriteList(Long favoriteId) {
+
+		favoriteRepository.findOptionById(favoriteId)
+			.orElseThrow(() -> new UserException("올바르지 않는 favoriteId 입니다"));
+
+		favoriteSpotRepository.deleteAllByFavoriteId(favoriteId);
+
+		favoriteRepository.deleteById(favoriteId);
+
+	}
+
+	private Category getHighestScoreCategory(ScoreSumDto scoreSumDto) {
+		Double[] score = new Double[4];
+		score[0] = scoreSumDto.getViewScoreSum();
+		log.info("score[0] = {}", score[0]);
+		score[1] = scoreSumDto.getPriceScoreSum();
+		score[2] = scoreSumDto.getFacilityScoreSum();
+		score[3] = scoreSumDto.getSurroundScoreSum();
+
+		Double max = score[0];
+		int j = 0;
+		for (int i = 0; i < 4; i++) {
+			if (max < score[i]) {
+				j = i;
+				max = score[i];
+			}
+		}
+
+		//최대값을 가진 인덱스를 찾아서 해당 카테고리벼로 내림 차순을 할 것임
+		OrderSpecifier<Double> orderSpecifier;
+		if (j == 0)
+			return Category.VIEW;
+		else if (j == 1)
+			return Category.PRICE;
+		else if (j == 2)
+			return Category.FACILITY;
+		else
+			return Category.SURROUND;
 	}
 
 	public ResultFavoriteSpotList favoriteSpotList(Long favoriteId) {
@@ -101,23 +170,6 @@ public class FavoriteQueryService implements FavoriteQueryUseCase {
 			}
 		});
 		return spotListDtosByFavoriteSpot;
-	}
-
-	/**
-	 * 위시 리스트 삭제하기
-	 * 해당 위시리스트 정보 필요
-	 *
-	 * @param favoriteId
-	 */
-	public void deleteFavoriteList(Long favoriteId) {
-
-		favoriteRepository.findOptionById(favoriteId)
-			.orElseThrow(() -> new UserException("올바르지 않는 favoriteId 입니다"));
-
-		favoriteSpotRepository.deleteAllByFavoriteId(favoriteId);
-
-		favoriteRepository.deleteById(favoriteId);
-
 	}
 
 }

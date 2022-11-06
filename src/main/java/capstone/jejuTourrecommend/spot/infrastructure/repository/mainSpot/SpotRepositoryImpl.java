@@ -2,8 +2,10 @@ package capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot;
 
 import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.repository.SpotRepository;
+import capstone.jejuTourrecommend.wishList.domain.dto.RouteSpotListDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -50,5 +52,15 @@ class SpotRepositoryImpl implements SpotRepository {
 	@Override
 	public List<Spot> findSpotFetchJoinBySpotIdList(List<Long> spotIdList) {
 		return spotJpaRepository.findSpotFetchJoinBySpotIdList(spotIdList);
+	}
+
+	@Override
+	public List<Location> findDistinctLocationBySpotIdList(List<Long> spotIdList) {
+		return spotJpaRepository.findDistinctLocationBySpotIdList(spotIdList);
+	}
+
+	@Override
+	public List<RouteSpotListDto> getRouteSpotListDtos(Location location, Category category) {
+		return spotQuerydslRepository.getRouteSpotListDtos(location, category);
 	}
 }

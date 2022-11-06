@@ -6,6 +6,7 @@ import capstone.jejuTourrecommend.spot.domain.detailSpot.repository.PictureRepos
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.PictureDetailDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
 import capstone.jejuTourrecommend.wishList.domain.dto.PictureUrlDto;
+import capstone.jejuTourrecommend.wishList.domain.dto.RouteSpotListDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -36,6 +37,11 @@ public class PictureRepositoryImpl implements PictureRepository {
 	@Override
 	public List<PictureUrlDto> findPictureUrlDtos(List<Long> spotIdList, Integer limit) {
 		return pictureQuerydslRepository.findPictureUrlDtos(spotIdList, limit);
+	}
+
+	@Override
+	public List<PictureUrlDto> postSpotPictureUrlsToDto(List<RouteSpotListDto> spotListDtos) {
+		return pictureQuerydslRepository.postSpotPictureUrlsToDto(spotListDtos);
 	}
 
 

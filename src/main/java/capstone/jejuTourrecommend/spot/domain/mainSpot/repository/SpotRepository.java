@@ -2,7 +2,9 @@ package capstone.jejuTourrecommend.spot.domain.mainSpot.repository;
 
 import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
+import capstone.jejuTourrecommend.wishList.domain.dto.RouteSpotListDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -23,5 +25,9 @@ public interface SpotRepository {
 		Pageable pageable);
 
 	List<Spot> findSpotFetchJoinBySpotIdList(List<Long> spotIdList);
+
+	List<Location> findDistinctLocationBySpotIdList(List<Long> spotIdList);
+
+	List<RouteSpotListDto> getRouteSpotListDtos(Location location, Category category);
 
 }

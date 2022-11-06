@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -49,8 +50,13 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
 	}
 
 	@Override
-	public Boolean isFavoriteSpot(Long memberId, Long spotId) {
-		return favoriteQuerydslRepository.isFavoriteSpot(memberId,spotId);
+	public List<Long> findFavoriteIdListByMemberId(Long memberId) {
+		return favoriteJpaRepository.findFavoriteIdListByMemberId(memberId);
+	}
+
+	@Override
+	public Boolean isFavoriteSpot(Long memberId, Long spotId, List<Long> favoriteList) {
+		return favoriteQuerydslRepository.isFavoriteSpot(memberId,spotId,favoriteList);
 	}
 
 	@Override

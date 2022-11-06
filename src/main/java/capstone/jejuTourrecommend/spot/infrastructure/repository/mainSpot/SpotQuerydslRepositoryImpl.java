@@ -2,7 +2,10 @@ package capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot;
 
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
+import capstone.jejuTourrecommend.wishList.domain.dto.QRouteSpotListDto;
+import capstone.jejuTourrecommend.wishList.domain.dto.RouteSpotListDto;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -19,7 +22,6 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static capstone.jejuTourrecommend.spot.domain.QSpot.spot;
-import static capstone.jejuTourrecommend.wishList.domain.QFavorite.favorite;
 
 @Repository
 @Slf4j
@@ -31,6 +33,35 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 	public SpotQuerydslRepositoryImpl(EntityManager em) {
 		this.queryFactory = new JPAQueryFactory(em);
 	}
+
+	public List<RouteSpotListDto> getRouteSpotListDtos(Location location, Category category){
+
+		OrderSpecifier<Double> orderSpecifier = getDoubleOrderSpecifier(category);
+
+		List<RouteSpotListDto> spotListDtos = queryFactory
+			.select(new QRouteSpotListDto(
+					spot.id,
+					spot.name,
+					spot.address,
+					spot.description,
+					spot.location
+				)
+			)
+			.from(spot)
+			.where(locationEq(location))
+			.orderBy(orderSpecifier)
+			.offset(0)
+			.limit(10)
+			.fetch();
+
+		return spotListDtos;
+
+	}
+	private BooleanExpression locationEq(Location location) {
+		return location != null ? spot.location.eq(location) : null;
+	}
+
+
 
 	/**
 	 * 관광지 이름에 따른 조회
@@ -127,10 +158,6 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 			orderSpecifier = spot.score.rankAverage.asc();//Todo: 업데이트
 		}
 		return orderSpecifier;
-	}
-
-	private BooleanExpression memberFavoriteEq(Long memberId) {
-		return memberId != null ? favorite.member.id.eq(memberId) : null;
 	}
 
 

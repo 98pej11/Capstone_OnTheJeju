@@ -50,6 +50,8 @@ public class ReviewQuerydslRepositoryImpl implements ReviewQuerydslRepository {
 
 		return PageableExecutionUtils.getPage(contents, pageable, countQuery::fetchOne);
 	}
+
+
 }
 
 

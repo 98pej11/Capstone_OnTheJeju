@@ -2,7 +2,6 @@ package capstone.jejuTourrecommend.wishList.infrastructure.repository;
 
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
 import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -38,14 +37,7 @@ public class FavoriteQuerydslRepositoryImpl implements FavoriteQuerydslRepositor
 	 * @return
 	 */
 	@Override
-	public Boolean isFavoriteSpot(Long memberId, Long spotId) {
-
-		//회원의 위시리스트 아이디 목록
-		List<Long> favoriteList = queryFactory
-			.select(favorite.id)
-			.from(favorite)
-			.where(memberFavoriteEq(memberId))
-			.fetch();
+	public Boolean isFavoriteSpot(Long memberId, Long spotId, List<Long> favoriteList) {
 
 		//회원 위시리스트에 특정 관광지가 있는지 하나만 조회- exit 를 사용하면 성능상 느려서 fetchFirst 로 조회함
 		Integer isExit = queryFactory
@@ -95,10 +87,5 @@ public class FavoriteQuerydslRepositoryImpl implements FavoriteQuerydslRepositor
 
 	}
 
-
-
-	private BooleanExpression memberFavoriteEq(Long memberId) {
-		return memberId != null ? favorite.member.id.eq(memberId) : null;
-	}
 
 }

@@ -1,6 +1,7 @@
 package capstone.jejuTourrecommend.wishList.infrastructure.repository;
 
 import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
+import capstone.jejuTourrecommend.wishList.domain.dto.ScoreSumDto;
 import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteSpotRepository;
 import capstone.jejuTourrecommend.wishList.presentation.dto.request.RouteForm;
 import lombok.RequiredArgsConstructor;
@@ -46,15 +47,22 @@ public class FavoriteSpotRepositoryImpl implements FavoriteSpotRepository {
 		return favoriteSpotJpaRepository.findSpotIdByFavoriteId(favoriteId);
 	}
 
-	//////////////
+	@Override
+	public List<Long> getSpotIdList(Long favoriteId, RouteForm routeForm) {
+		return favoriteSpotQuerydslRepository.getSpotIdList(favoriteId, routeForm);
+	}
+
+
+	@Override
+	public ScoreSumDto getScoreSumDto(List<Long> spotIdList) {
+		return favoriteSpotQuerydslRepository.getScoreSumDto(spotIdList);
+	}
+
 	@Override
 	public void deleteAllByFavoriteId(Long favoriteId) {
 		favoriteSpotJpaRepository.deleteAllByFavoriteId(favoriteId);
 	}
 
-	@Override
-	public List recommendSpotList(Long favoriteId, RouteForm routeForm) {
-		return favoriteSpotQuerydslRepository.recommendSpotList(favoriteId, routeForm);
-	}
+
 
 }

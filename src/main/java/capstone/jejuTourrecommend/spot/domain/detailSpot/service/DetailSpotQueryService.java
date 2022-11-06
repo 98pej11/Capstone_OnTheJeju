@@ -56,7 +56,8 @@ public class DetailSpotQueryService implements DetailSpotQueryUseCase {
 
 		ScoreDto scoreDto = scoreRepository.findScoreBySpotId(spotId);
 
-		Boolean isFavoriteSpot = favoriteRepository.isFavoriteSpot(memberId, spotId);
+		List<Long> favoriteIdList = favoriteRepository.findFavoriteIdListByMemberId(memberId);
+		Boolean isFavoriteSpot = favoriteRepository.isFavoriteSpot(memberId, spotId, favoriteIdList);
 
 		return new SpotDetailDto(spotDto, scoreDto, pictureDtoList, isFavoriteSpot);
 

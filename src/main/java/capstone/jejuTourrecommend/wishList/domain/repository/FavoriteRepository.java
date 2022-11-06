@@ -5,7 +5,9 @@ import capstone.jejuTourrecommend.wishList.domain.Favorite;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface FavoriteRepository {
@@ -22,7 +24,9 @@ public interface FavoriteRepository {
 
 	void save(Favorite favorite);
 
-	Boolean isFavoriteSpot(Long memberId, Long spotId);
+	List<Long> findFavoriteIdListByMemberId(@Param("memberId") Long memberId);
+
+	Boolean isFavoriteSpot(Long memberId, Long spotId, List<Long> favoriteList);
 
 	Page<FavoriteListDto> getFavoriteList(Long memberId, Pageable pageable);
 

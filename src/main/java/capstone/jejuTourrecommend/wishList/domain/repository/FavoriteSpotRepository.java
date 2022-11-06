@@ -1,6 +1,7 @@
 package capstone.jejuTourrecommend.wishList.domain.repository;
 
 import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
+import capstone.jejuTourrecommend.wishList.domain.dto.ScoreSumDto;
 import capstone.jejuTourrecommend.wishList.presentation.dto.request.RouteForm;
 
 import java.util.List;
@@ -14,8 +15,6 @@ public interface FavoriteSpotRepository {
 
 	void deleteByFavoriteIdAndSpotId(Long favoriteId, Long spotId);
 
-	List recommendSpotList(Long favoriteId, RouteForm routeForm);
-
 	void deleteAllByFavoriteId(Long favoriteId);
 
 	void save(FavoriteSpot favoriteSpot);
@@ -23,5 +22,9 @@ public interface FavoriteSpotRepository {
 	List<Long> getBooleanFavoriteSpot(Long memberId, List<Long> spotIdList);
 
 	List<Long> findSpotIdByFavoriteId(Long favoriteId);
+
+	List<Long> getSpotIdList(Long favoriteId, RouteForm routeForm);
+
+	ScoreSumDto getScoreSumDto(List<Long> spotIdList);
 
 }

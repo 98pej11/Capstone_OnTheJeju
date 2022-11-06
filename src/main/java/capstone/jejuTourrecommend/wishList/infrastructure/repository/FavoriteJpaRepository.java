@@ -5,7 +5,10 @@ import capstone.jejuTourrecommend.wishList.domain.Favorite;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface FavoriteJpaRepository extends JpaRepository<Favorite, Long> {
@@ -20,8 +23,8 @@ public interface FavoriteJpaRepository extends JpaRepository<Favorite, Long> {
 
 	Optional<Favorite> findByNameAndMember(String favoriteName, Member member);
 
-	//@Query("select f from Favorite f where f.name= :favoriteName and f.member= : member")
-	//Optional<Favorite> findOptionByFavoriteNameAndMember(@Param("favoriteName") String favoriteName, @Param("member") Member member);
+	@Query("select f.id from Favorite f where f.member.id = :memberId")
+	List<Long> findFavoriteIdListByMemberId(@Param("memberId") Long memberId);
 
 }
 
