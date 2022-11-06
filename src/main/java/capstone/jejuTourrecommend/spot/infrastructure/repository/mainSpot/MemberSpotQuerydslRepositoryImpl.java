@@ -34,14 +34,7 @@ public class MemberSpotQuerydslRepositoryImpl implements MemberSpotQuerydslRepos
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 
-	/**
-	 * 사용자의 가중치에 따른 관광지 조회
-	 *
-	 * @param memberId
-	 * @param locationList
-	 * @param pageable
-	 * @return
-	 */
+
 	@Override
 	public Page<SpotListDto> searchSpotByUserPriority(Long memberId, List locationList, Pageable pageable) {
 

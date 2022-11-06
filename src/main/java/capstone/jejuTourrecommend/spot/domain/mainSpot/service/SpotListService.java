@@ -65,7 +65,7 @@ public class SpotListService implements SpotListQueryUserCase, SpotListCommandUs
 		List<PictureDetailDto> pictureDetailDtos = pictureRepository.getPictureDetailDtoBySpotIdList(spotListDtos.getContent());
 		postPictureUrlToDto(spotListDtos.getContent(),pictureDetailDtos);
 		List<Long> spotIdList = spotListDtos.getContent().stream().map(o -> o.getSpotId()).collect(Collectors.toList());
-		List<Long> favoriteSpotIdList = favoriteSpotRepository.getBooleanFavoriteSpot(memberId, spotIdList);
+		List<Long> favoriteSpotIdList = favoriteSpotRepository.getSpotIdByFavoriteSpot(memberId, spotIdList);
 		postBooleanFavoriteSpotBySpotListDto(spotListDtos.getContent(), favoriteSpotIdList);
 	}
 

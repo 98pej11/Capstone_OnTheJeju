@@ -3,6 +3,7 @@ package capstone.jejuTourrecommend.wishList.domain.service;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
 import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.repository.PictureRepository;
+import capstone.jejuTourrecommend.spot.domain.detailSpot.repository.ScoreRepository;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.repository.SpotRepository;
@@ -12,7 +13,6 @@ import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteRepository;
 import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteSpotRepository;
 import capstone.jejuTourrecommend.wishList.presentation.dto.request.RouteForm;
 import capstone.jejuTourrecommend.wishList.presentation.dto.response.ResultFavoriteSpotList;
-import com.querydsl.core.types.OrderSpecifier;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -35,15 +35,8 @@ public class FavoriteQueryService implements FavoriteQueryUseCase {
 	private final FavoriteSpotRepository favoriteSpotRepository;
 	private final PictureRepository pictureRepository;
 	private final SpotRepository spotRepository;
+	private final ScoreRepository scoreRepository;
 
-	/**
-	 * 사용자의 위시리스트 목록 "폼"+ 위시리스트 페이지 보여주기 + "여러 사진"도 줌
-	 * 폼 api 사용할때는 사진 여러장 중 하나만 고르면 되니깐 ㄱㅊ
-	 * readonly
-	 * @param memberId
-	 * @param pageable
-	 * @return
-	 */
 	public Page<FavoriteListDto> getFavoriteList(Long memberId, Pageable pageable) {
 
 		Page<FavoriteListDto> favoriteListDtos = favoriteRepository.getFavoriteList(memberId, pageable);
@@ -68,8 +61,8 @@ public class FavoriteQueryService implements FavoriteQueryUseCase {
 
 	public List<List<RouteSpotListDto>> recommendSpotList(Long favoriteId, RouteForm routeForm) {
 
-		List<Long> spotIdList = favoriteSpotRepository.getSpotIdList(favoriteId, routeForm);
-		ScoreSumDto scoreSumDto = favoriteSpotRepository.getScoreSumDto(spotIdList);
+		List<Long> spotIdList = favoriteSpotRepository.getSpotIdList(favoriteId, routeForm.getSpotIdList());
+		ScoreSumDto scoreSumDto = scoreRepository.getScoreSumDto(spotIdList);
 
 		Category highestScoreCategory = getHighestScoreCategory(scoreSumDto);
 
@@ -95,12 +88,6 @@ public class FavoriteQueryService implements FavoriteQueryUseCase {
 		return list;
 	}
 
-	/**
-	 * 위시 리스트 삭제하기
-	 * 해당 위시리스트 정보 필요
-	 *
-	 * @param favoriteId
-	 */
 	public void deleteFavoriteList(Long favoriteId) {
 
 		favoriteRepository.findOptionById(favoriteId)
@@ -128,9 +115,6 @@ public class FavoriteQueryService implements FavoriteQueryUseCase {
 				max = score[i];
 			}
 		}
-
-		//최대값을 가진 인덱스를 찾아서 해당 카테고리벼로 내림 차순을 할 것임
-		OrderSpecifier<Double> orderSpecifier;
 		if (j == 0)
 			return Category.VIEW;
 		else if (j == 1)

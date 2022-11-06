@@ -29,13 +29,6 @@ public class FavoriteQuerydslRepositoryImpl implements FavoriteQuerydslRepositor
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 
-	/**
-	 * 사용자 위시리스트에 특정 관광지가 포함되어 있는가?
-	 *
-	 * @param memberId
-	 * @param spotId
-	 * @return
-	 */
 	@Override
 	public Boolean isFavoriteSpot(Long memberId, Long spotId, List<Long> favoriteList) {
 
@@ -54,13 +47,7 @@ public class FavoriteQuerydslRepositoryImpl implements FavoriteQuerydslRepositor
 
 	}
 
-	/**
-	 * 사용자 위시리스트 페이지 보여주기
-	 *
-	 * @param memberId
-	 * @param pageable
-	 * @return
-	 */
+
 	public Page<FavoriteListDto> getFavoriteList(Long memberId, Pageable pageable) {
 
 		List<FavoriteListDto> favoriteListDtos = queryFactory

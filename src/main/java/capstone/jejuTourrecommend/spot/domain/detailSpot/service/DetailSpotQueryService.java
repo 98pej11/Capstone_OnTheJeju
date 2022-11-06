@@ -36,7 +36,6 @@ public class DetailSpotQueryService implements DetailSpotQueryUseCase {
 		Spot spot = spotRepository.findOptionById(spotId)
 			.orElseThrow(() -> new UserException("spotId가 올바르지 않습니다."));
 
-		//리뷰 데이터 받아오기
 		Page<ReviewDto> reviewDtoList = reviewRepository.searchSpotReview(spot, pageable);
 
 		return reviewDtoList;
@@ -50,8 +49,7 @@ public class DetailSpotQueryService implements DetailSpotQueryUseCase {
 			.orElseThrow(() -> new UserException("spotId가 올바르지 않습니다."));
 		SpotDto spotDto = new SpotDto(spot);
 
-		List<PictureDto> pictureDtoList = pictureRepository.findBySpot(
-				spot).stream().map(picture -> new PictureDto(picture))
+		List<PictureDto> pictureDtoList = pictureRepository.findBySpot(spot).stream().map(picture -> new PictureDto(picture))
 			.collect(Collectors.toList());
 
 		ScoreDto scoreDto = scoreRepository.findScoreBySpotId(spotId);

@@ -68,17 +68,7 @@ public class PictureQuerydslRepositoryImpl implements PictureQuerydslRepository{
 
 		return pictureUrlDtos;
 
-//		Map<Long, List<PictureUrlDto>> collect = pictureUrlDtos.stream()
-//			.collect(Collectors.groupingBy(p -> p.getSpotId()));
-//
-//		if (collect.isEmpty()) {//사진이 없는 경우
-//			return;
-//		}
-//
-//		spotListDtos.forEach(sl -> sl.setUrl(collect.get(sl.getSpotId()).get(0).getPictureUrl()));
-
 	}
-
 
 	public List<PictureUrlDto> findPictureUrlDtos(List<Long> spotIdList, Integer limit){
 
@@ -97,9 +87,6 @@ public class PictureQuerydslRepositoryImpl implements PictureQuerydslRepository{
 		return pictureUrlDtos;
 
 	}
-
-
-
 
 
 }

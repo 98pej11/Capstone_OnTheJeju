@@ -61,15 +61,6 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 		return location != null ? spot.location.eq(location) : null;
 	}
 
-
-
-	/**
-	 * 관광지 이름에 따른 조회
-	 *
-	 * @param spotName
-	 * @param pageable
-	 * @return
-	 */
 	@Override
 	public Page<SpotListDto> searchBySpotNameContains(Long memberId, String spotName, Pageable pageable) {
 
@@ -100,15 +91,6 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 
 	}
 
-	/**
-	 * 사용자가 선택한 location 과 카테고리에 따라 관광지 순위별로 관광지 리스트 보여주기
-	 * 조건에 맞는 관광지에 "여러 사진" 보여주기
-	 *
-	 * @param locationList
-	 * @param category
-	 * @param pageable
-	 * @return
-	 */
 	@Override
 	public Page<SpotListDto> searchSpotByLocationAndCategory(Long memberId, List locationList, Category category,
 		Pageable pageable) {
