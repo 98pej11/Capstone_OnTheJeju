@@ -25,20 +25,16 @@ public class FavoriteSpotQuerydslRepositoryImpl implements FavoriteSpotQuerydslR
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 
+	@Override
 	public List<Long> getSpotIdByFavoriteSpot(Long memberId, List<Long> spotIdList) {
-
-		List<Long> favoriteSpotIdList = queryFactory
-			.select(
-				favoriteSpot.spot.id
-			)
+		return queryFactory
+			.select(favoriteSpot.spot.id)
 			.from(favoriteSpot)
 			.where(favoriteSpot.favorite.member.id.eq(memberId), favoriteSpot.spot.id.in(spotIdList))
 			.fetch();
-
-		return favoriteSpotIdList;
 	}
 
-
+	@Override
 	public List<Long> getSpotIdList(Long favoriteId, List<Long> spotIdList) {
 
 		List<Long> spotIdListByFavoriteIdAndSpotIdList = queryFactory
@@ -49,12 +45,10 @@ public class FavoriteSpotQuerydslRepositoryImpl implements FavoriteSpotQuerydslR
 			.fetch();
 
 		if (isEmpty(spotIdListByFavoriteIdAndSpotIdList)) {
-			log.info("spotIdListByFavoriteIdAndSpotIdList = {}", spotIdListByFavoriteIdAndSpotIdList);
 			throw new UserException("모든 spotId가 위시리스트에 있는 spotId가 아닙니다");
 		}
 		return spotIdListByFavoriteIdAndSpotIdList;
 	}
-
 
 	private BooleanExpression favoriteIdEq(Long favoriteId) {
 		return isEmpty(favoriteId) ? null : favoriteSpot.favorite.id.eq(favoriteId);

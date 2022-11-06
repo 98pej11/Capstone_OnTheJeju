@@ -12,8 +12,6 @@ public class SpotListDtoByFavoriteSpot {
 	private String spotDescription;
 	private String url;
 
-	//private Location location;
-
 	@QueryProjection
 	public SpotListDtoByFavoriteSpot(Long spotId, String spotName, String spotAddress,
 		String spotDescription, String url) {

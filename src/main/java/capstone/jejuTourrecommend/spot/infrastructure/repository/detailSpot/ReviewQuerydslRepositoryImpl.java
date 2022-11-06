@@ -30,10 +30,9 @@ public class ReviewQuerydslRepositoryImpl implements ReviewQuerydslRepository {
 
 	@Override
 	public Page<ReviewDto> searchSpotReview(Spot spot, Pageable pageable) {
-		//여기 spot을 불어오지 않고 id로 받을수 있을 것 같음
 		List<ReviewDto> contents = queryFactory
 			.select(Projections.constructor(ReviewDto.class,
-					review.id,//여기서 as()안써도 됨 어차지 필드가 아니라 생서자를 통해서 한거라
+					review.id,
 					review.content
 				)
 			)
@@ -47,7 +46,6 @@ public class ReviewQuerydslRepositoryImpl implements ReviewQuerydslRepository {
 			.select(review.count())
 			.from(review)
 			.where(review.spot.eq(spot));
-
 		return PageableExecutionUtils.getPage(contents, pageable, countQuery::fetchOne);
 	}
 

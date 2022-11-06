@@ -34,11 +34,10 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 
+	@Override
 	public List<RouteSpotListDto> getRouteSpotListDtos(Location location, Category category){
-
 		OrderSpecifier<Double> orderSpecifier = getDoubleOrderSpecifier(category);
-
-		List<RouteSpotListDto> spotListDtos = queryFactory
+		return queryFactory
 			.select(new QRouteSpotListDto(
 					spot.id,
 					spot.name,
@@ -53,9 +52,6 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 			.offset(0)
 			.limit(10)
 			.fetch();
-
-		return spotListDtos;
-
 	}
 	private BooleanExpression locationEq(Location location) {
 		return location != null ? spot.location.eq(location) : null;
@@ -77,7 +73,6 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 			.offset(pageable.getOffset())
 			.limit(pageable.getPageSize())
 			.fetch();
-
 		if (spotListDtoList.isEmpty()) {
 			throw new UserException("검색된 결과가 없습니다");
 		}
@@ -94,11 +89,7 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 	@Override
 	public Page<SpotListDto> searchSpotByLocationAndCategory(Long memberId, List locationList, Category category,
 		Pageable pageable) {
-
-		log.info("location = {}", locationList);
-		log.info("category = {}", category);
 		OrderSpecifier<Double> orderSpecifier = getDoubleOrderSpecifier(category);
-
 		List<SpotListDto> spotListDtoList = queryFactory
 			.select(Projections.constructor(SpotListDto.class,
 					spot.id,
@@ -122,8 +113,7 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 		return PageableExecutionUtils.getPage(spotListDtoList, pageable, () -> countQuery.fetchOne());
 
 	}
-
-
+	
 	private OrderSpecifier<Double> getDoubleOrderSpecifier(Category category) {
 		OrderSpecifier<Double> orderSpecifier;
 		// 사용자가 선택한 카테고리에 따라 정렬 조건 선택
@@ -141,8 +131,6 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 		}
 		return orderSpecifier;
 	}
-
-
 
 }
 

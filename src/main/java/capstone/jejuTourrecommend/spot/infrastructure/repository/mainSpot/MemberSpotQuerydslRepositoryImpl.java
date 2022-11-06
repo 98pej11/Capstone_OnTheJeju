@@ -34,13 +34,8 @@ public class MemberSpotQuerydslRepositoryImpl implements MemberSpotQuerydslRepos
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 
-
 	@Override
 	public Page<SpotListDto> searchSpotByUserPriority(Long memberId, List locationList, Pageable pageable) {
-
-		log.info("memberId = {}", memberId);
-		log.info("location = {}", locationList);
-
 		List<MemberSpot> memberSpotList = queryFactory
 			.select(memberSpot)
 			.from(memberSpot)
@@ -55,22 +50,17 @@ public class MemberSpotQuerydslRepositoryImpl implements MemberSpotQuerydslRepos
 				o.getSpot().getId(), o.getSpot().getName(), o.getSpot().getAddress(), o.getSpot().getDescription()))
 			.collect(Collectors.toList());
 
-
 		JPAQuery<Long> countQuery = queryFactory
 			.select(memberSpot.count())
 			.from(memberSpot)
 			.innerJoin(memberSpot.spot, spot)
 			.innerJoin(memberSpot.member, member)
 			.where(spot.location.in(locationList), memberEq(memberId));
-
 		return PageableExecutionUtils.getPage(spotListDtoList, pageable, countQuery::fetchOne);
-
 	}
-
 
 	@Override
 	public void updateMemberSpotByPriority(Long memberId, UserWeightDto userWeightDto) {
-
 		queryFactory
 			.update(memberSpot)
 			.set(memberSpot.score,
@@ -78,10 +68,9 @@ public class MemberSpotQuerydslRepositoryImpl implements MemberSpotQuerydslRepos
 			)
 			.where(memberSpot.member.id.eq(memberId))
 			.execute();
-
 	}
 	private JPQLQuery<Double> getJpqlQuery(UserWeightDto userWeightDto) {
-		JPQLQuery<Double> updatedScore = JPAExpressions
+		return JPAExpressions
 			.select(
 				spot.score.viewScore.multiply(userWeightDto.getViewWeight())
 					.add(spot.score.priceScore.multiply(userWeightDto.getPriceWeight()))
@@ -92,10 +81,6 @@ public class MemberSpotQuerydslRepositoryImpl implements MemberSpotQuerydslRepos
 			)
 			.from(spot)
 			.where(spot.eq(memberSpot.spot));
-
-		log.info("updatedScore = {}", updatedScore);
-
-		return updatedScore;
 
 	}
 

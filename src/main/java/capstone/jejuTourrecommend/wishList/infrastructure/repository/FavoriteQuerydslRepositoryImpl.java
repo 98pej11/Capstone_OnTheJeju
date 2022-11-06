@@ -47,7 +47,7 @@ public class FavoriteQuerydslRepositoryImpl implements FavoriteQuerydslRepositor
 
 	}
 
-
+	@Override
 	public Page<FavoriteListDto> getFavoriteList(Long memberId, Pageable pageable) {
 
 		List<FavoriteListDto> favoriteListDtos = queryFactory

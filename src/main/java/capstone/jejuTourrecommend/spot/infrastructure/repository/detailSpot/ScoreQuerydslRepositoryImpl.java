@@ -24,6 +24,7 @@ public class ScoreQuerydslRepositoryImpl implements ScoreQuerydslRepository{
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 
+	@Override
 	public ScoreSumDto getScoreSumDto(List<Long> spotIdList) {
 
 		List<ScoreSumDto> scoreSumDtos = queryFactory

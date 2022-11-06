@@ -32,33 +32,25 @@ public class DetailSpotQueryService implements DetailSpotQueryUseCase {
 
 	//readONly
 	public Page<ReviewDto> reviewPage(Long spotId, Pageable pageable) {
-
 		Spot spot = spotRepository.findOptionById(spotId)
 			.orElseThrow(() -> new UserException("spotId가 올바르지 않습니다."));
-
 		Page<ReviewDto> reviewDtoList = reviewRepository.searchSpotReview(spot, pageable);
-
 		return reviewDtoList;
 
 	}
 
 	//readONly
 	public SpotDetailDto spotPage(Long spotId, Long memberId) {
-
 		Spot spot = spotRepository.findOptionById(spotId)
 			.orElseThrow(() -> new UserException("spotId가 올바르지 않습니다."));
 		SpotDto spotDto = new SpotDto(spot);
-
-		List<PictureDto> pictureDtoList = pictureRepository.findBySpot(spot).stream().map(picture -> new PictureDto(picture))
+		List<PictureDto> pictureDtoList = pictureRepository.findBySpot(spot).stream()
+			.map(picture -> new PictureDto(picture))
 			.collect(Collectors.toList());
-
 		ScoreDto scoreDto = scoreRepository.findScoreBySpotId(spotId);
-
 		List<Long> favoriteIdList = favoriteRepository.findFavoriteIdListByMemberId(memberId);
 		Boolean isFavoriteSpot = favoriteRepository.isFavoriteSpot(memberId, spotId, favoriteIdList);
-
 		return new SpotDetailDto(spotDto, scoreDto, pictureDtoList, isFavoriteSpot);
-
 	}
 
 }
