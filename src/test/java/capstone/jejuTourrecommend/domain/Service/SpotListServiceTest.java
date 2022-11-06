@@ -24,6 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
@@ -140,27 +142,24 @@ class SpotListServiceTest {
 		UserWeightDto userWeightDto = new UserWeightDto(1d, 2d, 0d, 0d);
 
 		//ToDo: 사용자가 location 유무, 케테고리 유무, 가중치 유무에따라 반환되는 값 다름
-		//mainPageForm.setLocation("안덕면");
 		mainPageForm.setLocation("전체");
 		mainPageForm.setCategory("서비스");
-		//mainPageForm.setCategory(null);
-		//mainPageForm.setUserWeightDto(userWeightDto);
-		//mainPageForm.setUserWeightDto(null);
+
+
+		Map<String, Double> userWeight = new HashMap<>();
+		userWeight.put("viewWeight", 0d);
+		userWeight.put("priceWeight", 0d);
+		userWeight.put("facilityWeight", 0d);
+		userWeight.put("surroundWeight", 0d);
+		mainPageForm.setUserWeight(userWeight);
+
 
 		//when
-		ResultSpotListDto result = spotListFacade.getUserSpotList(mainPageForm, optionByEmail.get().getId(),
-			pageRequest);
+		ResultSpotListDto result = spotListFacade.getUserSpotList(mainPageForm, optionByEmail.get().getId(), pageRequest);
 
 		for (int i = 0; i < size; i++) {
 			log.info("result = {}", result.getData().getContent().get(i));
 		}
-
-		//when
-		//        ResultSpotListDto result1 = spotListService.postSpotList(mainPageForm, memberEmail, pageRequest);
-		//
-		//        for(int i=0;i<100;i++) {
-		//            log.info("result1 = {}", result.getData().getContent().get(i));
-		//        }
 
 		//then
 	}

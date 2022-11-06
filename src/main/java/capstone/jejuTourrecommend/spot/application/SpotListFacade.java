@@ -34,7 +34,6 @@ public class SpotListFacade {
 		Category category = findCategory(mainPageForm);
 		//가중치 존재 유무
 		return isPriorityExist(mainPageForm, pageable, locationList, category, memberId);
-
 	}
 
 	public ResultSpotListDto getSpotListWithoutPriority(Pageable pageable, List<Location> locationList, Category category,
@@ -50,10 +49,10 @@ public class SpotListFacade {
 	private ResultSpotListDto isPriorityExist(MainPageForm mainPageForm, Pageable pageable, List<Location> locationList,
 											  Category category, Long memberId) {
 
-		double viewWeight = mainPageForm.getUserWeight().get("viewWeight").doubleValue();
-		double priceWeight = mainPageForm.getUserWeight().get("priceWeight").doubleValue();
-		double facilityWeight = mainPageForm.getUserWeight().get("facilityWeight").doubleValue();
-		double surroundWeight = mainPageForm.getUserWeight().get("surroundWeight").doubleValue();
+		double viewWeight = mainPageForm.getUserWeight().get("viewWeight");
+		double priceWeight = mainPageForm.getUserWeight().get("priceWeight");
+		double facilityWeight = mainPageForm.getUserWeight().get("facilityWeight");
+		double surroundWeight = mainPageForm.getUserWeight().get("surroundWeight");
 		double sum = viewWeight + priceWeight + facilityWeight + surroundWeight;
 
 		if (sum == 0) {
@@ -65,9 +64,6 @@ public class SpotListFacade {
 	}
 
 	public Category findCategory(MainPageForm mainPageForm) {
-		if (!StringUtils.hasText(mainPageForm.getCategory())) {
-			throw new UserException("올바른 카테고리를 입력하세요. null 값이 들어갔습니다");
-		}
 		return Category.fromName(mainPageForm.getCategory());
 	}
 
