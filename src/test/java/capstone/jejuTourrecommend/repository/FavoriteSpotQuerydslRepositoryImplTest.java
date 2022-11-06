@@ -36,7 +36,7 @@ import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
 import capstone.jejuTourrecommend.wishList.domain.dto.SpotListDtoByFavoriteSpot;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteJpaRepository;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotJpaRepository;
-import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotQuerydslRepository;
+import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotQuerydslRepositoryImpl;
 import capstone.jejuTourrecommend.wishList.presentation.dto.request.RouteForm;
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,10 +45,10 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
 @Transactional
 @Slf4j
-class FavoriteSpotQuerydslRepositoryTest {
+class FavoriteSpotQuerydslRepositoryImplTest {
 	//
 	@Autowired
-	FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
+	FavoriteSpotQuerydslRepositoryImpl favoriteSpotQuerydslRepositoryImpl;
 
 	@Autowired
 	FavoriteSpotJpaRepository favoriteSpotJpaRepository;
@@ -155,7 +155,7 @@ class FavoriteSpotQuerydslRepositoryTest {
 
 		Long favoriteId = 1l;
 
-		List<SpotListDtoByFavoriteSpot> spotListDtoByFavoriteSpots = favoriteSpotQuerydslRepository.favoriteSpotList(
+		List<SpotListDtoByFavoriteSpot> spotListDtoByFavoriteSpots = favoriteSpotQuerydslRepositoryImpl.favoriteSpotList(
 			favoriteId);
 
 		log.info("spotListDtos = {} ", spotListDtoByFavoriteSpots);
@@ -171,7 +171,7 @@ class FavoriteSpotQuerydslRepositoryTest {
 		Optional<Member> optionByEmail = memberJpaRepository.findOptionByEmail("member1@gmail.com");
 
 		long before1 = System.currentTimeMillis();
-		Page<FavoriteListDto> favoriteListDtos = favoriteSpotQuerydslRepository
+		Page<FavoriteListDto> favoriteListDtos = favoriteSpotQuerydslRepositoryImpl
 			.getFavoriteList(optionByEmail.get().getId(), pageRequest);
 		long after1 = System.currentTimeMillis();
 
@@ -192,7 +192,7 @@ class FavoriteSpotQuerydslRepositoryTest {
 		Optional<Member> optionByEmail = memberJpaRepository.findOptionByEmail("member1@gmail.com");
 
 		long before2 = System.currentTimeMillis();
-		Page<FavoriteListDto> optimizationFavoriteListDtos = favoriteSpotQuerydslRepository
+		Page<FavoriteListDto> optimizationFavoriteListDtos = favoriteSpotQuerydslRepositoryImpl
 			.getFavoriteList(optionByEmail.get().getId(), pageRequest);
 		long after2 = System.currentTimeMillis();
 
@@ -213,7 +213,7 @@ class FavoriteSpotQuerydslRepositoryTest {
 		routeForm.setSpotIdList(spotIdList);
 
 		//when
-		FavoriteSpot favoriteSpot = favoriteSpotQuerydslRepository.existSpot(favoriteId, routeForm);
+		FavoriteSpot favoriteSpot = favoriteSpotQuerydslRepositoryImpl.existSpot(favoriteId, routeForm);
 
 		Assertions.assertThat(favoriteSpot).isNull();
 
@@ -240,7 +240,7 @@ class FavoriteSpotQuerydslRepositoryTest {
 		List<Long> collect = byFavoriteId.stream().map(o -> o.getSpot().getId()).collect(Collectors.toList());
 
 		routeForm.setSpotIdList(collect);
-		List list = favoriteSpotQuerydslRepository.recommendSpotList(favorite.getId(), routeForm);
+		List list = favoriteSpotQuerydslRepositoryImpl.recommendSpotList(favorite.getId(), routeForm);
 
 		log.info("list.toString() = {}", list.toString());
 

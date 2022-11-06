@@ -29,7 +29,7 @@ import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteDto;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteJpaRepository;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotJpaRepository;
-import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotQuerydslRepository;
+import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotQuerydslRepositoryImpl;
 import capstone.jejuTourrecommend.wishList.presentation.dto.request.FavoriteForm;
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,7 +47,7 @@ class FavoriteServiceTest {
 	@Autowired
 	FavoriteSpotJpaRepository favoriteSpotJpaRepository;
 	@Autowired
-	FavoriteSpotQuerydslRepository favoriteSpotQuerydslRepository;
+	FavoriteSpotQuerydslRepositoryImpl favoriteSpotQuerydslRepositoryImpl;
 	@Autowired
 	FavoriteFacade favoriteFacade;
 

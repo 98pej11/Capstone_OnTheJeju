@@ -38,10 +38,6 @@ class SpotRepositoryImpl implements SpotRepository {
 		return spotJpaRepository.findByNameLike(spotName);
 	}
 
-	@Override
-	public Boolean isFavoriteSpot(Long memberId, Long spotId) {
-		return spotQuerydslRepository.isFavoriteSpot(memberId, memberId);
-	}
 
 	@Override
 	public Page<SpotListDto> searchBySpotNameContains(Long memberId, String spotName, Pageable pageable) {
@@ -52,11 +48,5 @@ class SpotRepositoryImpl implements SpotRepository {
 	public Page<SpotListDto> searchSpotByLocationAndCategory(Long memberId, List locationList, Category category,
 		Pageable pageable) {
 		return spotQuerydslRepository.searchSpotByLocationAndCategory(memberId, locationList, category, pageable);
-	}
-
-	@Override
-	public Page<SpotListDto> searchSpotByUserPriority(Long memberId, List locationList, UserWeightDto userWeightDto,
-		Pageable pageable) {
-		return spotQuerydslRepository.searchSpotByUserPriority(memberId, locationList, userWeightDto, pageable);
 	}
 }

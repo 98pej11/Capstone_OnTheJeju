@@ -3,6 +3,7 @@ package capstone.jejuTourrecommend.wishList.domain.repository;
 import java.util.List;
 import java.util.Optional;
 
+import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -30,4 +31,6 @@ public interface FavoriteSpotRepository {
 	void deleteAllByFavoriteId(Long favoriteId);
 
 	void save(FavoriteSpot favoriteSpot);
+
+	List<Long> getBooleanFavoriteSpot(Long memberId, List<Long> spotIdList);
 }

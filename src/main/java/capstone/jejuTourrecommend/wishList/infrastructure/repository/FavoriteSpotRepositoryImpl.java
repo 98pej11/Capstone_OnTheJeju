@@ -41,6 +41,11 @@ public class FavoriteSpotRepositoryImpl implements FavoriteSpotRepository {
 		favoriteSpotJpaRepository.save(favoriteSpot);
 	}
 
+	@Override
+	public List<Long> getBooleanFavoriteSpot(Long memberId, List<Long> spotIdList) {
+		return favoriteSpotQuerydslRepository.getBooleanFavoriteSpot(memberId, spotIdList);
+	}
+
 	//////////////
 	@Override
 	public void deleteAllByFavoriteId(Long favoriteId) {

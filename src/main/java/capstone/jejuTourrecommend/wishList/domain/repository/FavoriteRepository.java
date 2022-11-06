@@ -22,4 +22,6 @@ public interface FavoriteRepository {
 
 	void save(Favorite favorite);
 
+	Boolean isFavoriteSpot(Long memberId, Long spotId);
+
 }

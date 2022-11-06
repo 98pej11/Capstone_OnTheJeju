@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class FavoriteRepositoryImpl implements FavoriteRepository {
 
 	private final FavoriteJpaRepository favoriteJpaRepository;
+	private final FavoriteQuerydslRepository favoriteQuerydslRepository;
 
 	@Override
 	public Page<Favorite> findByMember(Member member, Pageable pageable) {
@@ -45,6 +46,11 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
 	@Override
 	public void save(Favorite favorite) {
 		favoriteJpaRepository.save(favorite);
+	}
+
+	@Override
+	public Boolean isFavoriteSpot(Long memberId, Long spotId) {
+		return favoriteQuerydslRepository.isFavoriteSpot(memberId,spotId);
 	}
 
 }

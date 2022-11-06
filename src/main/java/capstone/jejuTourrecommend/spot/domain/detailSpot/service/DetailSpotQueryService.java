@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import capstone.jejuTourrecommend.spot.domain.detailSpot.repository.ScoreRepository;
+import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,7 @@ public class DetailSpotQueryService implements DetailSpotQueryUseCase {
 	private final ReviewRepository reviewRepository;
 	private final PictureRepository pictureRepository;
 	private final ScoreRepository scoreRepository;
+	private final FavoriteRepository favoriteRepository;
 
 	//readONly
 	public Page<ReviewDto> reviewPage(Long spotId, Pageable pageable) {
@@ -59,7 +61,7 @@ public class DetailSpotQueryService implements DetailSpotQueryUseCase {
 
 		ScoreDto scoreDto = scoreRepository.findScoreBySpotId(spotId);
 
-		Boolean isFavoriteSpot = spotRepository.isFavoriteSpot(memberId, spotId);
+		Boolean isFavoriteSpot = favoriteRepository.isFavoriteSpot(memberId, spotId);
 
 		return new SpotDetailDto(spotDto, scoreDto, pictureDtoList, isFavoriteSpot);
 

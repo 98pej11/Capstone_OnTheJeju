@@ -1,7 +1,12 @@
 package capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot;
 
+import java.util.List;
 import java.util.Optional;
 
+import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import capstone.jejuTourrecommend.authentication.domain.Member;
@@ -15,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberSpotRepositoryImpl implements MemberSpotRepository {
 
 	private final MemberSpotJpaRepository memberSpotJpaRepository;
+	private final MemberSpotQuerydslRepository memberSpotQuerydslRepository;
 
 	@Override
 	public Optional<MemberSpot> findBySpotAndMember(Spot spot, Member member) {
@@ -24,5 +30,15 @@ public class MemberSpotRepositoryImpl implements MemberSpotRepository {
 	@Override
 	public int bulkDeleteMemberSpotByMember(Member member) {
 		return memberSpotJpaRepository.bulkDeleteMemberSpotByMember(member);
+	}
+
+	@Override
+	public void updateMemberSpotByPriority(Long memberId, UserWeightDto userWeightDto) {
+		memberSpotQuerydslRepository.updateMemberSpotByPriority(memberId,userWeightDto);
+	}
+
+	@Override
+	public Page<SpotListDto> searchSpotByUserPriority(Long memberId, List locationList, Pageable pageable) {
+		return memberSpotQuerydslRepository.searchSpotByUserPriority(memberId, locationList, pageable);
 	}
 }

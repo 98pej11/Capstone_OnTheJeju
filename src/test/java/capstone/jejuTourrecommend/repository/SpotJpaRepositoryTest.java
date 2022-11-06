@@ -8,6 +8,7 @@ import java.util.Random;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.MemberSpotQuerydslRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,6 +46,9 @@ class SpotJpaRepositoryTest {
 
 	@Autowired
 	MemberJpaRepository memberJpaRepository;
+
+	@Autowired
+	MemberSpotQuerydslRepository memberSpotQuerydslRepository;
 
 	@PersistenceContext
 	EntityManager em;
@@ -205,9 +209,8 @@ class SpotJpaRepositoryTest {
 		List southList = Arrays.asList(Location.Namwon_eup, Location.Pyoseon_myeon, Location.Seongsan_eup);
 
 		long before2 = System.currentTimeMillis();
-		Page<SpotListDto> optimizationSpotListDtos = spotQuerydslRepository.searchSpotByUserPriority(
-			optionByEmail.get().getId(), westList,
-			new UserWeightDto(1d, 4d, 1d, 1d)
+		Page<SpotListDto> optimizationSpotListDtos = memberSpotQuerydslRepository.searchSpotByUserPriority(
+			optionByEmail.get().getId(), westList
 			, pageRequest);
 		long after2 = System.currentTimeMillis();
 
