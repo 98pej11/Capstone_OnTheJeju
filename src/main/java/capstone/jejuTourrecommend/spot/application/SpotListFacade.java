@@ -3,6 +3,7 @@ package capstone.jejuTourrecommend.spot.application;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
 import capstone.jejuTourrecommend.spot.application.locationStragety.*;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListCommandUseCase;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListQueryUserCase;
@@ -29,50 +30,38 @@ public class SpotListFacade {
 	}
 
 	public ResultSpotListDto getUserSpotList(MainPageForm mainPageForm, Long memberId, Pageable pageable) {
-
-		List locationList = findLocation(mainPageForm);
-
+		List<Location> locationList = findLocation(mainPageForm);
 		Category category = findCategory(mainPageForm);
-
 		//가중치 존재 유무
 		return isPriorityExist(mainPageForm, pageable, locationList, category, memberId);
 
 	}
 
-	public ResultSpotListDto getSpotListWithoutPriority(Pageable pageable, List locationList, Category category,
-		Long memberId) {
+	public ResultSpotListDto getSpotListWithoutPriority(Pageable pageable, List<Location> locationList, Category category,
+														Long memberId) {
 		return spotListQueryUserCase.getSpotListWithoutPriority(pageable, locationList, category, memberId);
 	}
 
-	public ResultSpotListDto getSpotListWithPriority(Pageable pageable, List locationList, Long memberId,
-		UserWeightDto userWeightDto) {
+	public ResultSpotListDto getSpotListWithPriority(Pageable pageable, List<Location> locationList, Long memberId,
+													 UserWeightDto userWeightDto) {
 		return spotListCommandUseCase.getSpotListWithPriority(pageable, locationList, memberId, userWeightDto);
 	}
 
-	private ResultSpotListDto isPriorityExist(MainPageForm mainPageForm, Pageable pageable, List locationList,
-		Category category, Long memberId) {
+	private ResultSpotListDto isPriorityExist(MainPageForm mainPageForm, Pageable pageable, List<Location> locationList,
+											  Category category, Long memberId) {
 
-		ResultSpotListDto result;
-		if (mainPageForm.getUserWeight() == null ||  //readOnly
-			mainPageForm.getUserWeight().get("viewWeight").doubleValue() == 0 &&
-				mainPageForm.getUserWeight().get("priceWeight").doubleValue() == 0 &&
-				mainPageForm.getUserWeight().get("facilityWeight").doubleValue() == 0 &&
-				mainPageForm.getUserWeight().get("surroundWeight").doubleValue() == 0
-		) {
-			result = getSpotListWithoutPriority(pageable, locationList, category, memberId);
+		double viewWeight = mainPageForm.getUserWeight().get("viewWeight").doubleValue();
+		double priceWeight = mainPageForm.getUserWeight().get("priceWeight").doubleValue();
+		double facilityWeight = mainPageForm.getUserWeight().get("facilityWeight").doubleValue();
+		double surroundWeight = mainPageForm.getUserWeight().get("surroundWeight").doubleValue();
+		double sum = viewWeight + priceWeight + facilityWeight + surroundWeight;
 
-		} else {//사용자가 가중치를 넣은 경우 //readOnly X
-			UserWeightDto userWeightDto = new UserWeightDto(//Todo: 업데이트
-				mainPageForm.getUserWeight().get("viewWeight").doubleValue(),
-				mainPageForm.getUserWeight().get("priceWeight").doubleValue(),
-				mainPageForm.getUserWeight().get("facilityWeight").doubleValue(),
-				mainPageForm.getUserWeight().get("surroundWeight").doubleValue()
-			);
-
-			result = getSpotListWithPriority(pageable, locationList, memberId, userWeightDto);
-
+		if (sum == 0) {
+			return getSpotListWithoutPriority(pageable, locationList, category, memberId);
 		}
-		return result;
+		//사용자가 가중치를 넣은 경우 //readOnly X
+		UserWeightDto userWeightDto = new UserWeightDto(viewWeight, priceWeight, facilityWeight, surroundWeight);
+		return getSpotListWithPriority(pageable, locationList, memberId, userWeightDto);
 	}
 
 	public Category findCategory(MainPageForm mainPageForm) {
@@ -82,7 +71,7 @@ public class SpotListFacade {
 		return Category.fromName(mainPageForm.getCategory());
 	}
 
-	public List findLocation(MainPageForm mainPageForm) {
+	public List<Location> findLocation(MainPageForm mainPageForm) {
 		log.info("mainPageLocation = {}", mainPageForm.getLocation());
 
 		if (!StringUtils.hasText(mainPageForm.getLocation())) {
