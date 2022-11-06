@@ -33,8 +33,6 @@ public class RouteController {
 	@PostMapping("/user/route/topList/{favoriteId}")
 	public ResultTopSpot topList(@PathVariable("favoriteId") Long favoriteId, @RequestBody RouteForm routeForm) {
 
-		//Todo: 테스트 데이터
-		//Long favoriteIdTest = 3l;
 		log.info("routeForm.getSpotIdList() = {}", routeForm.getSpotIdList());
 
 		List list = favoriteFacade.recommendSpotList(favoriteId, routeForm);

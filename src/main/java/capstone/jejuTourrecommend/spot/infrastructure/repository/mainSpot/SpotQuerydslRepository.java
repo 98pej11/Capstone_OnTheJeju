@@ -13,8 +13,6 @@ import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
 
 public interface SpotQuerydslRepository {
 
-	ScoreDto searchScore(Spot spot);
-
 	Boolean isFavoriteSpot(Long memberId, Long spotId);
 
 	Page<SpotListDto> searchBySpotNameContains(Long memberId, String spotName, Pageable pageable);

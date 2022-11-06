@@ -63,17 +63,8 @@ public class SpotListController {
 		return resultSpotListDto;
 	}
 
-	@GetMapping("/spotList/metaData")
-	public SpotListMetaDto getMetaData() {
-
-		SpotListMetaDto spotListMetaDto = getSpotListMetaDto();
-
-		return spotListMetaDto;
-
-	}
-
 	@GetMapping("/spotList/metaDataOp")
-	public SpotListMetaDataOp getMetaData1() {
+	public SpotListMetaDataOp getMetaData() {
 
 		MetaDataDirector metaDataDirector = new MetaDataDirector(new DefaultMetaDataBuilder());
 		metaDataDirector.categoryMetaData();
@@ -83,67 +74,6 @@ public class SpotListController {
 
 	}
 
-	private SpotListMetaDto getSpotListMetaDto() {
-		Map map;
-		List list = new ArrayList();
-
-		map = new LinkedHashMap();
-		map.put("id", 1);
-		map.put("name", "전체");
-		list.add(map);
-
-		map = new LinkedHashMap();
-		map.put("id", 2);
-		map.put("name", "뷰");
-		list.add(map);
-
-		map = new LinkedHashMap();
-		map.put("id", 3);
-		map.put("name", "가격");
-		list.add(map);
-
-		map = new LinkedHashMap();
-		map.put("id", 4);
-		map.put("name", "편의시설");
-		list.add(map);
-
-		map = new LinkedHashMap();
-		map.put("id", 5);
-		map.put("name", "서비스");
-		list.add(map);
-
-		//
-		Map map1;
-		List list1 = new ArrayList();
-
-		map1 = new LinkedHashMap();
-		map1.put("id", 6);
-		map1.put("name", "전체");
-		list1.add(map1);
-
-		map1 = new LinkedHashMap();
-		map1.put("id", 7);
-		map1.put("name", "북부");
-		list1.add(map1);
-
-		map1 = new LinkedHashMap();
-		map1.put("id", 8);
-		map1.put("name", "남부");
-		list1.add(map1);
-
-		map1 = new LinkedHashMap();
-		map1.put("id", 9);
-		map1.put("name", "서부");
-		list1.add(map1);
-
-		map1 = new LinkedHashMap();
-		map1.put("id", 10);
-		map1.put("name", "동부");
-		list1.add(map1);
-
-		SpotListMetaDto spotListMetaDto = new SpotListMetaDto(200l, true, list, list1);
-		return spotListMetaDto;
-	}
 
 }
 

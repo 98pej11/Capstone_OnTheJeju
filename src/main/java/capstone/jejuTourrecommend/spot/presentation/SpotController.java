@@ -50,12 +50,6 @@ public class SpotController {
 
 	}
 
-	@GetMapping("/spot/metaData")
-	public SpotMetaDto getMetaData() {
-
-		return getCategoryMetaData();
-
-	}
 
 	@GetMapping("/spot/metaDataOp")
 	public SpotListMetaDataOp getMetaDataOp() {
@@ -63,34 +57,6 @@ public class SpotController {
 		MetaDataDirector metaDataDirector = new MetaDataDirector(new DefaultMetaDataBuilder());
 
 		return new SpotListMetaDataOp(200l, true, metaDataDirector.categoryMetaData().getMetaDataList());
-	}
-	//
-
-	private SpotMetaDto getCategoryMetaData() {
-		Map map;
-		List list = new ArrayList();
-
-		map = new LinkedHashMap();
-		map.put("id", 1);
-		map.put("name", "뷰");
-		list.add(map);
-
-		map = new LinkedHashMap();
-		map.put("id", 2);
-		map.put("name", "가격");
-		list.add(map);
-
-		map = new LinkedHashMap();
-		map.put("id", 3);
-		map.put("name", "편의시설");
-		list.add(map);
-
-		map = new LinkedHashMap();
-		map.put("id", 4);
-		map.put("name", "서비스");
-		list.add(map);
-
-		return new SpotMetaDto(200l, true, list);
 	}
 
 }

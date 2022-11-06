@@ -20,8 +20,6 @@ public interface SpotRepository {
 
 	List<Spot> findByNameLike(String spotName);
 
-	ScoreDto searchScore(Spot spot);
-
 	Boolean isFavoriteSpot(Long memberId, Long spotId);
 
 	Page<SpotListDto> searchBySpotNameContains(Long memberId, String spotName, Pageable pageable);

@@ -39,11 +39,6 @@ class SpotRepositoryImpl implements SpotRepository {
 	}
 
 	@Override
-	public ScoreDto searchScore(Spot spot) {
-		return spotQuerydslRepository.searchScore(spot);
-	}
-
-	@Override
 	public Boolean isFavoriteSpot(Long memberId, Long spotId) {
 		return spotQuerydslRepository.isFavoriteSpot(memberId, memberId);
 	}

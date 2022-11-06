@@ -139,7 +139,6 @@ class DetailSpotQueryServiceTest {
 	public void spotPageTest() throws Exception {
 		//given
 
-		//Long spotId = 8l;
 		String memberEmail = "member1@gmail.com";
 
 		Member member = memberJpaRepository.findOptionByEmail(memberEmail)

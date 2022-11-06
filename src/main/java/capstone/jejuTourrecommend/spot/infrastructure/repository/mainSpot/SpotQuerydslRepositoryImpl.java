@@ -179,7 +179,6 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 				)
 			)
 			.from(spot)
-			//.where(locationEq(location))
 			.where(spot.location.in(locationList))
 			.orderBy(orderSpecifier)
 			.offset(pageable.getOffset())
@@ -295,30 +294,6 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 
 	}
 
-	@Override
-	public ScoreDto searchScore(Spot spot) {
-
-		ScoreDto scoreDto = queryFactory
-			.select(Projections.constructor(ScoreDto.class,
-				QSpot.spot.score.id,
-				QSpot.spot.score.viewScore,
-				QSpot.spot.score.priceScore,
-				QSpot.spot.score.facilityScore,
-				QSpot.spot.score.surroundScore,
-
-				QSpot.spot.score.viewRank,
-				QSpot.spot.score.priceRank,
-				QSpot.spot.score.facilityScore,
-				QSpot.spot.score.surroundRank
-			))
-			.from(QSpot.spot)
-			.innerJoin(QSpot.spot.score, score)
-			.where(QSpot.spot.eq(spot))
-			.fetchOne();
-
-		return scoreDto;
-
-	}
 
 	private JPQLQuery<Double> getJpqlQuery(UserWeightDto userWeightDto) {
 		JPQLQuery<Double> updatedScore = JPAExpressions
