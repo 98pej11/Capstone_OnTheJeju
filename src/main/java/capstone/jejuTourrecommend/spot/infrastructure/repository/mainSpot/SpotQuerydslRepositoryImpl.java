@@ -35,29 +35,6 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 	}
 
 	@Override
-	public List<RouteSpotListDto> getRouteSpotListDtos(Location location, Category category){
-		OrderSpecifier<Double> orderSpecifier = getDoubleOrderSpecifier(category);
-		return queryFactory
-			.select(new QRouteSpotListDto(
-					spot.id,
-					spot.name,
-					spot.address,
-					spot.description,
-					spot.location
-				)
-			)
-			.from(spot)
-			.where(locationEq(location))
-			.orderBy(orderSpecifier)
-			.offset(0)
-			.limit(10)
-			.fetch();
-	}
-	private BooleanExpression locationEq(Location location) {
-		return location != null ? spot.location.eq(location) : null;
-	}
-
-	@Override
 	public Page<SpotListDto> searchBySpotNameContains(Long memberId, String spotName, Pageable pageable) {
 
 		List<SpotListDto> spotListDtoList = queryFactory
@@ -113,7 +90,27 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 		return PageableExecutionUtils.getPage(spotListDtoList, pageable, () -> countQuery.fetchOne());
 
 	}
-	
+
+	@Override
+	public List<RouteSpotListDto> getRouteSpotListDtos(Location location, Category category) {
+		OrderSpecifier<Double> orderSpecifier = getDoubleOrderSpecifier(category);
+		return queryFactory
+			.select(new QRouteSpotListDto(
+					spot.id,
+					spot.name,
+					spot.address,
+					spot.description,
+					spot.location
+				)
+			)
+			.from(spot)
+			.where(locationEq(location))
+			.orderBy(orderSpecifier)
+			.offset(0)
+			.limit(10)
+			.fetch();
+	}
+
 	private OrderSpecifier<Double> getDoubleOrderSpecifier(Category category) {
 		OrderSpecifier<Double> orderSpecifier;
 		// 사용자가 선택한 카테고리에 따라 정렬 조건 선택
@@ -130,6 +127,10 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 			orderSpecifier = spot.score.rankAverage.asc();//Todo: 업데이트
 		}
 		return orderSpecifier;
+	}
+
+	private BooleanExpression locationEq(Location location) {
+		return location != null ? spot.location.eq(location) : null;
 	}
 
 }

@@ -76,35 +76,16 @@ public class SpotListFacade {
 	}
 
 	public Category findCategory(MainPageForm mainPageForm) {
-		log.info("mainPageCategory = {} ", mainPageForm.getCategory());
-		Category category = null;
-
 		if (!StringUtils.hasText(mainPageForm.getCategory())) {
 			throw new UserException("올바른 카테고리를 입력하세요. null 값이 들어갔습니다");
 		}
-
-		if (mainPageForm.getCategory().equals("뷰")) {
-			category = Category.VIEW;
-		} else if (mainPageForm.getCategory().equals("가격"))
-			category = Category.PRICE;
-		else if (mainPageForm.getCategory().equals("편의시설"))
-			category = Category.FACILITY;
-		else if (mainPageForm.getCategory().equals("서비스"))
-			category = Category.SURROUND;
-		else if (mainPageForm.getCategory().equals("전체")) {
-			category = null;   //기본값은 뷰로 한다
-		} else {
-			throw new UserException("올바른 카테고리를 입력하세요");
-		}
-
-		return category;
+		return Category.fromName(mainPageForm.getCategory());
 	}
 
 	public List findLocation(MainPageForm mainPageForm) {
 		log.info("mainPageLocation = {}", mainPageForm.getLocation());
 
 		if (!StringUtils.hasText(mainPageForm.getLocation())) {
-
 			throw new UserException("지역에 null 값이 들어갔습니다");
 		}
 
