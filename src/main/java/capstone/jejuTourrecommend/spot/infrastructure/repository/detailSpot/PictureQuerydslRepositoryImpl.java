@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static capstone.jejuTourrecommend.spot.domain.QSpot.spot;
 import static capstone.jejuTourrecommend.spot.domain.detailSpot.QPicture.picture;
 
 @Repository

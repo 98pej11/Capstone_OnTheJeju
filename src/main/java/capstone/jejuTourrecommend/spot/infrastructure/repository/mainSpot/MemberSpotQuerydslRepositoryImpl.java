@@ -1,6 +1,5 @@
 package capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot;
 
-import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
 import com.querydsl.core.types.Projections;
@@ -18,9 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static capstone.jejuTourrecommend.authentication.domain.QMember.member;
 import static capstone.jejuTourrecommend.spot.domain.QSpot.spot;
 import static capstone.jejuTourrecommend.spot.domain.mainSpot.QMemberSpot.memberSpot;
 
@@ -57,7 +54,6 @@ public class MemberSpotQuerydslRepositoryImpl implements MemberSpotQuerydslRepos
 			.select(memberSpot.count())
 			.from(memberSpot)
 			.innerJoin(memberSpot.spot, spot)
-			.innerJoin(memberSpot.member, member)
 			.where(spot.location.in(locationList), memberEq(memberId));
 		return PageableExecutionUtils.getPage(spotListDtoList, pageable, countQuery::fetchOne);
 	}

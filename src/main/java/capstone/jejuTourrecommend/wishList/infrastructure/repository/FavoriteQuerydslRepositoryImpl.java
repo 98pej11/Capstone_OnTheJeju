@@ -67,7 +67,6 @@ public class FavoriteQuerydslRepositoryImpl implements FavoriteQuerydslRepositor
 		JPAQuery<Long> countQuery = queryFactory
 			.select(favorite.count())
 			.from(favorite)
-			.innerJoin(favorite.member, member)
 			.where(favorite.member.id.eq(memberId));
 
 		return PageableExecutionUtils.getPage(favoriteListDtos, pageable, countQuery::fetchOne);
