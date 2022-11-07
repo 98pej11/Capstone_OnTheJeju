@@ -30,7 +30,7 @@ public class PictureQuerydslRepositoryImpl implements PictureQuerydslRepository{
 
 	@Override
 	public List<PictureDetailDto> getPictureDetailDtoBySpotIdList(List<Long> spotIdList) {
-		//to many 관계를 한번에 many 기준으로 한번에 가져오고 map 을 이용하여 O(1)시간으로 단축 시켰다
+		//to many 관계를 한번에 many 기준으로 한번에 가져오고 map 을 이용하여 O(1)시간으로 단축
 		return queryFactory
 			.select(Projections.constructor(PictureDetailDto.class,
 					picture.id,
@@ -46,6 +46,7 @@ public class PictureQuerydslRepositoryImpl implements PictureQuerydslRepository{
 
 	@Override
 	public List<PictureUrlDto> findPictureUrlDtos(List<Long> spotIdList, Integer limit){
+		//querydsl groupBy 는 정렬 조건을 주어지지 않으면 fileSort 로 정렬후 groupBy 진행 그러나 picture 테이블을 spotId 로 인덱시 해주어서 orderByNull 불필요
 		return queryFactory
 			.select(Projections.constructor(PictureUrlDto.class,
 					picture.spot.id,
