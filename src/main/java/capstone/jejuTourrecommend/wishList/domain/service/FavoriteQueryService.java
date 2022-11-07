@@ -38,10 +38,8 @@ public class FavoriteQueryService implements FavoriteQueryUseCase {
 	private final ScoreRepository scoreRepository;
 
 	public Page<FavoriteListDto> getFavoriteList(Long memberId, Pageable pageable) {
-
 		Page<FavoriteListDto> favoriteListDtos = favoriteRepository.getFavoriteList(memberId, pageable);
 		postPictureUrlOnFavoriteList(favoriteListDtos.getContent());
-
 		return favoriteListDtos;
 
 	}
@@ -60,43 +58,36 @@ public class FavoriteQueryService implements FavoriteQueryUseCase {
 
 
 	public List<List<RouteSpotListDto>> recommendSpotList(Long favoriteId, RouteForm routeForm) {
-
 		List<Long> spotIdList = favoriteSpotRepository.getSpotIdList(favoriteId, routeForm.getSpotIdList());
 		ScoreSumDto scoreSumDto = scoreRepository.getScoreSumDto(spotIdList);
-
 		Category highestScoreCategory = getHighestScoreCategory(scoreSumDto);
-
 		List<Location> distinctLocationBySpotIdList = spotRepository.findDistinctLocationBySpotIdList(spotIdList);
-
 		return getRouteSpotDtoList(highestScoreCategory, distinctLocationBySpotIdList);
-
 	}
 
 	private List<List<RouteSpotListDto>> getRouteSpotDtoList(Category highestScoreCategory, List<Location> distinctLocationBySpotIdList) {
 		List<List<RouteSpotListDto>> list = new ArrayList<>();
 		for (Location location : distinctLocationBySpotIdList) {
 			List<RouteSpotListDto> routeSpotListDtos = spotRepository.getRouteSpotListDtos(location, highestScoreCategory);
-			List<PictureUrlDto> pictureUrlDtos = pictureRepository.postSpotPictureUrlsToDto(routeSpotListDtos);
-			Map<Long, List<PictureUrlDto>> collect = pictureUrlDtos.stream()
+			List<Long> spotIdList = routeSpotListDtos.stream().map(s -> s.getSpotId()).collect(Collectors.toList());
+			List<PictureUrlDto> pictureUrlDtos = pictureRepository.findPictureUrlDtos(spotIdList, spotIdList.size());
+
+			Map<Long, List<PictureUrlDto>> groupBySpotId = pictureUrlDtos.stream()
 				.collect(Collectors.groupingBy(p -> p.getSpotId()));
-			if (collect.isEmpty()) {//사진이 없는 경우
+			if (groupBySpotId.isEmpty()) {	//사진이 없는 경우
 				continue;
 			}
-			routeSpotListDtos.forEach(sl -> sl.setUrl(collect.get(sl.getSpotId()).get(0).getPictureUrl()));
+			routeSpotListDtos.forEach(sl -> sl.setUrl(groupBySpotId.get(sl.getSpotId()).get(0).getPictureUrl()));
 			list.add(routeSpotListDtos);
 		}
 		return list;
 	}
 
 	public void deleteFavoriteList(Long favoriteId) {
-
 		favoriteRepository.findOptionById(favoriteId)
 			.orElseThrow(() -> new UserException("올바르지 않는 favoriteId 입니다"));
-
 		favoriteSpotRepository.deleteAllByFavoriteId(favoriteId);
-
 		favoriteRepository.deleteById(favoriteId);
-
 	}
 
 	private Category getHighestScoreCategory(ScoreSumDto scoreSumDto) {
@@ -126,16 +117,12 @@ public class FavoriteQueryService implements FavoriteQueryUseCase {
 	}
 
 	public ResultFavoriteSpotList favoriteSpotList(Long favoriteId) {
-
 		Favorite favorite = favoriteRepository.findOptionById(favoriteId)
 			.orElseThrow(() -> new UserException("올바르지 않은 favoriteId 입니다"));
-
 		List<Long> spotIdList = favoriteSpotRepository.findSpotIdByFavoriteId(favoriteId);
 		List<Spot> spotBySpotIdList = spotRepository.findSpotFetchJoinBySpotIdList(spotIdList);
 		List<SpotListDtoByFavoriteSpot> spotListDtosByFavoriteSpot = postPictureUrlOnSpotList(spotBySpotIdList);
-
 		return new ResultFavoriteSpotList(200l, true, "성공", favorite.getName(), spotListDtosByFavoriteSpot);
-
 	}
 
 	private List<SpotListDtoByFavoriteSpot> postPictureUrlOnSpotList(List<Spot> spotBySpotIdList) {

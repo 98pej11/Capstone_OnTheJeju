@@ -29,9 +29,8 @@ public class PictureQuerydslRepositoryImpl implements PictureQuerydslRepository{
 	}
 
 	@Override
-	public List<PictureDetailDto> getPictureDetailDtoBySpotIdList(List<SpotListDto> spotListDtoList) {
-		List<Long> spotIdList = spotListDtoList.stream().map(o -> o.getSpotId()).collect(Collectors.toList());
-		//to many 관계를 한번에 many 기준으로 한번에 가져오고 map을 이용하여 O(1)시간으로 단축 시켰다
+	public List<PictureDetailDto> getPictureDetailDtoBySpotIdList(List<Long> spotIdList) {
+		//to many 관계를 한번에 many 기준으로 한번에 가져오고 map 을 이용하여 O(1)시간으로 단축 시켰다
 		return queryFactory
 			.select(Projections.constructor(PictureDetailDto.class,
 					picture.id,
@@ -46,9 +45,7 @@ public class PictureQuerydslRepositoryImpl implements PictureQuerydslRepository{
 	}
 
 	@Override
-	public List<PictureUrlDto> postSpotPictureUrlsToDto(List<RouteSpotListDto> spotListDtos) {
-		//해당 지역에 있는 top 10 지역들 가져오기
-		List<Long> spotIdList = spotListDtos.stream().map(s -> s.getSpotId()).collect(Collectors.toList());
+	public List<PictureUrlDto> findPictureUrlDtos(List<Long> spotIdList, Integer limit){
 		return queryFactory
 			.select(Projections.constructor(PictureUrlDto.class,
 					picture.spot.id,
@@ -59,22 +56,7 @@ public class PictureQuerydslRepositoryImpl implements PictureQuerydslRepository{
 			.innerJoin(picture.spot, spot)
 			.where(picture.spot.id.in(spotIdList))
 			.groupBy(picture.spot.id)
-			.fetch();
-	}
-
-	@Override
-	public List<PictureUrlDto> findPictureUrlDtos(List<Long> spotIdList, Integer limit){
-		return queryFactory
-			.select(Projections.constructor(PictureUrlDto.class,
-					picture.spot.id,
-					picture.url
-				)
-			)
-			.from(picture)
-			.innerJoin(picture.spot, spot)
-			.where(picture.spot.id.in(spotIdList))
-			.groupBy(picture.spot.id)
-			.limit(limit)
+			.limit(limit) // "limit 개의 spot"의 picture 1개 가져오기
 			.fetch();
 	}
 

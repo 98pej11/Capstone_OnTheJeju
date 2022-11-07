@@ -35,11 +35,9 @@ public class SpotListService implements SpotListQueryUserCase, SpotListCommandUs
 
 	@Override
 	public ResultSpotListDto searchSpotListContains(Long memberId, String spotName, Pageable pageable) {
-
 		Page<SpotListDto> spotListDtos = spotRepository.searchBySpotNameContains(memberId, spotName, pageable);
 		postPictureAndBooleanFavoriteOnSpotListDto(spotListDtos, memberId);
 		return new ResultSpotListDto(200l, true, "성공", spotListDtos);
-
 	}
 
 	@Transactional//readOnly X
@@ -62,39 +60,36 @@ public class SpotListService implements SpotListQueryUserCase, SpotListCommandUs
 	}
 
 	private void postPictureAndBooleanFavoriteOnSpotListDto(Page<SpotListDto> spotListDtos, Long memberId) {
-		List<PictureDetailDto> pictureDetailDtos = pictureRepository.getPictureDetailDtoBySpotIdList(spotListDtos.getContent());
-		postPictureUrlToDto(spotListDtos.getContent(),pictureDetailDtos);
 		List<Long> spotIdList = spotListDtos.getContent().stream().map(o -> o.getSpotId()).collect(Collectors.toList());
+		List<PictureDetailDto> pictureDetailDtos = pictureRepository.getPictureDetailDtoBySpotIdList(spotIdList);
+		postPictureUrlToDto(spotListDtos.getContent(),pictureDetailDtos,3);
+
 		List<Long> favoriteSpotIdList = favoriteSpotRepository.getSpotIdByFavoriteSpot(memberId, spotIdList);
 		postBooleanFavoriteSpotBySpotListDto(spotListDtos.getContent(), favoriteSpotIdList);
 	}
 
-	private void postPictureUrlToDto(List<SpotListDto> spotListDtoList, List<PictureDetailDto> pictureDetailDtoList) {
-		Map<Long, List<PictureDetailDto>> collect = pictureDetailDtoList.stream()
+	private void postPictureUrlToDto(List<SpotListDto> spotListDtoList, List<PictureDetailDto> pictureDetailDtoList, Integer pictureSize) {
+		Map<Long, List<PictureDetailDto>> groupBySpotId = pictureDetailDtoList.stream()
 			.collect(Collectors.groupingBy(p -> p.getSpotId()));
-
 		//사진이 없는 경우
-		if (collect.isEmpty()) {
+		if (groupBySpotId.isEmpty()) {
 			return;
 		}
-
 		spotListDtoList.forEach(sl -> {
-			int size = collect.get(sl.getSpotId()).size();
-			if (size < 3) {
-				sl.setPictureDetailDtoList(collect.get(sl.getSpotId()));
+			int size = groupBySpotId.get(sl.getSpotId()).size();
+			if (size < pictureSize) {
+				sl.setPictureDetailDtoList(groupBySpotId.get(sl.getSpotId()));
 			} else {
-				IntStream.range(0, 3)
-					.forEach(i -> sl.getPictureDetailDtoList().add(collect.get(sl.getSpotId()).get(i)));
+				IntStream.range(0, pictureSize)
+					.forEach(i -> sl.getPictureDetailDtoList().add(groupBySpotId.get(sl.getSpotId()).get(i)));
 			}
 		});
 	}
-
 
 	private void postBooleanFavoriteSpotBySpotListDto(List<SpotListDto> spotListDtoList, List<Long> favoriteSpotIdList) {
 		//list 에서 contain 으로 접근하는 것보다 hashset 으로 접근하는게 더 빨라서 set 으로 stream 해줌 (디버깅해보니깐 hashset 으로 들어감)
 		//또한 중복된 spotid가 있음 여러개 위시리스트에서 같은 spot 이 있을수 도 있잖음 그래서 set 을 사용하는게 올바른 것임
 		Set<Long> favoriteSpotIdSet = favoriteSpotIdList.stream().collect(Collectors.toSet());
-
 		//"존재 하는 것"과 , 따로 spot 리스트 만들고,
 		spotListDtoList.stream()
 			.filter(i -> favoriteSpotIdSet.contains(i.getSpotId()))

@@ -30,19 +30,12 @@ public class PictureRepositoryImpl implements PictureRepository {
 	}
 
 	@Override
-	public List<PictureDetailDto> getPictureDetailDtoBySpotIdList(List<SpotListDto> spotListDtoList) {
-		return pictureQuerydslRepository.getPictureDetailDtoBySpotIdList(spotListDtoList);
+	public List<PictureDetailDto> getPictureDetailDtoBySpotIdList(List<Long> spotIdList) {
+		return pictureQuerydslRepository.getPictureDetailDtoBySpotIdList(spotIdList);
 	}
 
 	@Override
 	public List<PictureUrlDto> findPictureUrlDtos(List<Long> spotIdList, Integer limit) {
 		return pictureQuerydslRepository.findPictureUrlDtos(spotIdList, limit);
 	}
-
-	@Override
-	public List<PictureUrlDto> postSpotPictureUrlsToDto(List<RouteSpotListDto> spotListDtos) {
-		return pictureQuerydslRepository.postSpotPictureUrlsToDto(spotListDtos);
-	}
-
-
 }

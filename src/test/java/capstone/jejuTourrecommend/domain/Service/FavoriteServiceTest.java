@@ -74,7 +74,7 @@ class FavoriteServiceTest {
 
 		Spot[] spots = new Spot[15];
 		for (int i = 0; i < 15; i++) {
-			spots[i] = new Spot("관광지 " + Integer.toString(i));
+			spots[i] = new Spot("관광지 " + i);
 
 			em.persist(spots[i]);
 		}
@@ -85,6 +85,7 @@ class FavoriteServiceTest {
 
 		Picture[] pictures = new Picture[15];
 
+		//spot 마다 사진이 하니씩 있음
 		for (int i = 0; i < 5; i++) {
 			favoriteSpots[i] = new FavoriteSpot(favorite1, spots[i]);
 			em.persist(favoriteSpots[i]);

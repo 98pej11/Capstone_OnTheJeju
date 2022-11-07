@@ -15,10 +15,8 @@ public interface PictureRepository {
 
 	List<Picture> findAll();
 
-	List<PictureDetailDto> getPictureDetailDtoBySpotIdList(List<SpotListDto> spotListDtoList);
+	List<PictureDetailDto> getPictureDetailDtoBySpotIdList(List<Long> spotIdList);
 
 	List<PictureUrlDto> findPictureUrlDtos(List<Long> spotIdList, Integer limit);
-
-	List<PictureUrlDto> postSpotPictureUrlsToDto(List<RouteSpotListDto> spotListDtos);
 
 }
