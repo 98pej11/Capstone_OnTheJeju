@@ -116,6 +116,13 @@ MAP을 사용해서 매칭 성능 향상(O(1))
 
   <img  alt="saveAllAndFlush" src="./img/saveAllAndFlush.png?raw=true"  width="1000" height="250"/>
 
+[//]: # ()
+[//]: # (## 3. 인덱싱)
+
+[//]: # ()
+[//]: # (- 인덱싱을 통해 쿼리 튜닝이 가능하다고 하여, 인데싱 관련 서적, real mysql 8.0을 사서 학습하였다. )
+
+
 </details>
 
 # :recycle: 프로젝트 종료 이후 혼자서 진행한 리팩토링
@@ -221,6 +228,8 @@ MAP을 사용해서 매칭 성능 향상(O(1))
 
 - readOnly 옵셥으로 선능을 최적화 할수 있다는 것을 알고 데이터를 읽기만하는 Service 같은 경우 CommandUseCase, QueryUseCase 분리하여 reaOnly 옵션을 처리하였습니다. 그 후
   디자인 패턴인 Facade 패턴을 사용하여 Service 를 한곳에 관리하는 역할을 만들어 분리하였습니다.
+
+
 
 <!--
 ## 7. 쿼리 튜닝

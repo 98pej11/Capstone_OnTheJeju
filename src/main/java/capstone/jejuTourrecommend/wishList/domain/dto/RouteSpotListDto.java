@@ -11,6 +11,7 @@ public class RouteSpotListDto {
 	private String spotName;
 	private String spotAddress;
 	private String spotDescription;
+
 	private String url;
 
 	private String location;

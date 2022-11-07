@@ -92,13 +92,10 @@ public class FavoriteCommandService implements FavoriteCommandUseCase {
 	}
 
 	public void deleteSpotInFavoriteList(Long favoriteId, Long spotId) {
-
 		favoriteRepository.findOptionById(favoriteId)
 			.orElseThrow(() -> new UserException("올바르지 않는 favoriteId 입니다"));
-
 		spotJpaRepository.findOptionById(spotId)
 			.orElseThrow(() -> new UserException("올바르지 않는 spotId 입니다"));
-
 		favoriteSpotRepository.deleteByFavoriteIdAndSpotId(favoriteId, spotId);
 	}
 
