@@ -36,31 +36,18 @@ public class SpotListFacade {
 		return isPriorityExist(mainPageForm, pageable, locationList, category, memberId);
 	}
 
-	public ResultSpotListDto getSpotListWithoutPriority(Pageable pageable, List<Location> locationList, Category category,
-														Long memberId) {
-		return spotListQueryUserCase.getSpotListWithoutPriority(pageable, locationList, category, memberId);
-	}
-
-	public ResultSpotListDto getSpotListWithPriority(Pageable pageable, List<Location> locationList, Long memberId,
-													 UserWeightDto userWeightDto) {
-		return spotListCommandUseCase.getSpotListWithPriority(pageable, locationList, memberId, userWeightDto);
-	}
-
-	private ResultSpotListDto isPriorityExist(MainPageForm mainPageForm, Pageable pageable, List<Location> locationList,
-											  Category category, Long memberId) {
-
+	private ResultSpotListDto isPriorityExist(MainPageForm mainPageForm, Pageable pageable, List<Location> locationList,Category category, Long memberId) {
 		double viewWeight = mainPageForm.getUserWeight().get("viewWeight");
 		double priceWeight = mainPageForm.getUserWeight().get("priceWeight");
 		double facilityWeight = mainPageForm.getUserWeight().get("facilityWeight");
 		double surroundWeight = mainPageForm.getUserWeight().get("surroundWeight");
 		double sum = viewWeight + priceWeight + facilityWeight + surroundWeight;
-
 		if (sum == 0) {
-			return getSpotListWithoutPriority(pageable, locationList, category, memberId);
+			return spotListQueryUserCase.getSpotListWithoutPriority(pageable, locationList, category, memberId);
 		}
 		//사용자가 가중치를 넣은 경우 //readOnly X
 		UserWeightDto userWeightDto = new UserWeightDto(viewWeight, priceWeight, facilityWeight, surroundWeight);
-		return getSpotListWithPriority(pageable, locationList, memberId, userWeightDto);
+		return spotListCommandUseCase.getSpotListWithPriority(pageable, locationList, memberId, userWeightDto);
 	}
 
 	public Category findCategory(MainPageForm mainPageForm) {
@@ -68,22 +55,11 @@ public class SpotListFacade {
 	}
 
 	public List<Location> findLocation(MainPageForm mainPageForm) {
-		log.info("mainPageLocation = {}", mainPageForm.getLocation());
-
 		if (!StringUtils.hasText(mainPageForm.getLocation())) {
 			throw new UserException("지역에 null 값이 들어갔습니다");
 		}
-
-		/**
-		 * 북 : 애월읍,제주시,조천읍,구좌읍,우도면
-		 * 동 : 남원읍, 표선면, 성산읍
-		 * 서 : 한림읍, 한경면, 대정읍, 안덕면
-		 * 남 : 서귀포시
-		 */
 		LocationStrategy locationStrategy;
-
 		String location = mainPageForm.getLocation();
-
 		switch (location) {
 			case "북부":
 				locationStrategy = new NorthLocation();
@@ -103,7 +79,6 @@ public class SpotListFacade {
 			default:
 				throw new UserException("카테고리의 제대로된 입력값을 넣어야 합니다");
 		}
-
 		return locationStrategy.getLocation();
 	}
 

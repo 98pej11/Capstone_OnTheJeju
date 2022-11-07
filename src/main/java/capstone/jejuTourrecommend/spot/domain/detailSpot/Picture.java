@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"id", "url", "spot"})
+@Table(name = "Picture", indexes = @Index(name = "spot_id_picture_id", columnList = "spot_id, picture_id"))
 public class Picture {
 
 	@Id

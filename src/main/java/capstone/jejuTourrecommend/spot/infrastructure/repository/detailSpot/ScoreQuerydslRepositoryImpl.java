@@ -26,8 +26,7 @@ public class ScoreQuerydslRepositoryImpl implements ScoreQuerydslRepository{
 
 	@Override
 	public ScoreSumDto getScoreSumDto(List<Long> spotIdList) {
-
-		List<ScoreSumDto> scoreSumDtos = queryFactory
+		return queryFactory
 			.select(
 				Projections.constructor(
 					ScoreSumDto.class,
@@ -40,9 +39,7 @@ public class ScoreQuerydslRepositoryImpl implements ScoreQuerydslRepository{
 			.from(spot)
 			.innerJoin(spot.score, score)
 			.where(spot.id.in(spotIdList))
-			.fetch();
-
-		return scoreSumDtos.get(0);
+			.fetchFirst();
 	}
 
 }

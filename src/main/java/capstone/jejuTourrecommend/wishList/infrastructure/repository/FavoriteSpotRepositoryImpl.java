@@ -50,12 +50,9 @@ public class FavoriteSpotRepositoryImpl implements FavoriteSpotRepository {
 		return favoriteSpotQuerydslRepository.getSpotIdList(favoriteId, spotIdList);
 	}
 
-
 	@Override
 	public void deleteAllByFavoriteId(Long favoriteId) {
 		favoriteSpotJpaRepository.deleteAllByFavoriteId(favoriteId);
 	}
-
-
 
 }

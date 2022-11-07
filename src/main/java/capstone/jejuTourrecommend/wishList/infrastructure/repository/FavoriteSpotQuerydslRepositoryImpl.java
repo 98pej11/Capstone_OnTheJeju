@@ -36,7 +36,6 @@ public class FavoriteSpotQuerydslRepositoryImpl implements FavoriteSpotQuerydslR
 
 	@Override
 	public List<Long> getSpotIdList(Long favoriteId, List<Long> spotIdList) {
-
 		List<Long> spotIdListByFavoriteIdAndSpotIdList = queryFactory
 			.select(favoriteSpot.spot.id)
 			.from(favoriteSpot)
