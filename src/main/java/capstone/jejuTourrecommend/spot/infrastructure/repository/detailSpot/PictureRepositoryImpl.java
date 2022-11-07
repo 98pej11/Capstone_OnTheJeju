@@ -4,9 +4,7 @@ import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.Picture;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.repository.PictureRepository;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.PictureDetailDto;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
 import capstone.jejuTourrecommend.wishList.domain.dto.PictureUrlDto;
-import capstone.jejuTourrecommend.wishList.domain.dto.RouteSpotListDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

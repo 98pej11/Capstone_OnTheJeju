@@ -1,4 +1,4 @@
-package capstone.jejuTourrecommend.domain.Service;
+package capstone.jejuTourrecommend.wishList.domain.service;
 
 import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
@@ -6,11 +6,12 @@ import capstone.jejuTourrecommend.common.exceptionClass.UserException;
 import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.Picture;
 import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaRepository;
-import capstone.jejuTourrecommend.wishList.application.FavoriteFacade;
 import capstone.jejuTourrecommend.wishList.domain.Favorite;
 import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteDto;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
+import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteRepository;
+import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteSpotRepository;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteJpaRepository;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotJpaRepository;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotQuerydslRepositoryImpl;
@@ -30,11 +31,15 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest
 @Transactional
-class FavoriteServiceTest {
+class FavoriteCommandServiceTest {
+
+	@Autowired
+	FavoriteCommandService favoriteCommandService;
 
 	@Autowired
 	MemberJpaRepository memberJpaRepository;
@@ -46,8 +51,12 @@ class FavoriteServiceTest {
 	FavoriteSpotJpaRepository favoriteSpotJpaRepository;
 	@Autowired
 	FavoriteSpotQuerydslRepositoryImpl favoriteSpotQuerydslRepositoryImpl;
+
 	@Autowired
-	FavoriteFacade favoriteFacade;
+	FavoriteRepository favoriteRepository;
+	@Autowired
+	FavoriteSpotRepository favoriteSpotRepository;
+
 
 	@PersistenceContext
 	EntityManager em;
@@ -135,7 +144,7 @@ class FavoriteServiceTest {
 		Long favoriteId = favorite.getId();
 
 		//when
-		favoriteFacade.postFavoriteForm(favoriteForm);
+		favoriteCommandService.postFavoriteForm(favoriteForm);
 
 		Optional<FavoriteSpot> result = favoriteSpotJpaRepository.findOptionBySpotIdAndFavoriteId(spotId, favoriteId);
 
@@ -146,29 +155,6 @@ class FavoriteServiceTest {
 		//then
 	}
 
-	@Test
-	public void getFavoriteListTest() throws Exception {
-		//given
-
-		//when
-		String memberEmail = "em@naver.com";
-		//Favorite favorite2 = new Favorite("2일차",m)
-
-		//Spot spot = new Spot("테스트")
-
-		Optional<Member> optionByEmail = memberJpaRepository.findOptionByEmail(memberEmail);
-
-		PageRequest pageRequest = PageRequest.of(0, 10);
-
-		Page<FavoriteListDto> favoriteList = favoriteFacade.getFavoriteList(optionByEmail.get().getId(), pageRequest);
-
-		List<FavoriteListDto> content = favoriteList.getContent();
-		log.info("favoriteListContent = {}", content);
-
-		assertThat(content.size()).isEqualTo(5);
-		assertThat(favoriteList.getTotalElements()).isEqualTo(5);
-
-	}
 
 	/**
 	 * 새로운 위시 리스트를 만들고 해당 관광지 넣기
@@ -191,7 +177,7 @@ class FavoriteServiceTest {
 
 		//when
 
-		FavoriteDto favoriteDto = favoriteFacade.newFavoriteList(member.getId(), spotId, favoriteName);
+		FavoriteDto favoriteDto = favoriteCommandService.newFavoriteList(member.getId(), spotId, favoriteName);
 
 		Optional<Favorite> favorite = favoriteJpaRepository.findOptionByNameAndMemberId(favoriteName, member.getId());
 
@@ -205,48 +191,6 @@ class FavoriteServiceTest {
 		assertThat(favoriteDto).isNotNull();
 	}
 
-	/**
-	 * 위시 리스트 삭제하기
-	 * @throws Exception
-	 */
-	@Test
-	public void deleteFavoriteListTest() throws Exception {
-		//given
-		Member member = memberJpaRepository.findOptionByEmail("em@naver.com")
-			.orElseThrow(() -> new UserException("해당 이름의 회원이 없습니다."));
-		Favorite favorite = favoriteJpaRepository.findOptionByNameAndMemberId("5일차", member.getId())
-			.orElseThrow(() -> new UserException("해당 이름의 위시리스트가 없습니다."));
 
-		Long favoriteId = favorite.getId();
-
-		//when
-		favoriteFacade.deleteFavoriteList(favoriteId);
-		Optional<Favorite> result = favoriteJpaRepository.findOptionById(favoriteId);
-
-		//then
-		assertThat(result).isEmpty();
-	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

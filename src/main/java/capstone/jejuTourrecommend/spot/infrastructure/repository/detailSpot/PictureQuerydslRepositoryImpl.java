@@ -1,9 +1,7 @@
 package capstone.jejuTourrecommend.spot.infrastructure.repository.detailSpot;
 
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.PictureDetailDto;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
 import capstone.jejuTourrecommend.wishList.domain.dto.PictureUrlDto;
-import capstone.jejuTourrecommend.wishList.domain.dto.RouteSpotListDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static capstone.jejuTourrecommend.spot.domain.QSpot.spot;
 import static capstone.jejuTourrecommend.spot.domain.detailSpot.QPicture.picture;
@@ -39,14 +36,13 @@ public class PictureQuerydslRepositoryImpl implements PictureQuerydslRepository{
 				)
 			)
 			.from(picture)
-			.innerJoin(picture.spot, spot)
 			.where(picture.spot.id.in(spotIdList))
 			.fetch();
 	}
 
 	@Override
 	public List<PictureUrlDto> findPictureUrlDtos(List<Long> spotIdList, Integer limit){
-		//querydsl groupBy 는 정렬 조건을 주어지지 않으면 fileSort 로 정렬후 groupBy 진행 그러나 picture 테이블을 spotId 로 인덱시 해주어서 orderByNull 불필요
+		//querydsl groupBy 는 정렬 조건을 주어지지 않으면 fileSort 로 정렬후 groupBy 진행, 그러나 picture 테이블을 spotId 로 인덱싱 해주어서 orderByNull 불필요
 		return queryFactory
 			.select(Projections.constructor(PictureUrlDto.class,
 					picture.spot.id,
@@ -54,12 +50,12 @@ public class PictureQuerydslRepositoryImpl implements PictureQuerydslRepository{
 				)
 			)
 			.from(picture)
-			.innerJoin(picture.spot, spot)
 			.where(picture.spot.id.in(spotIdList))
 			.groupBy(picture.spot.id)
 			.limit(limit) // "limit 개의 spot"의 picture 1개 가져오기
 			.fetch();
 	}
+
 
 
 }

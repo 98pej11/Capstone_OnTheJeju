@@ -27,8 +27,8 @@ public class FavoriteFacade {
 		favoriteCommandUseCase.postFavoriteForm(favoriteForm);
 	}
 
-	public FavoriteDto newFavoriteList(Member member, Long spotId, String favoriteName) {
-		return favoriteCommandUseCase.newFavoriteList(member, spotId, favoriteName);
+	public FavoriteDto newFavoriteList(Long memberId, Long spotId, String favoriteName) {
+		return favoriteCommandUseCase.newFavoriteList(memberId, spotId, favoriteName);
 	}
 
 	public void deleteSpotInFavoriteList(Long favoriteId, Long spotId) {

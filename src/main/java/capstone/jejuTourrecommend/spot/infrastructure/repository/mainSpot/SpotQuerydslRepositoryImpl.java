@@ -36,7 +36,6 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 
 	@Override
 	public Page<SpotListDto> searchBySpotNameContains(Long memberId, String spotName, Pageable pageable) {
-
 		List<SpotListDto> spotListDtoList = queryFactory
 			.select(Projections.constructor(SpotListDto.class,
 					spot.id,

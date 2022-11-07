@@ -3,6 +3,7 @@ package capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
@@ -36,8 +37,14 @@ public class MemberSpotQuerydslRepositoryImpl implements MemberSpotQuerydslRepos
 
 	@Override
 	public Page<SpotListDto> searchSpotByUserPriority(Long memberId, List locationList, Pageable pageable) {
-		List<MemberSpot> memberSpotList = queryFactory
-			.select(memberSpot)
+		List<SpotListDto> spotListDtoList = queryFactory
+			.select(Projections.constructor(SpotListDto.class,
+				memberSpot.spot.id,
+				memberSpot.spot.name,
+				memberSpot.spot.address,
+				memberSpot.spot.description
+				)
+			)
 			.from(memberSpot)
 			.innerJoin(memberSpot.spot, spot)
 			.where(spot.location.in(locationList), memberEq(memberId))
@@ -45,10 +52,6 @@ public class MemberSpotQuerydslRepositoryImpl implements MemberSpotQuerydslRepos
 			.offset(pageable.getOffset())
 			.limit(pageable.getPageSize())
 			.fetch();
-
-		List<SpotListDto> spotListDtoList = memberSpotList.stream().map(o -> new SpotListDto(
-				o.getSpot().getId(), o.getSpot().getName(), o.getSpot().getAddress(), o.getSpot().getDescription()))
-			.collect(Collectors.toList());
 
 		JPAQuery<Long> countQuery = queryFactory
 			.select(memberSpot.count())
@@ -81,7 +84,6 @@ public class MemberSpotQuerydslRepositoryImpl implements MemberSpotQuerydslRepos
 			)
 			.from(spot)
 			.where(spot.eq(memberSpot.spot));
-
 	}
 
 	private BooleanExpression memberEq(Long memberId) {

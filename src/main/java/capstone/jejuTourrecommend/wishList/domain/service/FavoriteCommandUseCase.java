@@ -8,7 +8,7 @@ public interface FavoriteCommandUseCase {
 
 	void postFavoriteForm(FavoriteForm favoriteForm);
 
-	FavoriteDto newFavoriteList(Member member, Long spotId, String favoriteName);
+	FavoriteDto newFavoriteList(Long memberId, Long spotId, String favoriteName);
 
 	void deleteSpotInFavoriteList(Long favoriteId, Long spotId);
 

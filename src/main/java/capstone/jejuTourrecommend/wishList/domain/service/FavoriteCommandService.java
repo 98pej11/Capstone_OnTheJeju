@@ -1,6 +1,7 @@
 package capstone.jejuTourrecommend.wishList.domain.service;
 
 import capstone.jejuTourrecommend.authentication.domain.Member;
+import capstone.jejuTourrecommend.authentication.infrastructure.respository.MemberJpaRepository;
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
 import capstone.jejuTourrecommend.spot.domain.Spot;
 import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJpaRepository;
@@ -26,6 +27,7 @@ public class FavoriteCommandService implements FavoriteCommandUseCase {
 	private final FavoriteRepository favoriteRepository;
 	private final FavoriteSpotRepository favoriteSpotRepository;
 	private final SpotJpaRepository spotJpaRepository;
+	private final MemberJpaRepository memberJpaRepository;
 
 	/**
 	 * 선택한 관광지를 선택한 위시리스트에 추가
@@ -64,36 +66,29 @@ public class FavoriteCommandService implements FavoriteCommandUseCase {
 	 * 선택한 관광지 정보, 사용자 정보, 위시리스트 이름 필요
 	 * (추가 사항)관광지가 없기에 새로운 위시리스트 추가만 함
 	 *
-	 * @param member
 	 * @param spotId
 	 * @param favoriteName
 	 * @return
 	 */
-	public FavoriteDto newFavoriteList(Member member, Long spotId, String favoriteName) {
-
-		Optional<Favorite> optionByName = favoriteRepository.findOptionByNameAndMemberId(favoriteName, member.getId());
+	@Transactional
+	public FavoriteDto newFavoriteList(Long memberId, Long spotId, String favoriteName) {
+		Optional<Favorite> optionByName = favoriteRepository.findOptionByNameAndMemberId(favoriteName, memberId);
 		if (optionByName.isPresent()) {
 			throw new UserException("동일한 위시리스트 이름이 존재합니다");
 		}
-
+		//OSIV = false 로 설정으로 인한 버그 -> 대부분의 reference 에서는 비지니스 계층에서의 트랜잿션 그림그려 있었으나 여기서는 view 에서 가져온 영속성 컨텍스트또한 조회만 가능하여 수정 작업을 하려면 다시 리포지토리에서 해당 엔티티를 가져와야한다
+		Member member = memberJpaRepository.findById(memberId).orElseThrow(() -> new UserException(""));
 		Favorite favorite = new Favorite(favoriteName, member);
-		FavoriteDto favoriteDto;
 		favoriteRepository.save(favorite);
-
 		if (spotId != null) {//관광지 정보가 있으면, 위에서 만든 위시리스트 객체에 데이터 넣어주고 favoriteSpot 도 만들어주기
-
 			Optional<Spot> spot = spotJpaRepository.findOptionById(spotId);
-
 			FavoriteSpot favoriteSpot = new FavoriteSpot(favorite, spot.get());
 			favoriteSpotRepository.save(favoriteSpot);
-
 		}
 		//데이터 잘 들어갔는지 확인 및 오류시 메세지 설정
-		favoriteDto = favoriteRepository.findOptionByNameAndMemberId(favoriteName, member.getId())
+		return favoriteRepository.findOptionByNameAndMemberId(favoriteName, memberId)
 			.map(favorite1 -> new FavoriteDto(favorite1.getId(), favorite1.getName()))
 			.orElseThrow(() -> new UserException("갱신 성공을 못하였습니다"));
-
-		return favoriteDto;
 	}
 
 	public void deleteSpotInFavoriteList(Long favoriteId, Long spotId) {

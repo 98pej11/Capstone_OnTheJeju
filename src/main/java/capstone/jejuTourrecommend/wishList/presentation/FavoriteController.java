@@ -55,7 +55,7 @@ public class FavoriteController {
 		Long spotId = form.getSpotId();
 		String favoriteName = form.getFavoriteName();
 
-		FavoriteDto favoriteDto = favoriteFacade.newFavoriteList(member, spotId, favoriteName);
+		FavoriteDto favoriteDto = favoriteFacade.newFavoriteList(member.getId(), spotId, favoriteName);
 
 		return new NewFavoriteListDto(200l, true, "성공", favoriteDto);
 	}
