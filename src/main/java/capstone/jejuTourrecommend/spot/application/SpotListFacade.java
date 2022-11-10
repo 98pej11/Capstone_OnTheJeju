@@ -7,6 +7,7 @@ import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListCommandUseCase;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListQueryUserCase;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListService;
 import capstone.jejuTourrecommend.spot.presentation.request.MainPageForm;
 import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +23,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SpotListFacade {
 
-	private final SpotListCommandUseCase spotListCommandUseCase;
-	private final SpotListQueryUserCase spotListQueryUserCase;
+	private final SpotListService spotListService;
 
 	public ResultSpotListDto searchSpotListContains(Long memberId, String spotName, Pageable pageable) {
-		return spotListQueryUserCase.searchSpotListContains(memberId, spotName, pageable);
+		return spotListService.searchSpotListContains(memberId, spotName, pageable);
 	}
 
 	public ResultSpotListDto getUserSpotList(MainPageForm mainPageForm, Long memberId, Pageable pageable) {
@@ -43,11 +43,11 @@ public class SpotListFacade {
 		double surroundWeight = mainPageForm.getUserWeight().get("surroundWeight");
 		double sum = viewWeight + priceWeight + facilityWeight + surroundWeight;
 		if (sum == 0) {
-			return spotListQueryUserCase.getSpotListWithoutPriority(pageable, locationList, category, memberId);
+			return spotListService.getSpotListWithoutPriority(pageable, locationList, category, memberId);
 		}
 		//사용자가 가중치를 넣은 경우 //readOnly X
 		UserWeightDto userWeightDto = new UserWeightDto(viewWeight, priceWeight, facilityWeight, surroundWeight);
-		return spotListCommandUseCase.getSpotListWithPriority(pageable, locationList, memberId, userWeightDto);
+		return spotListService.getSpotListWithPriority(pageable, locationList, memberId, userWeightDto);
 	}
 
 	public Category findCategory(MainPageForm mainPageForm) {

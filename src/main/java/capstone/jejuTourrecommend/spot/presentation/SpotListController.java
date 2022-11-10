@@ -26,8 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SpotListController {
 
-	private final SpotListService spotListService;
-
 	private final SpotListFacade spotListFacade;
 
 	@PostMapping("/user/spotList/priority")//일단 토큰은 배재하고 검색해보자
