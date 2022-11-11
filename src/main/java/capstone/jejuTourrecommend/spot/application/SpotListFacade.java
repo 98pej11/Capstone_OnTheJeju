@@ -1,12 +1,10 @@
 package capstone.jejuTourrecommend.spot.application;
 
 import capstone.jejuTourrecommend.common.exceptionClass.UserException;
-import capstone.jejuTourrecommend.spot.application.locationStragety.*;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Category;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
+import capstone.jejuTourrecommend.spot.domain.mainSpot.LocationGroup;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListCommandUseCase;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListQueryUserCase;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListService;
 import capstone.jejuTourrecommend.spot.presentation.request.MainPageForm;
 import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
@@ -58,28 +56,7 @@ public class SpotListFacade {
 		if (!StringUtils.hasText(mainPageForm.getLocation())) {
 			throw new UserException("지역에 null 값이 들어갔습니다");
 		}
-		LocationStrategy locationStrategy;
-		String location = mainPageForm.getLocation();
-		switch (location) {
-			case "북부":
-				locationStrategy = new NorthLocation();
-				break;
-			case "동부":
-				locationStrategy = new EastLocation();
-				break;
-			case "서부":
-				locationStrategy = new WestLocation();
-				break;
-			case "남부":
-				locationStrategy = new SouthLocation();
-				break;
-			case "전체":
-				locationStrategy = new DefaultLocation();
-				break;
-			default:
-				throw new UserException("카테고리의 제대로된 입력값을 넣어야 합니다");
-		}
-		return locationStrategy.getLocation();
+		return LocationGroup.getLocations(mainPageForm.getLocation());
 	}
 
 }
