@@ -1,11 +1,15 @@
 package capstone.jejuTourrecommend.wishList.presentation.dto.request;
 
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
-@Data
-public class RouteForm {
+@Setter
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public class RecommendRouteSpotsRequest {
 
 	private List<Long> spotIdList;
 

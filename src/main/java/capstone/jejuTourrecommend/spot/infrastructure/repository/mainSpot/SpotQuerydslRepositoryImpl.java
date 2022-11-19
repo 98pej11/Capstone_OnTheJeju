@@ -64,7 +64,7 @@ public class SpotQuerydslRepositoryImpl implements SpotQuerydslRepository {
 
 	@Override
 	public Page<SpotListDto> searchSpotByLocationAndCategory(Long memberId, List locationList, Category category,
-		Pageable pageable) {
+															 Pageable pageable) {
 		OrderSpecifier<Double> orderSpecifier = getDoubleOrderSpecifier(category);
 		List<SpotListDto> spotListDtoList = queryFactory
 			.select(Projections.constructor(SpotListDto.class,

@@ -1,12 +1,17 @@
 package capstone.jejuTourrecommend.wishList.presentation.dto.response;
 
 import capstone.jejuTourrecommend.wishList.domain.dto.SpotListDtoByFavoriteSpot;
-import lombok.Data;
+import capstone.jejuTourrecommend.wishList.domain.service.request.FavoriteSpotSaveDto;
+import capstone.jejuTourrecommend.wishList.domain.service.response.FavoriteSpotsDto;
+import lombok.*;
 
 import java.util.List;
 
-@Data
-public class ResultFavoriteSpotList {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class FavoriteSpotsResponse {
 
 	private Long status;
 	private boolean success;
@@ -14,13 +19,9 @@ public class ResultFavoriteSpotList {
 	private String favoriteName;
 	private List<SpotListDtoByFavoriteSpot> spotListDtoByFavoriteSpots;
 
-	public ResultFavoriteSpotList(Long status, boolean success, String message, String favoriteName,
-								  List<SpotListDtoByFavoriteSpot> spotListDtoByFavoriteSpots) {
-		this.status = status;
-		this.success = success;
-		this.message = message;
-		this.favoriteName = favoriteName;
-		this.spotListDtoByFavoriteSpots = spotListDtoByFavoriteSpots;
+	public static FavoriteSpotsResponse from(Long status,boolean success,String message,FavoriteSpotsDto favoriteSpotsDto) {
+		return new FavoriteSpotsResponse(status, success, message, favoriteSpotsDto.getFavoriteName(),
+			favoriteSpotsDto.getSpotListDtoByFavoriteSpots());
 	}
 }
 

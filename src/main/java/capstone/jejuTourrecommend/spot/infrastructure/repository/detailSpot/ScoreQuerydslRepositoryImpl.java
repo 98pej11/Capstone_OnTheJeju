@@ -16,7 +16,7 @@ import static capstone.jejuTourrecommend.spot.domain.QSpot.spot;
 @Repository
 @Slf4j
 @Transactional
-public class ScoreQuerydslRepositoryImpl implements ScoreQuerydslRepository{
+public class ScoreQuerydslRepositoryImpl implements ScoreQuerydslRepository {
 
 	private final JPAQueryFactory queryFactory;
 

@@ -1,8 +1,12 @@
 package capstone.jejuTourrecommend.wishList.domain.service;
 
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
-import capstone.jejuTourrecommend.wishList.presentation.dto.request.RouteForm;
-import capstone.jejuTourrecommend.wishList.presentation.dto.response.ResultFavoriteSpotList;
+import capstone.jejuTourrecommend.wishList.domain.dto.RouteSpotListDto;
+import capstone.jejuTourrecommend.wishList.domain.service.response.FavoriteSpotsDto;
+import capstone.jejuTourrecommend.wishList.domain.service.response.TopTenRecommendedSpotsDto;
+import capstone.jejuTourrecommend.wishList.domain.service.response.WishListDto;
+import capstone.jejuTourrecommend.wishList.presentation.dto.request.RecommendRouteSpotsRequest;
+import capstone.jejuTourrecommend.wishList.presentation.dto.response.FavoriteSpotsResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -10,11 +14,11 @@ import java.util.List;
 
 public interface FavoriteQueryUseCase {
 
-	Page<FavoriteListDto> getFavoriteList(Long memberId, Pageable pageable);
+	WishListDto getFavoriteList(Long memberId, Pageable pageable);
 
-	List recommendSpotList(Long favoriteId, RouteForm routeForm);
+	TopTenRecommendedSpotsDto recommendSpotList(Long favoriteId, List<Long> spotIdList);
 
-	ResultFavoriteSpotList favoriteSpotList(Long favoriteId);
+	FavoriteSpotsDto favoriteSpotList(Long favoriteId);
 
 	void deleteFavoriteList(Long favoriteId);
 }

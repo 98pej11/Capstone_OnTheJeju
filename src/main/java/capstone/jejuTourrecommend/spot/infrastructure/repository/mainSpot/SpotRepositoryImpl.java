@@ -45,7 +45,7 @@ class SpotRepositoryImpl implements SpotRepository {
 
 	@Override
 	public Page<SpotListDto> searchSpotByLocationAndCategory(Long memberId, List locationList, Category category,
-		Pageable pageable) {
+															 Pageable pageable) {
 		return spotQuerydslRepository.searchSpotByLocationAndCategory(memberId, locationList, category, pageable);
 	}
 

@@ -1,22 +1,24 @@
 package capstone.jejuTourrecommend.wishList.presentation.dto.response;
 
-import lombok.Data;
+import capstone.jejuTourrecommend.wishList.domain.dto.RouteSpotListDto;
+import capstone.jejuTourrecommend.wishList.domain.service.response.TopTenRecommendedSpotsDto;
+import lombok.*;
 
 import java.util.List;
 
-@Data
-public class ResultTopSpot {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class TopTenRecommendedSpotsResponse {
 
 	private Long status;
 	private boolean success;
 	private String message;
-	private List spotList;
+	private List<List<RouteSpotListDto>> spotList;
 
-	public ResultTopSpot(Long status, boolean success, String message, List spotList) {
-		this.status = status;
-		this.success = success;
-		this.message = message;
-		this.spotList = spotList;
+	public static TopTenRecommendedSpotsResponse from(Long status, boolean success, String message, TopTenRecommendedSpotsDto topTenRecommendedSpotsDto) {
+		return new TopTenRecommendedSpotsResponse(status, success,message, topTenRecommendedSpotsDto.getSpotList());
 	}
 }
 

@@ -4,11 +4,7 @@ import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.SpotDetailDto;
 import lombok.Data;
 
 @Data
-public class SpotPageDto {
-
-	//    "status": 200,
-	//            "success": true,
-	//            "message": "초기 메인 페이지 보여주기 성공",
+public class SpotDetailResponse {
 
 	private Long status;
 	private boolean success;
@@ -16,7 +12,7 @@ public class SpotPageDto {
 
 	private SpotDetailDto data;
 
-	public SpotPageDto(Long status, boolean success, String message, SpotDetailDto data) {
+	public SpotDetailResponse(Long status, boolean success, String message, SpotDetailDto data) {
 		this.status = status;
 		this.success = success;
 		this.message = message;

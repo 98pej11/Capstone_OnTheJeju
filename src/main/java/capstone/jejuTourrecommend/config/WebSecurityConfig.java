@@ -28,7 +28,12 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	private static final RequestMatcher LOGIN_REQUEST_MATCHER = new AntPathRequestMatcher("/login", "POST");
 	private final JwtTokenProvider jwtTokenProvider;
+	private final JwtAuthenticationFilter jwtAuthenticationFilter;
+	private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+	private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+	private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
 	// 암호화에 필요한 PasswordEncoder 를 Bean 등록합니다.
 	@Bean
@@ -45,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	/**
 	 * 정적 자원들 필터 처리 안하도록 설정한 것임
+	 *
 	 * @param web
 	 * @throws Exception
 	 */
@@ -52,10 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
 	}
-
-	private static final RequestMatcher LOGIN_REQUEST_MATCHER = new AntPathRequestMatcher("/login", "POST");
-	private final JwtAuthenticationFilter jwtAuthenticationFilter;
-	private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -96,9 +98,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors();
 
 	}
-
-	private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
-	private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
 	@Bean
 	public CustomLoginProcessingAuthenticationFilter customLoginProcessingAuthenticationFilter() throws Exception {

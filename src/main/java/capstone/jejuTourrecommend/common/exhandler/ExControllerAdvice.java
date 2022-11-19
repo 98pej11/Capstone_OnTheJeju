@@ -56,7 +56,7 @@ public class ExControllerAdvice {
 		errors.put("success", false);
 
 		e.getBindingResult().getAllErrors()
-			.forEach(c -> errors.put(((FieldError)c).getField(), c.getDefaultMessage()));
+			.forEach(c -> errors.put(((FieldError) c).getField(), c.getDefaultMessage()));
 
 		return ResponseEntity.badRequest().body(errors);
 	}

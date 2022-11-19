@@ -1,11 +1,15 @@
-package capstone.jejuTourrecommend.wishList.presentation.dto.request;
+package capstone.jejuTourrecommend.wishList.domain.service.request;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
-public class WishListSaveRequest {
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public class WishListSaveDto {
 
 	private Long spotId;
 	private String favoriteName;
+	private Long memberId;
 
 }

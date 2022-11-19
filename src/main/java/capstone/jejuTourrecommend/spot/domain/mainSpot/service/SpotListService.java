@@ -7,7 +7,7 @@ import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.SpotListDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.repository.MemberSpotRepository;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.repository.SpotRepository;
-import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
+import capstone.jejuTourrecommend.spot.presentation.response.SpotListResponse;
 import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteSpotRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,35 +34,35 @@ public class SpotListService implements SpotListQueryUserCase, SpotListCommandUs
 	private final FavoriteSpotRepository favoriteSpotRepository;
 
 	@Override
-	public ResultSpotListDto searchSpotListContains(Long memberId, String spotName, Pageable pageable) {
+	public SpotListResponse searchSpotListContains(Long memberId, String spotName, Pageable pageable) {
 		Page<SpotListDto> spotListDtos = spotRepository.searchBySpotNameContains(memberId, spotName, pageable);
 		postPictureAndBooleanFavoriteOnSpotListDto(spotListDtos, memberId);
-		return new ResultSpotListDto(200l, true, "성공", spotListDtos);
+		return new SpotListResponse(200l, true, "성공", spotListDtos);
 	}
 
 	@Transactional//readOnly X
 	@Override
-	public ResultSpotListDto getSpotListWithPriority(Pageable pageable, List locationList, Long memberId,
-		UserWeightDto userWeightDto) {
-		memberSpotRepository.updateMemberSpotByPriority(memberId,userWeightDto);
+	public SpotListResponse getSpotListWithPriority(Pageable pageable, List locationList, Long memberId,
+                                                    UserWeightDto userWeightDto) {
+		memberSpotRepository.updateMemberSpotByPriority(memberId, userWeightDto);
 		Page<SpotListDto> spotListDtos = memberSpotRepository.searchSpotByUserPriority(memberId, locationList, pageable);
 		postPictureAndBooleanFavoriteOnSpotListDto(spotListDtos, memberId);
-		return new ResultSpotListDto(200l, true, "성공", spotListDtos);
+		return new SpotListResponse(200l, true, "성공", spotListDtos);
 	}
 
 	@Override
-	public ResultSpotListDto getSpotListWithoutPriority(Pageable pageable, List locationList, Category category,
-		Long memberId) {
+	public SpotListResponse getSpotListWithoutPriority(Pageable pageable, List locationList, Category category,
+                                                       Long memberId) {
 		Page<SpotListDto> spotListDtos = spotRepository.searchSpotByLocationAndCategory(memberId,
 			locationList, category, pageable);
 		postPictureAndBooleanFavoriteOnSpotListDto(spotListDtos, memberId);
-		return new ResultSpotListDto(200l, true, "성공", spotListDtos);
+		return new SpotListResponse(200l, true, "성공", spotListDtos);
 	}
 
 	private void postPictureAndBooleanFavoriteOnSpotListDto(Page<SpotListDto> spotListDtos, Long memberId) {
 		List<Long> spotIdList = spotListDtos.getContent().stream().map(o -> o.getSpotId()).collect(Collectors.toList());
 		List<PictureDetailDto> pictureDetailDtos = pictureRepository.getPictureDetailDtoBySpotIdList(spotIdList);
-		postPictureUrlToDto(spotListDtos.getContent(),pictureDetailDtos,3);
+		postPictureUrlToDto(spotListDtos.getContent(), pictureDetailDtos, 3);
 
 		List<Long> favoriteSpotIdList = favoriteSpotRepository.getSpotIdByFavoriteSpot(memberId, spotIdList);
 		postBooleanFavoriteSpotBySpotListDto(spotListDtos.getContent(), favoriteSpotIdList);

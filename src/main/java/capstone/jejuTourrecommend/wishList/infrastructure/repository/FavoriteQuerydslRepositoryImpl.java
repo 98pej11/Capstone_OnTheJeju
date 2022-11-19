@@ -14,14 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static capstone.jejuTourrecommend.authentication.domain.QMember.member;
 import static capstone.jejuTourrecommend.wishList.domain.QFavorite.favorite;
 import static capstone.jejuTourrecommend.wishList.domain.QFavoriteSpot.favoriteSpot;
 
 @Repository
 @Slf4j
 @Transactional
-public class FavoriteQuerydslRepositoryImpl implements FavoriteQuerydslRepository{
+public class FavoriteQuerydslRepositoryImpl implements FavoriteQuerydslRepository {
 
 	private final JPAQueryFactory queryFactory;
 

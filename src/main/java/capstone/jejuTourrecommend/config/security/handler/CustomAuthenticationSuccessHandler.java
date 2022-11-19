@@ -36,12 +36,12 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-		Authentication authentication) throws IOException, ServletException {
+										Authentication authentication) throws IOException, ServletException {
 		response.setStatus(HttpStatus.OK.value());
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
-		User user = (User)authentication.getPrincipal();
+		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 
 		log.info("email = {} ", email);

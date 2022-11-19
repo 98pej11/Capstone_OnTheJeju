@@ -21,7 +21,7 @@ public enum Category {
 		return Arrays.stream(Category.values())
 			.filter(category -> category.name.equals(name))
 			.findAny()
-			.orElseThrow(()->new UserException("올바른 카테고리 값이 아닙니다"));
+			.orElseThrow(() -> new UserException("올바른 카테고리 값이 아닙니다"));
 
 	}
 

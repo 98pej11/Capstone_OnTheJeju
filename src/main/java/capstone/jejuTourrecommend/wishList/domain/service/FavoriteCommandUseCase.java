@@ -1,14 +1,15 @@
 package capstone.jejuTourrecommend.wishList.domain.service;
 
-import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteDto;
-import capstone.jejuTourrecommend.wishList.presentation.dto.request.FavoriteForm;
+import capstone.jejuTourrecommend.wishList.domain.service.request.FavoriteSpotSaveDto;
+import capstone.jejuTourrecommend.wishList.domain.service.request.WishListSaveDto;
+import capstone.jejuTourrecommend.wishList.presentation.dto.request.FavoriteSpotSaveRequest;
 
 public interface FavoriteCommandUseCase {
 
-	void postFavoriteForm(FavoriteForm favoriteForm);
+	void postFavoriteForm(FavoriteSpotSaveDto favoriteSpotSaveDto);
 
-	FavoriteDto newFavoriteList(Long memberId, Long spotId, String favoriteName);
+	FavoriteDto newFavoriteList(WishListSaveDto wishListSaveDto);
 
 	void deleteSpotInFavoriteList(Long favoriteId, Long spotId);
 

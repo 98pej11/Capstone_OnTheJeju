@@ -7,9 +7,9 @@ import capstone.jejuTourrecommend.common.metaDataBuilder.MetaDataDirector;
 import capstone.jejuTourrecommend.spot.application.DetailSpotFacade;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.ReviewDto;
 import capstone.jejuTourrecommend.spot.domain.detailSpot.dto.SpotDetailDto;
-import capstone.jejuTourrecommend.spot.presentation.response.ReviewListDto;
-import capstone.jejuTourrecommend.spot.presentation.response.SpotListMetaDataOp;
-import capstone.jejuTourrecommend.spot.presentation.response.SpotPageDto;
+import capstone.jejuTourrecommend.spot.presentation.response.ReviewsResponse;
+import capstone.jejuTourrecommend.spot.presentation.response.SpotsMetaDataOp;
+import capstone.jejuTourrecommend.spot.presentation.response.SpotDetailResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,30 +26,23 @@ public class SpotController {
 	private final DetailSpotFacade detailSpotFacade;
 
 	@GetMapping("/user/spot/{spotId}")
-	public SpotPageDto spotDetail(@PathVariable("spotId") Long spotId, @LoginUser Member member) {
-
+	public SpotDetailResponse spotDetail(@PathVariable("spotId") Long spotId, @LoginUser Member member) {
 		SpotDetailDto spotDetailDto = detailSpotFacade.spotPage(spotId, member.getId());
-
-		return new SpotPageDto(200l, true, "성공", spotDetailDto);
+		return new SpotDetailResponse(200l, true, "성공", spotDetailDto);
 
 	}
 
 	@GetMapping("/user/spot/review/{spotId}")
-	public ReviewListDto reviewPage(@PathVariable("spotId") Long spotId, Pageable pageable) {
-
+	public ReviewsResponse reviewPage(@PathVariable("spotId") Long spotId, Pageable pageable) {
 		Page<ReviewDto> reviewDtos = detailSpotFacade.reviewPage(spotId, pageable);
-
-		return new ReviewListDto(200l, true, "성공", reviewDtos);
-
+		return new ReviewsResponse(200l, true, "성공", reviewDtos);
 	}
 
 
 	@GetMapping("/spot/metaDataOp")
-	public SpotListMetaDataOp getMetaDataOp() {
-
+	public SpotsMetaDataOp getMetaDataOp() {
 		MetaDataDirector metaDataDirector = new MetaDataDirector(new DefaultMetaDataBuilder());
-
-		return new SpotListMetaDataOp(200l, true, metaDataDirector.categoryMetaData().getMetaDataList());
+		return new SpotsMetaDataOp(200l, true, metaDataDirector.categoryMetaData().getMetaDataList());
 	}
 
 }

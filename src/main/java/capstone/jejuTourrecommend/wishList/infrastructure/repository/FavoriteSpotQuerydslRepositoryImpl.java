@@ -17,7 +17,7 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 @Repository
 @Slf4j
 @Transactional
-public class FavoriteSpotQuerydslRepositoryImpl implements FavoriteSpotQuerydslRepository{
+public class FavoriteSpotQuerydslRepositoryImpl implements FavoriteSpotQuerydslRepository {
 
 	private final JPAQueryFactory queryFactory;
 

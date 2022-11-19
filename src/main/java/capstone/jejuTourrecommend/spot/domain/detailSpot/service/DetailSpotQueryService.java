@@ -41,10 +41,9 @@ public class DetailSpotQueryService implements DetailSpotQueryUseCase {
 
 	//readONly
 	public SpotDetailDto spotPage(Long spotId, Long memberId) {
-		Spot spot = spotRepository.findOptionById(spotId)
+		SpotDto spotDto = spotRepository.findOptionById(spotId).map(s -> new SpotDto(s))
 			.orElseThrow(() -> new UserException("spotId가 올바르지 않습니다."));
-		SpotDto spotDto = new SpotDto(spot);
-		List<PictureDto> pictureDtoList = pictureRepository.findBySpot(spot).stream()
+		List<PictureDto> pictureDtoList = pictureRepository.findBySpotId(spotId).stream()
 			.map(picture -> new PictureDto(picture))
 			.collect(Collectors.toList());
 		ScoreDto scoreDto = scoreRepository.findScoreBySpotId(spotId);

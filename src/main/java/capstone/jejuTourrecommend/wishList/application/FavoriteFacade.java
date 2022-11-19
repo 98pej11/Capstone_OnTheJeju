@@ -1,13 +1,16 @@
 package capstone.jejuTourrecommend.wishList.application;
 
-import capstone.jejuTourrecommend.authentication.domain.Member;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteDto;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
+import capstone.jejuTourrecommend.wishList.domain.dto.RouteSpotListDto;
 import capstone.jejuTourrecommend.wishList.domain.service.FavoriteCommandUseCase;
 import capstone.jejuTourrecommend.wishList.domain.service.FavoriteQueryUseCase;
-import capstone.jejuTourrecommend.wishList.presentation.dto.request.FavoriteForm;
-import capstone.jejuTourrecommend.wishList.presentation.dto.request.RouteForm;
-import capstone.jejuTourrecommend.wishList.presentation.dto.response.ResultFavoriteSpotList;
+import capstone.jejuTourrecommend.wishList.domain.service.request.FavoriteSpotSaveDto;
+import capstone.jejuTourrecommend.wishList.domain.service.request.WishListSaveDto;
+import capstone.jejuTourrecommend.wishList.domain.service.response.FavoriteSpotsDto;
+import capstone.jejuTourrecommend.wishList.domain.service.response.TopTenRecommendedSpotsDto;
+import capstone.jejuTourrecommend.wishList.domain.service.response.WishListDto;
+import capstone.jejuTourrecommend.wishList.presentation.dto.response.FavoriteSpotsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,19 +26,19 @@ public class FavoriteFacade {
 
 	private final FavoriteQueryUseCase favoriteQueryUseCase;
 
-	public void postFavoriteForm(FavoriteForm favoriteForm) {
-		favoriteCommandUseCase.postFavoriteForm(favoriteForm);
+	public void postFavoriteForm(FavoriteSpotSaveDto favoriteSpotSaveDto) {
+		favoriteCommandUseCase.postFavoriteForm(favoriteSpotSaveDto);
 	}
 
-	public FavoriteDto newFavoriteList(Long memberId, Long spotId, String favoriteName) {
-		return favoriteCommandUseCase.newFavoriteList(memberId, spotId, favoriteName);
+	public FavoriteDto newFavoriteList(WishListSaveDto wishListSaveDto) {
+		return favoriteCommandUseCase.newFavoriteList(wishListSaveDto);
 	}
 
 	public void deleteSpotInFavoriteList(Long favoriteId, Long spotId) {
 		favoriteCommandUseCase.deleteSpotInFavoriteList(favoriteId, spotId);
 	}
 
-	public Page<FavoriteListDto> getFavoriteList(Long memberId, Pageable pageable) {
+	public WishListDto getFavoriteList(Long memberId, Pageable pageable) {
 		return favoriteQueryUseCase.getFavoriteList(memberId, pageable);
 	}
 
@@ -44,13 +47,13 @@ public class FavoriteFacade {
 		favoriteQueryUseCase.deleteFavoriteList(favoriteId);
 	}
 
-	public List recommendSpotList(Long favoriteId, RouteForm routeForm) {
+	public TopTenRecommendedSpotsDto recommendSpotList(Long favoriteId, List<Long> spotIdList) {
 
-		return favoriteQueryUseCase.recommendSpotList(favoriteId, routeForm);
+		return favoriteQueryUseCase.recommendSpotList(favoriteId, spotIdList);
 
 	}
 
-	public ResultFavoriteSpotList favoriteSpotList(Long favoriteId) {
+	public FavoriteSpotsDto favoriteSpotList(Long favoriteId) {
 		return favoriteQueryUseCase.favoriteSpotList(favoriteId);
 
 	}

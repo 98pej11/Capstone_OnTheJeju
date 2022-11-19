@@ -41,7 +41,7 @@ public class LoginController {
 
 	@GetMapping("/logout")
 	public GlobalDto logout(@RequestHeader("ACCESS-TOKEN") String accesstoken,
-		@LoginUser Member member) {
+							@LoginUser Member member) {
 
 		loginService.logout(accesstoken, member.getEmail());
 
@@ -50,7 +50,7 @@ public class LoginController {
 
 	@GetMapping("/deleteUser")
 	public GlobalDto deleteUser(@RequestHeader("ACCESS-TOKEN") String accesstoken,
-		@LoginUser Member member) {
+								@LoginUser Member member) {
 
 		loginService.deleteMember(member, accesstoken);
 

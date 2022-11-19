@@ -10,7 +10,9 @@ import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteDto;
 import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteRepository;
 import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteSpotRepository;
-import capstone.jejuTourrecommend.wishList.presentation.dto.request.FavoriteForm;
+import capstone.jejuTourrecommend.wishList.domain.service.request.FavoriteSpotSaveDto;
+import capstone.jejuTourrecommend.wishList.domain.service.request.WishListSaveDto;
+import capstone.jejuTourrecommend.wishList.presentation.dto.request.FavoriteSpotSaveRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,14 +35,13 @@ public class FavoriteCommandService implements FavoriteCommandUseCase {
 	 * 선택한 관광지를 선택한 위시리스트에 추가
 	 * 선택한 관광지 정보, 사용자 정보, 위시리스트 정보 필요
 	 *
-	 * @param favoriteForm
 	 */
-	public void postFavoriteForm(FavoriteForm favoriteForm) {
+	public void postFavoriteForm(FavoriteSpotSaveDto FavoriteSpotSaveDto) {
 
-		Spot spot = spotJpaRepository.findOptionById(favoriteForm.getSpotId())
+		Spot spot = spotJpaRepository.findOptionById(FavoriteSpotSaveDto.getSpotId())
 			.orElseThrow(() -> new UserException("관광지 id가 맞지 않습니다"));
 
-		Favorite favorite = favoriteRepository.findOptionById(favoriteForm.getFavoriteId())
+		Favorite favorite = favoriteRepository.findOptionById(FavoriteSpotSaveDto.getFavoriteId())
 			.orElseThrow(() -> new UserException("위시리스트 id가 맞지 않습니다"));
 
 		//관광지 id , 위시리스트 id는 고유의 번호라 member 까지 확인할 필요 없음
@@ -60,18 +61,19 @@ public class FavoriteCommandService implements FavoriteCommandUseCase {
 	 * 관광지 정보0
 	 * 새로운 위시 리스트를 만들고 해당 관광지 넣기
 	 * 선택한 관광지 정보, 사용자 정보, 위시리스트 이름 필요
-	 *
+	 * <p>
 	 * 관광지 정보X
 	 * 새로운 위시 리스트를 만들고 해당 관광지 넣기
 	 * 선택한 관광지 정보, 사용자 정보, 위시리스트 이름 필요
 	 * (추가 사항)관광지가 없기에 새로운 위시리스트 추가만 함
 	 *
-	 * @param spotId
-	 * @param favoriteName
-	 * @return
 	 */
 	@Transactional
-	public FavoriteDto newFavoriteList(Long memberId, Long spotId, String favoriteName) {
+	public FavoriteDto newFavoriteList(WishListSaveDto wishListSaveDto) {
+		Long memberId = wishListSaveDto.getMemberId();
+		Long spotId = wishListSaveDto.getSpotId();
+		String favoriteName = wishListSaveDto.getFavoriteName();
+
 		Optional<Favorite> optionByName = favoriteRepository.findOptionByNameAndMemberId(favoriteName, memberId);
 		if (optionByName.isPresent()) {
 			throw new UserException("동일한 위시리스트 이름이 존재합니다");

@@ -14,7 +14,7 @@ public class SpotListDtoByFavoriteSpot {
 
 	@QueryProjection
 	public SpotListDtoByFavoriteSpot(Long spotId, String spotName, String spotAddress,
-		String spotDescription, String url) {
+									 String spotDescription, String url) {
 		this.spotId = spotId;
 		this.spotName = spotName;
 		this.spotAddress = spotAddress;

@@ -5,7 +5,7 @@ import lombok.Data;
 import org.springframework.data.domain.Page;
 
 @Data
-public class ReviewListDto {
+public class ReviewsResponse {
 
 	private Long status;
 	private boolean success;
@@ -13,7 +13,7 @@ public class ReviewListDto {
 
 	private Page<ReviewDto> reviewListDto;
 
-	public ReviewListDto(Long status, boolean success, String message, Page<ReviewDto> reviewListDto) {
+	public ReviewsResponse(Long status, boolean success, String message, Page<ReviewDto> reviewListDto) {
 		this.status = status;
 		this.success = success;
 		this.message = message;

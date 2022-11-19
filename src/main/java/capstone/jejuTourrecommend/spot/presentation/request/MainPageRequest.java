@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Map;
 
 @Data
-public class MainPageForm {
+public class MainPageRequest {
 
 	private String location;
 	private String category;

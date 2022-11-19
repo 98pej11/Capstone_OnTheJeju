@@ -56,12 +56,12 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
 
 	@Override
 	public Boolean isFavoriteSpot(Long memberId, Long spotId, List<Long> favoriteList) {
-		return favoriteQuerydslRepository.isFavoriteSpot(memberId,spotId,favoriteList);
+		return favoriteQuerydslRepository.isFavoriteSpot(memberId, spotId, favoriteList);
 	}
 
 	@Override
 	public Page<FavoriteListDto> getFavoriteList(Long memberId, Pageable pageable) {
-		return favoriteQuerydslRepository.getFavoriteList(memberId,pageable);
+		return favoriteQuerydslRepository.getFavoriteList(memberId, pageable);
 	}
 
 

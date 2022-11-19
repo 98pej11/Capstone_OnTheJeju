@@ -13,11 +13,13 @@ import capstone.jejuTourrecommend.wishList.domain.Favorite;
 import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
 import capstone.jejuTourrecommend.wishList.domain.service.FavoriteQueryService;
+import capstone.jejuTourrecommend.wishList.domain.service.response.TopTenRecommendedSpotsDto;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteJpaRepository;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteQuerydslRepositoryImpl;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotJpaRepository;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotQuerydslRepositoryImpl;
-import capstone.jejuTourrecommend.wishList.presentation.dto.request.RouteForm;
+import capstone.jejuTourrecommend.wishList.presentation.dto.request.RecommendRouteSpotsRequest;
+import capstone.jejuTourrecommend.wishList.presentation.dto.response.TopTenRecommendedSpotsResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
@@ -197,7 +199,6 @@ class FavoriteSpotQuerydslRepositoryImplTest {
 	}
 
 
-
 	@Test
 	public void recommendSpotListTest() throws Exception {
 		//given
@@ -205,7 +206,7 @@ class FavoriteSpotQuerydslRepositoryImplTest {
 		//8l, 23l, 38l
 		//72, 168, 800
 
-		RouteForm routeForm = new RouteForm();
+		RecommendRouteSpotsRequest recommendRouteSpotsRequest = new RecommendRouteSpotsRequest();
 
 		String memberEmail = "member1@gmail.com";
 
@@ -215,10 +216,10 @@ class FavoriteSpotQuerydslRepositoryImplTest {
 			.orElseThrow(() -> new UserException("없는 위시리스트임"));
 
 		List<FavoriteSpot> byFavoriteId = favoriteSpotJpaRepository.findByFavoriteId(favorite.getId());
-		List<Long> collect = byFavoriteId.stream().map(o -> o.getSpot().getId()).collect(Collectors.toList());
+		List<Long> spotIdList = byFavoriteId.stream().map(o -> o.getSpot().getId()).collect(Collectors.toList());
 
-		routeForm.setSpotIdList(collect);
-		List list = favoriteQueryService.recommendSpotList(favorite.getId(), routeForm);
+		TopTenRecommendedSpotsResponse list = TopTenRecommendedSpotsResponse.from(200l, true, "성공",
+			favoriteQueryService.recommendSpotList(favorite.getId(), spotIdList));
 
 		log.info("list.toString() = {}", list.toString());
 

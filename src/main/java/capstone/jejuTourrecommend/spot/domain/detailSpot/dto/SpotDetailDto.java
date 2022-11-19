@@ -13,7 +13,7 @@ public class SpotDetailDto {
 	private Boolean isFavoriteSpot;
 
 	public SpotDetailDto(SpotDto spotDto, ScoreDto scoreDto,
-		List<PictureDto> pictureDto, Boolean isFavoriteSpot) {
+						 List<PictureDto> pictureDto, Boolean isFavoriteSpot) {
 		this.spotDto = spotDto;
 		this.scoreDto = scoreDto;
 		this.pictureDto = pictureDto;

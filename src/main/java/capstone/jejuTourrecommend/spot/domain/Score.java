@@ -41,8 +41,8 @@ public class Score {
 	private Spot spot;
 
 	public Score(Double viewScore, Double priceScore, Double facilityScore,
-		Double surroundScore, Double viewRank, Double priceRank,
-		Double facilityRank, Double surroundRank, Double rankAverage) {
+				 Double surroundScore, Double viewRank, Double priceRank,
+				 Double facilityRank, Double surroundRank, Double rankAverage) {
 		this.viewScore = viewScore;
 		this.priceScore = priceScore;
 		this.facilityScore = facilityScore;

@@ -25,7 +25,7 @@ public class LogoutAccessToken {
 	private Long expiration; // seconds
 
 	public static LogoutAccessToken createLogoutAccessToken(String accessToken, String username,
-		Long remainingMilliSeconds) {
+															Long remainingMilliSeconds) {
 		return LogoutAccessToken.builder()
 			.id(accessToken)
 			.userEmail(username)

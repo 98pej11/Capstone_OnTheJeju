@@ -9,5 +9,5 @@ public interface PictureQuerydslRepository {
 
 	List<PictureDetailDto> getPictureDetailDtoBySpotIdList(List<Long> spotIdList);
 
-	List<PictureUrlDto> findPictureUrlDtos(List<Long> spotIdList,Integer limit);
+	List<PictureUrlDto> findPictureUrlDtos(List<Long> spotIdList, Integer limit);
 }

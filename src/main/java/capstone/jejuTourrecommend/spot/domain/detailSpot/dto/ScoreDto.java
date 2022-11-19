@@ -18,9 +18,9 @@ public class ScoreDto {
 	private Double surroundRank;
 
 	public ScoreDto(Long id, Double viewScore, Double priceScore,
-		Double facilityScore, Double surroundScore,
-		Double viewRank, Double priceRank,
-		Double facilityRank, Double surroundRank) {
+					Double facilityScore, Double surroundScore,
+					Double viewRank, Double priceRank,
+					Double facilityRank, Double surroundRank) {
 		this.id = id;
 		this.viewScore = viewScore;
 		this.priceScore = priceScore;

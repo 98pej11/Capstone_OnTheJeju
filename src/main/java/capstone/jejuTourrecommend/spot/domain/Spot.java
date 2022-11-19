@@ -65,11 +65,6 @@ public class Spot {
 	@JoinColumn(name = "score_id")
 	private Score score;
 
-	private void changeScore(Score score) {
-		this.score = score;
-		score.setSpot(this);
-	}
-
 	public Spot(String name) {
 		this.name = name;
 	}
@@ -86,6 +81,11 @@ public class Spot {
 		if (score != null) {
 			changeScore(score);
 		}
+	}
+
+	private void changeScore(Score score) {
+		this.score = score;
+		score.setSpot(this);
 	}
 
 }

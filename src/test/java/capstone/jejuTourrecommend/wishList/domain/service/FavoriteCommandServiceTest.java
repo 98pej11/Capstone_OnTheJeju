@@ -9,29 +9,27 @@ import capstone.jejuTourrecommend.spot.infrastructure.repository.mainSpot.SpotJp
 import capstone.jejuTourrecommend.wishList.domain.Favorite;
 import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
 import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteDto;
-import capstone.jejuTourrecommend.wishList.domain.dto.FavoriteListDto;
 import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteRepository;
 import capstone.jejuTourrecommend.wishList.domain.repository.FavoriteSpotRepository;
+import capstone.jejuTourrecommend.wishList.domain.service.request.FavoriteSpotSaveDto;
+import capstone.jejuTourrecommend.wishList.domain.service.request.WishListSaveDto;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteJpaRepository;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotJpaRepository;
 import capstone.jejuTourrecommend.wishList.infrastructure.repository.FavoriteSpotQuerydslRepositoryImpl;
-import capstone.jejuTourrecommend.wishList.presentation.dto.request.FavoriteForm;
+import capstone.jejuTourrecommend.wishList.presentation.dto.request.FavoriteSpotSaveRequest;
+import capstone.jejuTourrecommend.wishList.presentation.dto.request.WishListSaveRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest
@@ -120,6 +118,7 @@ class FavoriteCommandServiceTest {
 	 * 선택한 관광지를 선태한 위시리스트에 추가
 	 * String memberEmail, Long spotId, Long favoriteId
 	 * 사용자의 위시리스트 목록 "폼" 보여주기
+	 *
 	 * @throws Exception
 	 */
 	@Test
@@ -136,15 +135,17 @@ class FavoriteCommandServiceTest {
 		//given
 		//String memberEmail = "em@naver.com";
 		//7,2 중복된 관관지 존재, 새로운 추가 21,6
-		FavoriteForm favoriteForm = new FavoriteForm();
+		FavoriteSpotSaveRequest favoriteSpotSaveRequest = new FavoriteSpotSaveRequest();
 
-		favoriteForm.setSpotId(spot.getId());
-		favoriteForm.setFavoriteId(favorite.getId());
+		favoriteSpotSaveRequest.setSpotId(spot.getId());
+		favoriteSpotSaveRequest.setFavoriteId(favorite.getId());
 		Long spotId = spot.getId();
 		Long favoriteId = favorite.getId();
 
+		FavoriteSpotSaveDto favoriteSpotSaveDto = favoriteSpotSaveRequest.toFavoriteSpotSaveDto();
+
 		//when
-		favoriteCommandService.postFavoriteForm(favoriteForm);
+		favoriteCommandService.postFavoriteForm(favoriteSpotSaveDto);
 
 		Optional<FavoriteSpot> result = favoriteSpotJpaRepository.findOptionBySpotIdAndFavoriteId(spotId, favoriteId);
 
@@ -159,6 +160,7 @@ class FavoriteCommandServiceTest {
 	/**
 	 * 새로운 위시 리스트를 만들고 해당 관광지 넣기
 	 * String memberEmail, Long spotId, String favoriteName
+	 *
 	 * @throws Exception
 	 */
 	@Test
@@ -177,7 +179,11 @@ class FavoriteCommandServiceTest {
 
 		//when
 
-		FavoriteDto favoriteDto = favoriteCommandService.newFavoriteList(member.getId(), spotId, favoriteName);
+		WishListSaveDto wishListSaveDto = new WishListSaveRequest().toWishListSaveDto(member.getId());
+		wishListSaveDto.setFavoriteName(favoriteName);
+		wishListSaveDto.setSpotId(spotId);
+
+		FavoriteDto favoriteDto = favoriteCommandService.newFavoriteList(wishListSaveDto);
 
 		Optional<Favorite> favorite = favoriteJpaRepository.findOptionByNameAndMemberId(favoriteName, member.getId());
 
@@ -190,7 +196,6 @@ class FavoriteCommandServiceTest {
 		log.info("favoriteDto = {}", favoriteDto);
 		assertThat(favoriteDto).isNotNull();
 	}
-
 
 
 }

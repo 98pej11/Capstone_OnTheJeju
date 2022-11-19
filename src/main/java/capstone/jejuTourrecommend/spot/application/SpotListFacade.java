@@ -6,8 +6,8 @@ import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.LocationGroup;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListService;
-import capstone.jejuTourrecommend.spot.presentation.request.MainPageForm;
-import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
+import capstone.jejuTourrecommend.spot.presentation.request.MainPageRequest;
+import capstone.jejuTourrecommend.spot.presentation.response.SpotListResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -23,22 +23,22 @@ public class SpotListFacade {
 
 	private final SpotListService spotListService;
 
-	public ResultSpotListDto searchSpotListContains(Long memberId, String spotName, Pageable pageable) {
+	public SpotListResponse searchSpotListContains(Long memberId, String spotName, Pageable pageable) {
 		return spotListService.searchSpotListContains(memberId, spotName, pageable);
 	}
 
-	public ResultSpotListDto getUserSpotList(MainPageForm mainPageForm, Long memberId, Pageable pageable) {
-		List<Location> locationList = findLocation(mainPageForm);
-		Category category = findCategory(mainPageForm);
+	public SpotListResponse getUserSpotList(MainPageRequest mainPageRequest, Long memberId, Pageable pageable) {
+		List<Location> locationList = findLocation(mainPageRequest);
+		Category category = findCategory(mainPageRequest);
 		//가중치 존재 유무
-		return isPriorityExist(mainPageForm, pageable, locationList, category, memberId);
+		return isPriorityExist(mainPageRequest, pageable, locationList, category, memberId);
 	}
 
-	private ResultSpotListDto isPriorityExist(MainPageForm mainPageForm, Pageable pageable, List<Location> locationList,Category category, Long memberId) {
-		double viewWeight = mainPageForm.getUserWeight().get("viewWeight");
-		double priceWeight = mainPageForm.getUserWeight().get("priceWeight");
-		double facilityWeight = mainPageForm.getUserWeight().get("facilityWeight");
-		double surroundWeight = mainPageForm.getUserWeight().get("surroundWeight");
+	private SpotListResponse isPriorityExist(MainPageRequest mainPageRequest, Pageable pageable, List<Location> locationList, Category category, Long memberId) {
+		double viewWeight = mainPageRequest.getUserWeight().get("viewWeight");
+		double priceWeight = mainPageRequest.getUserWeight().get("priceWeight");
+		double facilityWeight = mainPageRequest.getUserWeight().get("facilityWeight");
+		double surroundWeight = mainPageRequest.getUserWeight().get("surroundWeight");
 		double sum = viewWeight + priceWeight + facilityWeight + surroundWeight;
 		if (sum == 0) {
 			return spotListService.getSpotListWithoutPriority(pageable, locationList, category, memberId);
@@ -48,15 +48,15 @@ public class SpotListFacade {
 		return spotListService.getSpotListWithPriority(pageable, locationList, memberId, userWeightDto);
 	}
 
-	public Category findCategory(MainPageForm mainPageForm) {
-		return Category.fromName(mainPageForm.getCategory());
+	public Category findCategory(MainPageRequest mainPageRequest) {
+		return Category.fromName(mainPageRequest.getCategory());
 	}
 
-	public List<Location> findLocation(MainPageForm mainPageForm) {
-		if (!StringUtils.hasText(mainPageForm.getLocation())) {
+	public List<Location> findLocation(MainPageRequest mainPageRequest) {
+		if (!StringUtils.hasText(mainPageRequest.getLocation())) {
 			throw new UserException("지역에 null 값이 들어갔습니다");
 		}
-		return LocationGroup.getLocations(mainPageForm.getLocation());
+		return LocationGroup.getLocations(mainPageRequest.getLocation());
 	}
 
 }

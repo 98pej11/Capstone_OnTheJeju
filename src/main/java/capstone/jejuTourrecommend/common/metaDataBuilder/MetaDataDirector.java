@@ -2,13 +2,12 @@ package capstone.jejuTourrecommend.common.metaDataBuilder;
 
 public class MetaDataDirector {
 
+	int id = 1;
 	private MetaDataBuilder metaDataBuilder;
 
 	public MetaDataDirector(MetaDataBuilder metaDataBuilder) {
 		this.metaDataBuilder = metaDataBuilder;
 	}
-
-	int id = 1;
 
 	public MetaData categoryMetaData() {
 		return metaDataBuilder

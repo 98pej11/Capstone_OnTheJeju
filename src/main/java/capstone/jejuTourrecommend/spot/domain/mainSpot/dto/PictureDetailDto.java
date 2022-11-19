@@ -8,10 +8,8 @@ import javax.persistence.Lob;
 public class PictureDetailDto {
 
 	private Long pictureId;
-
 	@Lob
 	private String url;
-
 	private Long spotId;
 
 	public PictureDetailDto(Long pictureId, String url, Long spotId) {

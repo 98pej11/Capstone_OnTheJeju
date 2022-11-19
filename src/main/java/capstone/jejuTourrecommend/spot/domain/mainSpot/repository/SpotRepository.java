@@ -22,7 +22,7 @@ public interface SpotRepository {
 	Page<SpotListDto> searchBySpotNameContains(Long memberId, String spotName, Pageable pageable);
 
 	Page<SpotListDto> searchSpotByLocationAndCategory(Long memberId, List locationList, Category category,
-		Pageable pageable);
+													  Pageable pageable);
 
 	List<Spot> findSpotFetchJoinBySpotIdList(List<Long> spotIdList);
 

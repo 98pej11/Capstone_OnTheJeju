@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	//이 필터가 요청을 가로채서 "jwt 토근" 이 유효한지 판단한다, 유효하면 다시 요청을 진행한다
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-		FilterChain filterChain) throws ServletException, IOException {
+									FilterChain filterChain) throws ServletException, IOException {
 
 		String accessToken = request.getHeader("ACCESS-TOKEN");
 

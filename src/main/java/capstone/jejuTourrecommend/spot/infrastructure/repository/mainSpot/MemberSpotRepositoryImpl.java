@@ -33,7 +33,7 @@ public class MemberSpotRepositoryImpl implements MemberSpotRepository {
 
 	@Override
 	public void updateMemberSpotByPriority(Long memberId, UserWeightDto userWeightDto) {
-		memberSpotQuerydslRepository.updateMemberSpotByPriority(memberId,userWeightDto);
+		memberSpotQuerydslRepository.updateMemberSpotByPriority(memberId, userWeightDto);
 	}
 
 	@Override

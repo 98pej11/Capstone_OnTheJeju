@@ -14,7 +14,7 @@ public interface SpotQuerydslRepository {
 	Page<SpotListDto> searchBySpotNameContains(Long memberId, String spotName, Pageable pageable);
 
 	Page<SpotListDto> searchSpotByLocationAndCategory(Long memberId, List locationList, Category category,
-		Pageable pageable);
+													  Pageable pageable);
 
 	List<RouteSpotListDto> getRouteSpotListDtos(Location location, Category category);
 

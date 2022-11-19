@@ -17,6 +17,7 @@ public class RestAccessDeniedHandler implements AccessDeniedHandler {
 	/**
 	 * 익명사용자 접근이 아니고 사용권한이 없는 경우임
 	 * 익명사용자긔 접근 처리는 AjaxLoginAuthenticationEntryPoint 가 함
+	 *
 	 * @param request
 	 * @param response
 	 * @param accessDeniedException
@@ -25,7 +26,7 @@ public class RestAccessDeniedHandler implements AccessDeniedHandler {
 	 */
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
-		AccessDeniedException accessDeniedException)
+					   AccessDeniedException accessDeniedException)
 		throws IOException, ServletException {
 
 		response.sendError(HttpServletResponse.SC_FORBIDDEN, MESSAGE);

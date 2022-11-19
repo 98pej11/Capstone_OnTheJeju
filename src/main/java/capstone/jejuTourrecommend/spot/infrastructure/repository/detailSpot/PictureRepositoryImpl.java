@@ -18,8 +18,8 @@ public class PictureRepositoryImpl implements PictureRepository {
 	private final PictureQuerydslRepository pictureQuerydslRepository;
 
 	@Override
-	public List<Picture> findBySpot(Spot spot) {
-		return pictureJpaRepository.findBySpot(spot);
+	public List<Picture> findBySpotId(Long spotId) {
+		return pictureJpaRepository.findBySpotId(spotId);
 	}
 
 	@Override

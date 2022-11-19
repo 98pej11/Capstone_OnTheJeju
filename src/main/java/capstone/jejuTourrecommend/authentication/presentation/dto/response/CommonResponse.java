@@ -47,10 +47,14 @@ public class CommonResponse<T> {
 	}
 
 	public static <T> CommonResponse<T> success(T data) {
-		return (CommonResponse<T>)CommonResponse.builder()
+		return (CommonResponse<T>) CommonResponse.builder()
 			.result(Result.SUCCESS)
 			.data(data)
 			.build();
+	}
+
+	public enum Result {
+		SUCCESS, FAIL
 	}
 
 	@Getter
@@ -78,10 +82,6 @@ public class CommonResponse<T> {
 					error.getDefaultMessage()))
 				.collect(toList());
 		}
-	}
-
-	public enum Result {
-		SUCCESS, FAIL
 	}
 
 }

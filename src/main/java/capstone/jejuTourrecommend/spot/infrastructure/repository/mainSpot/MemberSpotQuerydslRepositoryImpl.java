@@ -24,7 +24,7 @@ import static capstone.jejuTourrecommend.spot.domain.mainSpot.QMemberSpot.member
 @Repository
 @Slf4j
 @Transactional
-public class MemberSpotQuerydslRepositoryImpl implements MemberSpotQuerydslRepository{
+public class MemberSpotQuerydslRepositoryImpl implements MemberSpotQuerydslRepository {
 
 	private final JPAQueryFactory queryFactory;
 
@@ -36,10 +36,10 @@ public class MemberSpotQuerydslRepositoryImpl implements MemberSpotQuerydslRepos
 	public Page<SpotListDto> searchSpotByUserPriority(Long memberId, List locationList, Pageable pageable) {
 		List<SpotListDto> spotListDtoList = queryFactory
 			.select(Projections.constructor(SpotListDto.class,
-				memberSpot.spot.id,
-				memberSpot.spot.name,
-				memberSpot.spot.address,
-				memberSpot.spot.description
+					memberSpot.spot.id,
+					memberSpot.spot.name,
+					memberSpot.spot.address,
+					memberSpot.spot.description
 				)
 			)
 			.from(memberSpot)
@@ -68,6 +68,7 @@ public class MemberSpotQuerydslRepositoryImpl implements MemberSpotQuerydslRepos
 			.where(memberSpot.member.id.eq(memberId))
 			.execute();
 	}
+
 	private JPQLQuery<Double> getJpqlQuery(UserWeightDto userWeightDto) {
 		return JPAExpressions
 			.select(

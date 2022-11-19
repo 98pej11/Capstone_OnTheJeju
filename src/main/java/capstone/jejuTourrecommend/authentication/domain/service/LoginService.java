@@ -42,6 +42,7 @@ public class LoginService {
 	private final SpotJpaRepository spotJpaRepository;
 
 	private final EntityManager em;
+	private final LogoutAccessTokenRedisRepository logoutAccessTokenRedisRepository;
 
 	/**
 	 * 회원 가입
@@ -75,8 +76,6 @@ public class LoginService {
 
 		return userDto;
 	}
-
-	private final LogoutAccessTokenRedisRepository logoutAccessTokenRedisRepository;
 
 	/**
 	 * logout 구현

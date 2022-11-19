@@ -10,8 +10,8 @@ import capstone.jejuTourrecommend.spot.domain.detailSpot.Review;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.Location;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.MemberSpot;
 import capstone.jejuTourrecommend.spot.domain.mainSpot.dto.UserWeightDto;
-import capstone.jejuTourrecommend.spot.presentation.request.MainPageForm;
-import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
+import capstone.jejuTourrecommend.spot.presentation.request.MainPageRequest;
+import capstone.jejuTourrecommend.spot.presentation.response.SpotListResponse;
 import capstone.jejuTourrecommend.wishList.domain.Favorite;
 import capstone.jejuTourrecommend.wishList.domain.FavoriteSpot;
 import lombok.extern.slf4j.Slf4j;
@@ -137,13 +137,13 @@ class SpotListServiceTest {
 		Optional<Member> optionByEmail = memberJpaRepository.findOptionByEmail(memberEmail);
 
 		PageRequest pageRequest = PageRequest.of(page, size);
-		MainPageForm mainPageForm = new MainPageForm();
+		MainPageRequest mainPageRequest = new MainPageRequest();
 
 		UserWeightDto userWeightDto = new UserWeightDto(1d, 2d, 0d, 0d);
 
 		//ToDo: 사용자가 location 유무, 케테고리 유무, 가중치 유무에따라 반환되는 값 다름
-		mainPageForm.setLocation("전체");
-		mainPageForm.setCategory("서비스");
+		mainPageRequest.setLocation("전체");
+		mainPageRequest.setCategory("서비스");
 
 
 		Map<String, Double> userWeight = new HashMap<>();
@@ -151,11 +151,11 @@ class SpotListServiceTest {
 		userWeight.put("priceWeight", 0d);
 		userWeight.put("facilityWeight", 0d);
 		userWeight.put("surroundWeight", 0d);
-		mainPageForm.setUserWeight(userWeight);
+		mainPageRequest.setUserWeight(userWeight);
 
 
 		//when
-		ResultSpotListDto result = spotListFacade.getUserSpotList(mainPageForm, optionByEmail.get().getId(), pageRequest);
+		SpotListResponse result = spotListFacade.getUserSpotList(mainPageRequest, optionByEmail.get().getId(), pageRequest);
 
 		for (int i = 0; i < size; i++) {
 			log.info("result = {}", result.getData().getContent().get(i));

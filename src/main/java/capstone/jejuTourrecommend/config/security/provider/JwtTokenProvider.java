@@ -23,15 +23,13 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {//jwt토큰 제공자
 
+	private final UserDetailsService userDetailsService;
 	@Value("${jwt.secret}")
 	private String secretKey;
 
-	private String refreshKey = "webfirewood1";
-
 	//private final long tokenValidTime = 40 * 60 * 10000L; // 토큰 유효시간 400분
 	//private final long refreshTokenValidTime = 60 * 60 * 24 * 7 * 1000L;   // 1주
-
-	private final UserDetailsService userDetailsService;
+	private String refreshKey = "webfirewood1";
 
 	// 객체 초기화, secretKey를 Base64로 인코딩한다.
 	@PostConstruct

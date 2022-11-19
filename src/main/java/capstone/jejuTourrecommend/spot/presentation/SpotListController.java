@@ -7,11 +7,10 @@ import capstone.jejuTourrecommend.common.metaDataBuilder.DefaultMetaDataBuilder;
 import capstone.jejuTourrecommend.common.metaDataBuilder.MetaData;
 import capstone.jejuTourrecommend.common.metaDataBuilder.MetaDataDirector;
 import capstone.jejuTourrecommend.spot.application.SpotListFacade;
-import capstone.jejuTourrecommend.spot.domain.mainSpot.service.SpotListService;
-import capstone.jejuTourrecommend.spot.presentation.request.MainPageForm;
-import capstone.jejuTourrecommend.spot.presentation.request.SearchForm;
-import capstone.jejuTourrecommend.spot.presentation.response.ResultSpotListDto;
-import capstone.jejuTourrecommend.spot.presentation.response.SpotListMetaDataOp;
+import capstone.jejuTourrecommend.spot.presentation.request.MainPageRequest;
+import capstone.jejuTourrecommend.spot.presentation.request.SpotSearchRequest;
+import capstone.jejuTourrecommend.spot.presentation.response.SpotListResponse;
+import capstone.jejuTourrecommend.spot.presentation.response.SpotsMetaDataOp;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -29,39 +28,39 @@ public class SpotListController {
 	private final SpotListFacade spotListFacade;
 
 	@PostMapping("/user/spotList/priority")//일단 토큰은 배재하고 검색해보자
-	public ResultSpotListDto getUserSpotList(@RequestBody MainPageForm mainPageForm,
-		Pageable pageable,
-		@LoginUser Member member) {
+	public SpotListResponse getUserSpotList(@RequestBody MainPageRequest mainPageRequest,
+											Pageable pageable,
+											@LoginUser Member member) {
 
-		ResultSpotListDto resultSpotListDto = spotListFacade
-			.getUserSpotList(mainPageForm, member.getId(), pageable);
+		SpotListResponse spotListResponse = spotListFacade
+			.getUserSpotList(mainPageRequest, member.getId(), pageable);
 
-		return resultSpotListDto;
+		return spotListResponse;
 
 	}
 
-	@PostMapping("/user/spotList/search")//일단 토큰은 배재하고 검색해보자
-	public ResultSpotListDto searchSpotListContains(@RequestBody SearchForm searchForm,
-		Pageable pageable, @LoginUser Member member) {
+	@PostMapping("/user/spotList/search")
+	public SpotListResponse searchSpotListContains(@RequestBody SpotSearchRequest spotSearchRequest,
+												   Pageable pageable, @LoginUser Member member) {
 
-		if (!StringUtils.hasText(searchForm.getSpotName())) {
+		if (!StringUtils.hasText(spotSearchRequest.getSpotName())) {
 			throw new UserException("관광지 이름에 빈 문자열이 왔습니다");
 		}
 
-		ResultSpotListDto resultSpotListDto = spotListFacade.searchSpotListContains(member.getId(),
-			searchForm.getSpotName(), pageable);
+		SpotListResponse spotListResponse = spotListFacade.searchSpotListContains(member.getId(),
+			spotSearchRequest.getSpotName(), pageable);
 
-		return resultSpotListDto;
+		return spotListResponse;
 	}
 
 	@GetMapping("/spotList/metaDataOp")
-	public SpotListMetaDataOp getMetaData() {
+	public SpotsMetaDataOp getMetaData() {
 
 		MetaDataDirector metaDataDirector = new MetaDataDirector(new DefaultMetaDataBuilder());
 		metaDataDirector.categoryMetaData();
 		MetaData metaData2 = metaDataDirector.locationMetaData();
 
-		return new SpotListMetaDataOp(200l, true, metaData2.getMetaDataList());
+		return new SpotsMetaDataOp(200l, true, metaData2.getMetaDataList());
 
 	}
 

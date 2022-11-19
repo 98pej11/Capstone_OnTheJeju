@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface PictureRepository {
 
-	List<Picture> findBySpot(Spot spot);
+	List<Picture> findBySpotId(Long spotId);
 
 	List<Picture> findAll();
 

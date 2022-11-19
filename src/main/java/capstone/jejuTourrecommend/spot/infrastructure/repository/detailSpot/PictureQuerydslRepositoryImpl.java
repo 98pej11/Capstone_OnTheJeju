@@ -16,7 +16,7 @@ import static capstone.jejuTourrecommend.spot.domain.detailSpot.QPicture.picture
 @Repository
 @Slf4j
 @Transactional
-public class PictureQuerydslRepositoryImpl implements PictureQuerydslRepository{
+public class PictureQuerydslRepositoryImpl implements PictureQuerydslRepository {
 
 	private final JPAQueryFactory queryFactory;
 
@@ -40,7 +40,7 @@ public class PictureQuerydslRepositoryImpl implements PictureQuerydslRepository{
 	}
 
 	@Override
-	public List<PictureUrlDto> findPictureUrlDtos(List<Long> spotIdList, Integer limit){
+	public List<PictureUrlDto> findPictureUrlDtos(List<Long> spotIdList, Integer limit) {
 		//querydsl groupBy 는 정렬 조건을 주어지지 않으면 fileSort 로 정렬후 groupBy 진행, 그러나 picture 테이블을 spotId 로 인덱싱 해주어서 orderByNull 불필요
 		return queryFactory
 			.select(Projections.constructor(PictureUrlDto.class,
@@ -54,7 +54,6 @@ public class PictureQuerydslRepositoryImpl implements PictureQuerydslRepository{
 			.limit(limit) // "limit 개의 spot"의 picture 1개 가져오기
 			.fetch();
 	}
-
 
 
 }
