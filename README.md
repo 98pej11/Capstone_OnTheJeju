@@ -62,7 +62,7 @@
 
 현재 계속 프로젝트를 진행하면서 성능개선 외에서 "알게된 사실"과 "프로젝트에서 적용한 내용"을 기록하였다
 
-![WHAT_I_DO_AND_LEARN](./WHAT_I_DO_AND_LEARN.md)
+[WHAT_I_DO_AND_LEARN](./WHAT_I_DO_AND_LEARN.md)
 
 </details>
 
@@ -75,15 +75,16 @@
 
 [querydsl 리드미 링크](./docs/querydslReadme.md)
 
-
 ## 2. Spring Data JPA
 
 [springdataJpa 리드미 링크](./docs/springdatajpaReadme.md)
 
 [//]: # ()
+
 [//]: # (## 3. 인덱싱)
 
 [//]: # ()
+
 [//]: # (- 인덱싱을 통해 쿼리 튜닝이 가능하다고 하여, 인데싱 관련 서적, real mysql 8.0을 사서 학습하였다. )
 
 
@@ -118,10 +119,7 @@
 
 ([디자인 패턴 학습 내용 링크](https://github.com/suheonjoo/Study-Document/tree/master/%EB%94%94%EC%9E%90%EC%9D%B8%20%ED%8C%A8%ED%84%B4%20%EC%A0%95%EB%A6%AC))
 
-
 [객체지항의 오해와 사실, 디자인 패턴 적용 리드미 링크](./docs/oopAndDesignPattern.md)
-
-
 
 ## 3. Spring Security 개선
 
@@ -160,8 +158,6 @@
 
 - readOnly 옵셥으로 선능을 최적화 할수 있다는 것을 알고 데이터를 읽기만하는 Service 같은 경우 CommandUseCase, QueryUseCase 분리하여 reaOnly 옵션을 처리하였습니다. 그 후
   디자인 패턴인 Facade 패턴을 사용하여 Service 를 한곳에 관리하는 역할을 만들어 분리하였습니다.
-
-
 
 <!--
 ## 7. 쿼리 튜닝

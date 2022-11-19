@@ -15,7 +15,7 @@ public class ResultFavoriteSpotList {
 	private List<SpotListDtoByFavoriteSpot> spotListDtoByFavoriteSpots;
 
 	public ResultFavoriteSpotList(Long status, boolean success, String message, String favoriteName,
-		List<SpotListDtoByFavoriteSpot> spotListDtoByFavoriteSpots) {
+								  List<SpotListDtoByFavoriteSpot> spotListDtoByFavoriteSpots) {
 		this.status = status;
 		this.success = success;
 		this.message = message;

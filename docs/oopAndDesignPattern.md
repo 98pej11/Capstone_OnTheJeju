@@ -5,7 +5,7 @@
 
 ([디자인 패턴 학습 내용 링크](https://github.com/suheonjoo/Study-Document/tree/master/%EB%94%94%EC%9E%90%EC%9D%B8%20%ED%8C%A8%ED%84%B4%20%EC%A0%95%EB%A6%AC))
 
-### (1) "관광지 위치" 전략 패턴 적용 -> 더 효과적인 enum 활용을 알게 되어 업데이트 
+### (1) "관광지 위치" 전략 패턴 적용 -> 더 효과적인 enum 활용을 알게 되어 업데이트
 
 - 전략 패턴: “상황내용을 포함하는(가지고 있는) 역할”과 “상황에 따른 다양한 전략을 포함하는 역할”을 나누어 전략들을 분리하는 패턴을 만들었습니다 저는 동서남북의 클래스를 따로 분리하여 "위치 정보를 가지고
   있는 역할"을 만들고, 이러한 "위치 정보를 관리하는 역할" LocationStrategy 인터페이스를 만들어 객체들간의 협력 관계를 만들었습니다
@@ -92,6 +92,7 @@ public class WestLocation implements LocationStrategy{
     }
 }
 ```
+
 </details>
 
 <details>
@@ -100,21 +101,25 @@ public class WestLocation implements LocationStrategy{
 
 #### enum 타입의 재발견
 
-결론은: 1대1 대응관계 있는 집합덩어리라고 생각하게 되었다.
-이렇게 결론만 놓고 보면 클래스도 여러 집합을 만들어소 관리할수 있다고 하는데 내가 생각하는 enum 장점은 아래와 같다
+결론은: 1대1 대응관계 있는 집합덩어리라고 생각하게 되었다. 이렇게 결론만 놓고 보면 클래스도 여러 집합을 만들어소 관리할수 있다고 하는데 내가 생각하는 enum 장점은 아래와 같다
 
 1. 공통된 필드로 한클래스에서 관리를 할 수 있다
-  -  이거 어떻게 보면 클래스에서 인터페이스를 활용하면, 되지 않냐라고 생각할수 있는데 더 큰 이유는 다음 2번에 있다
+
+- 이거 어떻게 보면 클래스에서 인터페이스를 활용하면, 되지 않냐라고 생각할수 있는데 더 큰 이유는 다음 2번에 있다
 
 2. 같은 타입(enum)의 순회가 클래스 보다 자유롭다
-  - 순회가 자유롭다는 의미는 선언된 같은 enum 타입을 순회 로직을 한 클래스에서 관리할 수 있다는 것이다 -> 이렇게 순회가 자유로우면, 타입을 순회하면서 원하는 타입을 찾거가 공통 연산을 처리하기가 훨씬 쉬워진다
-  - ex) 위 예제에서 findYield() 메서드와 같이 타입 순회 수행하면서, 각 필드의 총합을 구하는 예이다 -> 만약 클래스로 다루었으면 인터페이스로 클래스를 상속을 받고 클래스들의 저장공간을 따로 만들어 순회를 해야한다 -> 그러나 한개의 enum 클래스 안에서 메서드 하나만 작성하면 된다
-  - 그 외에서 순회를 통해 관리하는 활용도는 무긍무진 하다
+
+- 순회가 자유롭다는 의미는 선언된 같은 enum 타입을 순회 로직을 한 클래스에서 관리할 수 있다는 것이다 -> 이렇게 순회가 자유로우면, 타입을 순회하면서 원하는 타입을 찾거가 공통 연산을 처리하기가 훨씬
+  쉬워진다
+- ex) 위 예제에서 findYield() 메서드와 같이 타입 순회 수행하면서, 각 필드의 총합을 구하는 예이다 -> 만약 클래스로 다루었으면 인터페이스로 클래스를 상속을 받고 클래스들의 저장공간을 따로 만들어
+  순회를 해야한다 -> 그러나 한개의 enum 클래스 안에서 메서드 하나만 작성하면 된다
+- 그 외에서 순회를 통해 관리하는 활용도는 무긍무진 하다
 
 3. enum 의 1대1 대응관계의 집합의 특징을 이용해서 변경이 별로 없으며, 내용도 많지 않은 테이블로 관리할 수가 있다
 
-요번 우테코 프리 코스 미션2를 통해 이전 졸업프로젝트로 했던 spring boot  프로젝트 도 개선할 수 있는 아이디어를 얻었다, 해당 프로젝트에서 이전에는 위치정보 저장 값을 전략 패턴을 사용하셔 해결하였다. 그러나 요번 enum 에 대해서 학습을 하니 1대일 관계의 집합이며, 변경도 자주 있지 않으며, 내용도 많지 않는 테이블 형태로 구성되어 있어서 적용하게 딱이다라고 생각하였다. 테이블관계는 아래 코드 위에 주석으로 확인할수 있다
-
+요번 우테코 프리 코스 미션2를 통해 이전 졸업프로젝트로 했던 spring boot 프로젝트 도 개선할 수 있는 아이디어를 얻었다, 해당 프로젝트에서 이전에는 위치정보 저장 값을 전략 패턴을 사용하셔 해결하였다.
+그러나 요번 enum 에 대해서 학습을 하니 1대일 관계의 집합이며, 변경도 자주 있지 않으며, 내용도 많지 않는 테이블 형태로 구성되어 있어서 적용하게 딱이다라고 생각하였다. 테이블관계는 아래 코드 위에 주석으로
+확인할수 있다
 
 아래 코드를 보면 enum 타입을 enum 타입 그룹으로 테이블 같이 포현하였다.
 
@@ -154,31 +159,28 @@ public enum LocationGroup {
 }
 ```
 
-먼저 Location 을 enum 타입으로 만들었으며, 이러한 enum 타입을 enum group으로 묶었다
-순회하는 메서드는 getLocations()을 통해서 구현하였다.
-
+먼저 Location 을 enum 타입으로 만들었으며, 이러한 enum 타입을 enum group으로 묶었다 순회하는 메서드는 getLocations()을 통해서 구현하였다.
 
 아래 코드는 최종 서비스 영역에서 개선되 코드이다
 
 ```
-public List<Location> findLocation(MainPageForm mainPageForm) {
-		if (!StringUtils.hasText(mainPageForm.getLocation())) {
+public List<Location> findLocation(MainPageForm mainPageRequest) {
+		if (!StringUtils.hasText(mainPageRequest.getLocation())) {
 			throw new UserException("지역에 null 값이 들어갔습니다");
 		}
-		return LocationGroup.getLocations(mainPageForm.getLocation());
+		return LocationGroup.getLocations(mainPageRequest.getLocation());
 	}
 ```
 
 아래코드는 이전에 전략 패턴을 사용한 코드다
 
-
 ```
-public List<Location> findLocation(MainPageForm mainPageForm) {
-		if (!StringUtils.hasText(mainPageForm.getLocation())) {
+public List<Location> findLocation(MainPageForm mainPageRequest) {
+		if (!StringUtils.hasText(mainPageRequest.getLocation())) {
 			throw new UserException("지역에 null 값이 들어갔습니다");
 		}
 		LocationStrategy locationStrategy;
-		String location = mainPageForm.getLocation();
+		String location = mainPageRequest.getLocation();
 		switch (location) {
 			case "북부":
 				locationStrategy = new NorthLocation();
@@ -203,7 +205,6 @@ public List<Location> findLocation(MainPageForm mainPageForm) {
 ```
 
 </details>
-
 
 ### (2) "메타 데이터" 빌더 패턴 적용
 
