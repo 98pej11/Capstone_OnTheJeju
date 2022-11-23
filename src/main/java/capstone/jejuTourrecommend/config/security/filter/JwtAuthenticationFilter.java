@@ -34,19 +34,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 									FilterChain filterChain) throws ServletException, IOException {
 
 		String accessToken = request.getHeader("ACCESS-TOKEN");
-
 		if (accessToken != null) {
 			checkLogout(accessToken);
 			if (jwtTokenProvider.validateToken(accessToken)) {
 				Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
-
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 				log.info("토큰이 유효하다");
 			}
 		}
-
 		filterChain.doFilter(request, response);
-
 	}
 
 	//필터에 예외 잘 됨

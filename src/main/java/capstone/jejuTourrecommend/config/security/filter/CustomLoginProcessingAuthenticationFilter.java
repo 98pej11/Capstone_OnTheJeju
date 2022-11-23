@@ -34,20 +34,17 @@ public class CustomLoginProcessingAuthenticationFilter extends AbstractAuthentic
 			throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
 		}
 
-		//여기서는 requestbody 내용 잘 들어감
 		LoginForm loginForm = getLoginForm(request);
 		String email = loginForm.getEmail();
 		String password = loginForm.getPassword();
 
-		//여기서 빈칸 예외처리
+		//여기서 빈칸 예외처리 //이부분 @Valid 로 개선할수 있을 것
 		if (!StringUtils.hasText(email) || !StringUtils.hasText(password)) {
 			throw new AuthenticationServiceException("Username or Password not provided");
 		}
-
 		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(email, password);
 
 		return super.getAuthenticationManager().authenticate(authRequest);
-
 	}
 
 	private LoginForm getLoginForm(HttpServletRequest request) throws IOException {

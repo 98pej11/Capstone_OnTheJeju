@@ -11,10 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class CustomAuthenticationProvider implements AuthenticationProvider {
-
 	@Autowired
 	private UserDetailServiceImpl userDetailServiceImpl;
-
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -35,7 +33,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 		if (!passwordEncoder.matches(password, userDetails.getPassword())) {
 			throw new BadCredentialsException("BadCredentialsException");//비밀번호가 틀린거
-
 		}
 
 		//인증에 성공한 최종적인 인증객체를 반환하는 것임 -> 이게 인증 객체 역할임!!!
@@ -44,15 +41,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			userDetails.getUsername(), null, userDetails.getAuthorities());
 
 		return authenticationToken;
-
-		//        EmailPwAuthenticationToken emailPwAuthenticationToken = new EmailPwAuthenticationToken(
-		//                userDetails.getUsername(), userDetails.getPassword(),
-		//                grantedAuthoritiesMapper.mapAuthorities(userDetails.getAuthorities()));
-		//
-		//        emailPwAuthenticationToken.setDetails(authentication.getDetails());
-		//
-		//        return emailPwAuthenticationToken;
-
 	}
 
 	/**

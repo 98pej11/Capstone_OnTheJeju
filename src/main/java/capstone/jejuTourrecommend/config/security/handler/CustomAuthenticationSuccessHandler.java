@@ -27,11 +27,7 @@ import java.io.IOException;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 	private final JwtTokenProvider jwtTokenProvider;
-
-	//private final LoginService loginService;
 	private final MemberJpaRepository memberJpaRepository;
-	//private final CustomUserDetailService customUserDetailService;
-
 	private final ObjectMapper objectMapper;
 
 	@Override
@@ -44,15 +40,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		User user = (User) authentication.getPrincipal();
 		String email = user.getUsername();
 
-		log.info("email = {} ", email);
-
-		// request 로 회원 이메일 못 얻음!! 비어 있음 mapper 로 log 찍어 보니깐
-		//LoginForm loginForm = getLoginForm(request);
-		//String email = loginForm.getEmail();
-
 		Member member = memberJpaRepository.findOptionByEmail(email)
 			.orElseThrow(() -> new UserException("가입되지 않은 E-MAIL 입니다."));
-
 		log.info("member.getCreatedDate() = " + member.getCreatedDate().toString());
 
 		UserDto userDto = new UserDto(
@@ -64,9 +53,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
 		LoginDto loginDto = new LoginDto(200, true, "로그인 성공", userDto, accesstoken);
 
-		//Todo : 이거 아예 objectmapper 를 빈드로 설정하고 registermodule 할수 있
+		//Todo : 이거 아예 objectmapper 를 빈으로 설정하고 registerModule 할수 있음
 		objectMapper.registerModule(new JavaTimeModule());
-
 		objectMapper.writeValue(response.getWriter(), loginDto);
 	}
 

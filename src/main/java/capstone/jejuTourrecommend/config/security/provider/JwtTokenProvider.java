@@ -26,9 +26,6 @@ public class JwtTokenProvider {//jwt토큰 제공자
 	private final UserDetailsService userDetailsService;
 	@Value("${jwt.secret}")
 	private String secretKey;
-
-	//private final long tokenValidTime = 40 * 60 * 10000L; // 토큰 유효시간 400분
-	//private final long refreshTokenValidTime = 60 * 60 * 24 * 7 * 1000L;   // 1주
 	private String refreshKey = "webfirewood1";
 
 	// 객체 초기화, secretKey를 Base64로 인코딩한다.
@@ -109,19 +106,11 @@ public class JwtTokenProvider {//jwt토큰 제공자
 
 	// Request의 Header에서 token 값을 가져옵니다. "ACCESS-TOKEN" : "TOKEN값'
 	public String resolveToken(HttpServletRequest request) {
-		//        if(StringUtils.hasText(request.getHeader("ACCESS-TOKEN"))){
-		//            throw new JwtException("ACCESS-TOKEN 값을 넣어주십쇼");
-		//        }
-
 		return request
 			.getHeader("ACCESS-TOKEN");
 	}//이거 없어도 됨 @RequestHeader어노테이션이 있음//아님 있어야 함 filter에서 씀
 
 	public String resolveRefreshToken(HttpServletRequest request) {
-		//        if(StringUtils.hasText(request.getHeader("REFRESH-TOKEN"))){
-		//            throw new JwtException("REFRESH-TOKEN 값을 넣어주십쇼");
-		//        }
-
 		return request.getHeader("REFRESH-TOKEN");//REFRESH-TOKEN
 	}
 

@@ -134,6 +134,9 @@
     - provider(RestAuthenticationEntryPoint, CustomAuthenticationProvider)를 만들어, security 라이브러리 클래스 목적에 맞게 implement 하여
       재정의하였습니다.
 
+[스프링 security 패지키 구조 설명 및 개선 사항 링크](./docs/SpringSecuriyImprovement.md)
+
+
 ### (2) redis 데이터베이스 추가
 
 - logoutToken는 redis 데이터베이스를 새로 적용하여 토큰 정보를 가져오도록 하여 성능 개선을 했습니다.
