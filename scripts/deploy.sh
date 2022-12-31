@@ -10,6 +10,8 @@ grep -q . && docker stop jenkeinsfreestyle && docker rm jenkeinsfreestyle | true
 # 기존 이미지 삭제
 sudo docker rmi bluelaw/jenkeinsfreestyle:1.0;
 
+docker rm jenkeinsfreestyle
+
 docker build -t bluelaw/jenkeinsfreestyle:1.0 .
 
 # 도커 run  -v /home/ec2-user:/config
