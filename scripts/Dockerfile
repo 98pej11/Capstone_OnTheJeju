@@ -7,7 +7,7 @@ WORKDIR /backapp
 
 ARG JAR_FILE=build/libs/jejuTour-recommend-0.0.1-SNAPSHOT.jar
 
-COPY ${JAR_FILE} app.jar
+COPY jejuTour-recommend-0.0.1-SNAPSHOT.jar app.jar
 
 
 ENTRYPOINT ["java","-jar","app.jar"]
