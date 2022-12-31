@@ -5,12 +5,15 @@
 
 # 가동중인 awsstudy 도커 중단 및 삭제
 echo "11111111"
-docker ps -a -q --filter "name=jenkeinsfreestyle" | grep -q . && docker stop jenkeinsfreestyle && docker rm jenkeinsfreestyle | true
+#docker ps -a -q --filter "name=jenkeinsfreestyle" | grep -q . && docker stop jenkeinsfreestyle && docker rm jenkeinsfreestyle | true
 
 
-echo "3333"
+echo "2222"
 # 기존 이미지 삭제
 docker rmi bluelaw/jenkeinsfreestyle:1.0;
+
+echo "3333"
+docker stop jenkeinsfreestyle
 
 echo "4444"
 docker rm jenkeinsfreestyle
@@ -20,7 +23,7 @@ docker build -t bluelaw/jenkeinsfreestyle:1.0 .
 
 echo "6666"
 # 도커 run  -v /home/ec2-user:/config
-docker run -d -p 8080:8080 --name jenkeinsfreestyle bluelaw/jenkeinsfreestyle:1.0
+docker run -p 8080:8080 --name jenkeinsfreestyle bluelaw/jenkeinsfreestyle:1.0
 
 
 echo "7777"
