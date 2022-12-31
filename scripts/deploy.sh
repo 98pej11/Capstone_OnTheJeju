@@ -24,10 +24,10 @@ docker run -d -p 8080:8080 --name jenkeinsfreestyle bluelaw/jenkeinsfreestyle:1.
 
 
 echo "7777"
-docker start jenkeinsfreestyle
-
-
-echo "8888"
+#docker start jenkeinsfreestyle
+#
+#
+#echo "8888"
 # 사용하지 않는 불필요한 이미지 삭제 -> 현재 컨테이너가 물고 있는 이미지는 삭제 안됨
 
 
