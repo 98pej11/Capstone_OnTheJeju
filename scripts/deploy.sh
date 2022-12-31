@@ -17,6 +17,8 @@ docker build -t bluelaw/jenkeinsfreestyle:1.0 .
 # 도커 run  -v /home/ec2-user:/config
 docker run -d -p 8080:8080 --name jenkeinsfreestyle bluelaw/jenkeinsfreestyle:1.0
 
+docker start jenkeinsfreestyle
+
 # 사용하지 않는 불필요한 이미지 삭제 -> 현재 컨테이너가 물고 있는 이미지는 삭제 안됨
 docker rmi -f $(docker images -f "dangling=true" -q) || true
 
