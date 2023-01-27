@@ -88,26 +88,28 @@ https://blog.naver.com/bluelaw_j
 <br>
 
 -  메인 페이지
-![](./img/메인페이지.png)
+![](./img/mainUI.png)
 
 - 상세 페이지
-![](./img/상세페이지.png)
+![](./img/spotDetailUI.png)
 
 - 위시리스트 선택화면
-![](./img/위시리스트_선택화면.png)
+![](./img/selectFavoriteUI.png)
 
 - 위시리스트 추가화면
-![](./img/위시리스트_추가화면.png)
+![](./img/addFavoriteUI.png)
 
 - 최단 경로
-![](./img/최단경로.png)
+![](./img/shortpathUI.png)
 
 - 추천관광지 화면
-![](./img/추천관광지.png)
+![](./img/recommendspotUI.png)
 
 - 가중치 화면
-![](./img/가중치화면.png)
+![](./img/spotweightUI.png)
 
+- 댓글 화면
+![](./img/reviewUI.png)
 
 </details>
 
@@ -115,7 +117,7 @@ https://blog.naver.com/bluelaw_j
 # :package: 테이블 구성도
 
 - 테이블 구상도
-![](./img/테이블_구성도.png)
+![](./img/tableUI.png)
 
 
 
