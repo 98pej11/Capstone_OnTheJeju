@@ -1,17 +1,5 @@
 # :runner: Capstone-JejuTourRecommend
 
-# :star2: 소개 영상 및 설명
-
-<details>
-
-<summary> 본문 확인 (👈 Click)</summary>
-
-- 아래 블로그를 통해 자세한 내용을 확인할 수 있습니다
-
-  https://blog.naver.com/PostView.naver?blogId=suheonj95&Redirect=View&logNo=222783108548&categoryNo=1&isAfterWrite=true&isMrblogPost=false&isHappyBeanLeverage=true&contentLength=5077&isWeeklyDiaryPopupEnabled=true
-
-</details>
-
 # :package: 역할
 
 <details>
@@ -55,46 +43,84 @@
 
 </details>
 
-# WHAT I KNOW AMD LEARN
+
+# :star2: 소개 영상 및 설명
+
+-   **기획동기:** 장기적인 코로나 시대에 국내 여행 증가로 제주도의 선호도가 높아졌으며, 기존의 제주도 관광 서비스 같은 경우 백과사전과 같은 관광지 소개로만 이루어져 있어, 관광지 선정에 매우 어려움이 있습니다.
+-   **서비스 설명:** 80 만개의 제주도 관광지들의 댓글들 기반으로,ㅈ사상 4개의 카테고리로 관광지별 점수를 수치화 하였습니다. 사용자는 카테고리별 “가중치”를 주어 수치화된 점수들의 순위를 볼수 있으며, 사용자 기호에 맞게 여행 계획을 만들수 있습니다.
+
+-   **사용기술**
+    -   **Server:** SpringBoot, Spring Data JPA, MySQL, Querydsl
+    -   **Crawling:** Selenium(셀레니움)
+    -   **Frontend:** React
+    -   **DevOps:** AWS EC2, RDS
+
+
+
+## 서비스 설명
+    
+
+- 이 본 프로젝트는 사용자 맞춤 제주도 관광지 추천 플랫폼입니다
+- 제주도 관광시, 주요 평가요소 4가지를 추려 조사하였고, 그에 따라 관광지 리스트를 보여줍니다
+- 관광지 선호도 판단은 네이버와 카카오 댓글들 기반으로 ai를 적용하였으며 관광지 상세 페이지에 뷰, 가격, 시설, 카페및주변시설 로 카테고리를 나누어 수치화 하여 보여줍니다
+- 저희가 만든 ai로 사용자에게 4가지 맞춤 서비스를 제공합니다.
+
+1. 첫번째로, 메인 페이지에서 제주도를 동서남북으로 나눠, 검색할 수 있도록 하였으며 뷰, 가격 , 주변시설, 서비스 총 4가지 카테고리에 맞춰 수치화된 점수 기반으로 관광지를 순위대로 보여줍니다
+
+2. 2번째는 만약 사용자가 카테고리별 세부 설정을 하고 싶으면, 우선순위 버튼으로 각 카테고리에 가중치를 주어, 이에 따라 관광지 순위를 보여줍니다.
+
+3. 3번째는 관광지 상세페이지에서 관광지의 상세점수를 볼 수 있게 하였습니다
+
+4. 4번째는 찜하기 기능으로, 사용자 만의 관광지 리스트를 만들었을 경우, 해당 관광지의 최단 경로를 보여줍니다. 또한 사용자의 각 위시리스트를 분석하여, 사용자 성향을 파악해 여행경로 주변 관광지를 추천해줍니다.
+
+
+## 서비스 영상 링크
+
+https://blog.naver.com/bluelaw_j
+
+
+## 서비스 화면
 
 <details>
+
 <summary> 본문 확인 (👈 Click)</summary>
 
-현재 계속 프로젝트를 진행하면서 성능개선 외에서 "알게된 사실"과 "프로젝트에서 적용한 내용"을 기록하였다
+<br>
 
-[WHAT_I_DO_AND_LEARN](./WHAT_I_DO_AND_LEARN.md)
+-  메인 페이지
+![](./img/메인페이지.png)
+
+- 상세 페이지
+![](./img/상세페이지.png)
+
+- 위시리스트 선택화면
+![](./img/위시리스트_선택화면.png)
+
+- 위시리스트 추가화면
+![](./img/위시리스트_추가화면.png)
+
+- 최단 경로
+![](./img/최단경로.png)
+
+- 추천관광지 화면
+![](./img/추천관광지.png)
+
+- 가중치 화면
+![](./img/가중치화면.png)
+
 
 </details>
 
-# :zap: 성능 개선
 
-<details>
-<summary> 본문 확인 (👈 Click)</summary>
+# :package: 테이블 구성도
 
-## 1. Querydsl
-
-[querydsl 리드미 링크](./docs/querydslReadme.md)
-
-## 2. Spring Data JPA
-
-[springdataJpa 리드미 링크](./docs/springdatajpaReadme.md)
-
-[//]: # ()
-
-[//]: # (## 3. 인덱싱)
-
-[//]: # ()
-
-[//]: # (- 인덱싱을 통해 쿼리 튜닝이 가능하다고 하여, 인데싱 관련 서적, real mysql 8.0을 사서 학습하였다. )
+- 테이블 구상도
+![](./img/테이블_구성도.png)
 
 
-</details>
 
-# :recycle: 프로젝트 종료 이후 혼자서 진행한 리팩토링
 
-<details>
-
-  <summary> 본문 확인 (👈 Click)</summary>
+# :recycle: 심사위원 피드백으로 수정된 api
 
 ## 1. API 명세서 수정
 
@@ -111,61 +137,3 @@
 ### (3) 위시리시트페이지 사진 노출 1장 -> 3장
 
 - 기존에 위시리스트 페이지에서 위시리스트 화면의 사진을 대표 사진 한장으로 대체 하였으나 여러장으로 보여줄수 있게 하였습니다.
-
-## 2. 객체지항의 오해와 사실, 디자인 패턴 적용
-
-- “객체 지향의 사실과 오해” 책을 통해 객체 지향의 의미를 좀 더 이해할 수 있는 계기 되었습니다. 그래서 "객체 지향 언어인 자바"를 책에서 말한 역할, 책임, 협력의 관점으로 바라보며 설계할 수 있다는 것을
-  알게 되었습니다. 이후 "객체 지향의 역할, 책임, 협력"을 23가지 패턴으로 만든 “GOF의 23가지 디자인 패턴”도 학습하여 본 프로젝트에 적용하여 좀더 객체 지향적인 코드로 바꾸었습니다
-
-([디자인 패턴 학습 내용 링크](https://github.com/suheonjoo/Study-Document/tree/master/%EB%94%94%EC%9E%90%EC%9D%B8%20%ED%8C%A8%ED%84%B4%20%EC%A0%95%EB%A6%AC))
-
-[객체지항의 오해와 사실, 디자인 패턴 적용 리드미 링크](./docs/oopAndDesignPattern.md)
-
-## 3. Spring Security 개선
-
-### (1) Spring Security 구조 개선
-
-- 스프링과 JPA를 학습한지 3주만에 프로젝트를 들어간 상황 이었기에 Spring Security는 제대로 모른 상태로 본 프로젝트에 들어갔습니다.
-    - 프로젝트가 종료이후 Spring Security를 학습하여 기존에 엉망이었던 코드 내용들을 수정 작업하였습니다.
-- 기존에 spring Security의 인증 인가 처리를 제가 만든 개별 filter에 모든 것을 처리하였습니다.
-    - Spring security 학습 후,
-    - filter (CustomLoginProcessingAuthenticationFilter)
-    - handler(CustomAuthenticationFailureHandler, CustomAuthenticationSuccessHandler, RestAccessDeniedHandler)
-    - provider(RestAuthenticationEntryPoint, CustomAuthenticationProvider)를 만들어, security 라이브러리 클래스 목적에 맞게 implement 하여
-      재정의하였습니다.
-
-[스프링 security 패지키 구조 설명 및 개선 사항 링크](./docs/SpringSecuriyImprovement.md)
-
-
-### (2) redis 데이터베이스 추가
-
-- logoutToken는 redis 데이터베이스를 새로 적용하여 토큰 정보를 가져오도록 하여 성능 개선을 했습니다.
-
-## 4. CI/CD
-
-- 본 프로젝트 진행할 당시, 배포를 담당하지 않았습니다. 이후 프로젝트가 종료우 제가 따로 AWS, Deploy, GitHubAction으로 자동 배포가 되도록 하였습니다.
-
-## 5. DDD 설계 (진행 중)
-
-- 이전에 프로젝트는 mvc 패턴으로 repository, service, controller 만으로 나누어 설계를 하였습니다. 그런데 프로젝트가 요구사항이 많아질수록 repository, service,
-  controller 들이 각각 점점 커지게 되면서 원하는 클래스를 찾기가 힘들었습니다. 즉, 유지 보수가 어려웠습니다. 그래서 이에 대한 해결방법을 알아보던중 도메인 주도 설계(DDD)를 알게 되어 적용해 보는
-  중입니다.
-
-## 6. @Transaction 최적화
-
-- readOnly=true 옵션을 사용하면 읽기 전용 트랜잭션이 생성됩니다.
-  (readOnly 는 사용하면 말그대로 읽지 전용이라, 데이터 변경이 일어나지 않을 때 사용하는 트랜잭션 애노테이션입니다.)
-
-- JPA(하이버네이트)는 읽기 전용 트랜잭션의 경우 커밋 시점에 플러시를 호출하지 않습니다. 읽기 전용이니 변경에 사용되는 플러시(em.flush: 영속성 컨텍스트에 있는 것을 디비에 저장)를 호출할 필요가
-  없습니다. 추가로 변경이 필요 없으니 변경 감지를 위한 스냅샷 객체도 생성하지 않습니다.
-
-- readOnly 옵셥으로 선능을 최적화 할수 있다는 것을 알고 데이터를 읽기만하는 Service 같은 경우 CommandUseCase, QueryUseCase 분리하여 reaOnly 옵션을 처리하였습니다. 그 후
-  디자인 패턴인 Facade 패턴을 사용하여 Service 를 한곳에 관리하는 역할을 만들어 분리하였습니다.
-
-<!--
-## 7. 쿼리 튜닝
-
-- -->
-
-
-</details>
