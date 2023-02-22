@@ -76,7 +76,7 @@
 
 ## 서비스 영상 링크
 
-https://blog.naver.com/bluelaw_j
+[여기](https://blog.naver.com/bluelaw_j/222783108548) 를 클릭하세요
 
 
 ## 서비스 화면

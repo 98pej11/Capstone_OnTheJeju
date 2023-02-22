@@ -380,7 +380,7 @@ public class AccountContext extends User {
 > 커스텀화 한 이유: 이후 매번 로그인 할때마다 db 에서 회원정보를 조회하는 번거로움을 해결하기 위해 member 라는 객체를 담을수 있게 하였습니다. 
 
 원래는 User 객체에 아래와 같은 정보밖에 담지 못합니다.
-
+(spring security 라이브러이에서 User 클래스)
 ```java
 public User(String username, String password, boolean enabled, boolean accountNonExpired,  
       boolean credentialsNonExpired, boolean accountNonLocked,  
@@ -403,8 +403,11 @@ public User(String username, String password, Collection<? extends GrantedAuthor
 }
 ```
 
-> AccountContext 객체를 사용하여 member 객체를 담고 
-> @LoginUser 라는 어노테이션을 만들어 argumentResolver를 통해 바로 사용자의 정보를 받아올수 있게 하였습니다.
+> AccountContext 객체를 사용하여 member 객체를 담았습니다
+
+### (추가+) @LoginUser
+
+@LoginUser 라는 어노테이션을 만들어 argumentResolver를 통해 바로 사용자의 정보를 받아올수 있게 하였습니다. (@AuthenticationPrincipal 활용)
 
 ```java
 /**  
@@ -418,7 +421,6 @@ public @interface LoginUser {
 ```
 
 - 아래는 실제 사용한 예입니다, 이렇게 controller에서  @LoginUser Member member 를 불러올수 있게 하였습니다.
-
 ```java
 @GetMapping("/user/spot/{spotId}")  
 public SpotDetailResponse spotDetail(@PathVariable("spotId") Long spotId, @LoginUser Member member) {  
@@ -428,10 +430,12 @@ public SpotDetailResponse spotDetail(@PathVariable("spotId") Long spotId, @Login
 }
 ```
 
-탈퇴한 회원의 토큰 blacklist 로 관리  
+로그아웃 혹은 탈퇴 회원의 토큰 blacklist 로 관리  
+(로그아웃 혹은 탈퇴를 했음에도 같은 토큰으로 접근할수가 있어서)
 ```java
 LogoutAccessToken logoutAccessToken = LogoutAccessToken  
    .createLogoutAccessToken(accessToken, member.getEmail(),  
       JwtExpirationEnums.ACCESS_TOKEN_EXPIRATION_TIME.getValue());
 
 ```
+
