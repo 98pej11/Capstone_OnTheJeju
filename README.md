@@ -2,15 +2,12 @@
 
 # :package: 역할
 
-<details>
 
-<summary> 본문 확인 (👈 Click)</summary>
-
-<br>
 
 |백엔드|프런트엔드|AI|배포, 크롤링|
-|:---:|:---:|:---:|:---:|
-| - 주수헌(팀장, 본인) <br> [GitHub](https://github.com/suheonjoo) <br> | - 정세연 <br> [GitHub](https://github.com/n0eyes) <br> | - 박은정 <br> [GitHub](https://github.com/98pej11) <br> |@정진찬|
+|:---:|:---:|:---:|:--:|
+| - 주수헌(팀장, 본인) <br> [GitHub](https://github.com/suheonjoo) <br> | - 정세연 <br> [GitHub](https://github.com/n0eyes) <br> | - 박은정 <br> [GitHub](https://github.com/98pej11) <br> | - 정진찬 <br> [GitHub](https://github.com/Esunsin) <br> |
+
 
 ### Languages
 
@@ -40,8 +37,6 @@
 <img alt="Redis" src ="https://img.shields.io/badge/Redis-DC382D.svg?&style=for-the-badge&logo=redis&logoColor=white"/>
 
 
-
-</details>
 
 
 # :star2: 소개 영상 및 설명
@@ -81,11 +76,7 @@
 
 ## 서비스 화면
 
-<details>
 
-<summary> 본문 확인 (👈 Click)</summary>
-
-<br>
 
 -  메인 페이지
 ![](./img/mainUI.png)
@@ -111,7 +102,7 @@
 - 댓글 화면
 ![](./img/reviewUI.png)
 
-</details>
+
 
 
 # :package: 테이블 구성도
